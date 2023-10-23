@@ -1,4 +1,6 @@
 from django.db import models
+
+
 # Create your models here.
 
 
@@ -26,7 +28,7 @@ class InternalTradeLedger(models.Model):
     province = models.CharField(max_length=255, blank=True, null=True)
     city = models.CharField(max_length=255, blank=True, null=True)
     year = models.CharField(max_length=255, blank=True, null=True)
-    month = models.CharField(max_length=255, blank=True, null = True)
+    month = models.CharField(max_length=255, blank=True, null=True)
     industry_category = models.CharField(max_length=255, blank=True, null=True)
     product_usage = models.CharField(max_length=255, blank=True, null=True)
     company_name = models.CharField(max_length=255, blank=True, null=True)
@@ -120,70 +122,97 @@ class ForeignCustomerProfile(models.Model):
     time = models.CharField(max_length=255, blank=True, null=True)
     progress_description = models.TextField(blank=True, null=True)
 
-
     class Meta:
-            managed = False
-            db_table = '外贸部客户档案表'
+        managed = False
+        db_table = '外贸部客户档案表'
 
 
 class ForeignTradeLedger(models.Model):
-    serial_number  = models.AutoField(primary_key=True)
-    order_date  = models.CharField(max_length=255, blank=True, null=True)
-    sales_date  = models.CharField(max_length=255, blank=True, null=True)
-    contract_number  = models.CharField(max_length=255, blank=True, null=True)
-    customs_declaration  = models.CharField(max_length=255, blank=True, null=True)
-    other_details  = models.CharField(max_length=255, blank=True, null=True)
-    country_province  = models.CharField(db_column='国家/省份', max_length=255, blank=True, null=True)  # Field renamed to remove unsuitable characters.
-    nature  = models.CharField(max_length=255, blank=True, null=True)
-    development_date  = models.CharField(max_length=255, blank=True, null=True)
-    company_name  = models.CharField(max_length=255, blank=True, null=True)
-    product_name  = models.CharField(max_length=255, blank=True, null=True)
-    model  = models.CharField(max_length=255, blank=True, null=True)
-    code  = models.CharField(max_length=255, blank=True, null=True)
-    specification  = models.CharField(max_length=255, blank=True, null=True)
-    cash_sales_quantity  = models.CharField(max_length=255, blank=True, null=True)
-    cash_sales_price_usd  = models.CharField(db_column='现款销售单价（USD）', max_length=255, blank=True, null=True)  # Field name made lowercase. Field renamed to remove unsuitable characters. Field renamed because it ended with '_'.
-    cash_sales_price_cny  = models.CharField(db_column='现款销售单价（人民币）', max_length=255, blank=True, null=True)  # Field renamed to remove unsuitable characters. Field renamed because it ended with '_'.
-    cash_sales_total_usd  = models.CharField(db_column='现款销售总额（USD）', max_length=255, blank=True, null=True)  # Field name made lowercase. Field renamed to remove unsuitable characters. Field renamed because it ended with '_'.
-    cash_sales_total_cny  = models.CharField(db_column='现款销售总额（人民币）', max_length=255, blank=True, null=True)  # Field renamed to remove unsuitable characters. Field renamed because it ended with '_'.
-    accounts_receivable_sales_quantity  = models.CharField(max_length=255, blank=True, null=True)
-    accounts_receivable_sales_price_usd  = models.CharField(db_column='应收账款销售单价（USD）', max_length=255, blank=True, null=True)  # Field name made lowercase. Field renamed to remove unsuitable characters. Field renamed because it ended with '_'.
-    accounts_receivable_sales_price_cny  = models.CharField(db_column='应收账款销售单价（人民币）', max_length=255, blank=True, null=True)  # Field renamed to remove unsuitable characters. Field renamed because it ended with '_'.
-    accounts_receivable_sales_total_usd  = models.CharField(db_column='应收账款销售总额借（USD）', max_length=255, blank=True, null=True)  # Field name made lowercase. Field renamed to remove unsuitable characters. Field renamed because it ended with '_'.
-    accounts_receivable_sales_total_cny  = models.CharField(db_column='应收账款销售总额借（人民币）', max_length=255, blank=True, null=True)  # Field renamed to remove unsuitable characters. Field renamed because it ended with '_'.
-    accounts_receivable_debit_usd  = models.CharField(db_column='应收账款销售总额贷（USD）', max_length=255, blank=True, null=True)  # Field name made lowercase. Field renamed to remove unsuitable characters. Field renamed because it ended with '_'.
-    accounts_receivable_debit_cny  = models.CharField(db_column='应收账款销售总额贷（人民币）', max_length=255, blank=True, null=True)  # Field renamed to remove unsuitable characters. Field renamed because it ended with '_'.
-    accounts_receivable_credit_usd  = models.CharField(db_column='应收账款销售余额（USD）', max_length=255, blank=True, null=True)  # Field name made lowercase. Field renamed to remove unsuitable characters. Field renamed because it ended with '_'.
-    accounts_receivable_credit_cny  = models.CharField(db_column='应收账款销售余额（人民币）', max_length=255, blank=True, null=True)  # Field renamed to remove unsuitable characters. Field renamed because it ended with '_'.
-    order_amount_usd  = models.CharField(db_column='订单金额（USD）', max_length=255, blank=True, null=True)  # Field name made lowercase. Field renamed to remove unsuitable characters. Field renamed because it ended with '_'.
-    order_amount_cny  = models.CharField(db_column='订单金额（人民币）', max_length=255, blank=True, null=True)  # Field renamed to remove unsuitable characters. Field renamed because it ended with '_'.
-    payment_received_usd  = models.CharField(db_column='回款金额（USD）', max_length=255, blank=True, null=True)  # Field name made lowercase. Field renamed to remove unsuitable characters. Field renamed because it ended with '_'.
-    payment_received_cny  = models.CharField(db_column='回款金额（人民币）', max_length=255, blank=True, null=True)  # Field renamed to remove unsuitable characters. Field renamed because it ended with '_'.
-    first_occurrence  = models.CharField(max_length=255, blank=True, null=True)
-    customer_type  = models.CharField(max_length=255, blank=True, null=True)
-    unreceived_payment_usd  = models.CharField(db_column='未收款（USD）', max_length=255, blank=True, null=True)  # Field name made lowercase. Field renamed to remove unsuitable characters. Field renamed because it ended with '_'.
-    unreceived_payment_cny  = models.CharField(db_column='未收款（人民币）', max_length=255, blank=True, null=True)  # Field renamed to remove unsuitable characters. Field renamed because it ended with '_'.
-    salesperson  = models.CharField(max_length=255, blank=True, null=True)
-    payment_usd  = models.CharField(db_column='收款（USD）', max_length=255, blank=True, null=True)  # Field name made lowercase. Field renamed to remove unsuitable characters. Field renamed because it ended with '_'.
-    payment_cny  = models.CharField(db_column='收款（人民币）', max_length=255, blank=True, null=True)  # Field renamed to remove unsuitable characters. Field renamed because it ended with '_'.
-    payment_date  = models.CharField(max_length=255, blank=True, null=True)
-    invoice_number  = models.CharField(max_length=255, blank=True, null=True)
-    invoice_receipt_number  = models.CharField(max_length=255, blank=True, null=True)
-    sales_month  = models.CharField(max_length=255, blank=True, null=True)
-    international_freight_rmb  = models.CharField(db_column='国际运费（RMB)', max_length=255, blank=True, null=True)  # Field name made lowercase. Field renamed to remove unsuitable characters. Field renamed because it ended with '_'.
-    international_freight_usd  = models.CharField(db_column='国际运费（USD)', max_length=255, blank=True, null=True)  # Field name made lowercase. Field renamed to remove unsuitable characters. Field renamed because it ended with '_'.
-    miscellaneous_fees  = models.CharField(max_length=255, blank=True, null=True)
-    total_amount  = models.CharField(max_length=255, blank=True, null=True)
-    logistics_shipping_date  = models.CharField(max_length=255, blank=True, null=True)
-    waybill_number  = models.CharField(max_length=255, blank=True, null=True)
-    price_below_current_price_list  = models.CharField(db_column='单价低于当期版本价目表\n标“低”标识', max_length=255, blank=True, null=True)  # Field renamed to remove unsuitable characters.
-    tax_refund_amount  = models.CharField(max_length=255, blank=True, null=True)
-    exchange_rate  = models.CharField(max_length=255, blank=True, null=True)
+    serial_number = models.AutoField(primary_key=True)
+    order_date = models.CharField(max_length=255, blank=True, null=True)
+    sales_date = models.CharField(max_length=255, blank=True, null=True)
+    contract_number = models.CharField(max_length=255, blank=True, null=True)
+    customs_declaration = models.CharField(max_length=255, blank=True, null=True)
+    other_details = models.CharField(max_length=255, blank=True, null=True)
+    country_province = models.CharField(db_column='国家/省份', max_length=255, blank=True,
+                                        null=True)  # Field renamed to remove unsuitable characters.
+    nature = models.CharField(max_length=255, blank=True, null=True)
+    development_date = models.CharField(max_length=255, blank=True, null=True)
+    company_name = models.CharField(max_length=255, blank=True, null=True)
+    product_name = models.CharField(max_length=255, blank=True, null=True)
+    model = models.CharField(max_length=255, blank=True, null=True)
+    code = models.CharField(max_length=255, blank=True, null=True)
+    specification = models.CharField(max_length=255, blank=True, null=True)
+    cash_sales_quantity = models.CharField(max_length=255, blank=True, null=True)
+    cash_sales_price_usd = models.CharField(db_column='现款销售单价（USD）', max_length=255, blank=True,
+                                            null=True)  # Field name made lowercase. Field renamed to remove unsuitable characters. Field renamed because it ended with '_'.
+    cash_sales_price_cny = models.CharField(db_column='现款销售单价（人民币）', max_length=255, blank=True,
+                                            null=True)  # Field renamed to remove unsuitable characters. Field renamed because it ended with '_'.
+    cash_sales_total_usd = models.CharField(db_column='现款销售总额（USD）', max_length=255, blank=True,
+                                            null=True)  # Field name made lowercase. Field renamed to remove unsuitable characters. Field renamed because it ended with '_'.
+    cash_sales_total_cny = models.CharField(db_column='现款销售总额（人民币）', max_length=255, blank=True,
+                                            null=True)  # Field renamed to remove unsuitable characters. Field renamed because it ended with '_'.
+    accounts_receivable_sales_quantity = models.CharField(max_length=255, blank=True, null=True)
+    accounts_receivable_sales_price_usd = models.CharField(db_column='应收账款销售单价（USD）', max_length=255,
+                                                           blank=True,
+                                                           null=True)  # Field name made lowercase. Field renamed to remove unsuitable characters. Field renamed because it ended with '_'.
+    accounts_receivable_sales_price_cny = models.CharField(db_column='应收账款销售单价（人民币）', max_length=255,
+                                                           blank=True,
+                                                           null=True)  # Field renamed to remove unsuitable characters. Field renamed because it ended with '_'.
+    accounts_receivable_sales_total_usd = models.CharField(db_column='应收账款销售总额借（USD）', max_length=255,
+                                                           blank=True,
+                                                           null=True)  # Field name made lowercase. Field renamed to remove unsuitable characters. Field renamed because it ended with '_'.
+    accounts_receivable_sales_total_cny = models.CharField(db_column='应收账款销售总额借（人民币）', max_length=255,
+                                                           blank=True,
+                                                           null=True)  # Field renamed to remove unsuitable characters. Field renamed because it ended with '_'.
+    accounts_receivable_debit_usd = models.CharField(db_column='应收账款销售总额贷（USD）', max_length=255, blank=True,
+                                                     null=True)  # Field name made lowercase. Field renamed to remove unsuitable characters. Field renamed because it ended with '_'.
+    accounts_receivable_debit_cny = models.CharField(db_column='应收账款销售总额贷（人民币）', max_length=255, blank=True,
+                                                     null=True)  # Field renamed to remove unsuitable characters. Field renamed because it ended with '_'.
+    accounts_receivable_credit_usd = models.CharField(db_column='应收账款销售余额（USD）', max_length=255, blank=True,
+                                                      null=True)  # Field name made lowercase. Field renamed to remove unsuitable characters. Field renamed because it ended with '_'.
+    accounts_receivable_credit_cny = models.CharField(db_column='应收账款销售余额（人民币）', max_length=255, blank=True,
+                                                      null=True)  # Field renamed to remove unsuitable characters. Field renamed because it ended with '_'.
+    order_amount_usd = models.CharField(db_column='订单金额（USD）', max_length=255, blank=True,
+                                        null=True)  # Field name made lowercase. Field renamed to remove unsuitable characters. Field renamed because it ended with '_'.
+    order_amount_cny = models.CharField(db_column='订单金额（人民币）', max_length=255, blank=True,
+                                        null=True)  # Field renamed to remove unsuitable characters. Field renamed because it ended with '_'.
+    payment_received_usd = models.CharField(db_column='回款金额（USD）', max_length=255, blank=True,
+                                            null=True)  # Field name made lowercase. Field renamed to remove unsuitable characters. Field renamed because it ended with '_'.
+    payment_received_cny = models.CharField(db_column='回款金额（人民币）', max_length=255, blank=True,
+                                            null=True)  # Field renamed to remove unsuitable characters. Field renamed because it ended with '_'.
+    first_occurrence = models.CharField(max_length=255, blank=True, null=True)
+    customer_type = models.CharField(max_length=255, blank=True, null=True)
+    unreceived_payment_usd = models.CharField(db_column='未收款（USD）', max_length=255, blank=True,
+                                              null=True)  # Field name made lowercase. Field renamed to remove unsuitable characters. Field renamed because it ended with '_'.
+    unreceived_payment_cny = models.CharField(db_column='未收款（人民币）', max_length=255, blank=True,
+                                              null=True)  # Field renamed to remove unsuitable characters. Field renamed because it ended with '_'.
+    salesperson = models.CharField(max_length=255, blank=True, null=True)
+    payment_usd = models.CharField(db_column='收款（USD）', max_length=255, blank=True,
+                                   null=True)  # Field name made lowercase. Field renamed to remove unsuitable characters. Field renamed because it ended with '_'.
+    payment_cny = models.CharField(db_column='收款（人民币）', max_length=255, blank=True,
+                                   null=True)  # Field renamed to remove unsuitable characters. Field renamed because it ended with '_'.
+    payment_date = models.CharField(max_length=255, blank=True, null=True)
+    invoice_number = models.CharField(max_length=255, blank=True, null=True)
+    invoice_receipt_number = models.CharField(max_length=255, blank=True, null=True)
+    sales_month = models.CharField(max_length=255, blank=True, null=True)
+    international_freight_rmb = models.CharField(db_column='国际运费（RMB)', max_length=255, blank=True,
+                                                 null=True)  # Field name made lowercase. Field renamed to remove unsuitable characters. Field renamed because it ended with '_'.
+    international_freight_usd = models.CharField(db_column='国际运费（USD)', max_length=255, blank=True,
+                                                 null=True)  # Field name made lowercase. Field renamed to remove unsuitable characters. Field renamed because it ended with '_'.
+    miscellaneous_fees = models.CharField(max_length=255, blank=True, null=True)
+    total_amount = models.CharField(max_length=255, blank=True, null=True)
+    logistics_shipping_date = models.CharField(max_length=255, blank=True, null=True)
+    waybill_number = models.CharField(max_length=255, blank=True, null=True)
+    price_below_current_price_list = models.CharField(db_column='单价低于当期版本价目表\n标“低”标识', max_length=255,
+                                                      blank=True,
+                                                      null=True)  # Field renamed to remove unsuitable characters.
+    tax_refund_amount = models.CharField(max_length=255, blank=True, null=True)
+    exchange_rate = models.CharField(max_length=255, blank=True, null=True)
 
     class Meta:
         managed = False
         db_table = '外贸部台账'
-
 
 
 class Feedback(models.Model):
@@ -259,10 +288,9 @@ class NewProductDevelopingProgress(models.Model):
     transfer_to_sales_manager = models.CharField(max_length=255, blank=True, null=True)
     transfer_date = models.CharField(max_length=255, blank=True, null=True)
 
-
     class Meta:
-            managed = False
-            db_table = '新品开发中进度表'
+        managed = False
+        db_table = '新品开发中进度表'
 
 
 class NewProductCompleted(models.Model):
@@ -319,7 +347,9 @@ class NewProductCompleted(models.Model):
 class CustomerEngagement(models.Model):
     engagement_number = models.AutoField(primary_key=True)
     recorder = models.CharField(max_length=255, blank=True, null=True)
-    proactive_or_passive_engagement = models.CharField(db_column='proactive/passive_engagement', max_length=255, blank=True, null=True)  # Field renamed to remove unsuitable characters.
+    proactive_or_passive_engagement = models.CharField(db_column='proactive/passive_engagement', max_length=255,
+                                                       blank=True,
+                                                       null=True)  # Field renamed to remove unsuitable characters.
     company_name = models.CharField(max_length=255, blank=True, null=True)
     company_category = models.CharField(max_length=255, blank=True, null=True)
     customer_name = models.CharField(max_length=255, blank=True, null=True)
@@ -331,11 +361,15 @@ class CustomerEngagement(models.Model):
     electronic_material_provision = models.CharField(max_length=255, blank=True, null=True)
     physical_material_preparation = models.CharField(max_length=255, blank=True, null=True)
     sample_tracking = models.CharField(max_length=255, blank=True, null=True)
-    product_use_or_question_inquiry = models.CharField(db_column='product_use/question_inquiry', max_length=255, blank=True, null=True)  # Field renamed to remove unsuitable characters.
+    product_use_or_question_inquiry = models.CharField(db_column='product_use/question_inquiry', max_length=255,
+                                                       blank=True,
+                                                       null=True)  # Field renamed to remove unsuitable characters.
     product_name = models.CharField(max_length=255, blank=True, null=True)
     specification_code = models.CharField(max_length=255, blank=True, null=True)
     weight = models.CharField(max_length=255, blank=True, null=True)
-    dosage_form_or_dosage_category = models.CharField(db_column='dosage_form/dosage_category', max_length=255, blank=True, null=True)  # Field renamed to remove unsuitable characters.
+    dosage_form_or_dosage_category = models.CharField(db_column='dosage_form/dosage_category', max_length=255,
+                                                      blank=True,
+                                                      null=True)  # Field renamed to remove unsuitable characters.
     issue = models.CharField(max_length=255, blank=True, null=True)
     is_resolved = models.CharField(max_length=255, blank=True, null=True)
     resolution_solution = models.TextField(blank=True, null=True)
@@ -360,20 +394,28 @@ class CustomerFlow(models.Model):
     department = models.CharField(max_length=255, blank=True, null=True)
     position = models.CharField(max_length=255, blank=True, null=True)
     job_level_assessment = models.CharField(max_length=255, blank=True, null=True)
-    sample_or_purchase = models.CharField(db_column='sample/purchase', max_length=255, blank=True, null=True)  # Field renamed to remove unsuitable characters.
+    sample_or_purchase = models.CharField(db_column='sample/purchase', max_length=255, blank=True,
+                                          null=True)  # Field renamed to remove unsuitable characters.
     level_of_contact = models.CharField(max_length=255, blank=True, null=True)
     contact_person = models.CharField(max_length=255, blank=True, null=True)
     overlapping_contacts = models.CharField(max_length=255, blank=True, null=True)
     contact_method = models.CharField(max_length=255, blank=True, null=True)
     initial_contact_time = models.CharField(max_length=255, blank=True, null=True)
     first_promotional_material = models.CharField(max_length=255, blank=True, null=True)
-    summer_gift_2021 = models.CharField(db_column='summer_gift_2021', max_length=255, blank=True, null=True)  # Field renamed because it wasn't a valid Python identifier.
-    injection_books_2021 = models.CharField(db_column='injection_books_2021', max_length=255, blank=True, null=True)  # Field renamed because it wasn't a valid Python identifier.
-    year_end_gift_delivery_2021 = models.CharField(db_column='year_end_gift_delivery_2021', max_length=255, blank=True, null=True)  # Field renamed because it wasn't a valid Python identifier.
-    summer_gift_2022 = models.CharField(db_column='summer_gift_2022', max_length=255, blank=True, null=True)  # Field renamed because it wasn't a valid Python identifier.
-    books_2022 = models.CharField(db_column='books_2022', max_length=255, blank=True, null=True)  # Field renamed because it wasn't a valid Python identifier.
-    major_customer_gift_2022 = models.CharField(db_column='major_customer_gift_2022', max_length=255, blank=True, null=True)  # Field renamed because it wasn't a valid Python identifier.
-    year_end_gift_2022 = models.CharField(db_column='year_end_gift_2022', max_length=255, blank=True, null=True)  # Field renamed because it wasn't a valid Python identifier.
+    summer_gift_2021 = models.CharField(db_column='summer_gift_2021', max_length=255, blank=True,
+                                        null=True)  # Field renamed because it wasn't a valid Python identifier.
+    injection_books_2021 = models.CharField(db_column='injection_books_2021', max_length=255, blank=True,
+                                            null=True)  # Field renamed because it wasn't a valid Python identifier.
+    year_end_gift_delivery_2021 = models.CharField(db_column='year_end_gift_delivery_2021', max_length=255, blank=True,
+                                                   null=True)  # Field renamed because it wasn't a valid Python identifier.
+    summer_gift_2022 = models.CharField(db_column='summer_gift_2022', max_length=255, blank=True,
+                                        null=True)  # Field renamed because it wasn't a valid Python identifier.
+    books_2022 = models.CharField(db_column='books_2022', max_length=255, blank=True,
+                                  null=True)  # Field renamed because it wasn't a valid Python identifier.
+    major_customer_gift_2022 = models.CharField(db_column='major_customer_gift_2022', max_length=255, blank=True,
+                                                null=True)  # Field renamed because it wasn't a valid Python identifier.
+    year_end_gift_2022 = models.CharField(db_column='year_end_gift_2022', max_length=255, blank=True,
+                                          null=True)  # Field renamed because it wasn't a valid Python identifier.
     former_employer = models.CharField(max_length=255, blank=True, null=True)
 
     class Meta:
@@ -425,6 +467,7 @@ class CustomerProfile(models.Model):
     sales_progress = models.CharField(max_length=255, blank=True, null=True)
     phone_sales_visit_description = models.TextField(db_column='phone_sales/visit_description', blank=True,
                                                      null=True)  # Field renamed to remove unsuitable characters.
+
     class Meta:
         managed = False
         db_table = '研发部客户档案表'
@@ -445,10 +488,15 @@ class ExistingFormulationToDevelop(models.Model):
     special_requirements = models.CharField(max_length=255, blank=True, null=True)
     estimated_annual_consumption = models.CharField(max_length=255, blank=True, null=True)
     current_manufacturer = models.CharField(max_length=255, blank=True, null=True)
-    grade_pharmaceutical_grade_chemical_grade = models.CharField(db_column='grade (pharmaceutical grade/chemical grade)', max_length=255, blank=True, null=True)  # Field renamed to remove unsuitable characters. Field renamed because it ended with '_'.
-    model_if_available = models.CharField(db_column='model (if available)', max_length=255, blank=True, null=True)  # Field renamed to remove unsuitable characters. Field renamed because it ended with '_'.
-    price_per_kg = models.CharField(db_column='price per kg', max_length=255, blank=True, null=True)  # Field renamed to remove unsuitable characters. Field renamed because it ended with '_'.
-    sample_sales = models.CharField(db_column='sample/sales', max_length=255, blank=True, null=True)  # Field renamed to remove unsuitable characters.
+    grade_pharmaceutical_grade_chemical_grade = models.CharField(
+        db_column='grade (pharmaceutical grade/chemical grade)', max_length=255, blank=True,
+        null=True)  # Field renamed to remove unsuitable characters. Field renamed because it ended with '_'.
+    model_if_available = models.CharField(db_column='model (if available)', max_length=255, blank=True,
+                                          null=True)  # Field renamed to remove unsuitable characters. Field renamed because it ended with '_'.
+    price_per_kg = models.CharField(db_column='price per kg', max_length=255, blank=True,
+                                    null=True)  # Field renamed to remove unsuitable characters. Field renamed because it ended with '_'.
+    sample_sales = models.CharField(db_column='sample/sales', max_length=255, blank=True,
+                                    null=True)  # Field renamed to remove unsuitable characters.
     repeat_project = models.CharField(max_length=255, blank=True, null=True)
     initial_quotation = models.CharField(max_length=255, blank=True, null=True)
     quantity = models.CharField(max_length=255, blank=True, null=True)
@@ -549,17 +597,16 @@ class ExistingFormulationDeveloping(models.Model):
         db_table = '已有制剂开发中进度表'
 
 
-
-class (models.Model):
-    serial_number  = models.AutoField(primary_key=True)
-    enterprise_name  = models.CharField(max_length=255, blank=True, null=True)
-    province  = models.CharField(max_length=255, blank=True, null=True)
-    city  = models.CharField(max_length=255, blank=True, null=True)
-    department  = models.CharField(max_length=255, blank=True, null=True)
-    specific_department  = models.CharField(max_length=255, blank=True, null=True)
-    responsible_person  = models.CharField(max_length=255, blank=True, null=True)
-    customer_name  = models.CharField(max_length=255, blank=True, null=True)
-    customer_source  = models.CharField(max_length=255, blank=True, null=True)
+class ExistingProductCompleted(models.Model):
+    serial_number = models.AutoField(primary_key=True)
+    enterprise_name = models.CharField(max_length=255, blank=True, null=True)
+    province = models.CharField(max_length=255, blank=True, null=True)
+    city = models.CharField(max_length=255, blank=True, null=True)
+    department = models.CharField(max_length=255, blank=True, null=True)
+    specific_department = models.CharField(max_length=255, blank=True, null=True)
+    responsible_person = models.CharField(max_length=255, blank=True, null=True)
+    customer_name = models.CharField(max_length=255, blank=True, null=True)
+    customer_source = models.CharField(max_length=255, blank=True, null=True)
     product = models.CharField(max_length=255, blank=True, null=True)
     corresponding_specification_code = models.CharField(max_length=255, blank=True, null=True)
     special_requirements = models.CharField(max_length=255, blank=True, null=True)
@@ -599,10 +646,10 @@ class (models.Model):
     handover_sales_manager = models.CharField(max_length=255, blank=True, null=True)
     handover_time = models.CharField(max_length=255, blank=True, null=True)
 
-
     class Meta:
         managed = False
         db_table = '已有制剂已完成进度表'
+
 
 class Employees(models.Model):
     department = models.CharField(max_length=255, blank=True, null=True)
@@ -616,47 +663,3 @@ class Employees(models.Model):
     class Meta:
         managed = False
         db_table = '员工信息表'
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
