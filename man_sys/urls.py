@@ -21,7 +21,11 @@ from management import views
 
 urlpatterns = [
     # path('admin/', admin.site.urls),
+    # 登录，注册，主页等相关功能
     path('login/', views.login_view),
     path('register/', views.register),
     path('home/', views.home),
+
+    # 所有员工信息
+    path('employees/', views.employees_list),
 ]

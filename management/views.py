@@ -22,7 +22,7 @@ def login_view(request):
 
 
 class EmployeesForm(forms.ModelForm):
-    """员工信息类"""
+    """员工信息表类"""
 
     class Meta:
         model = models.Employees
@@ -51,4 +51,9 @@ def register(request):
 
 def home(request):
     """登录后的主页面"""
-    return render(request, 'layout.html')
+    return render(request, 'home.html')
+
+
+def employees_list(request):
+    quert_set = models.Employees.objects.all()
+    return render(request, 'employees_list.html', {'query_set':quert_set})
