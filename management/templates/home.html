@@ -1,0 +1,56 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="mb-4">功能菜单</h2>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card mb-4 custom-card" onmouseover="hoverCard(this)" onmouseout="unhoverCard(this)">
+                <div class="card-body">
+                    <h5 class="card-title">员工信息管理</h5>
+                    <p class="card-text">全体员工信息</p>
+                    <a href="/employees" class="btn btn-primary" onclick="clickCard('/employees')">前往员工管理页面</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card mb-4 custom-card" onmouseover="hoverCard(this)" onmouseout="unhoverCard(this)">
+                <div class="card-body">
+                    <h5 class="card-title">卡片2</h5>
+                    <p class="card-text">这是卡片2的描述信息。</p>
+                    <a href="/url2" class="btn btn-primary" onclick="clickCard('/url2')">前往URL2</a>
+                </div>
+            </div>
+        </div>
+        <!-- 添加更多卡片 -->
+    </div>
+</div>
+{% endblock %}
+<!-- 自定义样式 -->
+<style>
+    .custom-card {
+        transition: transform 0.2s;
+    }
+
+    .custom-card:hover {
+        transform: scale(1.05);
+    }
+</style>
+{% block js %}
+    <!-- JavaScript 动态效果 -->
+<script>
+    function hoverCard(card) {
+        card.style.boxShadow = '0 0 20px rgba(0, 0, 0, 0.2)';
+    }
+
+    function unhoverCard(card) {
+        card.style.boxShadow = '0 0 10px rgba(0, 0, 0, 0.1)';
+    }
+
+    function clickCard(url) {
+        // 在此处添加点击卡片后的自定义操作，例如页面跳转
+        window.location.href = url;
+    }
+</script>
+{% endblock %}
+
