@@ -18,7 +18,6 @@ from django.contrib import admin
 from django.urls import path
 from management import views
 
-
 urlpatterns = [
     # path('admin/', admin.site.urls),
     # 登录，注册，主页等相关功能
@@ -28,4 +27,29 @@ urlpatterns = [
 
     # 所有员工信息
     path('employees/', views.employees_list),
+    # 内贸部台账表
+    path('innertrade/ledger/', views.inner_trade_ledger),
+    # 外贸部台账表
+    path('foreign/ledger/', views.foreign_trade_ledger),
+    # 外贸部客户档案表
+    path('foreign/customer/', views.foreign_customer),
+    # 已有制剂已完成,开发中，待开发进度表
+    path('preparation/<str:_type>/', views.preparation),
+    # 授权书总表
+    path('authorization/', views.authorization),
+    # 新品已完成，开发中进度表
+    path('new/<str:_type>', views.new),
+    # 新品，已有制剂进度描述
+    path('progress/<str:_type>', views.progress),
+    #  研发部客户档案
+    path('develop/customer/', views.dev_custom),
+    # 研发部客户对接表
+    path('develop/butting/', views.butting),
+    # 研发部客户流水表
+    path('develop/turnover/', views.turnover),
+    # 辅料表
+    path('product/', views.product),
+    # 问题反馈表
+    path('question/', views.question),
+
 ]

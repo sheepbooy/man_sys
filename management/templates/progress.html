@@ -1,0 +1,25 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+    <table>
+        <tr>
+            <th>时间戳</th>
+            <th>进度</th>
+            <th>状态</th>
+            <th>隶属ID</th>
+        </tr>
+        {% for item in query_set %}
+            <tr>
+                <td>{{ item.timestamp }}</td>
+                <td>{{ item.progress }}</td>
+                <td>{{ item.status }}</td>
+                <td>{{ item.subordinate_id }}</td>
+            </tr>
+        {% empty %}
+            <tr>
+                <td colspan="4">No data available</td>
+            </tr>
+        {% endfor %}
+    </table>
+
+{% endblock %}

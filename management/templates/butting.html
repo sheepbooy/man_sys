@@ -1,0 +1,62 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+ <h1>研部客户对接表</h1>
+    <table border="1">
+        <tr>
+            <th>对接编号</th>
+            <th>记录人</th>
+            <th>主动/被动对接</th>
+            <th>公司名称</th>
+            <th>公司类别</th>
+            <th>客户名称</th>
+            <th>客户类别</th>
+            <th>产品咨询</th>
+            <th>价格咨询</th>
+            <th>样品请求</th>
+            <th>采购</th>
+            <th>电子资料提供</th>
+            <th>物料准备</th>
+            <th>样品跟踪</th>
+            <th>产品使用/问题咨询</th>
+            <th>产品名称</th>
+            <th>规格编码</th>
+            <th>重量</th>
+            <th>剂型/剂量类别</th>
+            <th>问题</th>
+            <th>问题是否解决</th>
+            <th>解决方案</th>
+        </tr>
+        {% for engagement in query_set %}
+            <tr>
+                <td>{{ engagement.engagement_number }}</td>
+                <td>{{ engagement.recorder }}</td>
+                <td>{{ engagement.proactive_or_passive_engagement }}</td>
+                <td>{{ engagement.company_name }}</td>
+                <td>{{ engagement.company_category }}</td>
+                <td>{{ engagement.customer_name }}</td>
+                <td>{{ engagement.customer_category }}</td>
+                <td>{{ engagement.product_inquiry }}</td>
+                <td>{{ engagement.price_inquiry }}</td>
+                <td>{{ engagement.sample_request }}</td>
+                <td>{{ engagement.purchase }}</td>
+                <td>{{ engagement.electronic_material_provision }}</td>
+                <td>{{ engagement.physical_material_preparation }}</td>
+                <td>{{ engagement.sample_tracking }}</td>
+                <td>{{ engagement.product_use_or_question_inquiry }}</td>
+                <td>{{ engagement.product_name }}</td>
+                <td>{{ engagement.specification_code }}</td>
+                <td>{{ engagement.weight }}</td>
+                <td>{{ engagement.dosage_form_or_dosage_category }}</td>
+                <td>{{ engagement.issue }}</td>
+                <td>{{ engagement.is_resolved }}</td>
+                <td>{{ engagement.resolution_solution }}</td>
+            </tr>
+        {% empty %}
+            <tr>
+                <td colspan="21">No data available</td>
+            </tr>
+        {% endfor %}
+    </table>
+
+{% endblock %}

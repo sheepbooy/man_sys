@@ -1,0 +1,49 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+    <table>
+        <thead>
+        <h2 class="mb-4">授权书总表</h2>
+        </tr>
+
+        <th>授权书编号</th>
+        <th>签发月份</th>
+        <th>产品名称</th>
+        <th>注册号</th>
+        <th>注册状态</th>
+        <th>相关制造商</th>
+        <th>相关产品名称</th>
+        <th>管理途径</th>
+        <th>跟进人员</th>
+        <th>审查状态</th>
+        <th>受理月份</th>
+        <th>审查中月份</th>
+        <th>消失月份</th>
+        <th>备注</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for item in query_set %}
+            <tr>
+                <td>{{ item.authorization_number }}</td>
+                <td>{{ item.issuance_month }}</td>
+                <td>{{ item.product_name }}</td>
+                <td>{{ item.registration_number }}</td>
+                <td>{{ item.registration_status }}</td>
+                <td>{{ item.related_manufacturer }}</td>
+                <td>{{ item.related_product_name }}</td>
+                <td>{{ item.administration_route }}</td>
+                <td>{{ item.follow_up_person }}</td>
+                <td>{{ item.review_status }}</td>
+                <td>{{ item.acceptance_month }}</td>
+                <td>{{ item.during_review_month }}</td>
+                <td>{{ item.disappearing_month }}</td>
+                <td>{{ item.notes }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+
+
+{% endblock %}

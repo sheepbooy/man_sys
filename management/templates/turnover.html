@@ -1,0 +1,76 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+    <h1>研发部流水表</h1>
+    <table border="1">
+        <tr>
+            <th>客户编号</th>
+            <th>销售部门</th>
+            <th>省份</th>
+            <th>城市</th>
+            <th>公司名称</th>
+            <th>公司类型</th>
+            <th>公司规模</th>
+            <th>公司地址</th>
+            <th>客户名称</th>
+            <th>电话</th>
+            <th>标签</th>
+            <th>部门</th>
+            <th>职位</th>
+            <th>职级评估</th>
+            <th>样品/购买</th>
+            <th>联系级别</th>
+            <th>联系人</th>
+            <th>重叠联系人</th>
+            <th>联系方式</th>
+            <th>初次联系时间</th>
+            <th>首次宣传资料</th>
+            <th>2021年夏季礼品</th>
+            <th>2021年注射册</th>
+            <th>2021年年底礼品交付</th>
+            <th>2022年夏季礼品</th>
+            <th>2022年图书</th>
+            <th>2022年重要客户礼品</th>
+            <th>2022年年底礼品</th>
+            <th>前雇主</th>
+        </tr>
+        {% for flow in query_set %}
+            <tr>
+                <td>{{ flow.customer_id }}</td>
+                <td>{{ flow.sales_department }}</td>
+                <td>{{ flow.province }}</td>
+                <td>{{ flow.city }}</td>
+                <td>{{ flow.company_name }}</td>
+                <td>{{ flow.company_type }}</td>
+                <td>{{ flow.company_size }}</td>
+                <td>{{ flow.company_address }}</td>
+                <td>{{ flow.customer_name }}</td>
+                <td>{{ flow.phone }}</td>
+                <td>{{ flow.tags }}</td>
+                <td>{{ flow.department }}</td>
+                <td>{{ flow.position }}</td>
+                <td>{{ flow.job_level_assessment }}</td>
+                <td>{{ flow.sample_or_purchase }}</td>
+                <td>{{ flow.level_of_contact }}</td>
+                <td>{{ flow.contact_person }}</td>
+                <td>{{ flow.overlapping_contacts }}</td>
+                <td>{{ flow.contact_method }}</td>
+                <td>{{ flow.initial_contact_time }}</td>
+                <td>{{ flow.first_promotional_material }}</td>
+                <td>{{ flow.summer_gift_2021 }}</td>
+                <td>{{ flow.injection_books_2021 }}</td>
+                <td>{{ flow.year_end_gift_delivery_2021 }}</td>
+                <td>{{ flow.summer_gift_2022 }}</td>
+                <td>{{ flow.books_2022 }}</td>
+                <td>{{ flow.major_customer_gift_2022 }}</td>
+                <td>{{ flow.year_end_gift_2022 }}</td>
+                <td>{{ flow.former_employer }}</td>
+            </tr>
+        {% empty %}
+            <tr>
+                <td colspan="28">No data available</td>
+            </tr>
+        {% endfor %}
+    </table>
+
+{% endblock %}

@@ -1,0 +1,32 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+    <h1>药用辅料表</h1>
+    <table border="1">
+        <tr>
+            <th>产品类别</th>
+            <th>产品名称</th>
+            <th>规格</th>
+            <th>规格特点</th>
+            <th>要求</th>
+            <th>标签</th>
+            <th>规格编码</th>
+        </tr>
+        {% for product in products %}
+            <tr>
+                <td>{{ product.category }}</td>
+                <td>{{ product.product_name }}</td>
+                <td>{{ product.specification }}</td>
+                <td>{{ product.specification_features }}</td>
+                <td>{{ product.requirements }}</td>
+                <td>{{ product.labels }}</td>
+                <td>{{ product.spec_code }}</td>
+            </tr>
+        {% empty %}
+            <tr>
+                <td colspan="7">No data available</td>
+            </tr>
+        {% endfor %}
+    </table>
+
+{% endblock %}

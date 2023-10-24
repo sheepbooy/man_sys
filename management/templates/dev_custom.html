@@ -1,0 +1,90 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+    <h1>研发部客户档案表</h1>
+    <table>
+        <tr>
+            <th>客户编号</th>
+            <th>销售部门</th>
+            <th>省份</th>
+            <th>研发能力</th>
+            <th>公司名称</th>
+            <th>法定代表人</th>
+            <th>总经理</th>
+            <th>许可证号</th>
+            <th>GMP证书</th>
+            <th>公司类型</th>
+            <th>研究范围</th>
+            <th>药品</th>
+            <th>经营规模</th>
+            <th>员工人数</th>
+            <th>其他描述</th>
+            <th>客户姓名</th>
+            <th>客户手机号</th>
+            <th>客户部门</th>
+            <th>客户职级评估 (ABC)</th>
+            <th>初次联系时间</th>
+            <th>客户地址</th>
+            <th>样品时间</th>
+            <th>样品产品</th>
+            <th>样品型号</th>
+            <th>样品数量 (克)</th>
+            <th>样品用途</th>
+            <th>样品进展</th>
+            <th>销售时间</th>
+            <th>销售产品</th>
+            <th>销售规格</th>
+            <th>销售单价 (CNY)</th>
+            <th>销售数量 (Kg)</th>
+            <th>销售金额</th>
+            <th>销售用途</th>
+            <th>销售进度</th>
+            <th>电话销售/拜访描述</th>
+        </tr>
+        {% for profile in query_set %}
+            <tr>
+                <td>{{ profile.customer_id }}</td>
+                <td>{{ profile.sales_department }}</td>
+                <td>{{ profile.province }}</td>
+                <td>{{ profile.research_capacity }}</td>
+                <td>{{ profile.company_name }}</td>
+                <td>{{ profile.legal_representative }}</td>
+                <td>{{ profile.general_manager }}</td>
+                <td>{{ profile.license_number }}</td>
+                <td>{{ profile.gmp_certificate }}</td>
+                <td>{{ profile.company_type }}</td>
+                <td>{{ profile.research_scope }}</td>
+                <td>{{ profile.drug }}</td>
+                <td>{{ profile.business_scale }}</td>
+                <td>{{ profile.number_of_employees }}</td>
+                <td>{{ profile.other_description }}</td>
+                <td>{{ profile.customer_name }}</td>
+                <td>{{ profile.customer_mobile }}</td>
+                <td>{{ profile.customer_department }}</td>
+                <td>{{ profile.customer_job_level_assessment_abc }}</td>
+                <td>{{ profile.initial_contact_time }}</td>
+                <td>{{ profile.customer_address }}</td>
+                <td>{{ profile.sample_time }}</td>
+                <td>{{ profile.sample_product }}</td>
+                <td>{{ profile.sample_model }}</td>
+                <td>{{ profile.sample_quantity_grams }}</td>
+                <td>{{ profile.sample_purpose }}</td>
+                <td>{{ profile.sample_progress }}</td>
+                <td>{{ profile.sales_time }}</td>
+                <td>{{ profile.sales_product }}</td>
+                <td>{{ profile.sales_specification }}</td>
+                <td>{{ profile.sales_unit_price_cny }}</td>
+                <td>{{ profile.sales_quantity_kg }}</td>
+                <td>{{ profile.sales_amount }}</td>
+                <td>{{ profile.sales_purpose }}</td>
+                <td>{{ profile.sales_progress }}</td>
+                <td>{{ profile.phone_sales_visit_description }}</td>
+            </tr>
+        {% empty %}
+            <tr>
+                <td colspan="34">No data available</td>
+            </tr>
+        {% endfor %}
+    </table>
+
+{% endblock %}

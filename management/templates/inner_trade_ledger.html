@@ -1,0 +1,106 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+    <table>
+        <h2 class="mb-4">内贸部台账总表</h2></tr>
+
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>下单日期</th>
+            <th>销售日期</th>
+            <th>合同号</th>
+            <th>合同退回</th>
+            <th>区域部门</th>
+            <th>省份</th>
+            <th>城市</th>
+            <th>年份</th>
+            <th>月份</th>
+            <th>行业类别</th>
+            <th>产品用途</th>
+            <th>公司名称</th>
+            <th>产品名称</th>
+            <th>型号</th>
+            <th>编码</th>
+            <th>规格</th>
+            <th>数量</th>
+            <th>单价</th>
+            <th>总金额</th>
+            <th>数量1</th>
+            <th>单价1</th>
+            <th>增加借方</th>
+            <th>减少贷方</th>
+            <th>余额</th>
+            <th>F26</th>
+            <th>F27</th>
+            <th>首次出现</th>
+            <th>新</th>
+            <th>第二次出现</th>
+            <th>未收付款</th>
+            <th>付款日期</th>
+            <th>老</th>
+            <th>销售员</th>
+            <th>验收金额</th>
+            <th>现金</th>
+            <th>日期</th>
+            <th>发票号</th>
+            <th>发票收据号</th>
+            <th>销售月份</th>
+            <th>客户类型</th>
+            <th>物流发货日期</th>
+            <th>运单号</th>
+            <th>单价低于当前价格表</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for entry in query_set %}
+            <tr>
+                <td>{{ entry.id }}</td>
+                <td>{{ entry.order_date }}</td>
+                <td>{{ entry.sales_date }}</td>
+                <td>{{ entry.contract_number }}</td>
+                <td>{{ entry.contract_returned }}</td>
+                <td>{{ entry.region_department }}</td>
+                <td>{{ entry.province }}</td>
+                <td>{{ entry.city }}</td>
+                <td>{{ entry.year }}</td>
+                <td>{{ entry.month }}</td>
+                <td>{{ entry.industry_category }}</td>
+                <td>{{ entry.product_usage }}</td>
+                <td>{{ entry.company_name }}</td>
+                <td>{{ entry.product_name }}</td>
+                <td>{{ entry.model }}</td>
+                <td>{{ entry.code }}</td>
+                <td>{{ entry.specification }}</td>
+                <td>{{ entry.quantity }}</td>
+                <td>{{ entry.unit_price }}</td>
+                <td>{{ entry.total_amount }}</td>
+                <td>{{ entry.quantity1 }}</td>
+                <td>{{ entry.unit_price1 }}</td>
+                <td>{{ entry.increase_debit }}</td>
+                <td>{{ entry.decrease_credit }}</td>
+                <td>{{ entry.balance }}</td>
+                <td>{{ entry.f26 }}</td>
+                <td>{{ entry.f27 }}</td>
+                <td>{{ entry.first_occurrence }}</td>
+                <td>{{ entry.new }}</td>
+                <td>{{ entry.second_occurrence }}</td>
+                <td>{{ entry.unreceived_payment }}</td>
+                <td>{{ entry.payment_date }}</td>
+                <td>{{ entry.old }}</td>
+                <td>{{ entry.salesperson }}</td>
+                <td>{{ entry.acceptance_amount }}</td>
+                <td>{{ entry.cash }}</td>
+                <td>{{ entry.date }}</td>
+                <td>{{ entry.invoice_number }}</td>
+                <td>{{ entry.invoice_receipt_number }}</td>
+                <td>{{ entry.sales_month }}</td>
+                <td>{{ entry.customer_type }}</td>
+                <td>{{ entry.logistics_shipment_date }}</td>
+                <td>{{ entry.waybill_number }}</td>
+                <td>{{ entry.unit_price_below_current_price_list }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

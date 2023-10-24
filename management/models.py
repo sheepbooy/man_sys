@@ -237,6 +237,7 @@ class Feedback(models.Model):
 
 
 class NewProductDevelopment(models.Model):
+    id = models.AutoField(primary_key=True, verbose_name='序号')
     timestamp = models.CharField(max_length=255, blank=True, null=True, verbose_name='时间戳')
     progress = models.CharField(max_length=255, blank=True, null=True, verbose_name='进度')
     status = models.CharField(max_length=255, blank=True, null=True, verbose_name='状态')
@@ -260,7 +261,7 @@ class NewProductDevelopingProgress(models.Model):
     product = models.CharField(max_length=255, blank=True, null=True, verbose_name='产品')
     specification_code = models.CharField(max_length=255, blank=True, null=True, verbose_name='对应规格编码')
     special_requirements = models.CharField(max_length=255, blank=True, null=True, verbose_name='特殊需求')
-    sample_or_sale = models.CharField(db_column='sample/sale', max_length=255, blank=True,
+    sample_or_sale = models.CharField(max_length=255, blank=True,
                                       null=True,
                                       verbose_name='申样/销售')  # Field renamed to remove unsuitable characters.
     is_duplicate_project = models.CharField(max_length=255, blank=True, null=True, verbose_name='是否重复项目')
@@ -316,7 +317,7 @@ class NewProductCompleted(models.Model):
     product = models.CharField(max_length=255, blank=True, null=True, verbose_name='产品')
     specification_code = models.CharField(max_length=255, blank=True, null=True, verbose_name='对应规格编码')
     special_requirements = models.CharField(max_length=255, blank=True, null=True, verbose_name='特殊需求')
-    sample_or_sale = models.CharField(db_column='sample/sale', max_length=255, blank=True,
+    sample_or_sale = models.CharField(max_length=255, blank=True,
                                       null=True,
                                       verbose_name='申样/销售')  # Field renamed to remove unsuitable characters.
     is_duplicate_project = models.CharField(max_length=255, blank=True, null=True, verbose_name='是否重复项目')
@@ -362,7 +363,7 @@ class NewProductCompleted(models.Model):
 class CustomerEngagement(models.Model):
     engagement_number = models.AutoField(primary_key=True, verbose_name='对接编号')
     recorder = models.CharField(max_length=255, blank=True, null=True, verbose_name='记录人')
-    proactive_or_passive_engagement = models.CharField(db_column='proactive/passive_engagement', max_length=255,
+    proactive_or_passive_engagement = models.CharField(max_length=255,
                                                        blank=True,
                                                        null=True,
                                                        verbose_name='主动/被动对接')  # Field renamed to remove unsuitable characters.
@@ -379,14 +380,14 @@ class CustomerEngagement(models.Model):
     physical_material_preparation = models.CharField(max_length=255, blank=True, null=True,
                                                      verbose_name='物料准备')
     sample_tracking = models.CharField(max_length=255, blank=True, null=True, verbose_name='样品跟踪')
-    product_use_or_question_inquiry = models.CharField(db_column='product_use/question_inquiry', max_length=255,
+    product_use_or_question_inquiry = models.CharField(max_length=255,
                                                        blank=True,
                                                        null=True,
                                                        verbose_name='产品使用/问题咨询')  # Field renamed to remove unsuitable characters.
     product_name = models.CharField(max_length=255, blank=True, null=True, verbose_name='产品名称')
     specification_code = models.CharField(max_length=255, blank=True, null=True, verbose_name='规格编码')
     weight = models.CharField(max_length=255, blank=True, null=True, verbose_name='重量')
-    dosage_form_or_dosage_category = models.CharField(db_column='dosage_form/dosage_category', max_length=255,
+    dosage_form_or_dosage_category = models.CharField(max_length=255,
                                                       blank=True,
                                                       null=True,
                                                       verbose_name='剂型/剂量类别')  # Field renamed to remove unsuitable characters.
@@ -414,7 +415,7 @@ class CustomerFlow(models.Model):
     department = models.CharField(max_length=255, blank=True, null=True, verbose_name='部门')
     position = models.CharField(max_length=255, blank=True, null=True, verbose_name='职位')
     job_level_assessment = models.CharField(max_length=255, blank=True, null=True, verbose_name='职级评估')
-    sample_or_purchase = models.CharField(db_column='sample/purchase', max_length=255, blank=True,
+    sample_or_purchase = models.CharField(max_length=255, blank=True,
                                           null=True,
                                           verbose_name='样品/购买')  # Field renamed to remove unsuitable characters.
     level_of_contact = models.CharField(max_length=255, blank=True, null=True, verbose_name='联系级别')
@@ -423,25 +424,25 @@ class CustomerFlow(models.Model):
     contact_method = models.CharField(max_length=255, blank=True, null=True, verbose_name='联系方式')
     initial_contact_time = models.CharField(max_length=255, blank=True, null=True, verbose_name='初次联系时间')
     first_promotional_material = models.CharField(max_length=255, blank=True, null=True, verbose_name='首次宣传资料')
-    summer_gift_2021 = models.CharField(db_column='summer_gift_2021', max_length=255, blank=True,
+    summer_gift_2021 = models.CharField(max_length=255, blank=True,
                                         null=True,
                                         verbose_name='2021年夏季礼品')  # Field renamed because it wasn't a valid Python identifier.
-    injection_books_2021 = models.CharField(db_column='injection_books_2021', max_length=255, blank=True,
+    injection_books_2021 = models.CharField(max_length=255, blank=True,
                                             null=True,
                                             verbose_name='2021年注射册')  # Field renamed because it wasn't a valid Python identifier.
-    year_end_gift_delivery_2021 = models.CharField(db_column='year_end_gift_delivery_2021', max_length=255, blank=True,
+    year_end_gift_delivery_2021 = models.CharField(max_length=255, blank=True,
                                                    null=True,
                                                    verbose_name='2021年年底礼品交付')  # Field renamed because it wasn't a valid Python identifier.
-    summer_gift_2022 = models.CharField(db_column='summer_gift_2022', max_length=255, blank=True,
+    summer_gift_2022 = models.CharField(max_length=255, blank=True,
                                         null=True,
                                         verbose_name='2022年夏季礼品')  # Field renamed because it wasn't a valid Python identifier.
-    books_2022 = models.CharField(db_column='books_2022', max_length=255, blank=True,
+    books_2022 = models.CharField(max_length=255, blank=True,
                                   null=True,
                                   verbose_name='2022年图书')  # Field renamed because it wasn't a valid Python identifier.
-    major_customer_gift_2022 = models.CharField(db_column='major_customer_gift_2022', max_length=255, blank=True,
+    major_customer_gift_2022 = models.CharField(max_length=255, blank=True,
                                                 null=True,
                                                 verbose_name='2022年重要客户礼品')  # Field renamed because it wasn't a valid Python identifier.
-    year_end_gift_2022 = models.CharField(db_column='year_end_gift_2022', max_length=255, blank=True,
+    year_end_gift_2022 = models.CharField(max_length=255, blank=True,
                                           null=True,
                                           verbose_name='2022年年底礼品')  # Field renamed because it wasn't a valid Python identifier.
     former_employer = models.CharField(max_length=255, blank=True, null=True, verbose_name='前雇主')
@@ -471,16 +472,16 @@ class CustomerProfile(models.Model):
     customer_name = models.CharField(max_length=255, blank=True, null=True, verbose_name='客户姓名')
     customer_mobile = models.CharField(max_length=255, blank=True, null=True, verbose_name='客户手机号')
     customer_department = models.CharField(max_length=255, blank=True, null=True, verbose_name='客户部门')
-    customer_job_level_assessment_abc = models.CharField(db_column='customer_job_level_assessment (ABC)',
-                                                         max_length=255, blank=True,
-                                                         null=True,
-                                                         verbose_name='客户职级评估 (ABC)')  # Field name made lowercase. Field renamed to remove unsuitable characters.
+    customer_job_level_assessment_abc = models.CharField(
+        max_length=255, blank=True,
+        null=True,
+        verbose_name='客户职级评估 (ABC)')  # Field name made lowercase. Field renamed to remove unsuitable characters.
     initial_contact_time = models.CharField(max_length=255, blank=True, null=True, verbose_name='初次联系时间')
     customer_address = models.CharField(max_length=255, blank=True, null=True, verbose_name='客户地址')
     sample_time = models.CharField(max_length=255, blank=True, null=True, verbose_name='样品时间')
     sample_product = models.CharField(max_length=255, blank=True, null=True, verbose_name='样品产品')
     sample_model = models.CharField(max_length=255, blank=True, null=True, verbose_name='样品型号')
-    sample_quantity_grams = models.CharField(db_column='sample_quantity (grams)', max_length=255, blank=True,
+    sample_quantity_grams = models.CharField(max_length=255, blank=True,
                                              null=True,
                                              verbose_name='样品数量 (克)')  # Field renamed to remove unsuitable characters.
     sample_purpose = models.CharField(max_length=255, blank=True, null=True, verbose_name='样品用途')
@@ -488,16 +489,16 @@ class CustomerProfile(models.Model):
     sales_time = models.CharField(max_length=255, blank=True, null=True, verbose_name='销售时间')
     sales_product = models.CharField(max_length=255, blank=True, null=True, verbose_name='销售产品')
     sales_specification = models.CharField(max_length=255, blank=True, null=True, verbose_name='销售规格')
-    sales_unit_price_cny = models.CharField(db_column='sales_unit_price (CNY)', max_length=255, blank=True,
+    sales_unit_price_cny = models.CharField(max_length=255, blank=True,
                                             null=True,
                                             verbose_name='销售单价 (CNY)')  # Field renamed to remove unsuitable characters.
-    sales_quantity_kg = models.CharField(db_column='sales_quantity (Kg)', max_length=255, blank=True,
+    sales_quantity_kg = models.CharField(max_length=255, blank=True,
                                          null=True,
                                          verbose_name='销售数量 (Kg)')  # Field renamed to remove unsuitable characters.
     sales_amount = models.CharField(max_length=255, blank=True, null=True, verbose_name='销售金额')
     sales_purpose = models.CharField(max_length=255, blank=True, null=True, verbose_name='销售用途')
     sales_progress = models.CharField(max_length=255, blank=True, null=True, verbose_name='销售进度')
-    phone_sales_visit_description = models.TextField(db_column='phone_sales/visit_description', blank=True,
+    phone_sales_visit_description = models.TextField(blank=True,
                                                      null=True,
                                                      verbose_name='电话销售/拜访描述')  # Field renamed to remove unsuitable characters.
 
@@ -508,65 +509,57 @@ class CustomerProfile(models.Model):
 
 class ExistingFormulationToDevelop(models.Model):
     serial_number = models.AutoField(primary_key=True, verbose_name='序列号')
-    company_name = models.CharField(max_length=255, blank=True, null=True, verbose_name='公司名称')
+    enterprise_name = models.CharField(max_length=255, blank=True, null=True, verbose_name='企业名称')
     province = models.CharField(max_length=255, blank=True, null=True, verbose_name='省份')
     city = models.CharField(max_length=255, blank=True, null=True, verbose_name='城市')
     department = models.CharField(max_length=255, blank=True, null=True, verbose_name='部门')
     specific_department = models.CharField(max_length=255, blank=True, null=True, verbose_name='具体部门')
-    leader = models.CharField(max_length=255, blank=True, null=True, verbose_name='负责人')
-    customer_name = models.CharField(max_length=255, blank=True, null=True, verbose_name='客户姓名')
+    responsible_person = models.CharField(max_length=255, blank=True, null=True, verbose_name='负责人')
+    customer_name = models.CharField(max_length=255, blank=True, null=True, verbose_name='客户名称')
     customer_source = models.CharField(max_length=255, blank=True, null=True, verbose_name='客户来源')
     product = models.CharField(max_length=255, blank=True, null=True, verbose_name='产品')
-    corresponding_spec_code = models.CharField(max_length=255, blank=True, null=True, verbose_name='对应规格代码')
+    corresponding_specification_code = models.CharField(max_length=255, blank=True, null=True,
+                                                        verbose_name='对应规格代码')
     special_requirements = models.CharField(max_length=255, blank=True, null=True, verbose_name='特殊要求')
     estimated_annual_consumption = models.CharField(max_length=255, blank=True, null=True, verbose_name='预估年消耗量')
-    current_manufacturer = models.CharField(max_length=255, blank=True, null=True, verbose_name='当前生产厂家')
-    grade_pharmaceutical_grade_chemical_grade = models.CharField(
-        db_column='grade (pharmaceutical grade/chemical grade)', max_length=255, blank=True,
-        null=True,
-        verbose_name='等级 (药品等级/化学等级)')  # Field renamed to remove unsuitable characters. Field renamed because it ended with '_'.
-    model_if_available = models.CharField(db_column='model (if available)', max_length=255, blank=True,
-                                          null=True,
-                                          verbose_name='型号 (如果有的话)')  # Field renamed to remove unsuitable characters. Field renamed because it ended with '_'.
-    price_per_kg = models.CharField(db_column='price per kg', max_length=255, blank=True,
-                                    null=True,
-                                    verbose_name='每千克价格 (CNY)')  # Field renamed to remove unsuitable characters. Field renamed because it ended with '_'.
-    sample_sales = models.CharField(db_column='sample/sales', max_length=255, blank=True,
-                                    null=True,
-                                    verbose_name='样品/销售')  # Field renamed to remove unsuitable characters.
-    repeat_project = models.CharField(max_length=255, blank=True, null=True, verbose_name='重复项目')
-    initial_quotation = models.CharField(max_length=255, blank=True, null=True, verbose_name='初始报价')
+    current_manufacturer = models.CharField(max_length=255, blank=True, null=True, verbose_name='当前制造商')
+    product_level = models.CharField(db_column='product_level', max_length=255, blank=True, null=True,
+                                     verbose_name='产品级别')
+    model_number = models.CharField(max_length=255, blank=True, null=True, verbose_name='型号')
+    price_per_kg = models.CharField(max_length=255, blank=True, null=True, verbose_name='每公斤价格')
+    sample_sales = models.CharField(max_length=255, blank=True, null=True, verbose_name='样品销售')
+    is_repeated_project = models.CharField(max_length=255, blank=True, null=True, verbose_name='重复项目')
+    first_quotation = models.CharField(max_length=255, blank=True, null=True, verbose_name='首次报价')
     quantity = models.CharField(max_length=255, blank=True, null=True, verbose_name='数量')
     unit_price = models.CharField(max_length=255, blank=True, null=True, verbose_name='单价')
     amount = models.CharField(max_length=255, blank=True, null=True, verbose_name='金额')
-    preparation_name = models.CharField(max_length=255, blank=True, null=True, verbose_name='制剂名称')
-    consistency_evaluation_product = models.CharField(max_length=255, blank=True, null=True,
-                                                      verbose_name='一致性评价产品')
-    excipient_use = models.CharField(max_length=255, blank=True, null=True, verbose_name='赋型辅料用途')
+    formulation_name = models.CharField(max_length=255, blank=True, null=True, verbose_name='配方名称')
+    is_consistency_evaluation_product = models.CharField(max_length=255, blank=True, null=True,
+                                                         verbose_name='是否一致性评价产品')
+    auxiliary_material_usage = models.CharField(max_length=255, blank=True, null=True, verbose_name='辅料用途')
     prescription_dosage = models.CharField(max_length=255, blank=True, null=True, verbose_name='处方剂量')
     development_date = models.CharField(max_length=255, blank=True, null=True, verbose_name='开发日期')
-    customer_importance_level = models.CharField(max_length=255, blank=True, null=True, verbose_name='客户重要性等级')
-    preliminary_negotiation = models.CharField(max_length=255, blank=True, null=True, verbose_name='初步洽谈')
-    supplier_change_application = models.CharField(max_length=255, blank=True, null=True, verbose_name='供应商变更申请')
+    customer_importance = models.CharField(max_length=255, blank=True, null=True, verbose_name='客户重要性')
+    initial_negotiation = models.CharField(max_length=255, blank=True, null=True, verbose_name='初步洽谈')
+    supplier_change_request = models.CharField(max_length=255, blank=True, null=True, verbose_name='供应商变更申请')
     supplier_audit = models.CharField(max_length=255, blank=True, null=True, verbose_name='供应商审计')
-    three_batch_excipient_sample_testing = models.CharField(max_length=255, blank=True, null=True,
-                                                            verbose_name='三批辅料样品检测')
-    first_production_of_three_batches = models.CharField(max_length=255, blank=True, null=True,
-                                                         verbose_name='三批首生产')
-    stability_inspection = models.CharField(max_length=255, blank=True, null=True, verbose_name='稳定性检验')
-    additional_application_record_completed_change = models.CharField(max_length=255, blank=True, null=True,
-                                                                      verbose_name='补充申请记录/已完成变更')
+    continuous_batch_sample_testing = models.CharField(max_length=255, blank=True, null=True,
+                                                       verbose_name='连续批样品测试')
+    first_production_of_3_batches = models.CharField(max_length=255, blank=True, null=True, verbose_name='首批三批生产')
+    stability_study = models.CharField(max_length=255, blank=True, null=True, verbose_name='稳定性研究')
+    additional_application_record_change = models.CharField(max_length=255, blank=True, null=True,
+                                                            verbose_name='附加申请记录更改')
     formal_contract_signing = models.CharField(max_length=255, blank=True, null=True, verbose_name='正式合同签订')
     delivery = models.CharField(max_length=255, blank=True, null=True, verbose_name='交付')
     in_progress = models.CharField(max_length=255, blank=True, null=True, verbose_name='进行中')
-    remarks = models.CharField(max_length=255, blank=True, null=True, verbose_name='备注')
-    before_pilot = models.CharField(max_length=255, blank=True, null=True, verbose_name='批签发前')
-    before_declaration = models.CharField(max_length=255, blank=True, null=True, verbose_name='批准申报前')
-    issuance_date = models.CharField(max_length=255, blank=True, null=True, verbose_name='签发日期')
-    landing_company_name = models.CharField(max_length=255, blank=True, null=True, verbose_name='落地公司名称')
-    contact = models.CharField(max_length=255, blank=True, null=True, verbose_name='联系人')
-    transfer_to_sales_manager = models.CharField(max_length=255, blank=True, null=True, verbose_name='转交至销售经理')
-    transfer_time = models.CharField(max_length=255, blank=True, null=True, verbose_name='转交时间')
+    notes = models.CharField(max_length=255, blank=True, null=True, verbose_name='备注')
+    before_pilot_scale_up = models.CharField(max_length=255, blank=True, null=True, verbose_name='试点规模前')
+    before_submission = models.CharField(max_length=255, blank=True, null=True, verbose_name='提交前')
+    issuing_time = models.CharField(max_length=255, blank=True, null=True, verbose_name='下发时间')
+    landing_enterprise_name = models.CharField(max_length=255, blank=True, null=True, verbose_name='着陆企业名称')
+    contact_person = models.CharField(max_length=255, blank=True, null=True, verbose_name='联系人')
+    handover_sales_manager = models.CharField(max_length=255, blank=True, null=True, verbose_name='交接销售经理')
+    handover_time = models.CharField(max_length=255, blank=True, null=True, verbose_name='交接时间')
 
     class Meta:
         managed = False
@@ -574,10 +567,11 @@ class ExistingFormulationToDevelop(models.Model):
 
 
 class ExistingFormulationProgressDescription(models.Model):
-    time = models.CharField(max_length=255, blank=True, null=True, verbose_name='时间')
-    description = models.CharField(max_length=255, blank=True, null=True, verbose_name='描述')
+    id = models.AutoField(primary_key=True, verbose_name='序号')
+    timestamp = models.CharField(max_length=255, blank=True, null=True, verbose_name='时间戳')
+    progress = models.CharField(max_length=255, blank=True, null=True, verbose_name='进度')
     status = models.CharField(max_length=255, blank=True, null=True, verbose_name='状态')
-    subordinate_serial_number = models.CharField(max_length=255, blank=True, null=True, verbose_name='下属序列号')
+    subordinate_id = models.CharField(max_length=255, blank=True, null=True, verbose_name='隶属ID')
 
     class Meta:
         managed = False
