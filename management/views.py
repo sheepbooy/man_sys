@@ -1,15 +1,29 @@
 from django.shortcuts import render, redirect
 from management import models
 from django import forms
+from django.contrib.auth import authenticate, login
 
 
 # Create your views here.
-def login(request):
-    """登录"""
-    return render(request, 'login.html')
+def login_view(request):
+    display_error = False  # 默认情况下，不显示错误消息
+
+    if request.method == 'POST':
+        work_id = request.POST.get('id')  # 获取工号
+        password = request.POST.get('password')  # 获取密码
+        user = models.Employees.objects.filter(work_id=work_id).first()
+
+        if user is not None and user.password == password:
+            return redirect('/home/')
+        else:
+            display_error = True  # 登录失败时显示错误消息
+
+    return render(request, 'login.html', {'display_error': display_error})
 
 
 class EmployeesForm(forms.ModelForm):
+    """员工信息类"""
+
     class Meta:
         model = models.Employees
         fields = ['name', 'password', 'department', 'gender', 'position', 'work_id', 'status']
@@ -33,3 +47,8 @@ def register(request):
         return redirect('/login/')
     else:
         return render(request, 'register.html', {'form': form})
+
+
+def home(request):
+    """登录后的主页面"""
+    return render(request, 'layout.html')

@@ -50,6 +50,7 @@
         .btn-primary:hover {
             background-color: #0056b3;
         }
+
     </style>
 </head>
 <body>
@@ -62,7 +63,8 @@
                     <div class="tab-content">
                         <!-- Login Form -->
                         <div class="tab-pane fade show active" id="loginCard">
-                            <form id="loginForm">
+                            <form id="loginForm" method="post">
+                                {% csrf_token %}
                                 <div class="mb-3">
                                     <label class="form-label">工号</label>
                                     <input type="text" name="id" class="form-control" required>
@@ -86,8 +88,37 @@
     </div>
 </div>
 
+<!-- 模态框 -->
+<div class="modal fade" id="loginErrorModal" tabindex="-1" aria-labelledby="loginErrorModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="loginErrorModalLabel">登录失败</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                工号或密码不正确，请重新尝试登录。
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">关闭</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
 <script src="{% static 'plugins/bootstrap-5.3.0/js/bootstrap.bundle.min.js' %}"></script>
 <script src="{% static 'js/jquery-3.7.1.min.js' %}"></script>
+
+{% if display_error %}
+    <script>
+        // 显示登录错误模态框
+        $(document).ready(function () {
+            $('#loginErrorModal').modal('show');
+        });
+    </script>
+{% endif %}
 
 </body>
 </html>
