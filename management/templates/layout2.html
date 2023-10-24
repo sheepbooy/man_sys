@@ -1,0 +1,78 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>管理系统</title>
+    <link rel="stylesheet" href="{% static 'plugins/bootstrap-5.3.0/css/bootstrap.min.css' %}">
+    <style>
+        body {
+            padding: 20px;
+            background: linear-gradient(45deg, #b4dcea, #f6d365);
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .card {
+            margin-bottom: 20px;
+            transition: transform 0.3s;
+            border: 1px solid #dee2e6;
+            border-radius: 10px;
+            text-align: left; /* Align text to the left */
+            padding: 20px;
+            background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 0.5rem;
+        }
+
+        .card-text {
+            font-size: 1.1rem;
+            color: #555;
+            margin-bottom: 0.25rem;
+        }
+
+        .card-text a {
+            color: #007BFF;
+        }
+
+        .card-text a:hover {
+            text-decoration: underline;
+        }
+
+        .btn {
+            border-radius: 10px;
+            font-size: 1.1rem;
+        }
+    </style>
+    {% block css %}
+    {% endblock %}
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+   {% block content %}
+
+    {% endblock %}
+</nav>
+
+
+{% block js %}
+{% endblock %}
+<script src="{% static 'plugins/bootstrap-5.3.0/js/bootstrap.bundle.min.js' %}"></script>
+<script src="{% static 'js/jquery-3.7.1.min.js' %}"></script>
+</body>
+</html>

@@ -20,6 +20,7 @@ class EmployeesForm(forms.ModelForm):
 
 # Create your views here.
 def login_view(request):
+    """登录页面"""
     display_error = False  # 默认情况下，不显示错误消息
 
     if request.method == 'POST':
@@ -150,5 +151,10 @@ def question(request):
 
 
 def emplo_detail(request, _id):
+    """用户详情页"""
     employee = models.Employees.objects.filter(work_id=_id).first()
     return render(request, 'emplo_detail.html', {'employee': employee})
+
+
+def test(request):
+    return render(request, 'layout2.html')

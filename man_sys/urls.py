@@ -58,4 +58,7 @@ urlpatterns = [
     # 员工详情
     path('employees/<str:_id>/detail/', views.emplo_detail),
 
+    # test
+    path('test/', views.test)
+
 ]

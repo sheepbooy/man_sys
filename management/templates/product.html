@@ -12,7 +12,7 @@
             <th>标签</th>
             <th>规格编码</th>
         </tr>
-        {% for product in products %}
+        {% for product in query_set %}
             <tr>
                 <td>{{ product.category }}</td>
                 <td>{{ product.product_name }}</td>

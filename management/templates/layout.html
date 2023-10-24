@@ -1,5 +1,4 @@
 {% load static %}
-{% load django_tables2 %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -33,10 +32,10 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link" href="/depart/list">部门管理</a>
+                    <a class="nav-link" href="#">部门管理</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/user/list">用户管理</a>
+                    <a class="nav-link" href="#">用户管理</a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
@@ -77,7 +76,7 @@
     </div>
 </nav>
 
-<div class="container mt-4">
+<div class="container">
     {% block content %}
 
     {% endblock %}
@@ -88,3 +87,4 @@
 <script src="{% static 'js/jquery-3.7.1.min.js' %}"></script>
 </body>
 </html>
+
