@@ -147,3 +147,8 @@ def question(request):
     """问题调查表"""
     query_set = models.Feedback.objects.all()
     return render(request, 'question.html', {'query_set': query_set})
+
+
+def emplo_detail(request, _id):
+    employee = models.Employees.objects.filter(work_id=_id).first()
+    return render(request, 'emplo_detail.html', {'employee': employee})

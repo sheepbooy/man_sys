@@ -1,0 +1,101 @@
+{% extends 'layout.html' %}
+
+{% block css %}
+    <!-- 引入 Bootstrap 5 样式链接，确保在你的项目中配置 Bootstrap 5 或在线引入 -->
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 16px;
+            line-height: 1.5;
+            background-color: #f6f6f6;
+        }
+
+        h1 {
+            margin-top: 50px;
+            margin-bottom: 20px;
+            text-align: center;
+            font-size: 36px;
+            text-transform: uppercase;
+        }
+
+        .container {
+            max-width: 1024px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .panel {
+            background-color: #fff;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+            border-radius: 4px;
+            padding: 30px;
+            margin-top: 30px;
+        }
+
+        .not-found {
+            text-align: center;
+            font-size: 20px;
+            padding: 30px;
+            color: #bbb;
+        }
+
+        .btn-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .back-btn {
+            padding: 8px 20px;
+            border-radius: 4px;
+            background-color: #428bca;
+            color: #fff;
+            text-decoration: none;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .back-btn:hover {
+            background-color: #3071a9;
+            cursor: pointer;
+        }
+
+        .action-btn {
+            padding: 8px 20px;
+            margin-right: 10px;
+            border-radius: 4px;
+            background-color: #428bca;
+            color: #fff;
+            text-decoration: none;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .action-btn:hover {
+            background-color: #3071a9;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <h1>员工详情</h1>
+        {% if employee %}
+            <div class="panel">
+                <p class="fw-bold">姓名: {{ employee.name }}</p>
+                <p class="fw-bold">工号: {{ employee.work_id }}</p>
+                <p class="fw-bold">性别: {{ employee.gender }}</p>
+                <p class="fw-bold">部门: {{ employee.department }}</p>
+                <p class="fw-bold">职位: {{ employee.position }}</p>
+                <p class="fw-bold">状态: {{ employee.status }}</p>
+                <p class="fw-bold">密码: {{ employee.password }}</p>
+            </div>
+        {% else %}
+            <div class="not-found">未找到该员工</div>
+        {% endif %}
+
+        <div class="btn-container">
+            <button class="back-btn" onclick="window.history.back()">返回</button>
+{#            <a href="{% url 'sale:edit_user1' employee.work_id %}" class="action-btn">修改信息</a>#}
+        </div>
+    </div>
+{% endblock %}

@@ -25,6 +25,8 @@ urlpatterns = [
     path('register/', views.register),
     path('home/', views.home),
 
+
+    # 所有的表全部信息
     # 所有员工信息
     path('employees/', views.employees_list),
     # 内贸部台账表
@@ -51,5 +53,9 @@ urlpatterns = [
     path('product/', views.product),
     # 问题反馈表
     path('question/', views.question),
+
+    # 细分功能
+    # 员工详情
+    path('employees/<str:_id>/detail/', views.emplo_detail),
 
 ]
