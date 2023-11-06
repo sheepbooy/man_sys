@@ -512,6 +512,8 @@ def emplo_detail(request, _id):
     return render(request, 'emplo_detail.html', {'employee': employee})
 
 
+# 增加功能
+# ----------------------------------------------------------------
 def employees_add(request):
     """员工信息添加"""
     if request.method == 'GET':
@@ -583,7 +585,7 @@ def preparation_add(request, _type):
     if request.method == 'GET':
         form = form_cls()
         return render(request, f'{template_cls}_add.html', {'form': form})
-    form = form_cls()
+    form = form_cls(data=request.POST)
     if form.is_valid():
         form.save()
         return redirect(f'/preparation/{_type}/')
@@ -617,7 +619,7 @@ def new_add(request, _type):
     if request.method == 'GET':
         form = form_cls()
         return render(request, f'{template_cls}_add.html', {'form': form})
-    form = form_cls()
+    form = form_cls(data=request.POST)
     if form.is_valid():
         form.save()
         return redirect(f'/new/{_type}/')
@@ -638,7 +640,7 @@ def progress_add(request, _type):
     if request.method == 'GET':
         form = form_cls()
         return render(request, f'{template_cls}_add.html', {'form': form})
-    form = form_cls()
+    form = form_cls(data=request.POST)
     if form.is_valid():
         form.save()
         return redirect(f'/progress/{_type}/')
@@ -713,3 +715,234 @@ def question_add(request):
         return redirect('/question/')
 
     return render(request, 'question_add.html', {'form': form})
+
+
+# 编辑功能
+def employees_edit(request, _id):
+    """编辑员工信息"""
+    row_object = models.Employees.objects.filter(work_id=_id).first()
+
+    if request.method == 'GET':
+        form = EmployeesForm(instance=row_object)
+        return render(request, 'employees_edit.html', {'form': form})
+
+    form = EmployeesForm(data=request.POST, instance=row_object)
+    if form.is_valid():
+        form.save()
+        return redirect('/employees/')
+
+    return render(request, 'employees_add.html', {'form': form})
+
+
+def inner_trade_ledger_edit(request, _id):
+    """编辑内贸部台账信息"""
+    row_object = models.InternalTradeLedger.objects.filter(id=_id).first()
+
+    if request.method == 'GET':
+        form = inner_trade_ledger_form(instance=row_object)
+        return render(request, 'inner_trade_ledger_edit.html', {'form': form})
+
+    form = inner_trade_ledger_form(data=request.POST, instance=row_object)
+    if form.is_valid():
+        form.save()
+        return redirect('/innertrade/ledger/')
+
+    return render(request, 'inner_trade_ledger_edit.html', {'form': form})
+
+
+def foreign_trade_ledger_edit(request, _id):
+    """编辑外贸部台账表"""
+    row_object = models.ForeignTradeLedger.objects.filter(serial_number=_id).first()
+    if request.method == 'GET':
+        form = foreign_trade_ledger_form(instance=row_object)
+        return render(request, 'foreign_trade_ledger_edit.html', {'form': form})
+
+    form = foreign_trade_ledger_form(data=request.POST, instance=row_object)
+    if form.is_valid():
+        form.save()
+        return redirect('/foreign/ledger/')
+
+    return render(request, 'foreign_trade_ledger_edit.html', {'form': form})
+
+
+def foreign_customer_edit(request, _id):
+    """编辑外贸部客户信息"""
+    row_object = models.ForeignCustomerProfile.objects.filter(customer_profile_number=_id).first()
+    if request.method == 'GET':
+        form = foreign_customer_form(instance=row_object)
+        return render(request, 'foreign_customer_edit.html', {'form': form})
+
+    form = foreign_customer_form(data=request.POST, instance=row_object)
+    if form.is_valid():
+        form.save()
+        return redirect('/foreign/customer/')
+
+    return render(request, 'foreign_customer_edit.html', {'form': form})
+
+
+def preparation_edit(request, _type, _id):
+    """已有制剂开发表"""
+    form_cls = {
+        'completed': ExistingProductCompleted_form,
+        'ing': ExistingFormulationDeveloping_form,
+        'todev': ExistingFormulationToDevelop_form,
+    }.get(_type)
+    template_cls = {
+        'completed': 'ExistingFormulationCompleted',
+        'ing': 'ExistingFormulationDeveloping',
+        'todev': 'ExistingFormulationToDevelop',
+    }.get(_type)
+    if _type == 'completed':
+        row_object = models.ExistingProductCompleted.objects.filter(serial_number=_id).first()
+    elif _type == 'todev':
+        row_object = models.ExistingFormulationToDevelop.objects.filter(serial_number=_id).first()
+    elif _type == 'ing':
+        row_object = models.ExistingFormulationDeveloping.objects.filter(serial_number=_id).first()
+    if request.method == 'GET':
+        form = form_cls(instance=row_object)
+        return render(request, f'{template_cls}_edit.html', {'form': form})
+    form = form_cls(data=request.POST, instance=row_object)
+    if form.is_valid():
+        form.save()
+        return redirect(f'/preparation/{_type}/')
+    return render(request, f'{template_cls}_edit.html', {'form': form})
+
+
+def authorization_edit(request, _id):
+    """编辑授权书总表"""
+    row_object = models.Authorization.objects.filter(authorization_number=_id).first()
+    if request.method == 'GET':
+        form = authorization_form(instance=row_object)
+        return render(request, 'authorization_edit.html', {'form': form})
+
+    form = authorization_form(data=request.POST, instance=row_object)
+    if form.is_valid():
+        form.save()
+        return redirect('/authorization/')
+
+    return render(request, 'authorization_edit.html', {'form': form})
+
+
+def new_edit(request, _type, _id):
+    """编辑新品开发表"""
+    if _type == 'ing':
+        row_object = models.NewProductDevelopingProgress.objects.filter(serial_number=_id).first()
+    elif _type == 'completed':
+        row_object = models.NewProductCompleted.objects.filter(serial_number=_id).first()
+    form_cls = {
+        'completed': NewProductCompleted_form,
+        'ing': NewProductDeveloping_form,
+    }.get(_type)
+    template_cls = {
+        'completed': 'NewProductCompleted',
+        'ing': 'NewProductDeveloping',
+    }.get(_type)
+    if request.method == 'GET':
+        form = form_cls(instance=row_object)
+        return render(request, f'{template_cls}_edit.html', {'form': form})
+    form = form_cls(data=request.POST, instance=row_object)
+    if form.is_valid():
+        form.save()
+        return redirect(f'/new/{_type}/')
+    return render(request, f'{template_cls}_edit.html', {'form': form})
+
+
+def progress_edit(request, _type, _id):
+    """新品和已有制剂进度描述信息"""
+    if _type == 'new':
+        row_object = models.NewProductDevelopment.objects.filter(id=_id).first()
+    elif _type == 'preparation':
+        row_object = models.ExistingFormulationProgressDescription.objects.filter(id=_id).first()
+    form_cls = {
+        'new': NewProductDevelopment_form,
+        'preparation': ExistingFormulationProgressDescription_form,
+    }.get(_type)
+    template_cls = {
+        'new': 'NewProductDevelopment',
+        'preparation': 'ExistingFormulationProgressDescription',
+    }.get(_type)
+
+    if request.method == 'GET':
+        form = form_cls(instance=row_object)
+        return render(request, f'{template_cls}_edit.html', {'form': form})
+    form = form_cls(data=request.POST, instance=row_object)
+    if form.is_valid():
+        form.save()
+        return redirect(f'/progress/{_type}/')
+    return render(request, f'{template_cls}_edit.html', {'form': form})
+
+
+def dev_custom_edit(request, _id):
+    """编辑研发部客户档案"""
+    row_object = models.CustomerProfile.objects.filter(customer_id=_id).first()
+    if request.method == 'GET':
+        form = CustomerProfile_form(instance=row_object)
+        return render(request, 'dev_custom_edit.html', {'form': form})
+
+    form = CustomerProfile_form(data=request.POST, instance=row_object)
+    if form.is_valid():
+        form.save()
+        return redirect('/develop/customer/')
+
+    return render(request, 'dev_custom_edit.html', {'form': form})
+
+
+def butting_edit(request, _id):
+    """编辑研发部客户对接表"""
+    row_object = models.CustomerEngagement.objects.filter(engagement_number=_id).first()
+    if request.method == 'GET':
+        form = CustomerEngagement_form(instance=row_object)
+        return render(request, 'butting_edit.html', {'form': form})
+
+    form = CustomerEngagement_form(data=request.POST, instance=row_object)
+    if form.is_valid():
+        form.save()
+        return redirect('/develop/butting/')
+
+    return render(request, 'butting_edit.html', {'form': form})
+
+
+def turnover_edit(request, _id):
+    """编辑研发部客户流水表"""
+    row_object = models.CustomerFlow.objects.filter(customer_id=_id).first()
+    if request.method == 'GET':
+        form = CustomerFlow_form(instance=row_object)
+        return render(request, 'turnover_edit.html', {'form': form})
+
+    form = CustomerFlow_form(data=request.POST, instance=row_object)
+    if form.is_valid():
+        form.save()
+        return redirect('/develop/turnover/')
+
+    return render(request, 'turnover_edit.html', {'form': form})
+
+
+def product_edit(request, _id):
+    """编辑药用辅料表"""
+    row_object = models.Products.objects.filter(spec_code=_id).first()
+    if request.method == 'GET':
+        form = Products_form(instance=row_object)
+        return render(request, 'product_edit.html', {'form': form})
+
+    form = Products_form(data=request.POST, instance=row_object)
+    if form.is_valid():
+        form.save()
+        return redirect('/product/')
+
+    return render(request, 'product_edit.html', {'form': form})
+
+
+def question_edit(request, _id):
+    """编辑问题反馈表"""
+    row_object = models.Feedback.objects.filter(id=_id).first()
+    if request.method == 'GET':
+        form = Feedback_form(instance=row_object)
+        return render(request, 'question_edit.html', {'form': form})
+
+    form = Feedback_form(data=request.POST, instance=row_object)
+    if form.is_valid():
+        form.save()
+        return redirect('/question/')
+
+    return render(request, 'question_edit.html', {'form': form})
+    return None

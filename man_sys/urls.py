@@ -81,4 +81,43 @@ urlpatterns = [
     # 问题反馈表
     path('question/add/', views.question_add),
 
+    # 编辑功能
+    # 员工编辑功能
+    path('employees/edit/<str:_id>/', views.employees_edit),
+    # 编辑内贸部台账表
+    path('innertrade/ledger/edit/<int:_id>/', views.inner_trade_ledger_edit, name='edit_inner_trade_ledger'),
+
+    # 编辑外贸部台账表
+    path('foreign/ledger/edit/<int:_id>/', views.foreign_trade_ledger_edit, name='edit_foreign_trade_ledger'),
+
+    # 编辑外贸部客户档案表
+    path('foreign/customer/edit/<int:_id>/', views.foreign_customer_edit, name='edit_foreign_customer'),
+
+    # 编辑已有制剂已完成,开发中，待开发进度表
+    path('preparation/<str:_type>/edit/<int:_id>/', views.preparation_edit, name='edit_preparation'),
+
+    # 编辑授权书总表
+    path('authorization/edit/<int:_id>/', views.authorization_edit, name='edit_authorization'),
+
+    # 编辑新品已完成，开发中进度表
+    path('new/<str:_type>/edit/<int:_id>/', views.new_edit, name='edit_new'),
+
+    # 编辑新品，已有制剂进度描述
+    path('progress/<str:_type>/edit/<int:_id>/', views.progress_edit, name='edit_progress'),
+
+    # 编辑研发部客户档案
+    path('develop/customer/edit/<int:_id>/', views.dev_custom_edit, name='edit_dev_custom'),
+
+    # 编辑研发部客户对接表
+    path('develop/butting/edit/<int:_id>/', views.butting_edit, name='edit_butting'),
+
+    # 编辑研发部客户流水表
+    path('develop/turnover/edit/<int:_id>/', views.turnover_edit, name='edit_turnover'),
+
+    # 编辑辅料表
+    path('product/edit/<str:_id>/', views.product_edit, name='edit_product'),
+
+    # 编辑问题反馈表
+    path('question/edit/<int:_id>/', views.question_edit, name='edit_question'),
+
 ]
