@@ -4,6 +4,7 @@
     <table>
         <thead>
         <h2 class="mb-4">授权书总表</h2>
+        <a href="/authorization/add/" class="btn btn-primary mb-3">添加</a>
         </tr>
 
         <th>授权书编号</th>
@@ -20,6 +21,7 @@
         <th>审查中月份</th>
         <th>消失月份</th>
         <th>备注</th>
+        <th>操作</th>
         </tr>
         </thead>
         <tbody>
@@ -39,6 +41,10 @@
                 <td>{{ item.during_review_month }}</td>
                 <td>{{ item.disappearing_month }}</td>
                 <td>{{ item.notes }}</td>
+                <td>
+                    <a href="#" class="btn btn-info btn-sm">编辑</a>
+                    <a href="#" class="btn btn-danger btn-sm">删除</a>
+                </td>
             </tr>
         {% endfor %}
         </tbody>

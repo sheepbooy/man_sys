@@ -2,6 +2,8 @@
 
 {% block content %}
     <h1>研发部流水表</h1>
+    <a href="/develop/turnover/add/" class="btn btn-primary mb-3">添加</a>
+
     <table border="1">
         <tr>
             <th>客户编号</th>
@@ -33,6 +35,7 @@
             <th>2022年重要客户礼品</th>
             <th>2022年年底礼品</th>
             <th>前雇主</th>
+            <th>操作</th>
         </tr>
         {% for flow in query_set %}
             <tr>
@@ -65,6 +68,10 @@
                 <td>{{ flow.major_customer_gift_2022 }}</td>
                 <td>{{ flow.year_end_gift_2022 }}</td>
                 <td>{{ flow.former_employer }}</td>
+                <td>
+                    <a href="#" class="btn btn-info btn-sm">编辑</a>
+                    <a href="#" class="btn btn-danger btn-sm">删除</a>
+                </td>
             </tr>
         {% empty %}
             <tr>

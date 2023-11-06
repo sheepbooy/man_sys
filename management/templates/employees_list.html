@@ -1,10 +1,12 @@
 {% extends 'layout.html' %}
 
 {% block content %}
-<div class="container mt-4">
-    <h2 class="mb-4">员工列表</h2>
-    <table class="table">
-        <thead>
+    <div class="container mt-4">
+        <h2 class="mb-4">员工列表</h2>
+        <a href="/employees/add/" class="btn btn-primary mb-3">添加</a>
+
+        <table class="table">
+            <thead>
             <tr>
                 <th scope="col">工号</th>
                 <th scope="col">姓名</th>
@@ -12,9 +14,10 @@
                 <th scope="col">部门</th>
                 <th scope="col">职位</th>
                 <th scope="col">状态</th>
+                <th scope="col">操作</th>
             </tr>
-        </thead>
-        <tbody>
+            </thead>
+            <tbody>
             {% for employee in query_set %}
                 <tr>
                     <th scope="row">{{ employee.work_id }}</th>
@@ -23,9 +26,13 @@
                     <td>{{ employee.department }}</td>
                     <td>{{ employee.position }}</td>
                     <td>{{ employee.status }}</td>
+                    <td>
+                        <a href="#" class="btn btn-info btn-sm">编辑</a>
+                        <a href="#" class="btn btn-danger btn-sm">删除</a>
+                    </td>
                 </tr>
             {% endfor %}
-        </tbody>
-    </table>
-</div>
+            </tbody>
+        </table>
+    </div>
 {% endblock %}

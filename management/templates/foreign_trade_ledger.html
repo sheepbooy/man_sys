@@ -2,7 +2,8 @@
 
 {% block content %}
     <table>
-            <h2 class="mb-4">外贸部台账表</h2></tr>
+        <h2 class="mb-4">外贸部台账表</h2></tr>
+        <a href="/foreign/ledger/add/" class="btn btn-primary mb-3">添加</a>
 
         <tr>
             <th>序列号</th>
@@ -59,62 +60,67 @@
             <th>单价低于当期版本价目表</th>
             <th>退税金额</th>
             <th>汇率</th>
+            <th>操作</th>
         </tr>
         {% for entry in query_set %}
-        <tr>
-            <td>{{ entry.serial_number }}</td>
-            <td>{{ entry.order_date }}</td>
-            <td>{{ entry.sales_date }}</td>
-            <td>{{ entry.contract_number }}</td>
-            <td>{{ entry.customs_declaration }}</td>
-            <td>{{ entry.other_details }}</td>
-            <td>{{ entry.country_province }}</td>
-            <td>{{ entry.nature }}</td>
-            <td>{{ entry.development_date }}</td>
-            <td>{{ entry.company_name }}</td>
-            <td>{{ entry.product_name }}</td>
-            <td>{{ entry.model }}</td>
-            <td>{{ entry.code }}</td>
-            <td>{{ entry.specification }}</td>
-            <td>{{ entry.cash_sales_quantity }}</td>
-            <td>{{ entry.cash_sales_price_usd }}</td>
-            <td>{{ entry.cash_sales_price_cny }}</td>
-            <td>{{ entry.cash_sales_total_usd }}</td>
-            <td>{{ entry.cash_sales_total_cny }}</td>
-            <td>{{ entry.accounts_receivable_sales_quantity }}</td>
-            <td>{{ entry.accounts_receivable_sales_price_usd }}</td>
-            <td>{{ entry.accounts_receivable_sales_price_cny }}</td>
-            <td>{{ entry.accounts_receivable_sales_total_usd }}</td>
-            <td>{{ entry.accounts_receivable_sales_total_cny }}</td>
-            <td>{{ entry.accounts_receivable_debit_usd }}</td>
-            <td>{{ entry.accounts_receivable_debit_cny }}</td>
-            <td>{{ entry.accounts_receivable_credit_usd }}</td>
-            <td>{{ entry.accounts_receivable_credit_cny }}</td>
-            <td>{{ entry.order_amount_usd }}</td>
-            <td>{{ entry.order_amount_cny }}</td>
-            <td>{{ entry.payment_received_usd }}</td>
-            <td>{{ entry.payment_received_cny }}</td>
-            <td>{{ entry.first_occurrence }}</td>
-            <td>{{ entry.customer_type }}</td>
-            <td>{{ entry.unreceived_payment_usd }}</td>
-            <td>{{ entry.unreceived_payment_cny }}</td>
-            <td>{{ entry.salesperson }}</td>
-            <td>{{ entry.payment_usd }}</td>
-            <td>{{ entry.payment_cny }}</td>
-            <td>{{ entry.payment_date }}</td>
-            <td>{{ entry.invoice_number }}</td>
-            <td>{{ entry.invoice_receipt_number }}</td>
-            <td>{{ entry.sales_month }}</td>
-            <td>{{ entry.international_freight_rmb }}</td>
-            <td>{{ entry.international_freight_usd }}</td>
-            <td>{{ entry.miscellaneous_fees }}</td>
-            <td>{{ entry.total_amount }}</td>
-            <td>{{ entry.logistics_shipping_date }}</td>
-            <td>{{ entry.waybill_number }}</td>
-            <td>{{ entry.price_below_current_price_list }}</td>
-            <td>{{ entry.tax_refund_amount }}</td>
-            <td>{{ entry.exchange_rate }}</td>
-        </tr>
+            <tr>
+                <td>{{ entry.serial_number }}</td>
+                <td>{{ entry.order_date }}</td>
+                <td>{{ entry.sales_date }}</td>
+                <td>{{ entry.contract_number }}</td>
+                <td>{{ entry.customs_declaration }}</td>
+                <td>{{ entry.other_details }}</td>
+                <td>{{ entry.country_province }}</td>
+                <td>{{ entry.nature }}</td>
+                <td>{{ entry.development_date }}</td>
+                <td>{{ entry.company_name }}</td>
+                <td>{{ entry.product_name }}</td>
+                <td>{{ entry.model }}</td>
+                <td>{{ entry.code }}</td>
+                <td>{{ entry.specification }}</td>
+                <td>{{ entry.cash_sales_quantity }}</td>
+                <td>{{ entry.cash_sales_price_usd }}</td>
+                <td>{{ entry.cash_sales_price_cny }}</td>
+                <td>{{ entry.cash_sales_total_usd }}</td>
+                <td>{{ entry.cash_sales_total_cny }}</td>
+                <td>{{ entry.accounts_receivable_sales_quantity }}</td>
+                <td>{{ entry.accounts_receivable_sales_price_usd }}</td>
+                <td>{{ entry.accounts_receivable_sales_price_cny }}</td>
+                <td>{{ entry.accounts_receivable_sales_total_usd }}</td>
+                <td>{{ entry.accounts_receivable_sales_total_cny }}</td>
+                <td>{{ entry.accounts_receivable_debit_usd }}</td>
+                <td>{{ entry.accounts_receivable_debit_cny }}</td>
+                <td>{{ entry.accounts_receivable_credit_usd }}</td>
+                <td>{{ entry.accounts_receivable_credit_cny }}</td>
+                <td>{{ entry.order_amount_usd }}</td>
+                <td>{{ entry.order_amount_cny }}</td>
+                <td>{{ entry.payment_received_usd }}</td>
+                <td>{{ entry.payment_received_cny }}</td>
+                <td>{{ entry.first_occurrence }}</td>
+                <td>{{ entry.customer_type }}</td>
+                <td>{{ entry.unreceived_payment_usd }}</td>
+                <td>{{ entry.unreceived_payment_cny }}</td>
+                <td>{{ entry.salesperson }}</td>
+                <td>{{ entry.payment_usd }}</td>
+                <td>{{ entry.payment_cny }}</td>
+                <td>{{ entry.payment_date }}</td>
+                <td>{{ entry.invoice_number }}</td>
+                <td>{{ entry.invoice_receipt_number }}</td>
+                <td>{{ entry.sales_month }}</td>
+                <td>{{ entry.international_freight_rmb }}</td>
+                <td>{{ entry.international_freight_usd }}</td>
+                <td>{{ entry.miscellaneous_fees }}</td>
+                <td>{{ entry.total_amount }}</td>
+                <td>{{ entry.logistics_shipping_date }}</td>
+                <td>{{ entry.waybill_number }}</td>
+                <td>{{ entry.price_below_current_price_list }}</td>
+                <td>{{ entry.tax_refund_amount }}</td>
+                <td>{{ entry.exchange_rate }}</td>
+                <td>
+                    <a href="#" class="btn btn-info btn-sm">编辑</a>
+                    <a href="#" class="btn btn-danger btn-sm">删除</a>
+                </td>
+            </tr>
         {% endfor %}
     </table>
 {% endblock %}

@@ -439,15 +439,15 @@ def preparation(request, _type):
     """已有制剂的已完成，待开发，开发中进度表"""
     if _type == 'completed':
         query_set = models.ExistingProductCompleted.objects.all()
-        return render(request, 'preparation.html', {'query_set': query_set})
+        return render(request, 'preparation.html', {'query_set': query_set, 'type': 'completed'})
 
     elif _type == 'ing':
         query_set = models.ExistingFormulationDeveloping.objects.all()
-        return render(request, 'preparation.html', {'query_set': query_set})
+        return render(request, 'preparation.html', {'query_set': query_set, 'type': 'ing'})
 
     elif _type == 'todev':
         query_set = models.ExistingFormulationToDevelop.objects.all()
-        return render(request, 'preparation.html', {'query_set': query_set})
+        return render(request, 'preparation.html', {'query_set': query_set, 'type': 'todev'})
 
 
 def authorization(request):
@@ -460,20 +460,20 @@ def new(request, _type):
     """新品开发中，已完成进度表"""
     if _type == 'ing':
         query_set = models.NewProductDevelopingProgress.objects.all()
-        return render(request, 'new_product.html', {'query_set': query_set})
+        return render(request, 'new_product.html', {'query_set': query_set, 'type': 'ing'})
     elif _type == 'completed':
         query_set = models.NewProductCompleted.objects.all()
-        return render(request, 'new_product.html', {'query_set': query_set})
+        return render(request, 'new_product.html', {'query_set': query_set, 'type': 'completed'})
 
 
 def progress(request, _type):
     """新品，已有制剂进度描述表"""
     if _type == 'new':
         query_set = models.NewProductDevelopment.objects.all()
-        return render(request, 'progress.html', {'query_set': query_set})
+        return render(request, 'progress.html', {'query_set': query_set, 'type': 'new'})
     elif _type == 'preparation':
         query_set = models.ExistingFormulationProgressDescription.objects.all()
-        return render(request, 'progress.html', {'query_set': query_set})
+        return render(request, 'progress.html', {'query_set': query_set, 'type': 'preparation'})
 
 
 def dev_custom(request):

@@ -2,7 +2,14 @@
 
 {% block content %}
     <table>
-        <h2 class="mb-4">已有制剂进度表</h2></tr>
+    {% if type == 'todev' %}
+        <h2 class="mb-4">已有制剂待开发开发表</h2></tr>
+    {% elif type == 'ing' %}
+        <h2 class="mb-4">已有制剂开发中开发表</h2></tr>
+    {% elif type == 'completed' %}
+        <h2 class="mb-4">已有制剂已完成开发表</h2></tr>
+    {% endif %}
+        <a href="/preparation/{{ type }}/add/" class="btn btn-primary mb-3">添加</a>
 
         <tr>
             <th>序列号</th>
@@ -52,6 +59,7 @@
             <th>联系人</th>
             <th>转交至销售经理</th>
             <th>转交时间</th>
+            <th>操作</th>
         </tr>
         {% for entry in query_set %}
             <tr>
@@ -102,6 +110,10 @@
                 <td>{{ entry.contact }}</td>
                 <td>{{ entry.transfer_to_sales_manager }}</td>
                 <td>{{ entry.transfer_time }}</td>
+                <td>
+                    <a href="#" class="btn btn-info btn-sm">编辑</a>
+                    <a href="#" class="btn btn-danger btn-sm">删除</a>
+                </td>
             </tr>
         {% endfor %}
     </table>

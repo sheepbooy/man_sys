@@ -1,8 +1,10 @@
 {% extends 'layout.html' %}
 
 {% block content %}
- <h1>研部客户对接表</h1>
-    <table border="1">
+    <h1>研部客户对接表</h1>
+    <a href="/develop/butting/add/" class="btn btn-primary mb-3">添加</a>
+
+    <table>
         <tr>
             <th>对接编号</th>
             <th>记录人</th>
@@ -26,6 +28,7 @@
             <th>问题</th>
             <th>问题是否解决</th>
             <th>解决方案</th>
+            <th>操作</th>
         </tr>
         {% for engagement in query_set %}
             <tr>
@@ -51,6 +54,10 @@
                 <td>{{ engagement.issue }}</td>
                 <td>{{ engagement.is_resolved }}</td>
                 <td>{{ engagement.resolution_solution }}</td>
+                <td>
+                    <a href="#" class="btn btn-info btn-sm">编辑</a>
+                    <a href="#" class="btn btn-danger btn-sm">删除</a>
+                </td>
             </tr>
         {% empty %}
             <tr>

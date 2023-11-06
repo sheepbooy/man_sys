@@ -1,7 +1,12 @@
 {% extends 'layout.html' %}
 {% block content %}
     <table>
-        <h2 class="mb-4">新品进度表</h2></tr>
+    {% if type == 'ing' %}
+        <h2 class="mb-4">新品开发中开发表</h2></tr>
+    {% elif type == 'completed' %}
+        <h2 class="mb-4">新品已完成开发表</h2></tr>
+    {% endif %}
+        <a href="/new/{{ type }}/add/" class="btn btn-primary mb-3">添加</a>
 
         <thead>
         <tr>
@@ -47,6 +52,7 @@
             <th>联系人</th>
             <th>移交销售经理</th>
             <th>移交时间</th>
+            <th>操作</th>
         </tr>
         </thead>
         <tbody>
@@ -94,6 +100,10 @@
                 <td>{{ item.contact_person }}</td>
                 <td>{{ item.transfer_to_sales_manager }}</td>
                 <td>{{ item.transfer_date }}</td>
+                <td>
+                    <a href="#" class="btn btn-info btn-sm">编辑</a>
+                    <a href="#" class="btn btn-danger btn-sm">删除</a>
+                </td>
             </tr>
         {% endfor %}
         </tbody>

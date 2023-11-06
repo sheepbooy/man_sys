@@ -3,6 +3,7 @@
 {% block content %}
     <table>
         <h2 class="mb-4">内贸部台账总表</h2></tr>
+        <a href="/innertrade/ledger/add/" class="btn btn-primary mb-3">添加</a>
 
         <thead>
         <tr>
@@ -50,6 +51,8 @@
             <th>物流发货日期</th>
             <th>运单号</th>
             <th>单价低于当前价格表</th>
+            <th scope="col">操作</th>
+
         </tr>
         </thead>
         <tbody>
@@ -99,6 +102,10 @@
                 <td>{{ entry.logistics_shipment_date }}</td>
                 <td>{{ entry.waybill_number }}</td>
                 <td>{{ entry.unit_price_below_current_price_list }}</td>
+                <td>
+                    <a href="#" class="btn btn-info btn-sm">编辑</a>
+                    <a href="#" class="btn btn-danger btn-sm">删除</a>
+                </td>
             </tr>
         {% endfor %}
         </tbody>

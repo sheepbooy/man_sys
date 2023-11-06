@@ -1,17 +1,17 @@
 
-|python:S1192š"\Define a constant instead of duplicating this literal 'æ˜¯å¦ä¸€è‡´æ€§è¯„ä»·äº§å“' 3 times.(¯¦¥§8­—™¶1
-ypython:S1192§"YDefine a constant instead of duplicating this literal 'é™„åŠ ç”³è¯·è®°å½•æ›´æ”¹' 3 times.(„›«¿8®—™¶1
-spython:S1192¯"SDefine a constant instead of duplicating this literal 'ç€é™†ä¼ä¸šåç§°' 3 times.(¯Ä…·8®—™¶1
-xpython:S1192¤"SDefine a constant instead of duplicating this literal 'é¦–æ‰¹ä¸‰æ‰¹ç”Ÿäº§' 3 times.(¯©¸¢ûÿÿÿÿ8®—™¶1
-upython:S1192¬"PDefine a constant instead of duplicating this literal 'è¯•ç‚¹è§„æ¨¡å‰' 3 times.(”¶£ÿÿÿÿÿ8®—™¶1
-spython:S1192±"SDefine a constant instead of duplicating this literal 'äº¤æ¥é”€å”®ç»ç†' 3 times.(œ´ô·8®—™¶1
-ppython:S1192"PDefine a constant instead of duplicating this literal 'å½“å‰åˆ¶é€ å•†' 3 times.(ßŒ²ª8®—™¶1
-xpython:S1192Œ"SDefine a constant instead of duplicating this literal 'é¢„ä¼°å¹´æ¶ˆè€—é‡' 3 times.(²âÓşÿÿÿÿ8®—™¶1
-upython:S1192£"VDefine a constant instead of duplicating this literal 'è¿ç»­æ‰¹æ ·å“æµ‹è¯•' 3 times.(†òÍ8®—™¶1
-ppython:S1192"PDefine a constant instead of duplicating this literal 'å®¢æˆ·é‡è¦æ€§' 3 times.(ÀÕ—¿8®—™¶1
-upython:S1192¥"PDefine a constant instead of duplicating this literal 'ç¨³å®šæ€§ç ”ç©¶' 3 times.(®›ì±ÿÿÿÿÿ8®—™¶1
-tpython:S1192u"PDefine a constant instead of duplicating this literal 'ä¾›åº”å•†å®¡è®¡' 6 times.(©öóğûÿÿÿÿ8®—™¶1
-upython:S1192‘"PDefine a constant instead of duplicating this literal 'æ¯å…¬æ–¤ä»·æ ¼' 3 times.(É–œœşÿÿÿÿ8®—™¶1
-{python:S1192 "VDefine a constant instead of duplicating this literal 'ä¾›åº”å•†å˜æ›´ç”³è¯·' 3 times.(î…­Òşÿÿÿÿ8®—™¶1
-xpython:S1192Š"SDefine a constant instead of duplicating this literal 'å¯¹åº”è§„æ ¼ä»£ç ' 3 times.(»Éó¼ıÿÿÿÿ8®—™¶1
-xpython:S1192¡"SDefine a constant instead of duplicating this literal 'æ­£å¼åˆåŒç­¾è®¢' 5 times.(Å¼ôšıÿÿÿÿ8®—™¶1
+|python:S1192š"\Define a constant instead of duplicating this literal 'æ˜¯å¦ä¸€è‡´æ€§è¯„ä»·äº§å“' 3 times.(¯¦¥§8¿çˆê¹1
+ypython:S1192§"YDefine a constant instead of duplicating this literal 'é™„åŠ ç”³è¯·è®°å½•æ›´æ”¹' 3 times.(„›«¿8Àçˆê¹1
+spython:S1192¯"SDefine a constant instead of duplicating this literal 'ç€é™†ä¼ä¸šåç§°' 3 times.(¯Ä…·8Àçˆê¹1
+xpython:S1192¤"SDefine a constant instead of duplicating this literal 'é¦–æ‰¹ä¸‰æ‰¹ç”Ÿäº§' 3 times.(¯©¸¢ûÿÿÿÿ8Àçˆê¹1
+upython:S1192¬"PDefine a constant instead of duplicating this literal 'è¯•ç‚¹è§„æ¨¡å‰' 3 times.(”¶£ÿÿÿÿÿ8Àçˆê¹1
+spython:S1192±"SDefine a constant instead of duplicating this literal 'äº¤æ¥é”€å”®ç»ç†' 3 times.(œ´ô·8Àçˆê¹1
+ppython:S1192"PDefine a constant instead of duplicating this literal 'å½“å‰åˆ¶é€ å•†' 3 times.(ßŒ²ª8Àçˆê¹1
+xpython:S1192Œ"SDefine a constant instead of duplicating this literal 'é¢„ä¼°å¹´æ¶ˆè€—é‡' 3 times.(²âÓşÿÿÿÿ8Àçˆê¹1
+upython:S1192£"VDefine a constant instead of duplicating this literal 'è¿ç»­æ‰¹æ ·å“æµ‹è¯•' 3 times.(†òÍ8Àçˆê¹1
+ppython:S1192"PDefine a constant instead of duplicating this literal 'å®¢æˆ·é‡è¦æ€§' 3 times.(ÀÕ—¿8Àçˆê¹1
+upython:S1192¥"PDefine a constant instead of duplicating this literal 'ç¨³å®šæ€§ç ”ç©¶' 3 times.(®›ì±ÿÿÿÿÿ8Àçˆê¹1
+tpython:S1192u"PDefine a constant instead of duplicating this literal 'ä¾›åº”å•†å®¡è®¡' 6 times.(©öóğûÿÿÿÿ8Áçˆê¹1
+upython:S1192‘"PDefine a constant instead of duplicating this literal 'æ¯å…¬æ–¤ä»·æ ¼' 3 times.(É–œœşÿÿÿÿ8Áçˆê¹1
+{python:S1192 "VDefine a constant instead of duplicating this literal 'ä¾›åº”å•†å˜æ›´ç”³è¯·' 3 times.(î…­Òşÿÿÿÿ8Áçˆê¹1
+xpython:S1192Š"SDefine a constant instead of duplicating this literal 'å¯¹åº”è§„æ ¼ä»£ç ' 3 times.(»Éó¼ıÿÿÿÿ8Áçˆê¹1
+xpython:S1192¡"SDefine a constant instead of duplicating this literal 'æ­£å¼åˆåŒç­¾è®¢' 5 times.(Å¼ôšıÿÿÿÿ8Áçˆê¹1
