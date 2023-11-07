@@ -120,4 +120,43 @@ urlpatterns = [
     # 编辑问题反馈表
     path('question/edit/<int:_id>/', views.question_edit, name='edit_question'),
 
+    # 删除功能
+    # 员工删除功能
+    path('employees/delete/<str:_id>/', views.employees_delete),
+    # 删除内贸部台账表
+    path('innertrade/ledger/delete/<int:_id>/', views.inner_trade_ledger_delete, name='delete_inner_trade_ledger'),
+
+    # 删除外贸部台账表
+    path('foreign/ledger/delete/<int:_id>/', views.foreign_trade_ledger_delete, name='delete_foreign_trade_ledger'),
+
+    # 删除外贸部客户档案表
+    path('foreign/customer/delete/<int:_id>/', views.foreign_customer_delete, name='delete_foreign_customer'),
+
+    # 删除已有制剂已完成,开发中，待开发进度表
+    path('preparation/<str:_type>/delete/<int:_id>/', views.preparation_delete, name='delete_preparation'),
+
+    # 删除授权书总表
+    path('authorization/delete/<int:_id>/', views.authorization_delete, name='delete_authorization'),
+
+    # 删除新品已完成，开发中进度表
+    path('new/<str:_type>/delete/<int:_id>/', views.new_delete, name='delete_new'),
+
+    # 删除新品，已有制剂进度描述
+    path('progress/<str:_type>/delete/<int:_id>/', views.progress_delete, name='delete_progress'),
+
+    # 删除研发部客户档案
+    path('develop/customer/delete/<int:_id>/', views.dev_custom_delete, name='delete_dev_custom'),
+
+    # 删除研发部客户对接表
+    path('develop/butting/delete/<int:_id>/', views.butting_delete, name='delete_butting'),
+
+    # 删除研发部客户流水表
+    path('develop/turnover/delete/<int:_id>/', views.turnover_delete, name='delete_turnover'),
+
+    # 删除辅料表
+    path('product/delete/<str:_id>/', views.product_delete, name='delete_product'),
+
+    # 删除问题反馈表
+    path('question/delete/<int:_id>/', views.question_delete, name='delete_question'),
+
 ]

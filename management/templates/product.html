@@ -3,7 +3,7 @@
 {% block content %}
     <h1>药用辅料表</h1>
     <a href="/product/add/" class="btn btn-primary mb-3">添加</a>
-    <table border="1">
+    <table>
         <tr>
             <th>产品类别</th>
             <th>产品名称</th>
@@ -25,7 +25,7 @@
                 <td>{{ product.spec_code }}</td>
                 <td>
                     <a href="/product/edit/{{ product.spec_code }}/" class="btn btn-info btn-sm">编辑</a>
-                    <a href="#" class="btn btn-danger btn-sm">删除</a>
+                    <a href="/product/delete/{{ product.spec_code }}/" class="btn btn-danger btn-sm">删除</a>
                 </td>
             </tr>
         {% empty %}

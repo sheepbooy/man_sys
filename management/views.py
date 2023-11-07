@@ -718,6 +718,7 @@ def question_add(request):
 
 
 # 编辑功能
+# ----------------------------------------------------------------
 def employees_edit(request, _id):
     """编辑员工信息"""
     row_object = models.Employees.objects.filter(work_id=_id).first()
@@ -945,4 +946,96 @@ def question_edit(request, _id):
         return redirect('/question/')
 
     return render(request, 'question_edit.html', {'form': form})
-    return None
+
+
+# 删除功能
+# ----------------------------------------------------------------
+def employees_delete(request, _id):
+    """用户删除"""
+    models.Employees.objects.filter(work_id=_id).delete()
+    return redirect('/employees/')
+
+
+def inner_trade_ledger_delete(request, _id):
+    """内贸部台账表删除"""
+    models.InternalTradeLedger.objects.filter(id=_id).delete()
+    return redirect('/innertrade/ledger/')
+
+
+def foreign_trade_ledger_delete(request, _id):
+    """外贸部台账删除"""
+    models.ForeignTradeLedger.objects.filter(serial_number=_id).delete()
+    return redirect('/foreign/ledger/')
+
+
+def foreign_customer_delete(request, _id):
+    """外贸部客户删除"""
+    models.ForeignCustomerProfile.objects.filter(customer_profile_number=_id).delete()
+    return redirect('/foreign/customer/')
+
+
+def preparation_delete(request, _type, _id):
+    """删除已有制剂开发表"""
+    if _type == 'completed':
+        models.ExistingProductCompleted.objects.filter(serial_number=_id).delete()
+    elif _type == 'ing':
+        models.ExistingFormulationDeveloping.objects.filter(serial_number=_id).delete()
+    elif _type == 'todev':
+        models.ExistingFormulationToDevelop.objects.filter(serial_number=_id).delete()
+    return redirect(f'/preparation/{_type}/')
+
+
+def authorization_delete(request, _id):
+    """授权表删除"""
+    row_object = models.Authorization.objects.filter(authorization_number=_id).delete()
+    return redirect('/authorization/')
+
+
+def new_delete(request, _type, _id):
+    """删除新品开发表"""
+    if _type == 'ing':
+        models.NewProductDevelopingProgress.objects.filter(serial_number=_id).delete()
+    elif _type == 'completed':
+        models.NewProductCompleted.objects.filter(serial_number=_id).delete()
+    return redirect(f'/new/{_type}/')
+
+
+def progress_delete(request, _type, _id):
+    """编辑进度描述信息"""
+    if _type == 'new':
+        models.NewProductDevelopment.objects.filter(id=_id).delete()
+    elif _type == 'preparation':
+        models.ExistingFormulationProgressDescription.objects.filter(id=_id).delete()
+    return redirect(f'/progress/{_type}/')
+
+
+def dev_custom_delete(request, _id):
+    """删除研发部客户信息"""
+    models.CustomerProfile.objects.filter(customer_id=_id).delete()
+    return redirect('/develop/customer/')
+
+
+def butting_delete(request, _id):
+    """删除研发部客户对接信息"""
+    models.CustomerEngagement.objects.filter(engagement_number=_id).delete()
+    return redirect('/develop/butting/')
+
+
+def turnover_delete(request, _id):
+    """删除研发部客户流水信息"""
+    models.CustomerFlow.objects.filter(customer_id=_id).delete()
+    return redirect('/develop/turnover/')
+
+
+def product_delete(request, _id):
+    """删除辅料信息"""
+    models.Products.objects.filter(spec_code=_id).delete()
+    return redirect('/product/')
+
+
+def question_delete(request, _id):
+    """编辑问题反馈信息"""
+    models.Feedback.objects.filter(id=_id).delete()
+    return redirect('/question/')
+
+

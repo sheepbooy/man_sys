@@ -118,7 +118,7 @@
                 <td>{{ entry.exchange_rate }}</td>
                 <td>
                     <a href="/foreign/ledger/edit/{{ entry.serial_number }}/" class="btn btn-info btn-sm">编辑</a>
-                    <a href="#" class="btn btn-danger btn-sm">删除</a>
+                    <a href="/foreign/ledger/delete/{{ entry.serial_number }}/" class="btn btn-danger btn-sm">删除</a>
                 </td>
             </tr>
         {% endfor %}

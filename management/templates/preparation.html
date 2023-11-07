@@ -112,7 +112,7 @@
                 <td>{{ entry.transfer_time }}</td>
                 <td>
                     <a href="/preparation/{{ type }}/edit/{{ entry.serial_number }}/" class="btn btn-info btn-sm">编辑</a>
-                    <a href="#" class="btn btn-danger btn-sm">删除</a>
+                    <a href="/preparation/{{ type }}/delete/{{ entry.serial_number }}/" class="btn btn-danger btn-sm">删除</a>
                 </td>
             </tr>
         {% endfor %}
