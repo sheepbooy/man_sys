@@ -1,12 +1,24 @@
 {% extends 'layout.html' %}
 {% block content %}
     <table>
-    {% if type == 'ing' %}
-        <h2 class="mb-4">新品开发中开发表</h2></tr>
-    {% elif type == 'completed' %}
-        <h2 class="mb-4">新品已完成开发表</h2></tr>
-    {% endif %}
-        <a href="/new/{{ type }}/add/" class="btn btn-primary mb-3">添加</a>
+        {% if type == 'ing' %}
+            <h2 class="mb-4">新品开发中开发表</h2></tr>
+        {% elif type == 'completed' %}
+            <h2 class="mb-4">新品已完成开发表</h2></tr>
+        {% endif %}
+        <div class="row mb-3">
+            <div class="col">
+                <a href="/new/{{ type }}/add/" class="btn btn-primary mb-3">添加</a>
+            </div>
+            <div class="col text-end">
+                <form method="get">
+                    <div class="input-group">
+                        <input type="text" name='q' class="form-control" placeholder="搜索" value="{{ value }}">
+                        <button class="btn btn-outline-secondary" type="submit">搜索</button>
+                    </div>
+                </form>
+            </div>
+        </div>
 
         <thead>
         <tr>

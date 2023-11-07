@@ -3,7 +3,19 @@
 {% block content %}
     <div class="container mt-4">
         <h2 class="mb-4">员工列表</h2>
-        <a href="/employees/add/" class="btn btn-primary mb-3">添加</a>
+        <div class="row mb-3">
+            <div class="col">
+                <a href="/employees/add/" class="btn btn-primary">添加</a>
+            </div>
+            <div class="col text-end">
+                <form method="get">
+                    <div class="input-group">
+                        <input type="text" name='q' class="form-control" placeholder="搜索" value="{{ value }}">
+                        <button class="btn btn-outline-secondary" type="submit">搜索</button>
+                    </div>
+                </form>
+            </div>
+        </div>
 
         <table class="table">
             <thead>

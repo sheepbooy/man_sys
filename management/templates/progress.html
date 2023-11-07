@@ -2,13 +2,24 @@
 
 {% block content %}
     <table>
-    {% if type == 'new' %}
-        <h2 class="mb-4">新品进度描述表</h2>
-    {% elif type == 'preparation' %}
-        <h2 class="mb-4">已有制剂进度描述表</h2>
-    {% endif %}
-        <a href="/progress/{{ type }}/add/" class="btn btn-primary mb-3">添加</a>
-
+        {% if type == 'new' %}
+            <h2 class="mb-4">新品进度描述表</h2>
+        {% elif type == 'preparation' %}
+            <h2 class="mb-4">已有制剂进度描述表</h2>
+        {% endif %}
+        <div class="row mb-3">
+            <div class="col">
+                <a href="/progress/{{ type }}/add/" class="btn btn-primary mb-3">添加</a>
+            </div>
+            <div class="col text-end">
+                <form method="get">
+                    <div class="input-group">
+                        <input type="text" name='q' class="form-control" placeholder="隶属ID" value="{{ value }}">
+                        <button class="btn btn-outline-secondary" type="submit">搜索</button>
+                    </div>
+                </form>
+            </div>
+        </div>
         <tr>
             <th>时间戳</th>
             <th>进度</th>
@@ -23,8 +34,8 @@
                 <td>{{ item.status }}</td>
                 <td>{{ item.subordinate_id }}</td>
                 <td>
-                    <a href="/progress/{{ type }}/edit/{{  item.id }}/" class="btn btn-info btn-sm">编辑</a>
-                    <a href="/progress/{{ type }}/delete/{{  item.id }}/" class="btn btn-danger btn-sm">删除</a>
+                    <a href="/progress/{{ type }}/edit/{{ item.id }}/" class="btn btn-info btn-sm">编辑</a>
+                    <a href="/progress/{{ type }}/delete/{{ item.id }}/" class="btn btn-danger btn-sm">删除</a>
                 </td>
             </tr>
         {% empty %}

@@ -4,7 +4,19 @@
     <table>
         <thead>
         <h2 class="mb-4">授权书总表</h2>
-        <a href="/authorization/add/" class="btn btn-primary mb-3">添加</a>
+        <div class="row mb-3">
+            <div class="col">
+                <a href="/authorization/add/" class="btn btn-primary mb-3">添加</a>
+            </div>
+            <div class="col text-end">
+                <form method="get">
+                    <div class="input-group">
+                        <input type="text" name='q' class="form-control" placeholder="搜索" value="{{ value }}">
+                        <button class="btn btn-outline-secondary" type="submit">搜索</button>
+                    </div>
+                </form>
+            </div>
+        </div>
         </tr>
 
         <th>授权书编号</th>
@@ -43,7 +55,8 @@
                 <td>{{ item.notes }}</td>
                 <td>
                     <a href="/authorization/edit/{{ item.authorization_number }}/" class="btn btn-info btn-sm">编辑</a>
-                    <a href="/authorization/delete/{{ item.authorization_number }}/" class="btn btn-danger btn-sm">删除</a>
+                    <a href="/authorization/delete/{{ item.authorization_number }}/"
+                       class="btn btn-danger btn-sm">删除</a>
                 </td>
             </tr>
         {% endfor %}

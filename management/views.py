@@ -1,7 +1,8 @@
 from django import forms
 from django.shortcuts import render, redirect
-
+from django.core.validators import RegexValidator
 from management import models
+from django.db.models import Q
 
 
 class EmployeesForm(forms.ModelForm):
@@ -9,7 +10,8 @@ class EmployeesForm(forms.ModelForm):
 
     class Meta:
         model = models.Employees
-        fields = ['name', 'password', 'department', 'gender', 'position', 'work_id', 'status']
+        # fields = ['na/me', 'password', 'department', 'gender', 'position', 'work_id', 'status']
+        fields = '__all__'
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -23,16 +25,17 @@ class inner_trade_ledger_form(forms.ModelForm):
 
     class Meta:
         model = models.InternalTradeLedger
-        fields = [
-            'id', 'order_date', 'sales_date', 'contract_number', 'contract_returned', 'region_department',
-            'province', 'city', 'year', 'month', 'industry_category', 'product_usage', 'company_name',
-            'product_name', 'model', 'code', 'specification', 'quantity', 'unit_price', 'total_amount',
-            'quantity1', 'unit_price1', 'increase_debit', 'decrease_credit', 'balance', 'f26', 'f27',
-            'first_occurrence', 'new', 'second_occurrence', 'unreceived_payment', 'payment_date', 'old',
-            'salesperson', 'acceptance_amount', 'cash', 'date', 'invoice_number', 'invoice_receipt_number',
-            'sales_month', 'customer_type', 'logistics_shipment_date', 'waybill_number',
-            'unit_price_below_current_price_list'
-        ]
+        # fields = [
+        #     'id', 'order_date', 'sales_date', 'contract_number', 'contract_returned', 'region_department',
+        #     'province', 'city', 'year', 'month', 'industry_category', 'product_usage', 'company_name',
+        #     'product_name', 'model', 'code', 'specification', 'quantity', 'unit_price', 'total_amount',
+        #     'quantity1', 'unit_price1', 'increase_debit', 'decrease_credit', 'balance', 'f26', 'f27',
+        #     'first_occurrence', 'new', 'second_occurrence', 'unreceived_payment', 'payment_date', 'old',
+        #     'salesperson', 'acceptance_amount', 'cash', 'date', 'invoice_number', 'invoice_receipt_number',
+        #     'sales_month', 'customer_type', 'logistics_shipment_date', 'waybill_number',
+        #     'unit_price_below_current_price_list'
+        # ]
+        fields = '__all__'
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -46,22 +49,23 @@ class foreign_trade_ledger_form(forms.ModelForm):
 
     class Meta:
         model = models.ForeignTradeLedger
-        fields = [
-            'serial_number', 'order_date', 'sales_date', 'contract_number', 'customs_declaration', 'other_details',
-            'country_province', 'nature', 'development_date', 'company_name', 'product_name', 'model', 'code',
-            'specification', 'cash_sales_quantity', 'cash_sales_price_usd', 'cash_sales_price_cny',
-            'cash_sales_total_usd', 'cash_sales_total_cny', 'accounts_receivable_sales_quantity',
-            'accounts_receivable_sales_price_usd', 'accounts_receivable_sales_price_cny',
-            'accounts_receivable_sales_total_usd', 'accounts_receivable_sales_total_cny',
-            'accounts_receivable_debit_usd',
-            'accounts_receivable_debit_cny', 'accounts_receivable_credit_usd', 'accounts_receivable_credit_cny',
-            'order_amount_usd', 'order_amount_cny', 'payment_received_usd', 'payment_received_cny', 'first_occurrence',
-            'customer_type', 'unreceived_payment_usd', 'unreceived_payment_cny', 'salesperson', 'payment_usd',
-            'payment_cny', 'payment_date', 'invoice_number', 'invoice_receipt_number', 'sales_month',
-            'international_freight_rmb', 'international_freight_usd', 'miscellaneous_fees', 'total_amount',
-            'logistics_shipping_date', 'waybill_number', 'price_below_current_price_list', 'tax_refund_amount',
-            'exchange_rate'
-        ]
+        # fields = [
+        #     'serial_number', 'order_date', 'sales_date', 'contract_number', 'customs_declaration', 'other_details',
+        #     'country_province', 'nature', 'development_date', 'company_name', 'product_name', 'model', 'code',
+        #     'specification', 'cash_sales_quantity', 'cash_sales_price_usd', 'cash_sales_price_cny',
+        #     'cash_sales_total_usd', 'cash_sales_total_cny', 'accounts_receivable_sales_quantity',
+        #     'accounts_receivable_sales_price_usd', 'accounts_receivable_sales_price_cny',
+        #     'accounts_receivable_sales_total_usd', 'accounts_receivable_sales_total_cny',
+        #     'accounts_receivable_debit_usd',
+        #     'accounts_receivable_debit_cny', 'accounts_receivable_credit_usd', 'accounts_receivable_credit_cny',
+        #     'order_amount_usd', 'order_amount_cny', 'payment_received_usd', 'payment_received_cny', 'first_occurrence',
+        #     'customer_type', 'unreceived_payment_usd', 'unreceived_payment_cny', 'salesperson', 'payment_usd',
+        #     'payment_cny', 'payment_date', 'invoice_number', 'invoice_receipt_number', 'sales_month',
+        #     'international_freight_rmb', 'international_freight_usd', 'miscellaneous_fees', 'total_amount',
+        #     'logistics_shipping_date', 'waybill_number', 'price_below_current_price_list', 'tax_refund_amount',
+        #     'exchange_rate'
+        # ]
+        fields = '__all__'
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -75,14 +79,15 @@ class foreign_customer_form(forms.ModelForm):
 
     class Meta:
         model = models.ForeignCustomerProfile
-        fields = [
-            'customer_profile_number', 'salesperson', 'classification', 'development_date', 'company_name',
-            'country', 'media', 'product_name', 'specification_code', 'specification_code_notes', 'usage',
-            'follow_up_record', 'company_type', 'company_profile', 'customer_contact', 'customer_email',
-            'customer_phone',
-            'customer_website', 'preliminary_negotiation', 'samples', 'questionnaire', 'deal', 'supplier_audit',
-            'estimated_annual_usage', 'current_supplier', 'level', 'model', 'unit_price', 'time', 'progress_description'
-        ]
+        # fields = [
+        #     'customer_profile_number', 'salesperson', 'classification', 'development_date', 'company_name',
+        #     'country', 'media', 'product_name', 'specification_code', 'specification_code_notes', 'usage',
+        #     'follow_up_record', 'company_type', 'company_profile', 'customer_contact', 'customer_email',
+        #     'customer_phone',
+        #     'customer_website', 'preliminary_negotiation', 'samples', 'questionnaire', 'deal', 'supplier_audit',
+        #     'estimated_annual_usage', 'current_supplier', 'level', 'model', 'unit_price', 'time', 'progress_description'
+        # ]
+        fields = '__all__'
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -96,21 +101,22 @@ class ExistingFormulationToDevelop_form(forms.ModelForm):
 
     class Meta:
         model = models.ExistingFormulationToDevelop
-        fields = [
-            'serial_number', 'enterprise_name', 'province', 'city', 'department', 'specific_department',
-            'responsible_person', 'customer_name', 'customer_source', 'product', 'corresponding_specification_code',
-            'special_requirements', 'estimated_annual_consumption', 'current_manufacturer', 'product_level',
-            'model_number',
-            'price_per_kg', 'sample_sales', 'is_repeated_project', 'first_quotation', 'quantity', 'unit_price',
-            'amount',
-            'formulation_name', 'is_consistency_evaluation_product', 'auxiliary_material_usage', 'prescription_dosage',
-            'development_date', 'customer_importance', 'initial_negotiation', 'supplier_change_request',
-            'supplier_audit',
-            'continuous_batch_sample_testing', 'first_production_of_3_batches', 'stability_study',
-            'additional_application_record_change', 'formal_contract_signing', 'delivery', 'in_progress', 'notes',
-            'before_pilot_scale_up', 'before_submission', 'issuing_time', 'landing_enterprise_name', 'contact_person',
-            'handover_sales_manager', 'handover_time'
-        ]
+        # fields = [
+        #     'serial_number', 'enterprise_name', 'province', 'city', 'department', 'specific_department',
+        #     'responsible_person', 'customer_name', 'customer_source', 'product', 'corresponding_specification_code',
+        #     'special_requirements', 'estimated_annual_consumption', 'current_manufacturer', 'product_level',
+        #     'model_number',
+        #     'price_per_kg', 'sample_sales', 'is_repeated_project', 'first_quotation', 'quantity', 'unit_price',
+        #     'amount',
+        #     'formulation_name', 'is_consistency_evaluation_product', 'auxiliary_material_usage', 'prescription_dosage',
+        #     'development_date', 'customer_importance', 'initial_negotiation', 'supplier_change_request',
+        #     'supplier_audit',
+        #     'continuous_batch_sample_testing', 'first_production_of_3_batches', 'stability_study',
+        #     'additional_application_record_change', 'formal_contract_signing', 'delivery', 'in_progress', 'notes',
+        #     'before_pilot_scale_up', 'before_submission', 'issuing_time', 'landing_enterprise_name', 'contact_person',
+        #     'handover_sales_manager', 'handover_time'
+        # ]
+        fields = '__all__'
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -124,21 +130,22 @@ class ExistingFormulationDeveloping_form(forms.ModelForm):
 
     class Meta:
         model = models.ExistingFormulationDeveloping
-        fields = [
-            'serial_number', 'enterprise_name', 'province', 'city', 'department', 'specific_department',
-            'responsible_person', 'customer_name', 'customer_source', 'product', 'corresponding_specification_code',
-            'special_requirements', 'estimated_annual_consumption', 'current_manufacturer', 'product_level',
-            'model_number',
-            'price_per_kg', 'sample_sales', 'is_repeated_project', 'first_quotation', 'quantity', 'unit_price',
-            'amount',
-            'formulation_name', 'is_consistency_evaluation_product', 'auxiliary_material_usage', 'prescription_dosage',
-            'development_date', 'customer_importance', 'initial_negotiation', 'supplier_change_request',
-            'supplier_audit',
-            'continuous_batch_sample_testing', 'first_production_of_3_batches', 'stability_study',
-            'additional_application_record_change', 'formal_contract_signing', 'delivery', 'in_progress', 'notes',
-            'before_pilot_scale_up', 'before_submission', 'issuing_time', 'landing_enterprise_name', 'contact_person',
-            'handover_sales_manager', 'handover_time'
-        ]
+        # fields = [
+        #     'serial_number', 'enterprise_name', 'province', 'city', 'department', 'specific_department',
+        #     'responsible_person', 'customer_name', 'customer_source', 'product', 'corresponding_specification_code',
+        #     'special_requirements', 'estimated_annual_consumption', 'current_manufacturer', 'product_level',
+        #     'model_number',
+        #     'price_per_kg', 'sample_sales', 'is_repeated_project', 'first_quotation', 'quantity', 'unit_price',
+        #     'amount',
+        #     'formulation_name', 'is_consistency_evaluation_product', 'auxiliary_material_usage', 'prescription_dosage',
+        #     'development_date', 'customer_importance', 'initial_negotiation', 'supplier_change_request',
+        #     'supplier_audit',
+        #     'continuous_batch_sample_testing', 'first_production_of_3_batches', 'stability_study',
+        #     'additional_application_record_change', 'formal_contract_signing', 'delivery', 'in_progress', 'notes',
+        #     'before_pilot_scale_up', 'before_submission', 'issuing_time', 'landing_enterprise_name', 'contact_person',
+        #     'handover_sales_manager', 'handover_time'
+        # ]
+        fields = '__all__'
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -152,20 +159,21 @@ class ExistingProductCompleted_form(forms.ModelForm):
 
     class Meta:
         model = models.ExistingProductCompleted
-        fields = [
-            'serial_number', 'enterprise_name', 'province', 'city', 'department', 'specific_department',
-            'responsible_person',
-            'customer_name', 'customer_source', 'product', 'corresponding_specification_code', 'special_requirements',
-            'estimated_annual_consumption', 'current_manufacturer', 'product_level', 'model_number', 'price_per_kg',
-            'sample_sales',
-            'is_repeated_project', 'first_quotation', 'quantity', 'unit_price', 'amount', 'formulation_name',
-            'is_consistency_evaluation_product', 'auxiliary_material_usage', 'prescription_dosage', 'development_date',
-            'customer_importance', 'initial_negotiation', 'supplier_change_request', 'supplier_audit',
-            'continuous_batch_sample_testing', 'first_production_of_3_batches', 'stability_study',
-            'additional_application_record_change', 'formal_contract_signing', 'delivery', 'in_progress', 'notes',
-            'before_pilot_scale_up', 'before_submission', 'issuing_time', 'landing_enterprise_name', 'contact_person',
-            'handover_sales_manager', 'handover_time'
-        ]
+        # fields = [
+        #     'serial_number', 'enterprise_name', 'province', 'city', 'department', 'specific_department',
+        #     'responsible_person',
+        #     'customer_name', 'customer_source', 'product', 'corresponding_specification_code', 'special_requirements',
+        #     'estimated_annual_consumption', 'current_manufacturer', 'product_level', 'model_number', 'price_per_kg',
+        #     'sample_sales',
+        #     'is_repeated_project', 'first_quotation', 'quantity', 'unit_price', 'amount', 'formulation_name',
+        #     'is_consistency_evaluation_product', 'auxiliary_material_usage', 'prescription_dosage', 'development_date',
+        #     'customer_importance', 'initial_negotiation', 'supplier_change_request', 'supplier_audit',
+        #     'continuous_batch_sample_testing', 'first_production_of_3_batches', 'stability_study',
+        #     'additional_application_record_change', 'formal_contract_signing', 'delivery', 'in_progress', 'notes',
+        #     'before_pilot_scale_up', 'before_submission', 'issuing_time', 'landing_enterprise_name', 'contact_person',
+        #     'handover_sales_manager', 'handover_time'
+        # ]
+        fields = '__all__'
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -179,12 +187,13 @@ class authorization_form(forms.ModelForm):
 
     class Meta:
         model = models.Authorization
-        fields = [
-            'authorization_number', 'issuance_month', 'product_name', 'registration_number',
-            'registration_status', 'related_manufacturer', 'related_product_name', 'administration_route',
-            'follow_up_person', 'review_status', 'acceptance_month', 'during_review_month', 'disappearing_month',
-            'notes'
-        ]
+        # fields = [
+        #     'authorization_number', 'issuance_month', 'product_name', 'registration_number',
+        #     'registration_status', 'related_manufacturer', 'related_product_name', 'administration_route',
+        #     'follow_up_person', 'review_status', 'acceptance_month', 'during_review_month', 'disappearing_month',
+        #     'notes'
+        # ]
+        fields = '__all__'
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -198,18 +207,19 @@ class NewProductDeveloping_form(forms.ModelForm):
 
     class Meta:
         model = models.NewProductDevelopingProgress
-        fields = [
-            'serial_number', 'company_name', 'province', 'city', 'department',
-            'specific_department', 'manager', 'customer_name', 'customer_source', 'product',
-            'specification_code', 'special_requirements', 'sample_or_sale', 'is_duplicate_project',
-            'initial_quote', 'quantity', 'unit_price', 'amount', 'formulation_name',
-            'is_consistency_evaluation_product', 'excipient_purpose', 'prescription_quantity',
-            'start_development_date', 'customer_importance', 'excipient_inspection',
-            'prescription_selection', 'preliminary_process_validation_small_scale', 'pilot_scale_verification',
-            'process_verification', 'clinical_trials', 'approval_received', 'regular_purchase',
-            'response_needed', 'in_progress', 'notes', 'before_pilot_scale', 'before_submission',
-            'issuance_date', 'landing_company_name', 'contact_person', 'transfer_to_sales_manager', 'transfer_date'
-        ]
+        # fields = [
+        #     'serial_number', 'company_name', 'province', 'city', 'department',
+        #     'specific_department', 'manager', 'customer_name', 'customer_source', 'product',
+        #     'specification_code', 'special_requirements', 'sample_or_sale', 'is_duplicate_project',
+        #     'initial_quote', 'quantity', 'unit_price', 'amount', 'formulation_name',
+        #     'is_consistency_evaluation_product', 'excipient_purpose', 'prescription_quantity',
+        #     'start_development_date', 'customer_importance', 'excipient_inspection',
+        #     'prescription_selection', 'preliminary_process_validation_small_scale', 'pilot_scale_verification',
+        #     'process_verification', 'clinical_trials', 'approval_received', 'regular_purchase',
+        #     'response_needed', 'in_progress', 'notes', 'before_pilot_scale', 'before_submission',
+        #     'issuance_date', 'landing_company_name', 'contact_person', 'transfer_to_sales_manager', 'transfer_date'
+        # ]
+        fields = '__all__'
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -223,18 +233,19 @@ class NewProductCompleted_form(forms.ModelForm):
 
     class Meta:
         model = models.NewProductCompleted
-        fields = [
-            'serial_number', 'company_name', 'province', 'city', 'department',
-            'specific_department', 'manager', 'customer_name', 'customer_source', 'product',
-            'specification_code', 'special_requirements', 'sample_or_sale', 'is_duplicate_project',
-            'initial_quote', 'quantity', 'unit_price', 'amount', 'formulation_name',
-            'is_consistency_evaluation_product', 'excipient_purpose', 'prescription_quantity',
-            'start_development_date', 'customer_importance', 'excipient_inspection',
-            'prescription_selection', 'preliminary_process_validation_small_scale', 'pilot_scale_verification',
-            'process_verification', 'clinical_trials', 'approval_received', 'regular_purchase',
-            'response_needed', 'in_progress', 'notes', 'before_pilot_scale', 'before_submission',
-            'issuance_date', 'landing_company_name', 'contact_person', 'transfer_to_sales_manager', 'transfer_date'
-        ]
+        # fields = [
+        #     'serial_number', 'company_name', 'province', 'city', 'department',
+        #     'specific_department', 'manager', 'customer_name', 'customer_source', 'product',
+        #     'specification_code', 'special_requirements', 'sample_or_sale', 'is_duplicate_project',
+        #     'initial_quote', 'quantity', 'unit_price', 'amount', 'formulation_name',
+        #     'is_consistency_evaluation_product', 'excipient_purpose', 'prescription_quantity',
+        #     'start_development_date', 'customer_importance', 'excipient_inspection',
+        #     'prescription_selection', 'preliminary_process_validation_small_scale', 'pilot_scale_verification',
+        #     'process_verification', 'clinical_trials', 'approval_received', 'regular_purchase',
+        #     'response_needed', 'in_progress', 'notes', 'before_pilot_scale', 'before_submission',
+        #     'issuance_date', 'landing_company_name', 'contact_person', 'transfer_to_sales_manager', 'transfer_date'
+        # ]
+        fields = '__all__'
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -248,9 +259,10 @@ class NewProductDevelopment_form(forms.ModelForm):
 
     class Meta:
         model = models.NewProductDevelopment
-        fields = [
-            'id', 'timestamp', 'progress', 'status', 'subordinate_id',
-        ]
+        # fields = [
+        #     'id', 'timestamp', 'progress', 'status', 'subordinate_id',
+        # ]
+        fields = '__all__'
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -264,9 +276,10 @@ class ExistingFormulationProgressDescription_form(forms.ModelForm):
 
     class Meta:
         model = models.ExistingFormulationProgressDescription
-        fields = [
-            'id', 'timestamp', 'progress', 'status', 'subordinate_id',
-        ]
+        # fields = [
+        #     'id', 'timestamp', 'progress', 'status', 'subordinate_id',
+        # ]
+        fields = '__all__'
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -280,16 +293,17 @@ class CustomerProfile_form(forms.ModelForm):
 
     class Meta:
         model = models.CustomerProfile
-        fields = [
-            'customer_id', 'sales_department', 'province', 'research_capacity', 'company_name',
-            'legal_representative', 'general_manager', 'license_number', 'gmp_certificate', 'company_type',
-            'research_scope', 'drug', 'business_scale', 'number_of_employees', 'other_description',
-            'customer_name', 'customer_mobile', 'customer_department', 'customer_job_level_assessment_abc',
-            'initial_contact_time', 'customer_address', 'sample_time', 'sample_product', 'sample_model',
-            'sample_quantity_grams', 'sample_purpose', 'sample_progress', 'sales_time', 'sales_product',
-            'sales_specification', 'sales_unit_price_cny', 'sales_quantity_kg', 'sales_amount', 'sales_purpose',
-            'sales_progress', 'phone_sales_visit_description'
-        ]
+        # fields = [
+        #     'customer_id', 'sales_department', 'province', 'research_capacity', 'company_name',
+        #     'legal_representative', 'general_manager', 'license_number', 'gmp_certificate', 'company_type',
+        #     'research_scope', 'drug', 'business_scale', 'number_of_employees', 'other_description',
+        #     'customer_name', 'customer_mobile', 'customer_department', 'customer_job_level_assessment_abc',
+        #     'initial_contact_time', 'customer_address', 'sample_time', 'sample_product', 'sample_model',
+        #     'sample_quantity_grams', 'sample_purpose', 'sample_progress', 'sales_time', 'sales_product',
+        #     'sales_specification', 'sales_unit_price_cny', 'sales_quantity_kg', 'sales_amount', 'sales_purpose',
+        #     'sales_progress', 'phone_sales_visit_description'
+        # ]
+        fields = '__all__'
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -303,13 +317,14 @@ class CustomerEngagement_form(forms.ModelForm):
 
     class Meta:
         model = models.CustomerEngagement
-        fields = [
-            'engagement_number', 'recorder', 'proactive_or_passive_engagement', 'company_name',
-            'company_category', 'customer_name', 'customer_category', 'product_inquiry', 'price_inquiry',
-            'sample_request', 'purchase', 'electronic_material_provision', 'physical_material_preparation',
-            'sample_tracking', 'product_use_or_question_inquiry', 'product_name', 'specification_code',
-            'weight', 'dosage_form_or_dosage_category', 'issue', 'is_resolved', 'resolution_solution'
-        ]
+        # fields = [
+        #     'engagement_number', 'recorder', 'proactive_or_passive_engagement', 'company_name',
+        #     'company_category', 'customer_name', 'customer_category', 'product_inquiry', 'price_inquiry',
+        #     'sample_request', 'purchase', 'electronic_material_provision', 'physical_material_preparation',
+        #     'sample_tracking', 'product_use_or_question_inquiry', 'product_name', 'specification_code',
+        #     'weight', 'dosage_form_or_dosage_category', 'issue', 'is_resolved', 'resolution_solution'
+        # ]
+        fields = '__all__'
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -323,15 +338,16 @@ class CustomerFlow_form(forms.ModelForm):
 
     class Meta:
         model = models.CustomerFlow
-        fields = [
-            'customer_id', 'sales_department', 'province', 'city', 'company_name',
-            'company_type', 'company_size', 'company_address', 'customer_name', 'phone',
-            'tags', 'department', 'position', 'job_level_assessment', 'sample_or_purchase',
-            'level_of_contact', 'contact_person', 'overlapping_contacts', 'contact_method',
-            'initial_contact_time', 'first_promotional_material', 'summer_gift_2021',
-            'injection_books_2021', 'year_end_gift_delivery_2021', 'summer_gift_2022',
-            'books_2022', 'major_customer_gift_2022', 'year_end_gift_2022', 'former_employer'
-        ]
+        # fields = [
+        #     'customer_id', 'sales_department', 'province', 'city', 'company_name',
+        #     'company_type', 'company_size', 'company_address', 'customer_name', 'phone',
+        #     'tags', 'department', 'position', 'job_level_assessment', 'sample_or_purchase',
+        #     'level_of_contact', 'contact_person', 'overlapping_contacts', 'contact_method',
+        #     'initial_contact_time', 'first_promotional_material', 'summer_gift_2021',
+        #     'injection_books_2021', 'year_end_gift_delivery_2021', 'summer_gift_2022',
+        #     'books_2022', 'major_customer_gift_2022', 'year_end_gift_2022', 'former_employer'
+        # ]
+        fields = '__all__'
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -345,10 +361,11 @@ class Products_form(forms.ModelForm):
 
     class Meta:
         model = models.Products
-        fields = [
-            'category', 'product_name', 'specification', 'specification_features',
-            'requirements', 'labels', 'spec_code'
-        ]
+        # fields = [
+        #     'category', 'product_name', 'specification', 'specification_features',
+        #     'requirements', 'labels', 'spec_code'
+        # ]
+        fields = '__all__'
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -362,10 +379,11 @@ class Feedback_form(forms.ModelForm):
 
     class Meta:
         model = models.Feedback
-        fields = [
-            'id', 'timestamp', 'department', 'product', 'related_formulation',
-            'message', 'progress_status', 'contact_department_lead', 'details'
-        ]
+        # fields = [
+        #     'id', 'timestamp', 'department', 'product', 'related_formulation',
+        #     'message', 'progress_status', 'contact_department_lead', 'details'
+        # ]
+        fields = '__all__'
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -413,97 +431,296 @@ def home(request):
 
 def employees_list(request):
     """所有员工信息表"""
-    query_set = models.Employees.objects.all()
-    return render(request, 'employees_list.html', {'query_set': query_set})
+    value = request.GET.get('q', '')
+    # 创建一个空的Q对象
+    if value is not None:
+        query = Q()
+        # 获取模型的字段列表
+        fields = models.Employees._meta.fields
+        # 遍历字段列表并创建相应的Q对象
+        for field in fields:
+            if field.name != "id":  # 排除默认的AutoField "id"字段
+                # 创建Q对象，并将字段名和搜索值拼接成查询条件
+                q = Q(**{f"{field.name}__icontains": value})
+                # 使用|操作符将Q对象添加到主查询中
+                query |= q
+        query_set = models.Employees.objects.filter(query)
+    else:
+        query_set = models.Employees.objects.all()
+    return render(request, 'employees_list.html', {'query_set': query_set, 'value': value})
 
 
 def inner_trade_ledger(request):
     """内贸部台账表"""
-    query_set = models.InternalTradeLedger.objects.all()
-    return render(request, 'inner_trade_ledger.html', {'query_set': query_set})
+    value = request.GET.get('q', '')
+    if value is not None:
+        # 创建一个空的Q对象
+        query = Q()
+        # 获取模型的字段列表
+        fields = models.InternalTradeLedger._meta.fields
+        # 遍历字段列表并创建相应的Q对象
+        for field in fields:
+            if field.name != "id":  # 排除默认的AutoField "id"字段
+                # 创建Q对象，并将字段名和搜索值拼接成查询条件
+                q = Q(**{f"{field.name}__icontains": value})
+                # 使用|操作符将Q对象添加到主查询中
+                query |= q
+        query_set = models.InternalTradeLedger.objects.filter(query)
+    else:
+        query_set = models.InternalTradeLedger.objects.all()
+    return render(request, 'inner_trade_ledger.html', {'query_set': query_set, 'value': value})
 
 
 def foreign_trade_ledger(request):
     """外贸部台账表"""
-    query_set = models.ForeignTradeLedger.objects.all()
-    return render(request, 'foreign_trade_ledger.html', {'query_set': query_set})
+    value = request.GET.get('q', '')
+    if value is not None:
+        # 创建一个空的Q对象
+        query = Q()
+        # 获取模型的字段列表
+        fields = models.ForeignTradeLedger._meta.fields
+        # 遍历字段列表并创建相应的Q对象
+        for field in fields:
+            if field.name != "serial_number":  # 排除默认的AutoField "id"字段
+                # 创建Q对象，并将字段名和搜索值拼接成查询条件
+                q = Q(**{f"{field.name}__icontains": value})
+                # 使用|操作符将Q对象添加到主查询中
+                query |= q
+        query_set = models.ForeignTradeLedger.objects.filter(query)
+    else:
+        query_set = models.ForeignTradeLedger.objects.all()
+    return render(request, 'foreign_trade_ledger.html', {'query_set': query_set, 'value': value})
 
 
 def foreign_customer(request):
     """外贸部客户档案"""
-    query_set = models.ForeignCustomerProfile.objects.all()
-    return render(request, 'foreign_customer_list.html', {'query_set': query_set})
+    value = request.GET.get('q', '')
+    if value is not None:
+        # 创建一个空的Q对象
+        query = Q()
+        # 获取模型的字段列表
+        fields = models.ForeignCustomerProfile._meta.fields
+        # 遍历字段列表并创建相应的Q对象
+        for field in fields:
+            if field.name != "customer_profile_number":  # 排除默认的AutoField "id"字段
+                # 创建Q对象，并将字段名和搜索值拼接成查询条件
+                q = Q(**{f"{field.name}__icontains": value})
+                # 使用|操作符将Q对象添加到主查询中
+                query |= q
+        query_set = models.ForeignCustomerProfile.objects.filter(query)
+    else:
+        query_set = models.ForeignCustomerProfile.objects.all()
+    return render(request, 'foreign_customer_list.html', {'query_set': query_set, 'value': value})
 
 
 def preparation(request, _type):
     """已有制剂的已完成，待开发，开发中进度表"""
-    if _type == 'completed':
-        query_set = models.ExistingProductCompleted.objects.all()
-        return render(request, 'preparation.html', {'query_set': query_set, 'type': 'completed'})
+    model_map = {
+        'completed': models.ExistingProductCompleted,
+        'ing': models.ExistingFormulationDeveloping,
+        'todev': models.ExistingFormulationToDevelop
+    }
 
-    elif _type == 'ing':
-        query_set = models.ExistingFormulationDeveloping.objects.all()
-        return render(request, 'preparation.html', {'query_set': query_set, 'type': 'ing'})
+    value = request.GET.get('q', '')
+    model = model_map.get(_type)  # 定义一个默认的model
 
-    elif _type == 'todev':
-        query_set = models.ExistingFormulationToDevelop.objects.all()
-        return render(request, 'preparation.html', {'query_set': query_set, 'type': 'todev'})
+    if value is not None:
+        # 创建一个空的Q对象
+        query = Q()
+        if model:
+            # 获取模型的字段列表
+            fields = model._meta.fields
+            for field in fields:
+                if field.name != "serial_number":  # 排除默认的AutoField "id"字段
+                    # 创建Q对象，并将字段名和搜索值拼接成查询条件
+                    q = Q(**{f"{field.name}__icontains": value})
+                    # 使用|操作符将Q对象添加到主查询中
+                    query |= q
+
+            query_set = model.objects.filter(query)
+        else:
+            query_set = None
+    else:
+        query_set = model.objects.all() if model else None
+
+    return render(request, 'preparation.html', {'query_set': query_set, 'type': _type, 'value': value})
 
 
 def authorization(request):
     """授权书总表"""
-    query_set = models.Authorization.objects.all()
-    return render(request, 'authorization.html', {'query_set': query_set})
+    value = request.GET.get('q', '')
+    if value is not None:
+        # 创建一个空的Q对象
+        query = Q()
+        # 获取模型的字段列表
+        fields = models.Authorization._meta.fields
+        # 遍历字段列表并创建相应的Q对象
+        for field in fields:
+            if field.name != "customer_profile_number":  # 排除默认的AutoField "id"字段
+                # 创建Q对象，并将字段名和搜索值拼接成查询条件
+                q = Q(**{f"{field.name}__icontains": value})
+                # 使用|操作符将Q对象添加到主查询中
+                query |= q
+        query_set = models.Authorization.objects.filter(query)
+    else:
+        query_set = models.Authorization.objects.all()
+    return render(request, 'authorization.html', {'query_set': query_set,  'value': value})
 
 
 def new(request, _type):
     """新品开发中，已完成进度表"""
-    if _type == 'ing':
-        query_set = models.NewProductDevelopingProgress.objects.all()
-        return render(request, 'new_product.html', {'query_set': query_set, 'type': 'ing'})
-    elif _type == 'completed':
-        query_set = models.NewProductCompleted.objects.all()
-        return render(request, 'new_product.html', {'query_set': query_set, 'type': 'completed'})
+    model_map = {
+        'ing': models.NewProductDevelopingProgress,
+        'completed': models.NewProductCompleted
+    }
+
+    value = request.GET.get('q', '')
+    model = model_map.get(_type)  # 获取相应的模型
+
+    if value is not None:
+        # 创建一个空的Q对象
+        query = Q()
+        if model:
+            # 获取模型的字段列表
+            fields = model._meta.fields
+            for field in fields:
+                if field.name != "customer_profile_number":  # 排除默认的AutoField "id"字段
+                    # 创建Q对象，并将字段名和搜索值拼接成查询条件
+                    q = Q(**{f"{field.name}__icontains": value})
+                    # 使用|操作符将Q对象添加到主查询中
+                    query |= q
+
+            query_set = model.objects.filter(query)
+        else:
+            query_set = None
+    else:
+        query_set = model.objects.all() if model else None
+
+    return render(request, 'new_product.html', {'query_set': query_set, 'type': _type,  'value': value})
 
 
 def progress(request, _type):
     """新品，已有制剂进度描述表"""
-    if _type == 'new':
-        query_set = models.NewProductDevelopment.objects.all()
-        return render(request, 'progress.html', {'query_set': query_set, 'type': 'new'})
-    elif _type == 'preparation':
-        query_set = models.ExistingFormulationProgressDescription.objects.all()
-        return render(request, 'progress.html', {'query_set': query_set, 'type': 'preparation'})
+    model_map = {
+        'new': models.NewProductDevelopment,
+        'preparation': models.ExistingFormulationProgressDescription
+    }
+
+    value = request.GET.get('q', '')
+    model = model_map.get(_type)  # 获取相应的模型
+
+    if value is not None:
+        query = Q(subordinate_id__icontains=value)
+        query_set = model.objects.filter(query) if model else None
+    else:
+        query_set = model.objects.all() if model else None
+
+    return render(request, 'progress.html', {'query_set': query_set, 'type': _type,  'value': value})
 
 
 def dev_custom(request):
     """研发部客户档案表"""
-    query_set = models.CustomerProfile.objects.all()
-    return render(request, 'dev_custom.html', {'query_set': query_set})
+    value = request.GET.get('q', '')
+    if value is not None:
+        # 创建一个空的Q对象
+        query = Q()
+        # 获取模型的字段列表
+        fields = models.CustomerProfile._meta.fields
+        # 遍历字段列表并创建相应的Q对象
+        for field in fields:
+            if field.name != "customer_profile_number":  # 排除默认的AutoField "id"字段
+                # 创建Q对象，并将字段名和搜索值拼接成查询条件
+                q = Q(**{f"{field.name}__icontains": value})
+                # 使用|操作符将Q对象添加到主查询中
+                query |= q
+        query_set = models.CustomerProfile.objects.filter(query)
+    else:
+        query_set = models.CustomerProfile.objects.all()
+    return render(request, 'dev_custom.html', {'query_set': query_set,  'value': value})
 
 
 def butting(request):
     """研发部客户对接表"""
-    query_set = models.CustomerEngagement.objects.all()
-    return render(request, 'butting.html', {'query_set': query_set})
+    value = request.GET.get('q', '')
+    if value is not None:
+        # 创建一个空的Q对象
+        query = Q()
+        # 获取模型的字段列表
+        fields = models.CustomerEngagement._meta.fields
+        # 遍历字段列表并创建相应的Q对象
+        for field in fields:
+            if field.name != "customer_profile_number":  # 排除默认的AutoField "id"字段
+                # 创建Q对象，并将字段名和搜索值拼接成查询条件
+                q = Q(**{f"{field.name}__icontains": value})
+                # 使用|操作符将Q对象添加到主查询中
+                query |= q
+        query_set = models.CustomerEngagement.objects.filter(query)
+    else:
+        query_set = models.CustomerEngagement.objects.all()
+    return render(request, 'butting.html', {'query_set': query_set,  'value': value})
 
 
 def turnover(request):
     """研发部客户流水表"""
-    query_set = models.CustomerFlow.objects.all()
-    return render(request, 'turnover.html', {'query_set': query_set})
+    value = request.GET.get('q', '')
+    if value is not None:
+        # 创建一个空的Q对象
+        query = Q()
+        # 获取模型的字段列表
+        fields = models.CustomerFlow._meta.fields
+        # 遍历字段列表并创建相应的Q对象
+        for field in fields:
+            if field.name != "customer_profile_number":  # 排除默认的AutoField "id"字段
+                # 创建Q对象，并将字段名和搜索值拼接成查询条件
+                q = Q(**{f"{field.name}__icontains": value})
+                # 使用|操作符将Q对象添加到主查询中
+                query |= q
+        query_set = models.CustomerFlow.objects.filter(query)
+    else:
+        query_set = models.CustomerFlow.objects.all()
+    return render(request, 'turnover.html', {'query_set': query_set,  'value': value})
 
 
 def product(request):
     """辅料表"""
-    query_set = models.Products.objects.all()
-    return render(request, 'product.html', {'query_set': query_set})
+    value = request.GET.get('q', '')
+    if value is not None:
+        # 创建一个空的Q对象
+        query = Q()
+        # 获取模型的字段列表
+        fields = models.Products._meta.fields
+        # 遍历字段列表并创建相应的Q对象
+        for field in fields:
+            if field.name != "customer_profile_number":  # 排除默认的AutoField "id"字段
+                # 创建Q对象，并将字段名和搜索值拼接成查询条件
+                q = Q(**{f"{field.name}__icontains": value})
+                # 使用|操作符将Q对象添加到主查询中
+                query |= q
+        query_set = models.Products.objects.filter(query)
+    else:
+        query_set = models.Products.objects.all()
+    return render(request, 'product.html', {'query_set': query_set,  'value': value})
 
 
 def question(request):
     """问题调查表"""
-    query_set = models.Feedback.objects.all()
-    return render(request, 'question.html', {'query_set': query_set})
+    value = request.GET.get('q', '')
+    if value is not None:
+        # 创建一个空的Q对象
+        query = Q()
+        # 获取模型的字段列表
+        fields = models.Feedback._meta.fields
+        # 遍历字段列表并创建相应的Q对象
+        for field in fields:
+            if field.name != "customer_profile_number":  # 排除默认的AutoField "id"字段
+                # 创建Q对象，并将字段名和搜索值拼接成查询条件
+                q = Q(**{f"{field.name}__icontains": value})
+                # 使用|操作符将Q对象添加到主查询中
+                query |= q
+        query_set = models.Feedback.objects.filter(query)
+    else:
+        query_set = models.Feedback.objects.all()
+    return render(request, 'question.html', {'query_set': query_set,  'value': value})
 
 
 def emplo_detail(request, _id):
@@ -1037,5 +1254,3 @@ def question_delete(request, _id):
     """编辑问题反馈信息"""
     models.Feedback.objects.filter(id=_id).delete()
     return redirect('/question/')
-
-

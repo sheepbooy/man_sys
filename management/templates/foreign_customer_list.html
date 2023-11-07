@@ -3,8 +3,19 @@
 {% block content %}
     <table>
         <h2 class="mb-4">外贸部客户档案表</h2></tr>
-        <a href="/foreign/customer/add/" class="btn btn-primary mb-3">添加</a>
-
+        <div class="row mb-3">
+            <div class="col">
+                <a href="/foreign/customer/add/" class="btn btn-primary mb-3">添加</a>
+            </div>
+            <div class="col text-end">
+                <form method="get">
+                    <div class="input-group">
+                        <input type="text" name='q' class="form-control" placeholder="搜索" value="{{ value }}">
+                        <button class="btn btn-outline-secondary" type="submit">搜索</button>
+                    </div>
+                </form>
+            </div>
+        </div>
         <tr>
             <th>客户档案编号</th>
             <th>销售员工</th>
@@ -71,8 +82,10 @@
                 <td>{{ entry.time }}</td>
                 <td>{{ entry.progress_description }}</td>
                 <td>
-                    <a href="/foreign/customer/edit/{{ entry.customer_profile_number }}/" class="btn btn-info btn-sm">编辑</a>
-                    <a href="/foreign/customer/delete/{{ entry.customer_profile_number }}/" class="btn btn-danger btn-sm">删除</a>
+                    <a href="/foreign/customer/edit/{{ entry.customer_profile_number }}/"
+                       class="btn btn-info btn-sm">编辑</a>
+                    <a href="/foreign/customer/delete/{{ entry.customer_profile_number }}/"
+                       class="btn btn-danger btn-sm">删除</a>
                 </td>
             </tr>
         {% endfor %}

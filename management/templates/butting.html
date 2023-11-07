@@ -2,8 +2,19 @@
 
 {% block content %}
     <h1>研部客户对接表</h1>
-    <a href="/develop/butting/add/" class="btn btn-primary mb-3">添加</a>
-
+    <div class="row mb-3">
+        <div class="col">
+            <a href="/develop/butting/add/" class="btn btn-primary mb-3">添加</a>
+        </div>
+        <div class="col text-end">
+            <form method="get">
+                <div class="input-group">
+                    <input type="text" name='q' class="form-control" placeholder="搜索" value="{{ value }}">
+                    <button class="btn btn-outline-secondary" type="submit">搜索</button>
+                </div>
+            </form>
+        </div>
+    </div>
     <table>
         <tr>
             <th>对接编号</th>
@@ -55,7 +66,8 @@
                 <td>{{ engagement.is_resolved }}</td>
                 <td>{{ engagement.resolution_solution }}</td>
                 <td>
-                    <a href="/develop/butting/edit/{{ engagement.engagement_number }}/" class="btn btn-info btn-sm">编辑</a>
+                    <a href="/develop/butting/edit/{{ engagement.engagement_number }}/"
+                       class="btn btn-info btn-sm">编辑</a>
                     <a href="/develop/butting/delete/{{ engagement.engagement_number }}/" class="btn btn-danger btn-sm">删除</a>
                 </td>
             </tr>

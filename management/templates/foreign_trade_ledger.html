@@ -3,8 +3,20 @@
 {% block content %}
     <table>
         <h2 class="mb-4">外贸部台账表</h2></tr>
-        <a href="/foreign/ledger/add/" class="btn btn-primary mb-3">添加</a>
 
+        <div class="row mb-3">
+            <div class="col">
+                <a href="/foreign/ledger/add/" class="btn btn-primary mb-3">添加</a>
+            </div>
+            <div class="col text-end">
+                <form method="get">
+                    <div class="input-group">
+                        <input type="text" name='q' class="form-control" placeholder="搜索" value="{{ value }}">
+                        <button class="btn btn-outline-secondary" type="submit">搜索</button>
+                    </div>
+                </form>
+            </div>
+        </div>
         <tr>
             <th>序列号</th>
             <th>下单日期</th>
