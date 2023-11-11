@@ -27,7 +27,7 @@
             <th>隶属ID</th>
             <th>操作</th>
         </tr>
-        {% for item in query_set %}
+        {% for item in page_queryset %}
             <tr>
                 <td>{{ item.timestamp }}</td>
                 <td>{{ item.progress }}</td>
@@ -44,5 +44,9 @@
             </tr>
         {% endfor %}
     </table>
-
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+            {{ page_string|safe }}
+        </ul>
+    </nav>
 {% endblock %}

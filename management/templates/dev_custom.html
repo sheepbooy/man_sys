@@ -55,7 +55,7 @@
             <th>电话销售/拜访描述</th>
             <th>操作</th>
         </tr>
-        {% for profile in query_set %}
+        {% for profile in page_queryset %}
             <tr>
                 <td>{{ profile.customer_id }}</td>
                 <td>{{ profile.sales_department }}</td>
@@ -104,5 +104,9 @@
             </tr>
         {% endfor %}
     </table>
-
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+            {{ page_string|safe }}
+        </ul>
+    </nav>
 {% endblock %}

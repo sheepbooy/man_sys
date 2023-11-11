@@ -135,4 +135,9 @@
             </tr>
         {% endfor %}
     </table>
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+            {{ page_string|safe }}
+        </ul>
+    </nav>
 {% endblock %}

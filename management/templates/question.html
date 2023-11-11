@@ -28,7 +28,7 @@
             <th>详细信息</th>
             <th>操作</th>
         </tr>
-        {% for feedback in query_set %}
+        {% for feedback in page_queryset %}
             <tr>
                 <td>{{ feedback.id }}</td>
                 <td>{{ feedback.timestamp }}</td>
@@ -50,5 +50,9 @@
             </tr>
         {% endfor %}
     </table>
-
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+            {{ page_string|safe }}
+        </ul>
+    </nav>
 {% endblock %}

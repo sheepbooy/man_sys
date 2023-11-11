@@ -72,7 +72,7 @@
             <th>转交时间</th>
             <th>操作</th>
         </tr>
-        {% for entry in query_set %}
+        {% for entry in page_queryset %}
             <tr>
                 <td>{{ entry.serial_number }}</td>
                 <td>{{ entry.company_name }}</td>
@@ -130,6 +130,10 @@
             </tr>
         {% endfor %}
     </table>
-
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+            {{ page_string|safe }}
+        </ul>
+    </nav>
 
 {% endblock %}

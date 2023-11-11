@@ -49,7 +49,7 @@
             <th>进展描述</th>
             <th>操作</th>
         </tr>
-        {% for entry in query_set %}
+        {% for entry in page_queryset %}
             <tr>
                 <td>{{ entry.customer_profile_number }}</td>
                 <td>{{ entry.salesperson }}</td>
@@ -90,4 +90,9 @@
             </tr>
         {% endfor %}
     </table>
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+            {{ page_string|safe }}
+        </ul>
+    </nav>
 {% endblock %}

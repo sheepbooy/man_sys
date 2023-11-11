@@ -30,7 +30,7 @@
             </tr>
             </thead>
             <tbody>
-            {% for employee in query_set %}
+            {% for employee in page_queryset %}
                 <tr>
                     <th scope="row">{{ employee.work_id }}</th>
                     <td>{{ employee.name }}</td>
@@ -46,5 +46,11 @@
             {% endfor %}
             </tbody>
         </table>
+        <nav aria-label="Page navigation example">
+            <ul class="pagination justify-content-center">
+                {{ page_string|safe }}
+            </ul>
+        </nav>
+
     </div>
 {% endblock %}

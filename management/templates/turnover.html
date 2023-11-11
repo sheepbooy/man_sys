@@ -49,7 +49,7 @@
             <th>前雇主</th>
             <th>操作</th>
         </tr>
-        {% for flow in query_set %}
+        {% for flow in page_queryset %}
             <tr>
                 <td>{{ flow.customer_id }}</td>
                 <td>{{ flow.sales_department }}</td>
@@ -91,5 +91,9 @@
             </tr>
         {% endfor %}
     </table>
-
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+            {{ page_string|safe }}
+        </ul>
+    </nav>
 {% endblock %}

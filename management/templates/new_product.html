@@ -68,7 +68,7 @@
         </tr>
         </thead>
         <tbody>
-        {% for item in query_set %}
+        {% for item in page_queryset %}
             <tr>
                 <td>{{ item.serial_number }}</td>
                 <td>{{ item.company_name }}</td>
@@ -120,6 +120,10 @@
         {% endfor %}
         </tbody>
     </table>
-
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+            {{ page_string|safe }}
+        </ul>
+    </nav>
 
 {% endblock %}

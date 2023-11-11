@@ -26,7 +26,7 @@
             <th>规格编码</th>
             <th>操作</th>
         </tr>
-        {% for product in query_set %}
+        {% for product in page_queryset %}
             <tr>
                 <td>{{ product.category }}</td>
                 <td>{{ product.product_name }}</td>
@@ -46,5 +46,9 @@
             </tr>
         {% endfor %}
     </table>
-
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+            {{ page_string|safe }}
+        </ul>
+    </nav>
 {% endblock %}

@@ -3,6 +3,7 @@ from django.shortcuts import render, redirect
 from django.core.validators import RegexValidator
 from management import models
 from django.db.models import Q
+from management.utils.pagination import Pagination
 
 
 class EmployeesForm(forms.ModelForm):
@@ -447,7 +448,17 @@ def employees_list(request):
         query_set = models.Employees.objects.filter(query)
     else:
         query_set = models.Employees.objects.all()
-    return render(request, 'employees_list.html', {'query_set': query_set, 'value': value})
+
+    page_object = Pagination(request, query_set)
+    page_object.html()
+
+    context = {
+        'page_queryset': page_object.page_queryset,
+        'page_string': page_object.page_string,
+        'value': value
+    }
+
+    return render(request, 'employees_list.html', context)
 
 
 def inner_trade_ledger(request):
@@ -468,7 +479,16 @@ def inner_trade_ledger(request):
         query_set = models.InternalTradeLedger.objects.filter(query)
     else:
         query_set = models.InternalTradeLedger.objects.all()
-    return render(request, 'inner_trade_ledger.html', {'query_set': query_set, 'value': value})
+
+    page_object = Pagination(request, query_set)
+    page_object.html()
+
+    context = {
+        'page_queryset': page_object.page_queryset,
+        'page_string': page_object.page_string,
+        'value': value
+    }
+    return render(request, 'inner_trade_ledger.html', context)
 
 
 def foreign_trade_ledger(request):
@@ -489,7 +509,16 @@ def foreign_trade_ledger(request):
         query_set = models.ForeignTradeLedger.objects.filter(query)
     else:
         query_set = models.ForeignTradeLedger.objects.all()
-    return render(request, 'foreign_trade_ledger.html', {'query_set': query_set, 'value': value})
+
+    page_object = Pagination(request, query_set)
+    page_object.html()
+
+    context = {
+        'page_queryset': page_object.page_queryset,
+        'page_string': page_object.page_string,
+        'value': value
+    }
+    return render(request, 'foreign_trade_ledger.html', context)
 
 
 def foreign_customer(request):
@@ -510,7 +539,16 @@ def foreign_customer(request):
         query_set = models.ForeignCustomerProfile.objects.filter(query)
     else:
         query_set = models.ForeignCustomerProfile.objects.all()
-    return render(request, 'foreign_customer_list.html', {'query_set': query_set, 'value': value})
+
+    page_object = Pagination(request, query_set)
+    page_object.html()
+
+    context = {
+        'page_queryset': page_object.page_queryset,
+        'page_string': page_object.page_string,
+        'value': value
+    }
+    return render(request, 'foreign_customer_list.html', context)
 
 
 def preparation(request, _type):
@@ -543,7 +581,16 @@ def preparation(request, _type):
     else:
         query_set = model.objects.all() if model else None
 
-    return render(request, 'preparation.html', {'query_set': query_set, 'type': _type, 'value': value})
+    page_object = Pagination(request, query_set)
+    page_object.html()
+
+    context = {
+        'page_queryset': page_object.page_queryset,
+        'page_string': page_object.page_string,
+        'value': value,
+        'type': _type,
+    }
+    return render(request, 'preparation.html', context)
 
 
 def authorization(request):
@@ -564,7 +611,16 @@ def authorization(request):
         query_set = models.Authorization.objects.filter(query)
     else:
         query_set = models.Authorization.objects.all()
-    return render(request, 'authorization.html', {'query_set': query_set,  'value': value})
+
+    page_object = Pagination(request, query_set)
+    page_object.html()
+
+    context = {
+        'page_queryset': page_object.page_queryset,
+        'page_string': page_object.page_string,
+        'value': value
+    }
+    return render(request, 'authorization.html', context)
 
 
 def new(request, _type):
@@ -596,7 +652,16 @@ def new(request, _type):
     else:
         query_set = model.objects.all() if model else None
 
-    return render(request, 'new_product.html', {'query_set': query_set, 'type': _type,  'value': value})
+    page_object = Pagination(request, query_set)
+    page_object.html()
+
+    context = {
+        'page_queryset': page_object.page_queryset,
+        'page_string': page_object.page_string,
+        'value': value,
+        'type': _type
+    }
+    return render(request, 'new_product.html', context)
 
 
 def progress(request, _type):
@@ -615,7 +680,16 @@ def progress(request, _type):
     else:
         query_set = model.objects.all() if model else None
 
-    return render(request, 'progress.html', {'query_set': query_set, 'type': _type,  'value': value})
+    page_object = Pagination(request, query_set)
+    page_object.html()
+
+    context = {
+        'page_queryset': page_object.page_queryset,
+        'page_string': page_object.page_string,
+        'value': value,
+        'type': _type,
+    }
+    return render(request, 'progress.html', context)
 
 
 def dev_custom(request):
@@ -636,7 +710,16 @@ def dev_custom(request):
         query_set = models.CustomerProfile.objects.filter(query)
     else:
         query_set = models.CustomerProfile.objects.all()
-    return render(request, 'dev_custom.html', {'query_set': query_set,  'value': value})
+
+    page_object = Pagination(request, query_set)
+    page_object.html()
+
+    context = {
+        'page_queryset': page_object.page_queryset,
+        'page_string': page_object.page_string,
+        'value': value
+    }
+    return render(request, 'dev_custom.html', context)
 
 
 def butting(request):
@@ -657,7 +740,16 @@ def butting(request):
         query_set = models.CustomerEngagement.objects.filter(query)
     else:
         query_set = models.CustomerEngagement.objects.all()
-    return render(request, 'butting.html', {'query_set': query_set,  'value': value})
+
+    page_object = Pagination(request, query_set)
+    page_object.html()
+
+    context = {
+        'page_queryset': page_object.page_queryset,
+        'page_string': page_object.page_string,
+        'value': value
+    }
+    return render(request, 'butting.html', context)
 
 
 def turnover(request):
@@ -678,7 +770,16 @@ def turnover(request):
         query_set = models.CustomerFlow.objects.filter(query)
     else:
         query_set = models.CustomerFlow.objects.all()
-    return render(request, 'turnover.html', {'query_set': query_set,  'value': value})
+
+    page_object = Pagination(request, query_set)
+    page_object.html()
+
+    context = {
+        'page_queryset': page_object.page_queryset,
+        'page_string': page_object.page_string,
+        'value': value
+    }
+    return render(request, 'turnover.html', context)
 
 
 def product(request):
@@ -699,7 +800,16 @@ def product(request):
         query_set = models.Products.objects.filter(query)
     else:
         query_set = models.Products.objects.all()
-    return render(request, 'product.html', {'query_set': query_set,  'value': value})
+
+    page_object = Pagination(request, query_set)
+    page_object.html()
+
+    context = {
+        'page_queryset': page_object.page_queryset,
+        'page_string': page_object.page_string,
+        'value': value
+    }
+    return render(request, 'product.html', context)
 
 
 def question(request):
@@ -720,7 +830,16 @@ def question(request):
         query_set = models.Feedback.objects.filter(query)
     else:
         query_set = models.Feedback.objects.all()
-    return render(request, 'question.html', {'query_set': query_set,  'value': value})
+
+    page_object = Pagination(request, query_set)
+    page_object.html()
+
+    context = {
+        'page_queryset': page_object.page_queryset,
+        'page_string': page_object.page_string,
+        'value': value
+    }
+    return render(request, 'question.html', context)
 
 
 def emplo_detail(request, _id):

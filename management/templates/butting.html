@@ -41,7 +41,7 @@
             <th>解决方案</th>
             <th>操作</th>
         </tr>
-        {% for engagement in query_set %}
+        {% for engagement in page_queryset %}
             <tr>
                 <td>{{ engagement.engagement_number }}</td>
                 <td>{{ engagement.recorder }}</td>
@@ -77,5 +77,9 @@
             </tr>
         {% endfor %}
     </table>
-
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+            {{ page_string|safe }}
+        </ul>
+    </nav>
 {% endblock %}

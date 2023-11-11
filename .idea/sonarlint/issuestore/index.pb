@@ -149,3 +149,5 @@ W
 'management/templates/question_edit.html,a\d\ad490c5e5d9740476ffbeb186cf570f4b7e1ab11
 r
 Bmanagement/migrations/0002_alter_authorization_options_and_more.py,a\a\aa35485ab2cd628cb4e338d24be40ec49fbfbc3c
+N
+management/utils/pagination.py,0\5\05508eb8f7ff4d1faae4cfecb96b2a48f1f45ae8
