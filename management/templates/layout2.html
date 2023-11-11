@@ -5,6 +5,8 @@
     <meta charset="UTF-8">
     <title>管理系统</title>
     <link rel="stylesheet" href="{% static 'plugins/bootstrap-5.3.0/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'plugins/datepicker/dist/datepicker.css' %}">
+
     <style>
         body {
             padding: 20px;
@@ -70,9 +72,18 @@
 </div>
 
 
-{% block js %}
-{% endblock %}
 <script src="{% static 'plugins/bootstrap-5.3.0/js/bootstrap.bundle.min.js' %}"></script>
 <script src="{% static 'js/jquery-3.7.1.min.js' %}"></script>
+<script src="{% static 'plugins/datepicker/dist/datepicker.js' %}"></script>
+<script>
+    $('.datepicker').datepicker({
+        language: 'zh-CN',
+        format: 'yyyy-mm-dd',
+        startDate: '0',
+        autoClose: true
+    });
+</script>
+{% block js %}
+{% endblock %}
 </body>
 </html>

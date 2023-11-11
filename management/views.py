@@ -42,7 +42,12 @@ class inner_trade_ledger_form(forms.ModelForm):
         super().__init__(*args, **kwargs)
 
         for name, field in self.fields.items():
-            field.widget.attrs = {'class': 'form-control', 'placeholder': field.label}
+            if isinstance(field, forms.DateField):
+                # 为该字段应用时间选择插件
+                field.widget.attrs['class'] = 'datepicker form-control'
+                field.widget.attrs['placeholder'] = field.label
+            else:
+                field.widget.attrs = {'class': 'form-control', 'placeholder': field.label}
 
 
 class foreign_trade_ledger_form(forms.ModelForm):
@@ -72,7 +77,12 @@ class foreign_trade_ledger_form(forms.ModelForm):
         super().__init__(*args, **kwargs)
 
         for name, field in self.fields.items():
-            field.widget.attrs = {'class': 'form-control', 'placeholder': field.label}
+            if isinstance(field, forms.DateField):
+                # 为该字段应用时间选择插件
+                field.widget.attrs['class'] = 'datepicker form-control'
+                field.widget.attrs['placeholder'] = field.label
+            else:
+                field.widget.attrs = {'class': 'form-control', 'placeholder': field.label}
 
 
 class foreign_customer_form(forms.ModelForm):
@@ -94,7 +104,12 @@ class foreign_customer_form(forms.ModelForm):
         super().__init__(*args, **kwargs)
 
         for name, field in self.fields.items():
-            field.widget.attrs = {'class': 'form-control', 'placeholder': field.label}
+            if isinstance(field, forms.DateField):
+                # 为该字段应用时间选择插件
+                field.widget.attrs['class'] = 'datepicker form-control'
+                field.widget.attrs['placeholder'] = field.label
+            else:
+                field.widget.attrs = {'class': 'form-control', 'placeholder': field.label}
 
 
 class ExistingFormulationToDevelop_form(forms.ModelForm):
@@ -123,7 +138,12 @@ class ExistingFormulationToDevelop_form(forms.ModelForm):
         super().__init__(*args, **kwargs)
 
         for name, field in self.fields.items():
-            field.widget.attrs = {'class': 'form-control', 'placeholder': field.label}
+            if isinstance(field, forms.DateField):
+                # 为该字段应用时间选择插件
+                field.widget.attrs['class'] = 'datepicker form-control'
+                field.widget.attrs['placeholder'] = field.label
+            else:
+                field.widget.attrs = {'class': 'form-control', 'placeholder': field.label}
 
 
 class ExistingFormulationDeveloping_form(forms.ModelForm):
@@ -152,7 +172,12 @@ class ExistingFormulationDeveloping_form(forms.ModelForm):
         super().__init__(*args, **kwargs)
 
         for name, field in self.fields.items():
-            field.widget.attrs = {'class': 'form-control', 'placeholder': field.label}
+            if isinstance(field, forms.DateField):
+                # 为该字段应用时间选择插件
+                field.widget.attrs['class'] = 'datepicker form-control'
+                field.widget.attrs['placeholder'] = field.label
+            else:
+                field.widget.attrs = {'class': 'form-control', 'placeholder': field.label}
 
 
 class ExistingProductCompleted_form(forms.ModelForm):
@@ -180,7 +205,12 @@ class ExistingProductCompleted_form(forms.ModelForm):
         super().__init__(*args, **kwargs)
 
         for name, field in self.fields.items():
-            field.widget.attrs = {'class': 'form-control', 'placeholder': field.label}
+            if isinstance(field, forms.DateField):
+                # 为该字段应用时间选择插件
+                field.widget.attrs['class'] = 'datepicker form-control'
+                field.widget.attrs['placeholder'] = field.label
+            else:
+                field.widget.attrs = {'class': 'form-control', 'placeholder': field.label}
 
 
 class authorization_form(forms.ModelForm):
@@ -200,7 +230,12 @@ class authorization_form(forms.ModelForm):
         super().__init__(*args, **kwargs)
 
         for name, field in self.fields.items():
-            field.widget.attrs = {'class': 'form-control', 'placeholder': field.label}
+            if isinstance(field, forms.DateField):
+                # 为该字段应用时间选择插件
+                field.widget.attrs['class'] = 'datepicker form-control'
+                field.widget.attrs['placeholder'] = field.label
+            else:
+                field.widget.attrs = {'class': 'form-control', 'placeholder': field.label}
 
 
 class NewProductDeveloping_form(forms.ModelForm):
@@ -226,7 +261,12 @@ class NewProductDeveloping_form(forms.ModelForm):
         super().__init__(*args, **kwargs)
 
         for name, field in self.fields.items():
-            field.widget.attrs = {'class': 'form-control', 'placeholder': field.label}
+            if isinstance(field, forms.DateField):
+                # 为该字段应用时间选择插件
+                field.widget.attrs['class'] = 'datepicker form-control'
+                field.widget.attrs['placeholder'] = field.label
+            else:
+                field.widget.attrs = {'class': 'form-control', 'placeholder': field.label}
 
 
 class NewProductCompleted_form(forms.ModelForm):
@@ -252,7 +292,12 @@ class NewProductCompleted_form(forms.ModelForm):
         super().__init__(*args, **kwargs)
 
         for name, field in self.fields.items():
-            field.widget.attrs = {'class': 'form-control', 'placeholder': field.label}
+            if isinstance(field, forms.DateField):
+                # 为该字段应用时间选择插件
+                field.widget.attrs['class'] = 'datepicker form-control'
+                field.widget.attrs['placeholder'] = field.label
+            else:
+                field.widget.attrs = {'class': 'form-control', 'placeholder': field.label}
 
 
 class NewProductDevelopment_form(forms.ModelForm):
@@ -269,7 +314,12 @@ class NewProductDevelopment_form(forms.ModelForm):
         super().__init__(*args, **kwargs)
 
         for name, field in self.fields.items():
-            field.widget.attrs = {'class': 'form-control', 'placeholder': field.label}
+            if isinstance(field, forms.DateField):
+                # 为该字段应用时间选择插件
+                field.widget.attrs['class'] = 'datepicker form-control'
+                field.widget.attrs['placeholder'] = field.label
+            else:
+                field.widget.attrs = {'class': 'form-control', 'placeholder': field.label}
 
 
 class ExistingFormulationProgressDescription_form(forms.ModelForm):
@@ -286,7 +336,12 @@ class ExistingFormulationProgressDescription_form(forms.ModelForm):
         super().__init__(*args, **kwargs)
 
         for name, field in self.fields.items():
-            field.widget.attrs = {'class': 'form-control', 'placeholder': field.label}
+            if isinstance(field, forms.DateField):
+                # 为该字段应用时间选择插件
+                field.widget.attrs['class'] = 'datepicker form-control'
+                field.widget.attrs['placeholder'] = field.label
+            else:
+                field.widget.attrs = {'class': 'form-control', 'placeholder': field.label}
 
 
 class CustomerProfile_form(forms.ModelForm):
@@ -310,7 +365,12 @@ class CustomerProfile_form(forms.ModelForm):
         super().__init__(*args, **kwargs)
 
         for name, field in self.fields.items():
-            field.widget.attrs = {'class': 'form-control', 'placeholder': field.label}
+            if isinstance(field, forms.DateField):
+                # 为该字段应用时间选择插件
+                field.widget.attrs['class'] = 'datepicker form-control'
+                field.widget.attrs['placeholder'] = field.label
+            else:
+                field.widget.attrs = {'class': 'form-control', 'placeholder': field.label}
 
 
 class CustomerEngagement_form(forms.ModelForm):
@@ -331,7 +391,12 @@ class CustomerEngagement_form(forms.ModelForm):
         super().__init__(*args, **kwargs)
 
         for name, field in self.fields.items():
-            field.widget.attrs = {'class': 'form-control', 'placeholder': field.label}
+            if isinstance(field, forms.DateField):
+                # 为该字段应用时间选择插件
+                field.widget.attrs['class'] = 'datepicker form-control'
+                field.widget.attrs['placeholder'] = field.label
+            else:
+                field.widget.attrs = {'class': 'form-control', 'placeholder': field.label}
 
 
 class CustomerFlow_form(forms.ModelForm):
@@ -354,7 +419,12 @@ class CustomerFlow_form(forms.ModelForm):
         super().__init__(*args, **kwargs)
 
         for name, field in self.fields.items():
-            field.widget.attrs = {'class': 'form-control', 'placeholder': field.label}
+            if isinstance(field, forms.DateField):
+                # 为该字段应用时间选择插件
+                field.widget.attrs['class'] = 'datepicker form-control'
+                field.widget.attrs['placeholder'] = field.label
+            else:
+                field.widget.attrs = {'class': 'form-control', 'placeholder': field.label}
 
 
 class Products_form(forms.ModelForm):
@@ -372,7 +442,12 @@ class Products_form(forms.ModelForm):
         super().__init__(*args, **kwargs)
 
         for name, field in self.fields.items():
-            field.widget.attrs = {'class': 'form-control', 'placeholder': field.label}
+            if isinstance(field, forms.DateField):
+                # 为该字段应用时间选择插件
+                field.widget.attrs['class'] = 'datepicker form-control'
+                field.widget.attrs['placeholder'] = field.label
+            else:
+                field.widget.attrs = {'class': 'form-control', 'placeholder': field.label}
 
 
 class Feedback_form(forms.ModelForm):
@@ -390,7 +465,12 @@ class Feedback_form(forms.ModelForm):
         super().__init__(*args, **kwargs)
 
         for name, field in self.fields.items():
-            field.widget.attrs = {'class': 'form-control', 'placeholder': field.label}
+            if isinstance(field, forms.DateField):
+                # 为该字段应用时间选择插件
+                field.widget.attrs['class'] = 'datepicker form-control'
+                field.widget.attrs['placeholder'] = field.label
+            else:
+                field.widget.attrs = {'class': 'form-control', 'placeholder': field.label}
 
 
 # Create your views here.
