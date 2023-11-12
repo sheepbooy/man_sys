@@ -1,80 +1,0 @@
-
-xpython:S1192³"SDefine a constant instead of duplicating this literal '/develop/customer/' 3 times.(ñÔ¬˜şÿÿÿÿ8ÜÍ÷»1
-tpython:S1192¼"TDefine a constant instead of duplicating this literal '/innertrade/ledger/' 3 times.(ÄÍ²¨8ÜÍ÷»1
-rpython:S1192Á"RDefine a constant instead of duplicating this literal '/develop/butting/' 3 times.(ûãƒê8ÜÍ÷»1
-upython:S1192ü"PDefine a constant instead of duplicating this literal '/authorization/' 3 times.(ôøÛûüÿÿÿÿ8İÍ÷»1
-vpython:S1192Ê"QDefine a constant instead of duplicating this literal '/foreign/ledger/' 3 times.(áàŸŒùÿÿÿÿ8İÍ÷»1
-qpython:S1192®"LDefine a constant instead of duplicating this literal '/employees/' 3 times.(€ÄÖìıÿÿÿÿ8İÍ÷»1
-opython:S1192İ"JDefine a constant instead of duplicating this literal '/product/' 3 times.(şì¡Æùÿÿÿÿ8İÍ÷»1
-xpython:S1192Ø"SDefine a constant instead of duplicating this literal '/foreign/customer/' 3 times.(Ğ¶»€ÿÿÿÿÿ8İÍ÷»1
-xpython:S1192/"YDefine a constant instead of duplicating this literal 'datepicker form-control' 16 times.(¤™Õ¡8ì×‰ú»1
-kpython:S1192ë"KDefine a constant instead of duplicating this literal '/question/' 3 times.(ıÌÄ8İÍ÷»1
-xpython:S1192©"SDefine a constant instead of duplicating this literal 'employees_add.html' 3 times.(ÔÉ”ßùÿÿÿÿ8İÍ÷»1
-rpython:S1192Ï"SDefine a constant instead of duplicating this literal '/develop/turnover/' 3 times.(û“ˆl8ŞÍ÷»1
-apython:S6559"BSet the fields of this form explicitly instead of using "__all__".(¿¯¸‘8‹ã†ô»1
-Bpython:S125"Remove this commented out code.(ìé¡ışÿÿÿÿ8‹ã†ô»1
-apython:S6559'"BSet the fields of this form explicitly instead of using "__all__".(¿¯¸‘8‹ã†ô»1
-Bpython:S125"Remove this commented out code.(Ú¼‡Îùÿÿÿÿ8‹ã†ô»1
-apython:S6559J"BSet the fields of this form explicitly instead of using "__all__".(¿¯¸‘8‹ã†ô»1
-Bpython:S125:"Remove this commented out code.(Ú¼‡Îùÿÿÿÿ8‹ã†ô»1
-apython:S6559e"BSet the fields of this form explicitly instead of using "__all__".(¿¯¸‘8‹ã†ô»1
-Bpython:S125]"Remove this commented out code.(Ú¼‡Îùÿÿÿÿ8‹ã†ô»1
-bpython:S6559‡"BSet the fields of this form explicitly instead of using "__all__".(¿¯¸‘8‹ã†ô»1
-™python:S101s"{Rename class "ExistingFormulationToDevelop_form" to match the regular expression ^_?([A-Z_][a-zA-Z0-9]*|[a-z_][a-z0-9_]*)$.(¢ƒŸ°8‹ã†ô»1
-Bpython:S125x"Remove this commented out code.(Ú¼‡Îùÿÿÿÿ8‹ã†ô»1
-bpython:S6559©"BSet the fields of this form explicitly instead of using "__all__".(¿¯¸‘8‹ã†ô»1
- python:S101•"|Rename class "ExistingFormulationDeveloping_form" to match the regular expression ^_?([A-Z_][a-zA-Z0-9]*|[a-z_][a-z0-9_]*)$.(‡óà…úÿÿÿÿ8‹ã†ô»1
-Cpython:S125š"Remove this commented out code.(Ú¼‡Îùÿÿÿÿ8Œã†ô»1
-bpython:S6559Ê"BSet the fields of this form explicitly instead of using "__all__".(¿¯¸‘8Œã†ô»1
-–python:S101·"wRename class "ExistingProductCompleted_form" to match the regular expression ^_?([A-Z_][a-zA-Z0-9]*|[a-z_][a-z0-9_]*)$.(öÎ£˜8Œã†ô»1
-Cpython:S125¼"Remove this commented out code.(Ú¼‡Îùÿÿÿÿ8Œã†ô»1
-bpython:S6559ã"BSet the fields of this form explicitly instead of using "__all__".(¿¯¸‘8Œã†ô»1
-Cpython:S125İ"Remove this commented out code.(Ú¼‡Îùÿÿÿÿ8Œã†ô»1
-bpython:S6559‚"BSet the fields of this form explicitly instead of using "__all__".(¿¯¸‘8Œã†ô»1
-’python:S101ñ"sRename class "NewProductDeveloping_form" to match the regular expression ^_?([A-Z_][a-zA-Z0-9]*|[a-z_][a-z0-9_]*)$.(ï–¬«8Œã†ô»1
-Cpython:S125ö"Remove this commented out code.(Ú¼‡Îùÿÿÿÿ8Œã†ô»1
-bpython:S6559¡"BSet the fields of this form explicitly instead of using "__all__".(¿¯¸‘8Œã†ô»1
-–python:S101"rRename class "NewProductCompleted_form" to match the regular expression ^_?([A-Z_][a-zA-Z0-9]*|[a-z_][a-z0-9_]*)$.(€¢Ø²úÿÿÿÿ8Œã†ô»1
-Cpython:S125•"Remove this commented out code.(Ú¼‡Îùÿÿÿÿ8Œã†ô»1
-bpython:S6559·"BSet the fields of this form explicitly instead of using "__all__".(¿¯¸‘8Œã†ô»1
-˜python:S101¯"tRename class "NewProductDevelopment_form" to match the regular expression ^_?([A-Z_][a-zA-Z0-9]*|[a-z_][a-z0-9_]*)$.(À›©Üÿÿÿÿÿ8Œã†ô»1
-Cpython:S125´"Remove this commented out code.(Ú¼‡Îùÿÿÿÿ8Œã†ô»1
-bpython:S6559Í"BSet the fields of this form explicitly instead of using "__all__".(¿¯¸‘8Œã†ô»1
-ªpython:S101Å"…Rename class "ExistingFormulationProgressDescription_form" to match the regular expression ^_?([A-Z_][a-zA-Z0-9]*|[a-z_][a-z0-9_]*)$.(Éè³¶øÿÿÿÿ8Œã†ô»1
-Cpython:S125Ê"Remove this commented out code.(Ú¼‡Îùÿÿÿÿ8Œã†ô»1
-bpython:S6559ê"BSet the fields of this form explicitly instead of using "__all__".(¿¯¸‘8Œã†ô»1
-python:S101Û"nRename class "CustomerProfile_form" to match the regular expression ^_?([A-Z_][a-zA-Z0-9]*|[a-z_][a-z0-9_]*)$.(÷¯ôÉ8Œã†ô»1
-Cpython:S125à"Remove this commented out code.(Ú¼‡Îùÿÿÿÿ8Œã†ô»1
-bpython:S6559„"BSet the fields of this form explicitly instead of using "__all__".(¿¯¸‘8Œã†ô»1
-•python:S101ø"qRename class "CustomerEngagement_form" to match the regular expression ^_?([A-Z_][a-zA-Z0-9]*|[a-z_][a-z0-9_]*)$.(—ııËÿÿÿÿÿ8Œã†ô»1
-Cpython:S125ı"Remove this commented out code.(Ú¼‡Îùÿÿÿÿ8Œã†ô»1
-bpython:S6559 "BSet the fields of this form explicitly instead of using "__all__".(¿¯¸‘8Œã†ô»1
-python:S101’"kRename class "CustomerFlow_form" to match the regular expression ^_?([A-Z_][a-zA-Z0-9]*|[a-z_][a-z0-9_]*)$.(¹û²‡øÿÿÿÿ8Œã†ô»1
-Cpython:S125—"Remove this commented out code.(Ú¼‡Îùÿÿÿÿ8Œã†ô»1
-bpython:S6559·"BSet the fields of this form explicitly instead of using "__all__".(¿¯¸‘8Œã†ô»1
-‹python:S101®"gRename class "Products_form" to match the regular expression ^_?([A-Z_][a-zA-Z0-9]*|[a-z_][a-z0-9_]*)$.(±•¿ùÿÿÿÿ8Œã†ô»1
-Cpython:S125³"Remove this commented out code.(Ú¼‡Îùÿÿÿÿ8Œã†ô»1
-bpython:S6559Î"BSet the fields of this form explicitly instead of using "__all__".(¿¯¸‘8Œã†ô»1
-‹python:S101Å"gRename class "Feedback_form" to match the regular expression ^_?([A-Z_][a-zA-Z0-9]*|[a-z_][a-z0-9_]*)$.(ì¥¼©úÿÿÿÿ8Œã†ô»1
-Cpython:S125Ê"Remove this commented out code.(Ú¼‡Îùÿÿÿÿ8ã†ô»1
-Tpython:S1172Ù
-"/Remove the unused function parameter "request".(í–­˜ıÿÿÿÿ8ßÍ÷»1
-Opython:S1172ß
-"/Remove the unused function parameter "request".(µ€»é8ßÍ÷»1
-Tpython:S1172å
-"/Remove the unused function parameter "request".(ºµî‡ùÿÿÿÿ8ßÍ÷»1
-Npython:S1172ë
-"/Remove the unused function parameter "request".(Óº8ßÍ÷»1
-Tpython:S1172ñ
-"/Remove the unused function parameter "request".(Àèˆ¯üÿÿÿÿ8ßÍ÷»1
-Opython:S1172ü
-"/Remove the unused function parameter "request".(ËØ¦ö8ßÍ÷»1
-Spython:S1481ş
-".Remove the unused local variable "row_object".(½òèÛÿÿÿÿÿ8ßÍ÷»1
-Opython:S1172‚"/Remove the unused function parameter "request".(­‰ƒ±8ßÍ÷»1
-Npython:S1172‹"/Remove the unused function parameter "request".(éñö}8ßÍ÷»1
-Tpython:S1172”"/Remove the unused function parameter "request".(ëø«Úüÿÿÿÿ8ßÍ÷»1
-Npython:S1172š"/Remove the unused function parameter "request".(âôÙf8ßÍ÷»1
-Tpython:S1172 "/Remove the unused function parameter "request".(ÎğÅÿÿÿÿÿ8ßÍ÷»1
-Tpython:S1172¦"/Remove the unused function parameter "request".(²ü´Ğùÿÿÿÿ8ßÍ÷»1
-Opython:S1172¬"/Remove the unused function parameter "request".(õå’Ó8ßÍ÷»1

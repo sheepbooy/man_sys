@@ -151,3 +151,35 @@ r
 Bmanagement/migrations/0002_alter_authorization_options_and_more.py,a\a\aa35485ab2cd628cb4e338d24be40ec49fbfbc3c
 N
 management/utils/pagination.py,0\5\05508eb8f7ff4d1faae4cfecb96b2a48f1f45ae8
+M
+management/utils/BootStrap.py,7\d\7d88d9843ce13885efb1736f549806f9fa0701f8
+H
+management/utils/form.py,0\f\0f6bbfbef11287cd89c88637f16e91c158705d29
+W
+'management/views/login_register_home.py,c\7\c7b1ffaf41e790ea415cf87fd1a4c929ba71fcdb
+L
+management/views/employee.py,c\1\c13aa2ed2a2b20163af73ce8d6bee15e99b1d38f
+V
+&management/views/inner_trade_ledger.py,6\8\688a596e269f494af577d439490d83436044cb5d
+X
+(management/views/foreign_trade_ledger.py,4\e\4e60763e86fbc211e2bcb9374a7e44cfa9b34969
+T
+$management/views/foreign_customer.py,7\0\707fe45fd9a83fa8ecef906e23e90fc14027a677
+O
+management/views/preparation.py,c\c\cc5b85b45d27f436483aab4663d1e795bfe59efb
+Q
+!management/views/authorization.py,8\e\8ea6a0edbd02ce17a98a50d34bbb7b717d34a2e9
+G
+management/views/new.py,0\3\037e02288101fe846f4019635e66c90194617a20
+L
+management/views/progress.py,7\a\7a55d49e37906d395252036a609246a78a662917
+P
+ management/views/dev_customer.py,1\f\1f65b50c0c60f184a609110872d47c795c5cbdab
+K
+management/views/butting.py,c\e\ce40186044a55219cdb529f71f580a1c448c525c
+L
+management/views/turnover.py,e\4\e4395ad2147f1877b72860f9b7d792a1b026092b
+K
+management/views/product.py,3\0\3060c81dcf179ed9189b94a687385eaa3de53fb9
+L
+management/views/question.py,7\b\7bcf1d26f2f98184053df26bbc4b59b419793baa
