@@ -38,6 +38,8 @@ urlpatterns = [
     path('home/', login_register_home.home),
     path('logout/', login_register_home.logout),
     path('detail/<str:_id>/', login_register_home.user_detail),
+    # 生成图片验证码
+    path('image/code/', login_register_home.image_code),
 
     # 所有员工信息
     path('employees/', employee.employees_list),
