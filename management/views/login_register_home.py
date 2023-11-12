@@ -39,3 +39,9 @@ def register(request):
 def home(request):
     """登录后的主页面"""
     return render(request, 'home.html')
+
+
+def logout(request):
+    """注销登录"""
+    request.session.clear()
+    return redirect('/login/')

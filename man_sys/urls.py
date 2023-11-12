@@ -36,6 +36,7 @@ urlpatterns = [
     path('login/', login_register_home.login_view),
     path('register/', login_register_home.register),
     path('home/', login_register_home.home),
+    path('logout/', login_register_home.logout),
 
     # 所有员工信息
     path('employees/', employee.employees_list),
