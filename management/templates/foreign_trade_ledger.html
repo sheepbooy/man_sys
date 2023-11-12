@@ -74,7 +74,7 @@
             <th>汇率</th>
             <th>操作</th>
         </tr>
-        {% for entry in query_set %}
+        {% for entry in page_queryset %}
             <tr>
                 <td>{{ entry.serial_number }}</td>
                 <td>{{ entry.order_date }}</td>

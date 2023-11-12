@@ -39,14 +39,14 @@ def authorization_add(request):
     """授权书添加"""
     if request.method == 'GET':
         form = authorization_form()
-        return render(request, 'authorization_add.html', {'form': form})
+        return render(request, 'change.html', {'form': form, 'address': 'authorization'})
 
     form = authorization_form(data=request.POST)
     if form.is_valid():
         form.save()
         return redirect('/authorization/')
 
-    return render(request, 'authorization_add.html', {'form': form})
+    return render(request, 'change.html', {'form': form, 'address': 'authorization'})
 
 
 def authorization_edit(request, _id):
@@ -54,17 +54,17 @@ def authorization_edit(request, _id):
     row_object = models.Authorization.objects.filter(authorization_number=_id).first()
     if request.method == 'GET':
         form = authorization_form(instance=row_object)
-        return render(request, 'authorization_edit.html', {'form': form})
+        return render(request, 'change.html', {'form': form, 'address': 'authorization'})
 
     form = authorization_form(data=request.POST, instance=row_object)
     if form.is_valid():
         form.save()
         return redirect('/authorization/')
 
-    return render(request, 'authorization_edit.html', {'form': form})
+    return render(request, 'change.html', {'form': form, 'address': 'authorization'})
 
 
 def authorization_delete(request, _id):
     """授权表删除"""
-    row_object = models.Authorization.objects.filter(authorization_number=_id).delete()
+    models.Authorization.objects.filter(authorization_number=_id).delete()
     return redirect('/authorization/')

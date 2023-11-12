@@ -39,14 +39,14 @@ def foreign_customer_add(request):
     """外贸部客户添加"""
     if request.method == 'GET':
         form = foreign_customer_form()
-        return render(request, 'foreign_customer_add.html', {'form': form})
+        return render(request, 'change.html', {'form': form, 'address': 'foreign/customer'})
 
     form = foreign_customer_form(data=request.POST)
     if form.is_valid():
         form.save()
         return redirect('/foreign/customer/')
 
-    return render(request, 'foreign_customer_add.html', {'form': form})
+    return render(request, 'change.html', {'form': form, 'address': 'foreign/customer'})
 
 
 def foreign_customer_edit(request, _id):
@@ -54,14 +54,14 @@ def foreign_customer_edit(request, _id):
     row_object = models.ForeignCustomerProfile.objects.filter(customer_profile_number=_id).first()
     if request.method == 'GET':
         form = foreign_customer_form(instance=row_object)
-        return render(request, 'foreign_customer_edit.html', {'form': form})
+        return render(request, 'change.html', {'form': form, 'address': 'foreign/customer'})
 
     form = foreign_customer_form(data=request.POST, instance=row_object)
     if form.is_valid():
         form.save()
         return redirect('/foreign/customer/')
 
-    return render(request, 'foreign_customer_edit.html', {'form': form})
+    return render(request, 'change.html', {'form': form, 'address': 'foreign/customer'})
 
 
 def foreign_customer_delete(request, _id):

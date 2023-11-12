@@ -14,7 +14,7 @@ class Products(models.Model):
     spec_code = models.CharField(primary_key=True, max_length=255, verbose_name='规格编码')
 
     class Meta:
-        managed = True
+        managed = False
         db_table = '辅料'
 
 
@@ -66,7 +66,7 @@ class InternalTradeLedger(models.Model):
                                                            verbose_name='单价低于当前价格表')
 
     class Meta:
-        managed = True
+        managed = False
         db_table = '内贸部台账'
 
 
@@ -78,7 +78,8 @@ class Authorization(models.Model):
     registration_status = models.CharField(max_length=255, blank=True, verbose_name='注册状态')
     related_manufacturer = models.CharField(max_length=255, blank=True, verbose_name='相关制造商')
     related_product_name = models.CharField(max_length=255, blank=True, verbose_name='相关产品名称')
-    administration_route = models.CharField(max_length=255, blank=True, verbose_name='管理途径')
+    administration_route = models.CharField(max_length=255, blank=True,
+                                            verbose_name='管理途径')
     follow_up_person = models.CharField(max_length=255, blank=True, verbose_name='跟进人员')
     review_status = models.CharField(max_length=255, blank=True, verbose_name='审查状态')
     acceptance_month = models.DateField(verbose_name='受理月份')
@@ -87,7 +88,7 @@ class Authorization(models.Model):
     notes = models.CharField(max_length=255, blank=True, verbose_name='备注')
 
     class Meta:
-        managed = True
+        managed = False
         db_table = '授权书总表'
 
 
@@ -124,7 +125,7 @@ class ForeignCustomerProfile(models.Model):
     progress_description = models.TextField(blank=True, verbose_name='进展描述')
 
     class Meta:
-        managed = True
+        managed = False
         db_table = '外贸部客户档案表'
 
 
@@ -216,7 +217,7 @@ class ForeignTradeLedger(models.Model):
     exchange_rate = models.CharField(max_length=255, blank=True, verbose_name='汇率')
 
     class Meta:
-        managed = True
+        managed = False
         db_table = '外贸部台账'
 
 
@@ -232,7 +233,7 @@ class Feedback(models.Model):
     details = models.CharField(max_length=255, blank=True, verbose_name='详细信息')
 
     class Meta:
-        managed = True
+        managed = False
         db_table = '问题反馈表'
 
 
@@ -244,7 +245,7 @@ class NewProductDevelopment(models.Model):
     subordinate_id = models.CharField(max_length=255, blank=True, verbose_name='隶属ID')
 
     class Meta:
-        managed = True
+        managed = False
         db_table = '新品开发进度描述表'
 
 
@@ -292,13 +293,13 @@ class NewProductDevelopingProgress(models.Model):
     before_pilot_scale = models.DateField(verbose_name='中试前')
     before_submission = models.DateField(verbose_name='申报前')
     issuance_date = models.DateField(verbose_name='开具时间')
-    landing_company_name = models.DateField(verbose_name='落地企业名称')
-    contact_person = models.DateField(verbose_name='联系人')
+    landing_company_name = models.CharField(max_length=255, blank=True, verbose_name='落地企业名称')
+    contact_person = models.CharField(max_length=255, blank=True, verbose_name='联系人')
     transfer_to_sales_manager = models.DateField(verbose_name='移交销售经理')
     transfer_date = models.DateField(verbose_name='移交时间')
 
     class Meta:
-        managed = True
+        managed = False
         db_table = '新品开发中进度表'
 
 
@@ -346,13 +347,13 @@ class NewProductCompleted(models.Model):
     before_pilot_scale = models.DateField(verbose_name='中试前')
     before_submission = models.DateField(verbose_name='申报前')
     issuance_date = models.DateField(verbose_name='开具时间')
-    landing_company_name = models.DateField(verbose_name='落地企业名称')
-    contact_person = models.DateField(verbose_name='联系人')
+    landing_company_name = models.CharField(max_length=255, blank=True, verbose_name='落地企业名称')
+    contact_person = models.CharField(max_length=255, blank=True, verbose_name='联系人')
     transfer_to_sales_manager = models.DateField(verbose_name='移交销售经理')
     transfer_date = models.DateField(verbose_name='移交时间')
 
     class Meta:
-        managed = True
+        managed = False
         db_table = '新品已完成进度表'
 
 
@@ -392,7 +393,7 @@ class CustomerEngagement(models.Model):
     resolution_solution = models.TextField(blank=True, verbose_name='解决方案')
 
     class Meta:
-        managed = True
+        managed = False
         db_table = '研部客户对接表'
 
 
@@ -444,7 +445,7 @@ class CustomerFlow(models.Model):
     former_employer = models.CharField(max_length=255, blank=True, verbose_name='前雇主')
 
     class Meta:
-        managed = True
+        managed = False
         db_table = '研部客户流水表'
 
 
@@ -499,7 +500,7 @@ class CustomerProfile(models.Model):
                                                      verbose_name='电话销售/拜访描述')  # Field renamed to remove unsuitable characters.
 
     class Meta:
-        managed = True
+        managed = False
         db_table = '研发部客户档案表'
 
 
@@ -557,7 +558,7 @@ class ExistingFormulationToDevelop(models.Model):
     handover_time = models.DateField(verbose_name='交接时间')
 
     class Meta:
-        managed = True
+        managed = False
         db_table = '已有制剂待开发进度表'
 
 
@@ -569,7 +570,7 @@ class ExistingFormulationProgressDescription(models.Model):
     subordinate_id = models.CharField(max_length=255, blank=True, verbose_name='隶属ID')
 
     class Meta:
-        managed = True
+        managed = False
         db_table = '已有制剂进度描述表'
 
 
@@ -628,7 +629,7 @@ class ExistingFormulationDeveloping(models.Model):
     handover_time = models.DateField(verbose_name='交接时间')
 
     class Meta:
-        managed = True
+        managed = False
         db_table = '已有制剂开发中进度表'
 
 
@@ -687,7 +688,7 @@ class ExistingProductCompleted(models.Model):
     handover_time = models.DateField(verbose_name='交接时间')
 
     class Meta:
-        managed = True
+        managed = False
         db_table = '已有制剂已完成进度表'
 
 
@@ -701,5 +702,10 @@ class Employees(models.Model):
     password = models.CharField(max_length=255, blank=True, verbose_name='密码')
 
     class Meta:
-        managed = True
+        managed = False
         db_table = '员工信息表'
+
+
+class Admin(models.Model):
+    work_id = models.CharField(primary_key=True, max_length=255, verbose_name='工号')
+    password = models.CharField(max_length=255, blank=True, verbose_name='密码')

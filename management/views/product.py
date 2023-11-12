@@ -40,14 +40,14 @@ def product_add(request):
     """辅料表添加"""
     if request.method == 'GET':
         form = Products_form()
-        return render(request, 'product_add.html', {'form': form})
+        return render(request, 'change.html', {'form': form, 'address': 'product'})
 
     form = Products_form(data=request.POST)
     if form.is_valid():
         form.save()
         return redirect('/product/')
 
-    return render(request, 'product_add.html', {'form': form})
+    return render(request, 'change.html', {'form': form, 'address': 'product'})
 
 
 def product_edit(request, _id):
@@ -55,14 +55,14 @@ def product_edit(request, _id):
     row_object = models.Products.objects.filter(spec_code=_id).first()
     if request.method == 'GET':
         form = Products_form(instance=row_object)
-        return render(request, 'product_edit.html', {'form': form})
+        return render(request, 'change.html', {'form': form, 'address': 'product'})
 
     form = Products_form(data=request.POST, instance=row_object)
     if form.is_valid():
         form.save()
         return redirect('/product/')
 
-    return render(request, 'product_edit.html', {'form': form})
+    return render(request, 'change.html', {'form': form, 'address': 'product'})
 
 
 def product_delete(request, _id):

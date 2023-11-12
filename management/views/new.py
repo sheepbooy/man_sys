@@ -52,18 +52,15 @@ def new_add(request, _type):
         'completed': NewProductCompleted_form,
         'ing': NewProductDeveloping_form,
     }.get(_type)
-    template_cls = {
-        'completed': 'NewProductCompleted',
-        'ing': 'NewProductDeveloping',
-    }.get(_type)
+
     if request.method == 'GET':
         form = form_cls()
-        return render(request, f'{template_cls}_add.html', {'form': form})
+        return render(request, 'change.html', {'form': form, 'address': f'new/{_type}'})
     form = form_cls(data=request.POST)
     if form.is_valid():
         form.save()
         return redirect(f'/new/{_type}/')
-    return render(request, f'{template_cls}_add.html', {'form': form})
+    return render(request, 'change.html', {'form': form, 'address': f'new/{_type}'})
 
 
 def new_edit(request, _type, _id):
@@ -76,18 +73,15 @@ def new_edit(request, _type, _id):
         'completed': NewProductCompleted_form,
         'ing': NewProductDeveloping_form,
     }.get(_type)
-    template_cls = {
-        'completed': 'NewProductCompleted',
-        'ing': 'NewProductDeveloping',
-    }.get(_type)
+
     if request.method == 'GET':
         form = form_cls(instance=row_object)
-        return render(request, f'{template_cls}_edit.html', {'form': form})
+        return render(request, 'change.html', {'form': form, 'address': f'new/{_type}'})
     form = form_cls(data=request.POST, instance=row_object)
     if form.is_valid():
         form.save()
         return redirect(f'/new/{_type}/')
-    return render(request, f'{template_cls}_edit.html', {'form': form})
+    return render(request, 'change.html', {'form': form, 'address': f'new/{_type}'})
 
 
 def new_delete(request, _type, _id):

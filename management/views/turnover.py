@@ -40,14 +40,14 @@ def turnover_add(request):
     """研发部客户流水表添加"""
     if request.method == 'GET':
         form = CustomerFlow_form()
-        return render(request, 'turnover_add.html', {'form': form})
+        return render(request, 'change.html', {'form': form, 'address': 'develop/turnover'})
 
     form = CustomerFlow_form(data=request.POST)
     if form.is_valid():
         form.save()
         return redirect('/develop/turnover/')
 
-    return render(request, 'turnover_add.html', {'form': form})
+    return render(request, 'change.html', {'form': form, 'address': 'develop/turnover'})
 
 
 def turnover_edit(request, _id):
@@ -55,14 +55,14 @@ def turnover_edit(request, _id):
     row_object = models.CustomerFlow.objects.filter(customer_id=_id).first()
     if request.method == 'GET':
         form = CustomerFlow_form(instance=row_object)
-        return render(request, 'turnover_edit.html', {'form': form})
+        return render(request, 'change.html', {'form': form, 'address': 'develop/turnover'})
 
     form = CustomerFlow_form(data=request.POST, instance=row_object)
     if form.is_valid():
         form.save()
         return redirect('/develop/turnover/')
 
-    return render(request, 'turnover_edit.html', {'form': form})
+    return render(request, 'change.html', {'form': form, 'address': 'develop/turnover'})
 
 
 def turnover_delete(request, _id):

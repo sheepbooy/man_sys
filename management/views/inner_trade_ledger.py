@@ -39,14 +39,14 @@ def inner_trade_ledger_add(request):
     """内贸部台账表添加"""
     if request.method == 'GET':
         form = inner_trade_ledger_form()
-        return render(request, 'inner_trade_ledger_add.html', {'form': form})
+        return render(request, 'change.html', {'form': form, 'address': 'innertrade/ledger'})
 
     form = inner_trade_ledger_form(data=request.POST)
     if form.is_valid():
         form.save()
         return redirect('/innertrade/ledger/')
 
-    return render(request, 'inner_trade_ledger_add.html', {'form': form})
+    return render(request, 'change.html', {'form': form, 'address': 'innertrade/ledger'})
 
 
 def inner_trade_ledger_edit(request, _id):
@@ -55,14 +55,14 @@ def inner_trade_ledger_edit(request, _id):
 
     if request.method == 'GET':
         form = inner_trade_ledger_form(instance=row_object)
-        return render(request, 'inner_trade_ledger_edit.html', {'form': form})
+        return render(request, 'change.html', {'form': form, 'address': 'innertrade/ledger'})
 
     form = inner_trade_ledger_form(data=request.POST, instance=row_object)
     if form.is_valid():
         form.save()
         return redirect('/innertrade/ledger/')
 
-    return render(request, 'inner_trade_ledger_edit.html', {'form': form})
+    return render(request, 'change.html', {'form': form, 'address': 'innertrade/ledger'})
 
 
 def inner_trade_ledger_delete(request, _id):

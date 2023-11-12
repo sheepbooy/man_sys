@@ -39,14 +39,14 @@ def question_add(request):
     """问题反馈表添加"""
     if request.method == 'GET':
         form = Feedback_form()
-        return render(request, 'question_add.html', {'form': form})
+        return render(request, 'change.html', {'form': form, 'address': 'question'})
 
     form = Feedback_form(data=request.POST)
     if form.is_valid():
         form.save()
         return redirect('/question/')
 
-    return render(request, 'question_add.html', {'form': form})
+    return render(request, 'change.html', {'form': form, 'address': 'question'})
 
 
 def question_edit(request, _id):
@@ -54,14 +54,14 @@ def question_edit(request, _id):
     row_object = models.Feedback.objects.filter(id=_id).first()
     if request.method == 'GET':
         form = Feedback_form(instance=row_object)
-        return render(request, 'question_edit.html', {'form': form})
+        return render(request, 'change.html', {'form': form, 'address': 'question'})
 
     form = Feedback_form(data=request.POST, instance=row_object)
     if form.is_valid():
         form.save()
         return redirect('/question/')
 
-    return render(request, 'question_edit.html', {'form': form})
+    return render(request, 'change.html', {'form': form, 'address': 'question'})
 
 
 def question_delete(request, _id):

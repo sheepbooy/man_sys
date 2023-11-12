@@ -39,14 +39,14 @@ def dev_custom_add(request):
     """研发部客户档案添加"""
     if request.method == 'GET':
         form = CustomerProfile_form()
-        return render(request, 'dev_custom_add.html', {'form': form})
+        return render(request, 'change.html', {'form': form, 'address': 'develop/customer'})
 
     form = CustomerProfile_form(data=request.POST)
     if form.is_valid():
         form.save()
         return redirect('/develop/customer/')
 
-    return render(request, 'dev_custom_add.html', {'form': form})
+    return render(request, 'change.html', {'form': form, 'address': 'develop/customer'})
 
 
 def dev_custom_edit(request, _id):
@@ -54,14 +54,14 @@ def dev_custom_edit(request, _id):
     row_object = models.CustomerProfile.objects.filter(customer_id=_id).first()
     if request.method == 'GET':
         form = CustomerProfile_form(instance=row_object)
-        return render(request, 'dev_custom_edit.html', {'form': form})
+        return render(request, 'change.html', {'form': form, 'address': 'develop/customer'})
 
     form = CustomerProfile_form(data=request.POST, instance=row_object)
     if form.is_valid():
         form.save()
         return redirect('/develop/customer/')
 
-    return render(request, 'dev_custom_edit.html', {'form': form})
+    return render(request, 'change.html', {'form': form, 'address': 'develop/customer'})
 
 
 def dev_custom_delete(request, _id):

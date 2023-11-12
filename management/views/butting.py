@@ -39,14 +39,14 @@ def butting_add(request):
     """研发部客户对接表添加"""
     if request.method == 'GET':
         form = CustomerEngagement_form()
-        return render(request, 'butting_add.html', {'form': form})
+        return render(request, 'change.html', {'form': form, 'address': 'develop/butting'})
 
     form = CustomerEngagement_form(data=request.POST)
     if form.is_valid():
         form.save()
         return redirect('/develop/butting/')
 
-    return render(request, 'butting_add.html', {'form': form})
+    return render(request, 'change.html', {'form': form, 'address': 'develop/butting'})
 
 
 def butting_edit(request, _id):
@@ -54,15 +54,14 @@ def butting_edit(request, _id):
     row_object = models.CustomerEngagement.objects.filter(engagement_number=_id).first()
     if request.method == 'GET':
         form = CustomerEngagement_form(instance=row_object)
-        return render(request, 'butting_edit.html', {'form': form})
+        return render(request, 'change.html', {'form': form, 'address': 'develop/butting'})
 
     form = CustomerEngagement_form(data=request.POST, instance=row_object)
     if form.is_valid():
         form.save()
         return redirect('/develop/butting/')
 
-    return render(request, 'butting_edit.html', {'form': form})
-
+    return render(request, 'change.html', {'form': form, 'address': 'develop/butting'})
 
 
 def butting_delete(request, _id):

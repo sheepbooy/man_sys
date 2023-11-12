@@ -3,6 +3,7 @@ from django.db.models import Q
 from management.utils.pagination import Pagination
 from management.utils.form import *
 
+
 def employees_list(request):
     """所有员工信息表"""
     value = request.GET.get('q', '')
@@ -33,18 +34,19 @@ def employees_list(request):
 
     return render(request, 'employees_list.html', context)
 
+
 def employees_add(request):
     """员工信息添加"""
     if request.method == 'GET':
         form = EmployeesForm()
-        return render(request, 'employees_add.html', {'form': form})
+        return render(request, 'change.html', {'form': form, 'address': 'employees'})
 
     form = EmployeesForm(data=request.POST)
     if form.is_valid():
         form.save()
         return redirect('/employees/')
 
-    return render(request, 'employees_add.html', {'form': form})
+    return render(request, 'change.html', {'form': form, 'address': 'employees'})
 
 
 def employees_edit(request, _id):
@@ -53,18 +55,17 @@ def employees_edit(request, _id):
 
     if request.method == 'GET':
         form = EmployeesForm(instance=row_object)
-        return render(request, 'employees_edit.html', {'form': form})
+        return render(request, 'change.html', {'form': form, 'address': 'employees'})
 
     form = EmployeesForm(data=request.POST, instance=row_object)
     if form.is_valid():
         form.save()
         return redirect('/employees/')
 
-    return render(request, 'employees_add.html', {'form': form})
+    return render(request, 'change.html', {'form': form, 'address': 'employees'})
+
 
 def employees_delete(request, _id):
     """用户删除"""
     models.Employees.objects.filter(work_id=_id).delete()
     return redirect('/employees/')
-
-

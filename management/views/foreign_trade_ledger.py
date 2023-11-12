@@ -39,14 +39,14 @@ def foreign_trade_ledger_add(request):
     """外贸部台账添加"""
     if request.method == 'GET':
         form = foreign_trade_ledger_form()
-        return render(request, 'foreign_trade_ledger_add.html', {'form': form})
+        return render(request, 'change.html', {'form': form, 'address': 'foreign/ledger'})
 
     form = foreign_trade_ledger_form(data=request.POST)
     if form.is_valid():
         form.save()
         return redirect('/foreign/ledger/')
 
-    return render(request, 'foreign_trade_ledger_add.html', {'form': form})
+    return render(request, 'change.html', {'form': form, 'address': 'foreign/ledger'})
 
 
 def foreign_trade_ledger_edit(request, _id):
@@ -54,14 +54,14 @@ def foreign_trade_ledger_edit(request, _id):
     row_object = models.ForeignTradeLedger.objects.filter(serial_number=_id).first()
     if request.method == 'GET':
         form = foreign_trade_ledger_form(instance=row_object)
-        return render(request, 'foreign_trade_ledger_edit.html', {'form': form})
+        return render(request, 'change.html', {'form': form, 'address': 'foreign/ledger'})
 
     form = foreign_trade_ledger_form(data=request.POST, instance=row_object)
     if form.is_valid():
         form.save()
         return redirect('/foreign/ledger/')
 
-    return render(request, 'foreign_trade_ledger_edit.html', {'form': form})
+    return render(request, 'change.html', {'form': form, 'address': 'foreign/ledger'})
 
 
 def foreign_trade_ledger_delete(request, _id):

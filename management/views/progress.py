@@ -39,19 +39,15 @@ def progress_add(request, _type):
         'new': NewProductDevelopment_form,
         'preparation': ExistingFormulationProgressDescription_form,
     }.get(_type)
-    template_cls = {
-        'new': 'NewProductDevelopment',
-        'preparation': 'ExistingFormulationProgressDescription',
-    }.get(_type)
 
     if request.method == 'GET':
         form = form_cls()
-        return render(request, f'{template_cls}_add.html', {'form': form})
+        return render(request, 'change.html', {'form': form, 'address': f'progress/{_type}'})
     form = form_cls(data=request.POST)
     if form.is_valid():
         form.save()
         return redirect(f'/progress/{_type}/')
-    return render(request, f'{template_cls}_add.html', {'form': form})
+    return render(request, 'change.html', {'form': form, 'address': f'progress/{_type}'})
 
 
 def progress_edit(request, _type, _id):
@@ -64,19 +60,15 @@ def progress_edit(request, _type, _id):
         'new': NewProductDevelopment_form,
         'preparation': ExistingFormulationProgressDescription_form,
     }.get(_type)
-    template_cls = {
-        'new': 'NewProductDevelopment',
-        'preparation': 'ExistingFormulationProgressDescription',
-    }.get(_type)
 
     if request.method == 'GET':
         form = form_cls(instance=row_object)
-        return render(request, f'{template_cls}_edit.html', {'form': form})
+        return render(request, 'change.html', {'form': form, 'address': f'progress/{_type}'})
     form = form_cls(data=request.POST, instance=row_object)
     if form.is_valid():
         form.save()
         return redirect(f'/progress/{_type}/')
-    return render(request, f'{template_cls}_edit.html', {'form': form})
+    return render(request, 'change.html', {'form': form, 'address': f'progress/{_type}'})
 
 
 def progress_delete(request, _type, _id):

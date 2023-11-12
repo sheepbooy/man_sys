@@ -55,19 +55,15 @@ def preparation_add(request, _type):
         'ing': ExistingFormulationDeveloping_form,
         'todev': ExistingFormulationToDevelop_form,
     }.get(_type)
-    template_cls = {
-        'completed': 'ExistingFormulationCompleted',
-        'ing': 'ExistingFormulationDeveloping',
-        'todev': 'ExistingFormulationToDevelop',
-    }.get(_type)
+
     if request.method == 'GET':
         form = form_cls()
-        return render(request, f'{template_cls}_add.html', {'form': form})
+        return render(request, 'change.html', {'form': form, 'address': f'preparation/{_type}'})
     form = form_cls(data=request.POST)
     if form.is_valid():
         form.save()
         return redirect(f'/preparation/{_type}/')
-    return render(request, f'{template_cls}_add.html', {'form': form})
+    return render(request, 'change.html', {'form': form, 'address': f'preparation/{_type}'})
 
 
 def preparation_edit(request, _type, _id):
@@ -77,11 +73,7 @@ def preparation_edit(request, _type, _id):
         'ing': ExistingFormulationDeveloping_form,
         'todev': ExistingFormulationToDevelop_form,
     }.get(_type)
-    template_cls = {
-        'completed': 'ExistingFormulationCompleted',
-        'ing': 'ExistingFormulationDeveloping',
-        'todev': 'ExistingFormulationToDevelop',
-    }.get(_type)
+
     if _type == 'completed':
         row_object = models.ExistingProductCompleted.objects.filter(serial_number=_id).first()
     elif _type == 'todev':
@@ -90,12 +82,12 @@ def preparation_edit(request, _type, _id):
         row_object = models.ExistingFormulationDeveloping.objects.filter(serial_number=_id).first()
     if request.method == 'GET':
         form = form_cls(instance=row_object)
-        return render(request, f'{template_cls}_edit.html', {'form': form})
+        return render(request, 'change.html', {'form': form, 'address': f'preparation/{_type}'})
     form = form_cls(data=request.POST, instance=row_object)
     if form.is_valid():
         form.save()
         return redirect(f'/preparation/{_type}/')
-    return render(request, f'{template_cls}_edit.html', {'form': form})
+    return render(request, 'change.html', {'form': form, 'address': f'preparation/{_type}'})
 
 
 def preparation_delete(request, _type, _id):

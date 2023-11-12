@@ -1,3 +1,5 @@
 
+kpython:S1192*"LDefine a constant instead of duplicating this literal 'change.html' 4 times.(ë³†8Ğ©¹Œ¼1
 qpython:S1192/"RDefine a constant instead of duplicating this literal '/develop/butting/' 3 times.(ûãƒê8â¯šŠ¼1
-Mpython:S1172D"/Remove the unused function parameter "request".(âôÙf8â¯šŠ¼1
+opython:S1192*"PDefine a constant instead of duplicating this literal 'develop/butting' 4 times.(ë³†8Ğ©¹Œ¼1
+Mpython:S1172C"/Remove the unused function parameter "request".(âôÙf8â¯šŠ¼1
