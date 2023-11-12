@@ -1,0 +1,5 @@
+
+wpython:S1192("SDefine a constant instead of duplicating this literal 'employees_add.html' 3 times.(ÔÉ”ßùÿÿÿÿ8‚ÌÞ‰¼1
+ppython:S1192-"LDefine a constant instead of duplicating this literal '/employees/' 3 times.(€ÄÖìýÿÿÿÿ8ñîß‰¼1
+kpython:S2208"GImport only needed names or import the module and then use its members.(Ü¹åªøÿÿÿÿ8®£Ü‰¼1
+Spython:S1172A"/Remove the unused function parameter "request".(í–­˜ýÿÿÿÿ8ñîß‰¼1
