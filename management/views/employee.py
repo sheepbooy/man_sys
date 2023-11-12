@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect
 from django.db.models import Q
 from management.utils.pagination import Pagination
-from management.utils.form import *
+from management.utils.form import EmployeesForm
+from management import models
 
 
 def employees_list(request):
@@ -69,3 +70,19 @@ def employees_delete(request, _id):
     """用户删除"""
     models.Employees.objects.filter(work_id=_id).delete()
     return redirect('/employees/')
+
+
+def employees_reset(request, _id):
+    """重置用户密码"""
+    row_object = models.Employees.objects.filter(work_id=_id).first()
+
+    if request.method == 'GET':
+        form = EmployeesForm(instance=row_object)
+        return render(request, 'change.html', {'form': form, 'address': 'employees'})
+
+    form = EmployeesForm(data=request.POST, instance=row_object)
+    if form.is_valid():
+        form.save()
+        return redirect('/employees/')
+
+    return render(request, 'change.html', {'form': form, 'address': 'employees'})

@@ -1,7 +1,6 @@
 from django.shortcuts import render, redirect
-from django.db.models import Q
-from management.utils.pagination import Pagination
 from management.utils.form import *
+
 
 # Create your views here.
 def login_view(request):
@@ -13,7 +12,9 @@ def login_view(request):
         password = request.POST.get('password')  # 获取密码
         user = models.Employees.objects.filter(work_id=work_id).first()
 
+        # 验证成功，生成cookie并写入浏览器，再写入session
         if user is not None and user.password == password:
+            request.session['info'] = {'work_id': work_id}
             return redirect('/home/')
         else:
             display_error = True  # 登录失败时显示错误消息

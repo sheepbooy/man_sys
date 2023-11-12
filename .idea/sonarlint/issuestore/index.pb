@@ -477,3 +477,9 @@ P
  management/templates/change.html,c\9\c9df8c0655e2f6af19b354dd6c851d83612c52c7
 x
 Hmanagement/migrations/0003_admin_alter_authorization_options_and_more.py,0\f\0fe6fb74323bbf21e831878abc559ced5e72d03d
+I
+management/views/admin.py,7\e\7ecfdcb5a712cb5944e382111755186650c50001
+K
+management/views/account.py,7\a\7a3ee8e676b91b4caa499cc71f55b0da46a8580d
+M
+management/middleware/auth.py,8\4\8411d58d8a8b743573ab49120e25f86ce766b32a

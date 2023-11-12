@@ -706,6 +706,3 @@ class Employees(models.Model):
         db_table = '员工信息表'
 
 
-class Admin(models.Model):
-    work_id = models.CharField(primary_key=True, max_length=255, verbose_name='工号')
-    password = models.CharField(max_length=255, blank=True, verbose_name='密码')
