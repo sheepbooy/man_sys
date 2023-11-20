@@ -710,6 +710,8 @@ class Employees(models.Model):
 class Receivable(models.Model):
     # 编号（从1开始自动递增）
     id = models.AutoField(primary_key=True, verbose_name='编号')
+    # 存储关联的唯一标识符,外贸部台账id
+    internal_trade_ledger_id = models.IntegerField()
     # 交易日期（物流发运日期）
     transaction_date = models.DateField(verbose_name='交易日期')
     # 省份（省份）
@@ -736,3 +738,16 @@ class Receivable(models.Model):
     class Meta:
         managed = False
         db_table = '收账款明细'
+
+
+class Overdue(models.Model):
+    # 编号（从1开始自动递增）
+    id = models.AutoField(primary_key=True, verbose_name='编号')
+    # 逾期说明与回款计划
+    description = models.TextField(blank=True, verbose_name='逾期说明与回款计划')
+    # Receivable id
+    received_id = models.IntegerField()
+
+    class Meta:
+        managed = False
+        db_table = '逾期账款明细'

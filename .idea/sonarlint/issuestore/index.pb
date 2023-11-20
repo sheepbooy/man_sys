@@ -273,3 +273,17 @@ W
 'management/templates/report_change.html,f\a\fa91b0b027774ee77e796cd99f82154d03b6f384
 U
 %management/migrations/0001_initial.py,3\e\3e9607287036604f4206ab1cb396be0e8f536b49
+c
+3management/migrations/0003_alter_overdue_options.py,f\b\fb56c02f43cdb7e29dd86d78880da7e23e168244
+U
+%management/migrations/0002_overdue.py,6\1\61440f8c2a0e3d2350d06ba0e26197d137892ac3
+Z
+*management/templates/d_overdue_detali.html,c\a\ca92dc209ab06509f8b15e2fe6634e5e18c40d12
+Z
+*management/templates/d_overdue_detail.html,d\6\d69d6d9132b59a5cf23dce335e5cd5f2e3215507
+_
+/management/templates/receivable_detail_add.html,3\2\325393223ae9cebeda323393c218d143cc8ecb5f
+^
+.management/templates/d_overdue_detali_add.html,d\a\da76a29fb10499761091eeb3f6392378b41e5946
+c
+3management/migrations/0004_alter_overdue_options.py,b\6\b6ad2571a6f18aac0a63eba1d504c65647e1ec2e

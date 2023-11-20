@@ -292,7 +292,7 @@ class M_receivableForm(BootStrapModelForm):
 
     class Meta:
         model = models.Receivable
-        exclude = '__all__'
+        exclude = ['internal_trade_ledger_id']
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -311,3 +311,14 @@ class M_receivableForm(BootStrapModelForm):
         self.fields['salesperson'].required = False
         self.fields['accounts_receivable'].required = False
         self.fields['accounts_receivable_balance'].required = False
+
+
+class OverdueForm(BootStrapModelForm):
+    """截止202X年X月X日已逾期账款明细（原辅料、食品、研发、产品）"""
+    class Meta:
+        model = models.Overdue
+        # fields = [
+        #     'id', 'timestamp', 'department', 'product', 'related_formulation',
+        #     'message', 'progress_status', 'contact_department_lead', 'details'
+        # ]
+        exclude = ['received_id']

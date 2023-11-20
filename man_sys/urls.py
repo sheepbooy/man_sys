@@ -138,4 +138,8 @@ urlpatterns = [
     # 202X年X月应收账款明细（原辅料、食品、研发、产品）：
     path('report/inner/m_receivable_detail/', y_m_receivable_details.receivable_detail),
     path('report/inner/m_receivable_detail/add/<int:_id>/', y_m_receivable_details.receivable_detail_add),
+
+    # 截止202X年X月X日已逾期账款明细（原辅料、食品、研发、产品）
+    path('report/inner/d_overdue_detail/', y_m_receivable_details.d_overdue_detali),
+    path('report/inner/d_overdue_detail/add/<int:_id>/', y_m_receivable_details.d_overdue_detali_add),
 ]

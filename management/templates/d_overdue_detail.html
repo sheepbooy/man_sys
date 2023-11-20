@@ -1,0 +1,153 @@
+{% extends 'layout.html' %}
+
+
+
+{% block content %}
+
+    <main class="py-5">
+        <h2 class="mb-4">{{ value }}应收账款明细(内贸部)</h2>
+        <div class="row mb-3">
+            <div class="col text-end">
+                <form method="get" id="search-form">
+                    <div class="input-group">
+                        <input type="day" name="q" class="form-control datepicker" placeholder="选择年份和月份"
+                               value="{{ value }}" readonly>
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-secondary" type="submit">搜索</button>
+                            <button class="btn btn-outline-secondary" type="button" id="clear-search">清空</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                {% for item in page_queryset %}
+                    <div class="col-12 mb-4">
+                        <div class="d-flex card">
+                            <div class="card-body">
+                                <div class="info-item">
+                                    <h4 class="info-title">交易日期</h4>
+                                    <p class="info-content">{{ item.transaction_date }}</p>
+                                </div>
+                                <div class="info-item">
+                                    <h4 class="info-title">省份</h4>
+                                    <p class="info-content">{{ item.province }}</p>
+                                </div>
+                                <div class="info-item">
+                                    <h4 class="info-title">客户名称</h4>
+                                    <p class="info-content">{{ item.customer_name }}</p>
+                                </div>
+                                <div class="info-item">
+                                    <h4 class="info-title">业务员</h4>
+                                    <p class="info-content">{{ item.salesperson }}</p>
+                                </div>
+                                <div class="info-item">
+                                    <h4 class="info-title">还款日</h4>
+                                    <p class="info-content">{{ item.repayment_date }}</p>
+                                </div>
+                                <div class="info-item">
+                                    <h4 class="info-title">应收账款余额</h4>
+                                    <p class="info-content">{{ item.accounts_receivable_balance }}</p>
+                                </div>
+                            </div>
+                            <a href="/report/inner/d_overdue_detail/add/{{ item.id }}/" class="btn btn-info btn-primary edit-button"
+                               data-card-id="{{ item.id }}"
+                               data-explanation="{{ item.description }}">添加说明</a>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </main>
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+            {{ page_string|safe }}
+        </ul>
+    </nav>
+{% endblock %}
+
+{% block css %}
+    <style>
+        .card {
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-body {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+        }
+
+        .info-item {
+            flex-basis: calc(33.33% - 20px);
+            padding: 10px;
+        }
+
+        .info-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .info-content {
+            font-size: 16px;
+            margin-bottom: 16px;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            color: #fff;
+        }
+    </style>
+    <style>
+        /* 自定义模态框样式，使其垂直居中 */
+        .modal {
+            text-align: center;
+            padding: 0 !important;
+        }
+
+        .modal:before {
+            content: '';
+            display: inline-block;
+            height: 100%;
+            vertical-align: middle;
+            margin-right: -4px; /* 修复滚动条 */
+        }
+
+        .modal-dialog {
+            display: inline-block;
+            text-align: left;
+            vertical-align: middle;
+        }
+    </style>
+
+{% endblock %}
+{% block js %}
+<script>
+    $('.datepicker').datepicker({
+        language: 'zh-CN',
+        format: 'yyyy-mm-dd',
+        minViewMode: 0, // 设置为 '0' 以允许选择到天
+        startDate: '0',
+        autoClose: true
+    }).on('changeDate', function () {
+        $(this).datepicker('hide'); // 选择日期后自动关闭日期选择器
+    });
+
+    $(document).ready(function () {
+        // 当清空按钮点击时，清空搜索框内的内容，并自动点击搜索按钮
+        $('#clear-search').click(function () {
+            // 清空搜索框
+            $('input[name="q"]').val('');
+            // 触发搜索按钮点击事件
+            $('button[type="submit"]').click();
+        });
+    });
+</script>
+{% endblock %}
