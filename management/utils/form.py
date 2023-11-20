@@ -304,7 +304,7 @@ class M_receivableForm(BootStrapModelForm):
         self.fields['accounts_receivable'].widget.attrs['disabled'] = True
         self.fields['accounts_receivable_balance'].widget.attrs['disabled'] = True
 
-         # 将以下字段设置为非必填项
+        # 将以下字段设置为非必填项
         self.fields['transaction_date'].required = False
         self.fields['province'].required = False
         self.fields['customer_name'].required = False
@@ -315,6 +315,7 @@ class M_receivableForm(BootStrapModelForm):
 
 class OverdueForm(BootStrapModelForm):
     """截止202X年X月X日已逾期账款明细（原辅料、食品、研发、产品）"""
+
     class Meta:
         model = models.Overdue
         # fields = [
@@ -322,3 +323,28 @@ class OverdueForm(BootStrapModelForm):
         #     'message', 'progress_status', 'contact_department_lead', 'details'
         # ]
         exclude = ['received_id']
+
+
+class Foreign_receivable_form(BootStrapModelForm):
+    class Meta:
+        model = models.Foreign_receivable
+
+        exclude = ['foreign_trade_ledger_id']
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        # 设置已填充字段为禁用状态
+        self.fields['transaction_date'].widget.attrs['disabled'] = True
+        self.fields['customer_name'].widget.attrs['disabled'] = True
+        self.fields['salesperson'].widget.attrs['disabled'] = True
+        self.fields['accounts_receivable_usd'].widget.attrs['disabled'] = True
+        self.fields['accounts_receivable_rmb'].widget.attrs['disabled'] = True
+
+
+        # 将以下字段设置为非必填项
+        self.fields['transaction_date'].required = False
+        self.fields['customer_name'].required = False
+        self.fields['salesperson'].required = False
+        self.fields['accounts_receivable_usd'].required = False
+        self.fields['accounts_receivable_rmb'].required = False
+

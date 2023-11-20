@@ -708,9 +708,10 @@ class Employees(models.Model):
 
 # 报表及视图
 class Receivable(models.Model):
+    """应收账款明细（原辅料、食品、研发、产品）"""
     # 编号（从1开始自动递增）
     id = models.AutoField(primary_key=True, verbose_name='编号')
-    # 存储关联的唯一标识符,外贸部台账id
+    # 存储关联的唯一标识符,内贸部台账id
     internal_trade_ledger_id = models.IntegerField()
     # 交易日期（物流发运日期）
     transaction_date = models.DateField(verbose_name='交易日期')
@@ -751,3 +752,47 @@ class Overdue(models.Model):
     class Meta:
         managed = False
         db_table = '逾期账款明细'
+
+
+class Foreign_receivable(models.Model):
+    """应收账款明细（外贸部）"""
+    # 编号（从1开始自动递增）
+    id = models.AutoField(primary_key=True, verbose_name='编号')
+    # 外贸部id
+    foreign_trade_ledger_id = models.IntegerField()
+    # 交易日期（销售日期）
+    transaction_date = models.DateField(verbose_name='交易日期')
+    # 客户名称（单位名称）
+    customer_name = models.CharField(max_length=255, verbose_name='客户名称')
+    # 业务员
+    salesperson = models.CharField(max_length=255, verbose_name='业务员')
+    # 应收账款- USD（未收款-USD）
+    accounts_receivable_usd = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='应收账款-USD')
+    # 应收账款-RMB（未收款-人民币）
+    accounts_receivable_rmb = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='应收账款-人民币')
+    # 应收账款期限
+    accounts_receivable_due = models.DateField(verbose_name='应收账款期限')
+    # 还款日
+    repayment_date = models.DateField(verbose_name='还款日')
+    # 已收货款1- USD
+    received_payment1_usd = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='已收货款1-USD')
+    # 已收货款1-RMB
+    received_payment1_rmb = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='已收货款1-人民币')
+    # 已收货款2- USD
+    received_payment2_usd = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='已收货款2-USD')
+    # 已收货款2-RMB
+    received_payment2_rmb = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='已收货款2-人民币')
+    # 应收账款余额- USD
+    accounts_receivable_balance_usd = models.DecimalField(max_digits=10, decimal_places=2,
+                                                          verbose_name='应收账款余额-USD')
+    # 应收账款余额-RMB
+    accounts_receivable_balance_rmb = models.DecimalField(max_digits=10, decimal_places=2,
+                                                          verbose_name='应收账款余额-人民币')
+    # 折人民币
+    rmb_discount = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='折人民币')
+    # 备注
+    remarks = models.TextField(blank=True, verbose_name='备注')
+
+    class Meta:
+        managed = False
+        db_table = '外贸部收款明细'

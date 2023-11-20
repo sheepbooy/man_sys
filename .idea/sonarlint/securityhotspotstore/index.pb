@@ -287,3 +287,9 @@ _
 .management/templates/d_overdue_detali_add.html,d\a\da76a29fb10499761091eeb3f6392378b41e5946
 c
 3management/migrations/0004_alter_overdue_options.py,b\6\b6ad2571a6f18aac0a63eba1d504c65647e1ec2e
+\
+,management/templates/foreign_receivable.html,0\9\099c4b3009e8bda53ea62bc678280c3c2fac03cb
+`
+0management/templates/foreign_receivable_add.html,e\c\ec53dc41f314e842890ae9689877439be513336a
+`
+0management/migrations/0005_foreign_receivable.py,9\a\9a6d9f0ddad73b6fc350a073111d63f45b7b953d
