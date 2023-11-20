@@ -44,8 +44,8 @@ class InternalTradeLedger(models.Model):
     increase_debit = models.CharField(max_length=255, blank=True, verbose_name='增加借方')
     decrease_credit = models.CharField(max_length=255, blank=True, verbose_name='减少贷方')
     balance = models.CharField(max_length=255, blank=True, verbose_name='余额')
-    f26 = models.CharField(max_length=255, blank=True, verbose_name='F26')
-    f27 = models.CharField(max_length=255, blank=True, verbose_name='F27')
+    order_amount = models.CharField(max_length=255, blank=True, verbose_name='order_amount')
+    payback_amount = models.CharField(max_length=255, blank=True, verbose_name='payback_amount')
     first_occurrence = models.CharField(max_length=255, blank=True, verbose_name='首次出现')
     new = models.CharField(max_length=255, blank=True, verbose_name='新')
     second_occurrence = models.CharField(max_length=255, blank=True, verbose_name='第二次出现')
@@ -706,3 +706,22 @@ class Employees(models.Model):
         db_table = '员工信息表'
 
 
+# 报表及视图
+from django.db import models
+
+class Receivable(models.Model):
+    transaction_date = models.DateField(null=True, blank=True)
+    province = models.CharField(max_length=100)
+    customer_name = models.CharField(max_length=200)
+    salesperson = models.CharField(max_length=100)
+    receivable_amount = models.DecimalField(max_digits=10, decimal_places=2)
+    receivable_due_date = models.DateField(null=True, blank=True)
+    repayment_date = models.DateField(null=True, blank=True)
+    received_amount1 = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
+    received_amount2 = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
+    receivable_balance = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
+    remarks = models.TextField(null=True, blank=True)
+
+    class Meta:
+        managed = False
+        db_table = '账款明细'

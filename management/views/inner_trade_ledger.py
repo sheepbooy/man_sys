@@ -35,6 +35,29 @@ def inner_trade_ledger(request):
     return render(request, 'inner_trade_ledger.html', context)
 
 
+def x_month_inner_trade_ledger(request):
+    """根据 sales_month 进行查询"""
+    value = request.GET.get('q', '')
+
+    if value:
+        # 创建 Q 对象来过滤 sales_month
+        query = Q(sales_month__icontains=value)
+        query_set = models.InternalTradeLedger.objects.filter(query)
+    else:
+        query_set = models.InternalTradeLedger.objects.all()
+
+    # 进行分页等后续处理，保持不变
+    page_object = Pagination(request, query_set)
+    page_object.html()
+
+    context = {
+        'page_queryset': page_object.page_queryset,
+        'page_string': page_object.page_string,
+        'value': value
+    }
+    return render(request, 'x_month_inner_trade_ledger.html', context)
+
+
 def inner_trade_ledger_add(request):
     """内贸部台账表添加"""
     if request.method == 'GET':

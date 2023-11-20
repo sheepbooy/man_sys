@@ -18,6 +18,9 @@
             transform: scale(1.05);
         }
     </style>
+    <link rel="stylesheet" href="{% static 'plugins/datepicker/dist/datepicker.css' %}">
+
+
     {% block css %}
     {% endblock %}
 </head>
@@ -32,7 +35,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link" href="#">部门管理</a>
+                    <a class="nav-link" href="/report">报表管理</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">用户管理</a>
@@ -80,10 +83,14 @@
 
     {% endblock %}
 </div>
-{% block js %}
-{% endblock %}
+
 <script src="{% static 'plugins/bootstrap-5.3.0/js/bootstrap.bundle.min.js' %}"></script>
 <script src="{% static 'js/jquery-3.7.1.min.js' %}"></script>
+<script src="{% static 'plugins/datepicker/dist/datepicker.js' %}"></script>
+
+{% block js %}
+
+{% endblock %}
 </body>
 </html>
 

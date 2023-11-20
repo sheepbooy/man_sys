@@ -124,4 +124,9 @@ urlpatterns = [
     path('question/add/', question.question_add),
     path('question/edit/<int:_id>/', question.question_edit, name='edit_question'),
     path('question/delete/<int:_id>/', question.question_delete, name='delete_question'),
+
+    # 报表管理
+    path('report/', login_register_home.report_home),
+    path('report/inner/x_month_inner_trade_ledger/', inner_trade_ledger.x_month_inner_trade_ledger),
+    path('report/foreign/x_month_inner_trade_ledger/', foreign_trade_ledger.x_month_foreign_trade_ledger),
 ]

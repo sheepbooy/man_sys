@@ -4,26 +4,6 @@ from management.utils.form import EmployeesForm
 from management import models
 from io import BytesIO
 from management.utils.code import check_code
-from management.utils.BootStrap import BootStrapForm
-from django import forms
-
-
-class LoginForm(BootStrapForm):
-    word_id = forms.CharField(
-        label='工号',
-        widget=forms.TextInput(attrs={'class': 'form-control'}),
-        required=True
-    )
-    password = forms.CharField(
-        label='密码',
-        widget=forms.PasswordInput(attrs={'class': 'form-control'}, render_value=True),
-        required=True
-    )
-    code = forms.CharField(
-        label='验证码',
-        widget=forms.TextInput(attrs={'class': 'form-control'}),
-        required=True
-    )
 
 
 # Create your views here.
@@ -81,6 +61,10 @@ def home(request):
     """登录后的主页面"""
     return render(request, 'home.html')
 
+def report_home(request):
+    """登录后的视图主页面"""
+    return render(request, 'report_home.html')
+
 
 def logout(request):
     """注销登录"""
@@ -113,8 +97,6 @@ def image_code(request):
     request.session['image_code'] = code_string
     # 设置验证码的有效时间(60s)
     request.session.set_expiry(60)
-
-    # print(code_string)
     stream = BytesIO()
     img.save(stream, 'png')
 
