@@ -53,8 +53,6 @@ Q
 !management/templates/butting.html,d\b\dbb05297cbbadc45f43907c23d6ba27a01dde0b9
 R
 "management/templates/turnover.html,2\7\27a19f3a252a6e472c9afccaaec1bc386428c4d1
-U
-%management/migrations/0001_initial.py,3\e\3e9607287036604f4206ab1cb396be0e8f536b49
 T
 $management/templates/dev_custom.html,6\6\661228ce707ccfd36ad5c0f51332c90f33c93189
 R
@@ -73,8 +71,6 @@ Q
 .management/templates/foreign_trade_ledger.html,6\c\6c82dc2ed974111908c13b91b5189e7b146fec59
 C
 management/tests.py,0\5\05257333ade4b9543b50cc781b08a84070bcb885
-r
-Bmanagement/migrations/0002_alter_authorization_options_and_more.py,a\a\aa35485ab2cd628cb4e338d24be40ec49fbfbc3c
 N
 management/utils/pagination.py,0\5\05508eb8f7ff4d1faae4cfecb96b2a48f1f45ae8
 M
@@ -257,21 +253,23 @@ Q.idea/sonarlint/securityhotspotstore/4/e/4e60763e86fbc211e2bcb9374a7e44cfa9b349
 Q.idea/sonarlint/securityhotspotstore/7/0/707fe45fd9a83fa8ecef906e23e90fc14027a677,5\4\54e8941e55d01048edb42a5f48db95e47ed02553
 P
  management/templates/change.html,c\9\c9df8c0655e2f6af19b354dd6c851d83612c52c7
-x
-Hmanagement/migrations/0003_admin_alter_authorization_options_and_more.py,0\f\0fe6fb74323bbf21e831878abc559ced5e72d03d
 M
 management/middleware/auth.py,8\4\8411d58d8a8b743573ab49120e25f86ce766b32a
 H
 management/utils/code.py,f\2\f213d4b360b6c9d700c102980b4c781ae7a99429
 U
 %management/templates/report_home.html,2\4\24ef0d0616093e8962bc1948234023d2ad01db91
-d
-4management/templates/x_month_inner_trade_ledger.html,5\9\599a69781d63c05ca89d3d09a2df37220073927e
-^
-.management/templates/x_month_trade_ledger.html,9\3\930d90bc02bfdd868156243c68cc6aa42e015f97
-f
-6management/templates/x_month_foreign_trade_ledger.html,d\d\ddd6c8ce24f61cda86462333ba1a8a8361027a49
-X
-(management/migrations/0005_receivable.py,a\7\a7d9514e3c0d25f06d836dcd6391d6a8b19d21d0
 Z
-*management/migrations/0004_delete_admin.py,8\a\8ad72bc5e7ee075fd1a616b4584e52fb9325af7d
+*management/views/y_m_receivable_details.py,2\4\24abbfacc9fde72eb9a5b270c7a77b4823430a6f
+`
+0management/templates/y_m_receivable_details.html,c\e\ce8a9e42231c259a3f52321e026272f2cb522aec
+^
+.management/templates/m_inner_trade_ledger.html,9\1\91980cd59f5966fe14827effab008410f4312964
+`
+0management/templates/m_foreign_trade_ledger.html,8\c\8c62e0ee37ba633d447bf6672fac4a8b688c7ae7
+N
+management/templates/test.html,8\e\8ec5d8d663e7dfe09560353a23be2b6ea54f87bc
+W
+'management/templates/report_change.html,f\a\fa91b0b027774ee77e796cd99f82154d03b6f384
+U
+%management/migrations/0001_initial.py,3\e\3e9607287036604f4206ab1cb396be0e8f536b49

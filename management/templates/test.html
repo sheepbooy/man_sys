@@ -1,0 +1,81 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+    <main class="py-5">
+        <div class="container">
+            <div class="row">
+                {% for item in page_queryset %}
+                    <div class="col-12 mb-4">
+                        <div class="d-flex card">
+                            <div class="card-body">
+                                <div class="info-item">
+                                    <h4 class="info-title">交易日期</h4>
+                                    <p class="info-content">{{ item.logistics_shipment_date }}</p>
+                                </div>
+                                <div class="info-item">
+                                    <h4 class="info-title">省份</h4>
+                                    <p class="info-content">{{ item.province }}</p>
+                                </div>
+                                <div class="info-item">
+                                    <h4 class="info-title">客户名称</h4>
+                                    <p class="info-content">{{ item.company_name }}</p>
+                                </div>
+                                <div class="info-item">
+                                    <h4 class="info-title">业务员</h4>
+                                    <p class="info-content">{{ item.salesperson }}</p>
+                                </div>
+                                <div class="info-item">
+                                    <h4 class="info-title">应收账款</h4>
+                                    <p class="info-content">{{ item.unreceived_payment }}</p>
+                                </div>
+                            </div>
+                            <div class="align-self-end">
+                                <button class="btn btn-primary" type="button">Edit Info</button>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </main>
+{% endblock %}
+
+{% block css %}
+    <style>
+        .card {
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-body {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+        }
+
+        .info-item {
+            flex-basis: calc(33.33% - 20px);
+            padding: 10px;
+        }
+
+        .info-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .info-content {
+            font-size: 16px;
+            margin-bottom: 16px;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            color: #fff;
+        }
+    </style>
+{% endblock %}

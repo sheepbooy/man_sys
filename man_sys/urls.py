@@ -29,6 +29,7 @@ from management.views import butting
 from management.views import turnover
 from management.views import product
 from management.views import question
+from management.views import y_m_receivable_details
 
 urlpatterns = [
     # path('admin/', admin.site.urls),
@@ -127,6 +128,14 @@ urlpatterns = [
 
     # 报表管理
     path('report/', login_register_home.report_home),
-    path('report/inner/x_month_inner_trade_ledger/', inner_trade_ledger.x_month_inner_trade_ledger),
-    path('report/foreign/x_month_inner_trade_ledger/', foreign_trade_ledger.x_month_foreign_trade_ledger),
+
+    # 202X年X月台账基础表（原辅料、食品、研发、产品）
+    path('report/inner/m_inner_trade_ledger/', inner_trade_ledger.x_month_inner_trade_ledger),
+
+    # 202X年X月台账基础表（外贸部）
+    path('report/foreign/m_foreign_trade_ledger/', foreign_trade_ledger.x_month_foreign_trade_ledger),
+
+    # 202X年X月应收账款明细（原辅料、食品、研发、产品）：
+    path('report/inner/m_receivable_detail/', y_m_receivable_details.receivable_detail),
+    path('report/inner/m_receivable_detail/add/<int:_id>/', y_m_receivable_details.receivable_detail_add),
 ]

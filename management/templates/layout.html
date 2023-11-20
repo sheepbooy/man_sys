@@ -5,22 +5,7 @@
     <meta charset="UTF-8">
     <title>管理系统</title>
     <link rel="stylesheet" href="{% static 'plugins/bootstrap-5.3.0/css/bootstrap.min.css' %}">
-    <style>
-        .card:hover {
-            transform: scale(1.05);
-        }
-
-        .btn-secondary {
-            transition: transform 0.3s ease-in-out;
-        }
-
-        .btn-secondary:hover {
-            transform: scale(1.05);
-        }
-    </style>
     <link rel="stylesheet" href="{% static 'plugins/datepicker/dist/datepicker.css' %}">
-
-
     {% block css %}
     {% endblock %}
 </head>
@@ -80,17 +65,14 @@
 
 <div class="container">
     {% block content %}
-
     {% endblock %}
 </div>
 
-<script src="{% static 'plugins/bootstrap-5.3.0/js/bootstrap.bundle.min.js' %}"></script>
 <script src="{% static 'js/jquery-3.7.1.min.js' %}"></script>
+<script src="{% static 'plugins/bootstrap-5.3.0/js/bootstrap.bundle.min.js' %}"></script>
 <script src="{% static 'plugins/datepicker/dist/datepicker.js' %}"></script>
 
 {% block js %}
-
 {% endblock %}
 </body>
 </html>
-

@@ -56,7 +56,7 @@ def x_month_foreign_trade_ledger(request):
         'page_string': page_object.page_string,
         'value': value
     }
-    return render(request, 'x_month_foreign_trade_ledger.html', context)
+    return render(request, 'm_foreign_trade_ledger.html', context)
 
 
 def foreign_trade_ledger_add(request):

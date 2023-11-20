@@ -44,8 +44,8 @@ class InternalTradeLedger(models.Model):
     increase_debit = models.CharField(max_length=255, blank=True, verbose_name='增加借方')
     decrease_credit = models.CharField(max_length=255, blank=True, verbose_name='减少贷方')
     balance = models.CharField(max_length=255, blank=True, verbose_name='余额')
-    order_amount = models.CharField(max_length=255, blank=True, verbose_name='order_amount')
-    payback_amount = models.CharField(max_length=255, blank=True, verbose_name='payback_amount')
+    order_amount = models.CharField(max_length=255, blank=True, verbose_name='销售金额')
+    payback_amount = models.CharField(max_length=255, blank=True, verbose_name='回款金额')
     first_occurrence = models.CharField(max_length=255, blank=True, verbose_name='首次出现')
     new = models.CharField(max_length=255, blank=True, verbose_name='新')
     second_occurrence = models.CharField(max_length=255, blank=True, verbose_name='第二次出现')
@@ -707,21 +707,32 @@ class Employees(models.Model):
 
 
 # 报表及视图
-from django.db import models
-
 class Receivable(models.Model):
-    transaction_date = models.DateField(null=True, blank=True)
-    province = models.CharField(max_length=100)
-    customer_name = models.CharField(max_length=200)
-    salesperson = models.CharField(max_length=100)
-    receivable_amount = models.DecimalField(max_digits=10, decimal_places=2)
-    receivable_due_date = models.DateField(null=True, blank=True)
-    repayment_date = models.DateField(null=True, blank=True)
-    received_amount1 = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
-    received_amount2 = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
-    receivable_balance = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
-    remarks = models.TextField(null=True, blank=True)
+    # 编号（从1开始自动递增）
+    id = models.AutoField(primary_key=True, verbose_name='编号')
+    # 交易日期（物流发运日期）
+    transaction_date = models.DateField(verbose_name='交易日期')
+    # 省份（省份）
+    province = models.CharField(max_length=255, verbose_name='省份')
+    # 客户名称（单位名称）
+    customer_name = models.CharField(max_length=255, verbose_name='客户名称')
+    # 业务员（业务员）
+    salesperson = models.CharField(max_length=255, verbose_name='业务员')
+    # 应收账款（未收款）
+    accounts_receivable = models.CharField(max_length=255, verbose_name='应收账款')
+    # 应收账款期限（自己输入）
+    accounts_receivable_due_date = models.DateField(verbose_name='应收账款期限')
+    # 还款日（自己输入）
+    repayment_date = models.DateField(verbose_name='还款日')
+    # 已收货款1（自己输入）
+    received_payment_1 = models.CharField(max_length=255, verbose_name='已收货款1')
+    # 已收货款2（自己输入）
+    received_payment_2 = models.CharField(max_length=255, verbose_name='已收货款2')
+    # 应收账款余额（前面三个字段的数字的差额，应收账款-已收货款1-已收货款2）
+    accounts_receivable_balance = models.CharField(max_length=255, verbose_name='应收账款余额')
+    # 备注（自己输入）
+    remarks = models.TextField(blank=True, verbose_name='备注')
 
     class Meta:
         managed = False
-        db_table = '账款明细'
+        db_table = '收账款明细'

@@ -285,3 +285,29 @@ class Feedback_form(BootStrapModelForm):
         #     'message', 'progress_status', 'contact_department_lead', 'details'
         # ]
         fields = '__all__'
+
+
+class M_receivableForm(BootStrapModelForm):
+    """202X年X月应收账款明细（原辅料、食品、研发、产品）："""
+
+    class Meta:
+        model = models.Receivable
+        exclude = '__all__'
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        # 设置已填充字段为禁用状态
+        self.fields['transaction_date'].widget.attrs['disabled'] = True
+        self.fields['province'].widget.attrs['disabled'] = True
+        self.fields['customer_name'].widget.attrs['disabled'] = True
+        self.fields['salesperson'].widget.attrs['disabled'] = True
+        self.fields['accounts_receivable'].widget.attrs['disabled'] = True
+        self.fields['accounts_receivable_balance'].widget.attrs['disabled'] = True
+
+         # 将以下字段设置为非必填项
+        self.fields['transaction_date'].required = False
+        self.fields['province'].required = False
+        self.fields['customer_name'].required = False
+        self.fields['salesperson'].required = False
+        self.fields['accounts_receivable'].required = False
+        self.fields['accounts_receivable_balance'].required = False
