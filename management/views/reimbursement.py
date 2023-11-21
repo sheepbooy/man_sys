@@ -74,3 +74,29 @@ def get_summary_data(request):
         ])
         return JsonResponse({'total_target': total_target})
     return JsonResponse({'total_target': 0})
+
+
+def get_current_targets(request):
+    department_name = request.GET.get('department')
+    try:
+        target = models.Reimbursement.objects.get(name=department_name)
+    except models.Reimbursement.DoesNotExist:
+        return JsonResponse({'error': 'Department not found'}, status=404)
+
+    # 创建包含每月目标的字典
+    targets = {
+        'janTarget': target.target_jan,
+        'febTarget': target.target_feb,
+        'marTarget': target.target_mar,
+        'aprTarget': target.target_apr,
+        'mayTarget': target.target_may,
+        'junTarget': target.target_jun,
+        'julTarget': target.target_jul,
+        'augTarget': target.target_aug,
+        'sepTarget': target.target_sep,
+        'octTarget': target.target_oct,
+        'novTarget': target.target_nov,
+        'decTarget': target.target_dec,
+    }
+
+    return JsonResponse(targets)

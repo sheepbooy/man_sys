@@ -31,6 +31,7 @@ from management.views import product
 from management.views import question
 from management.views import y_m_receivable_details
 from management.views import reimbursement
+from management.views import actual_sales
 
 urlpatterns = [
     # path('admin/', admin.site.urls),
@@ -153,4 +154,8 @@ urlpatterns = [
     path('get-target-data/', reimbursement.get_target_data, name='get_target_data'),
     path('update-target-data/', reimbursement.update_target_data, name='update_target_data'),
     path('get-summary-data/', reimbursement.get_summary_data, name='get_summary_data'),
+    path('get-current-targets/', reimbursement.get_current_targets, name='get-current-targets'),
+
+    # 各部门回款目标与实际完成的结果
+    path('targets-achievements/', actual_sales.targets_and_achievements_view, name='targets-achievements'),
 ]

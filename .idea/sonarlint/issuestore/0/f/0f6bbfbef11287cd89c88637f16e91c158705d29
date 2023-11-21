@@ -32,4 +32,3 @@ Cpython:S125›"Remove this commented out code.(Ú¼‡Îùÿÿÿÿ8šÛ³¿1
 ‰python:S101¢"jRename class "M_receivableForm" to match the regular expression ^_?([A-Z_][a-zA-Z0-9]*|[a-z_][a-z0-9_]*)$.(‡ÙÎÌ8šÛ³¿1
 Cpython:S125Á"Remove this commented out code.(Ú¼‡Îùÿÿÿÿ8šÛ³¿1
 python:S101È"qRename class "Foreign_receivable_form" to match the regular expression ^_?([A-Z_][a-zA-Z0-9]*|[a-z_][a-z0-9_]*)$.(œİ—ó8šÛ³¿1
-python:S101ß"lRename class "Reimbursement_form" to match the regular expression ^_?([A-Z_][a-zA-Z0-9]*|[a-z_][a-z0-9_]*)$.(“…äºøÿÿÿÿ8¶…·¿1

@@ -16,6 +16,7 @@
     <content url="file://$MODULE_DIR$" />
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="chart.js" level="application" />
   </component>
   <component name="SonarLintModuleSettings">
     <option name="uniqueId" value="b204d9cc-e281-4ea9-acfa-fa88c53e729a" />

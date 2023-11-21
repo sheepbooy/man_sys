@@ -1,0 +1,113 @@
+{% extends 'layout.html' %}
+{% block content %}
+    <div class="container mt-4">
+        <h1 class="mb-3 text-center">销售目标与实际完成</h1>
+        <div class="row justify-content-center mb-3">
+            <div class="col-md-6">
+                <form method="get" action="{% url 'targets-achievements' %}" class="mb-3">
+                    <label for="department" class="form-label">选择部门：</label>
+                    <select name="department" id="department" class="form-select" onchange="this.form.submit()">
+{#                        <option value="">请选择一个部门</option>#}
+                        {% for code, name in departments %}
+                            <option value="{{ code }}"
+                                    {% if selected_department == code %}selected{% endif %}>{{ name }}</option>
+                        {% endfor %}
+                    </select>
+                </form>
+            </div>
+        </div>
+
+        {% if results %}
+            <div class="row">
+                <div class="col-lg-6 mb-4">
+                    <div class="chart-container">
+                        <canvas id="salesPieChart"></canvas>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="table-responsive">
+                        <table class="table table-striped table-hover table-bordered">
+                            <thead>
+                            <tr>
+                                <th>月份</th>
+                                <th>回款目标</th>
+                                <th>实际回款</th>
+                                <th>差额</th>
+                                <th>完成比例</th>
+                                <th>操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for month, data in results.items %}
+                                <tr>
+                                    <td>{{ month }}</td>
+                                    <td>{{ data.target }}</td>
+                                    <td>{{ data.actual }}</td>
+                                    <td>{{ data.difference }}</td>
+                                    <td>{{ data.completion_ratio }}%</td>
+                                    <td>
+                                        <form method="post" action="{% url 'targets-achievements' %}"
+                                              class="d-flex align-items-center">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="department" value="{{ selected_department }}">
+                                            <input type="hidden" name="month" value="{{ month }}">
+                                            <input type="number" name="new_actual_amount" min="0"
+                                                   value="{{ data.actual }}" class="form-control form-control-sm me-2">
+                                            <button type="submit" class="btn btn-primary btn-sm">更新</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}
+
+
+{% block css %}
+    <style>
+        /* 自定义样式 */
+        .chart-container {
+            position: relative;
+            max-width: 100%;
+        }
+    </style>
+
+{% endblock %}
+
+
+{% block js %}
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        var ctx = document.getElementById('salesPieChart').getContext('2d');
+
+        var data = {
+            labels: ['回款目标', '实际回款'],
+            datasets: [{
+                data: [{{ total_target }}, {{ total_actual  }}],
+                backgroundColor: ['#007BFF', '#28A745'],
+            }]
+        };
+
+        var myPieChart = new Chart(ctx, {
+            type: 'pie',
+            data: data,
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                legend: {
+                    display: true,
+                    position: 'bottom'
+                },
+                title: {
+                    display: true,
+                    text: '销售目标与实际完成'
+                }
+            }
+        });
+    </script>
+{% endblock %}

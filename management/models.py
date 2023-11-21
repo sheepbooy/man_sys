@@ -829,3 +829,25 @@ class Reimbursement(models.Model):
     class Meta:
         managed = False
         db_table = '各部门回款目标'
+
+
+class ActualSales(models.Model):
+    department = models.ForeignKey(Reimbursement, on_delete=models.CASCADE)
+    actual_jan = models.DecimalField(max_digits=10, decimal_places=2, verbose_name="1月实际回款")
+    actual_feb = models.DecimalField(max_digits=10, decimal_places=2, verbose_name="2月实际回款")
+    actual_mar = models.DecimalField(max_digits=10, decimal_places=2, verbose_name="3月实际回款")
+    actual_apr = models.DecimalField(max_digits=10, decimal_places=2, verbose_name="4月实际回款")
+    actual_may = models.DecimalField(max_digits=10, decimal_places=2, verbose_name="5月实际回款")
+    actual_jun = models.DecimalField(max_digits=10, decimal_places=2, verbose_name="6月实际回款")
+    actual_jul = models.DecimalField(max_digits=10, decimal_places=2, verbose_name="7月实际回款")
+    actual_aug = models.DecimalField(max_digits=10, decimal_places=2, verbose_name="8月实际回款")
+    actual_sep = models.DecimalField(max_digits=10, decimal_places=2, verbose_name="9月实际回款")
+    actual_oct = models.DecimalField(max_digits=10, decimal_places=2, verbose_name="10月实际回款")
+    actual_nov = models.DecimalField(max_digits=10, decimal_places=2, verbose_name="11月实际回款")
+    actual_dec = models.DecimalField(max_digits=10, decimal_places=2, verbose_name="12月实际回款")
+
+    class Meta:
+        managed = False
+        db_table = '实际销售数据'
+
+

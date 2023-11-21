@@ -32,8 +32,6 @@
         </div>
     </div>
 
-
-
     <!-- 模态框 -->
     <div class="modal fade" id="editTargetsModal" tabindex="-1" aria-labelledby="editTargetsModalLabel"
          aria-hidden="true">
@@ -61,13 +59,50 @@
             </div>
         </div>
     </div>
-
-
 {% endblock %}
+
 
 {% block js %}
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
+        function fillModalWithCurrentValues(department) {
+            $.ajax({
+                url: '/get-current-targets/',
+                data: {'department': department},
+                success: function (data) {
+                    $('#1月Target').val(data.janTarget);
+                    $('#2月Target').val(data.febTarget);
+                    $('#3月Target').val(data.marTarget);
+                    $('#4月Target').val(data.aprTarget);
+                    $('#5月Target').val(data.mayTarget);
+                    $('#6月Target').val(data.junTarget);
+                    $('#7月Target').val(data.julTarget);
+                    $('#8月Target').val(data.augTarget);
+                    $('#9月Target').val(data.sepTarget);
+                    $('#10月Target').val(data.octTarget);
+                    $('#11月Target').val(data.novTarget);
+                    $('#12月Target').val(data.decTarget);
+                }
+            });
+        }
+
+        // 当部门选择改变或模态框打开时，更新模态框的数据
+        $('#departmentSelect').change(function () {
+            fillModalWithCurrentValues(this.value);
+        });
+        $('#editTargetsModal').on('show.bs.modal', function () {
+            var selectedDepartment = $('#departmentSelect').val();
+            fillModalWithCurrentValues(selectedDepartment);
+        });
+
+        // 页面加载时，默认显示销售部一部的数据
+        $(document).ready(function () {
+            var defaultDepartment = '销售部一部';
+            $('#departmentSelect').val(defaultDepartment);
+            updateChart(defaultDepartment);
+            updateSummary(defaultDepartment);
+        });
+
         function updateChart(department) {
             $.ajax({
                 url: '/get-target-data/',

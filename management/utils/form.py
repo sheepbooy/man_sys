@@ -346,10 +346,3 @@ class Foreign_receivable_form(BootStrapModelForm):
         self.fields['salesperson'].required = False
         self.fields['accounts_receivable_usd'].required = False
         self.fields['accounts_receivable_rmb'].required = False
-
-
-class Reimbursement_form(BootStrapModelForm):
-    """各部门回款目标"""
-    class Meta:
-        model = models.Overdue
-        fields = '__all__'

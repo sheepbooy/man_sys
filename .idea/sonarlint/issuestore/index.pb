@@ -291,3 +291,7 @@ Q
 !management/views/reimbursement.py,5\a\5ac1f4c99fc4e2d590810b0207ec709b9c48ac86
 W
 'management/templates/Reimbursement.html,c\b\cb1a42ce5fc278825d797c11995987bc63822c92
+P
+ management/views/actual_sales.py,1\7\170e48703b5a170a7981fd64ab142e80882b5e98
+b
+2management/templates/targets_and_achievements.html,6\a\6aaf1674dd334503117d7292274cd8a1de40459d
