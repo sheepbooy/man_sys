@@ -124,10 +124,6 @@ n
 Å
 Q.idea/sonarlint/securityhotspotstore/0/5/05508eb8f7ff4d1faae4cfecb96b2a48f1f45ae8,3\d\3d58baa111321c4705abb4ac274028813f0d16a7
 w
-G.idea/sonarlint/issuestore/a/a/aa35485ab2cd628cb4e338d24be40ec49fbfbc3c,5\b\5bcf3b366cece8775ca15add2ea12cfa7cfb4e74
-Å
-Q.idea/sonarlint/securityhotspotstore/a/a/aa35485ab2cd628cb4e338d24be40ec49fbfbc3c,f\4\f4adeae6f62b57f68ec5aa6f8d755c83ddbb57f2
-w
 G.idea/sonarlint/issuestore/8/8/88a9255124c95bdc913197c120a8d560edc59c8e,a\e\ae9ddf453f55affea2d6b9e3973cac1eb2efb4e1
 Å
 Q.idea/sonarlint/securityhotspotstore/1/7/17f5ec2949030412c7ec2634570b41bea6b7c7f3,1\f\1ff5eefe9e46a09e98b2d1253442011cd3e31ed9
@@ -269,16 +265,12 @@ Z
 0management/templates/m_foreign_trade_ledger.html,8\c\8c62e0ee37ba633d447bf6672fac4a8b688c7ae7
 N
 management/templates/test.html,8\e\8ec5d8d663e7dfe09560353a23be2b6ea54f87bc
-W
-'management/templates/report_change.html,f\a\fa91b0b027774ee77e796cd99f82154d03b6f384
 U
 %management/migrations/0001_initial.py,3\e\3e9607287036604f4206ab1cb396be0e8f536b49
 c
 3management/migrations/0003_alter_overdue_options.py,f\b\fb56c02f43cdb7e29dd86d78880da7e23e168244
 U
 %management/migrations/0002_overdue.py,6\1\61440f8c2a0e3d2350d06ba0e26197d137892ac3
-Z
-*management/templates/d_overdue_detali.html,c\a\ca92dc209ab06509f8b15e2fe6634e5e18c40d12
 Z
 *management/templates/d_overdue_detail.html,d\6\d69d6d9132b59a5cf23dce335e5cd5f2e3215507
 _
@@ -293,3 +285,9 @@ c
 0management/templates/foreign_receivable_add.html,e\c\ec53dc41f314e842890ae9689877439be513336a
 `
 0management/migrations/0005_foreign_receivable.py,9\a\9a6d9f0ddad73b6fc350a073111d63f45b7b953d
+Q
+!management/views/Reimbursement.py,c\e\ce2807dd9141734ff25bc62712e9f415bc5f1346
+Q
+!management/views/reimbursement.py,5\a\5ac1f4c99fc4e2d590810b0207ec709b9c48ac86
+W
+'management/templates/Reimbursement.html,c\b\cb1a42ce5fc278825d797c11995987bc63822c92

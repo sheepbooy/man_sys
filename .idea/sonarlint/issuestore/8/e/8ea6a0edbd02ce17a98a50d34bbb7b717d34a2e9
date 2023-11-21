@@ -1,4 +1,4 @@
 
-tpython:S11925"PDefine a constant instead of duplicating this literal '/authorization/' 3 times.(ôøÛûüÿÿÿÿ8†Ãß‹¼1
-ppython:S11920"LDefine a constant instead of duplicating this literal 'change.html' 4 times.( ©œûÿÿÿÿÿ8¬»ë‹¼1
-Npython:S1172I"/Remove the unused function parameter "request".(ËØ¦ö8†Ãß‹¼1
+tpython:S1192/"PDefine a constant instead of duplicating this literal '/authorization/' 3 times.(ôøÛûüÿÿÿÿ8†Ãß‹¼1
+ppython:S1192*"LDefine a constant instead of duplicating this literal 'change.html' 4 times.( ©œûÿÿÿÿÿ8¬»ë‹¼1
+Npython:S1172C"/Remove the unused function parameter "request".(ËØ¦ö8†Ãß‹¼1

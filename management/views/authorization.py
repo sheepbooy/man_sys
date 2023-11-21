@@ -7,12 +7,6 @@ from management import models
 
 def authorization(request):
     """授权书总表"""
-
-    # 如果没有登录，则返回登录页面
-    info = request.session.get('info')
-    if not info:
-        return redirect('/login/')
-
     value = request.GET.get('q', '')
     if value is not None:
         # 创建一个空的Q对象

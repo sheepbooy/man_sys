@@ -30,6 +30,7 @@ from management.views import turnover
 from management.views import product
 from management.views import question
 from management.views import y_m_receivable_details
+from management.views import reimbursement
 
 urlpatterns = [
     # path('admin/', admin.site.urls),
@@ -146,4 +147,10 @@ urlpatterns = [
     # 应收账款明细（外贸部）
     path('report/foreign/m_receivable_detail/', y_m_receivable_details.foreign_receivable),
     path('report/foreign/m_receivable_detail/add/<int:_id>/', y_m_receivable_details.foreign_receivable_add),
+
+    # 销售各部门回款目标
+    path('reimbursement/', reimbursement.reimbursement, name='reimbursement'),
+    path('get-target-data/', reimbursement.get_target_data, name='get_target_data'),
+    path('update-target-data/', reimbursement.update_target_data, name='update_target_data'),
+    path('get-summary-data/', reimbursement.get_summary_data, name='get_summary_data'),
 ]

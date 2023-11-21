@@ -1,0 +1,164 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-md-12">
+                <h4>汇总数据</h4>
+                <div id="summaryData">
+                    <!-- 在这里动态展示汇总数据 -->
+                </div>
+            </div>
+        </div>
+        <div class="row align-items-center"> <!-- 确保元素垂直居中对齐 -->
+            <div class="col-md-10">
+                <select id="departmentSelect" class="form-select">
+                    {% for value, name in departments %}
+                        <option value="{{ value }}">{{ name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-md-2">
+                <button type="button" class="btn btn-primary w-100" data-bs-toggle="modal"
+                        data-bs-target="#editTargetsModal">
+                    编辑回款目标
+                </button>
+            </div>
+        </div>
+        <div class="row mt-4">
+            <div class="col-md-12">
+                <canvas id="targetChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- 模态框 -->
+    <div class="modal fade" id="editTargetsModal" tabindex="-1" aria-labelledby="editTargetsModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog modal-lg"> <!-- 使用更大的模态框 -->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editTargetsModalLabel">编辑回款目标</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="targetForm" class="row g-3"> <!-- 添加网格布局 -->
+                        {% for month in months %}
+                            <div class="col-md-6 col-lg-4"> <!-- 每个月份占据一列 -->
+                                <label for="{{ month }}Target" class="form-label">{{ month }}</label>
+                                <input type="number" class="form-control" id="{{ month }}Target"
+                                       name="{{ month }}Target" required>
+                            </div>
+                        {% endfor %}
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">关闭</button>
+                    <button type="submit" class="btn btn-primary" form="targetForm">更新目标</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}
+
+{% block js %}
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        function updateChart(department) {
+            $.ajax({
+                url: '/get-target-data/',
+                data: {'department': department},
+                success: function (data) {
+                    var ctx = document.getElementById('targetChart').getContext('2d');
+                    new Chart(ctx, {
+                        type: 'bar',
+                        data: {
+                            labels: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'],
+                            datasets: [{
+                                label: '回款目标',
+                                data: data.targets,
+                            }]
+                        },
+                    });
+                }
+            });
+        }
+
+        $('#departmentSelect').change(function () {
+            updateChart(this.value);
+        });
+        var myChart = null; // 在外部声明一个变量来持有图表实例
+
+        function updateChart(department) {
+            $.ajax({
+                url: '/get-target-data/',
+                data: {'department': department},
+                success: function (data) {
+                    var ctx = document.getElementById('targetChart').getContext('2d');
+
+                    // 销毁之前的图表实例（如果存在）
+                    if (myChart) {
+                        myChart.destroy();
+                    }
+
+                    // 创建新的图表实例
+                    myChart = new Chart(ctx, {
+                        type: 'bar',
+                        data: {
+                            labels: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'],
+                            datasets: [{
+                                label: '回款目标',
+                                data: data.targets,
+                            }]
+                        },
+                    });
+                }
+            });
+        }
+
+        $('#departmentSelect').change(function () {
+            updateChart(this.value);
+        });
+
+        $('#targetForm').submit(function (event) {
+            event.preventDefault();
+
+            let formData = {'department': $('#departmentSelect').val()};
+            $(this).serializeArray().forEach(function (item) {
+                formData[item.name] = item.value;
+            });
+
+            $.ajax({
+                url: '/update-target-data/',
+                type: 'POST',
+                data: formData,
+                success: function (response) {
+                    alert('回款目标更新成功');
+                    updateChart($('#departmentSelect').val());
+
+                    // 关闭模态框
+                    $('#editTargetsModal').modal('hide');
+                }
+            });
+        });
+
+        function updateSummary(department) {
+            $.ajax({
+                url: '/get-summary-data/',
+                data: {'department': department},
+                success: function (data) {
+                    $('#summaryData').html('<p>年度目标总和: ' + data.total_target + '</p>');
+                }
+            });
+        }
+
+        $('#departmentSelect').change(function () {
+            updateChart(this.value);
+            updateSummary(this.value); // 也更新汇总数据
+        });
+    </script>
+{% endblock %}

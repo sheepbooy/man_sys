@@ -340,7 +340,6 @@ class Foreign_receivable_form(BootStrapModelForm):
         self.fields['accounts_receivable_usd'].widget.attrs['disabled'] = True
         self.fields['accounts_receivable_rmb'].widget.attrs['disabled'] = True
 
-
         # 将以下字段设置为非必填项
         self.fields['transaction_date'].required = False
         self.fields['customer_name'].required = False
@@ -348,3 +347,9 @@ class Foreign_receivable_form(BootStrapModelForm):
         self.fields['accounts_receivable_usd'].required = False
         self.fields['accounts_receivable_rmb'].required = False
 
+
+class Reimbursement_form(BootStrapModelForm):
+    """各部门回款目标"""
+    class Meta:
+        model = models.Overdue
+        fields = '__all__'

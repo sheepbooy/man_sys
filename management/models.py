@@ -796,3 +796,36 @@ class Foreign_receivable(models.Model):
     class Meta:
         managed = False
         db_table = '外贸部收款明细'
+
+
+class Reimbursement(models.Model):
+    """各部门回款目标"""
+    DEPARTMENT_CHOICES = [
+        ('sales1', '销售一部'),
+        ('sales2', '销售二部'),
+        ('sales3', '销售三部'),
+        ('sales4', '销售四部'),
+        ('sales5', '销售五部'),
+        ('sales6', '销售六部'),
+        ('additives', '食品添加剂部'),
+        ('rnd_service', '研发服务部'),
+        ('foreign_trade', '外贸部'),
+    ]
+
+    name = models.CharField(max_length=20, choices=DEPARTMENT_CHOICES, unique=True)
+    target_jan = models.DecimalField(max_digits=10, decimal_places=2, verbose_name="1月回款目标")
+    target_feb = models.DecimalField(max_digits=10, decimal_places=2, verbose_name="2月回款目标")
+    target_mar = models.DecimalField(max_digits=10, decimal_places=2, verbose_name="3月回款目标")
+    target_apr = models.DecimalField(max_digits=10, decimal_places=2, verbose_name="4月回款目标")
+    target_may = models.DecimalField(max_digits=10, decimal_places=2, verbose_name="5月回款目标")
+    target_jun = models.DecimalField(max_digits=10, decimal_places=2, verbose_name="6月回款目标")
+    target_jul = models.DecimalField(max_digits=10, decimal_places=2, verbose_name="7月回款目标")
+    target_aug = models.DecimalField(max_digits=10, decimal_places=2, verbose_name="8月回款目标")
+    target_sep = models.DecimalField(max_digits=10, decimal_places=2, verbose_name="9月回款目标")
+    target_oct = models.DecimalField(max_digits=10, decimal_places=2, verbose_name="10月回款目标")
+    target_nov = models.DecimalField(max_digits=10, decimal_places=2, verbose_name="11月回款目标")
+    target_dec = models.DecimalField(max_digits=10, decimal_places=2, verbose_name="12月回款目标")
+
+    class Meta:
+        managed = False
+        db_table = '各部门回款目标'
