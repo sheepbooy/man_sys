@@ -10,15 +10,25 @@
                 </div>
             </div>
         </div>
-        <div class="row align-items-center"> <!-- 确保元素垂直居中对齐 -->
-            <div class="col-md-10">
+        <div class="row align-items-center mt-2"> <!-- 添加一点上边距 -->
+            <!-- 部门选择框 -->
+            <div class="col-md-4">
                 <select id="departmentSelect" class="form-select">
                     {% for value, name in departments %}
                         <option value="{{ value }}">{{ name }}</option>
                     {% endfor %}
                 </select>
             </div>
-            <div class="col-md-2">
+            <!-- 年份选择框 -->
+            <div class="col-md-4">
+                <select id="yearSelect" class="form-select">
+                    {% for year in years %}
+                        <option value="{{ year }}">{{ year }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <!-- 编辑按钮 -->
+            <div class="col-md-4">
                 <button type="button" class="btn btn-primary w-100" data-bs-toggle="modal"
                         data-bs-target="#editTargetsModal">
                     编辑回款目标
@@ -31,6 +41,7 @@
             </div>
         </div>
     </div>
+
 
     <!-- 模态框 -->
     <div class="modal fade" id="editTargetsModal" tabindex="-1" aria-labelledby="editTargetsModalLabel"
@@ -65,10 +76,10 @@
 {% block js %}
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
-        function fillModalWithCurrentValues(department) {
+        function fillModalWithCurrentValues(department, year) {
             $.ajax({
                 url: '/get-current-targets/',
-                data: {'department': department},
+                data: {'department': department, 'year': year},
                 success: function (data) {
                     $('#1月Target').val(data.janTarget);
                     $('#2月Target').val(data.febTarget);
@@ -86,52 +97,38 @@
             });
         }
 
-        // 当部门选择改变或模态框打开时，更新模态框的数据
-        $('#departmentSelect').change(function () {
-            fillModalWithCurrentValues(this.value);
-        });
         $('#editTargetsModal').on('show.bs.modal', function () {
             var selectedDepartment = $('#departmentSelect').val();
-            fillModalWithCurrentValues(selectedDepartment);
+            var selectedYear = $('#yearSelect').val();
+            fillModalWithCurrentValues(selectedDepartment, selectedYear);
         });
 
-        // 页面加载时，默认显示销售部一部的数据
+        // 为部门和年份选择器绑定事件
+        $('#departmentSelect, #yearSelect').change(function () {
+            var selectedDepartment = $('#departmentSelect').val();
+            var selectedYear = $('#yearSelect').val();
+            updateChart(selectedDepartment, selectedYear);
+            updateSummary(selectedDepartment, selectedYear);
+            fillModalWithCurrentValues(selectedDepartment, selectedYear);
+        });
+
+
+        // 页面加载时的初始化
         $(document).ready(function () {
-            var defaultDepartment = '销售部一部';
+            var defaultDepartment = '销售部一部';  // 或者从服务器获取默认值
+            var currentYear = new Date().getFullYear(); // 获取当前年份
             $('#departmentSelect').val(defaultDepartment);
-            updateChart(defaultDepartment);
-            updateSummary(defaultDepartment);
+            $('#yearSelect').val(currentYear);
+            updateChart(defaultDepartment, currentYear);
+            updateSummary(defaultDepartment, currentYear);
         });
 
-        function updateChart(department) {
-            $.ajax({
-                url: '/get-target-data/',
-                data: {'department': department},
-                success: function (data) {
-                    var ctx = document.getElementById('targetChart').getContext('2d');
-                    new Chart(ctx, {
-                        type: 'bar',
-                        data: {
-                            labels: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'],
-                            datasets: [{
-                                label: '回款目标',
-                                data: data.targets,
-                            }]
-                        },
-                    });
-                }
-            });
-        }
-
-        $('#departmentSelect').change(function () {
-            updateChart(this.value);
-        });
         var myChart = null; // 在外部声明一个变量来持有图表实例
 
-        function updateChart(department) {
+        function updateChart(department, year) {
             $.ajax({
                 url: '/get-target-data/',
-                data: {'department': department},
+                data: {'department': department, 'year': year},
                 success: function (data) {
                     var ctx = document.getElementById('targetChart').getContext('2d');
 
@@ -155,14 +152,21 @@
             });
         }
 
-        $('#departmentSelect').change(function () {
-            updateChart(this.value);
-        });
+        function updateSummary(department, year) {
+            $.ajax({
+                url: '/get-summary-data/',
+                data: {'department': department, "year": year},
+                success: function (data) {
+                    $('#summaryData').html('<p>年度目标总和: ' + data.total_target + '</p>');
+                }
+            });
+        }
 
+        // 表单提交处理
         $('#targetForm').submit(function (event) {
             event.preventDefault();
 
-            let formData = {'department': $('#departmentSelect').val()};
+            let formData = {'department': $('#departmentSelect').val(), 'year': $('#yearSelect').val()};
             $(this).serializeArray().forEach(function (item) {
                 formData[item.name] = item.value;
             });
@@ -173,27 +177,12 @@
                 data: formData,
                 success: function (response) {
                     alert('回款目标更新成功');
-                    updateChart($('#departmentSelect').val());
-
-                    // 关闭模态框
+                    updateChart($('#departmentSelect').val(), $('#yearSelect').val());
+                    updateSummary($('#departmentSelect').val(), $('#yearSelect').val());
                     $('#editTargetsModal').modal('hide');
                 }
             });
         });
 
-        function updateSummary(department) {
-            $.ajax({
-                url: '/get-summary-data/',
-                data: {'department': department},
-                success: function (data) {
-                    $('#summaryData').html('<p>年度目标总和: ' + data.total_target + '</p>');
-                }
-            });
-        }
-
-        $('#departmentSelect').change(function () {
-            updateChart(this.value);
-            updateSummary(this.value); // 也更新汇总数据
-        });
     </script>
 {% endblock %}

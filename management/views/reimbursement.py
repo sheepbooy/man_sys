@@ -7,32 +7,24 @@ from django.views.decorators.csrf import csrf_exempt
 def reimbursement(request):
     # 从 Reimbursement 模型中获取部门选择项。
     departments = models.Reimbursement.DEPARTMENT_CHOICES
-
+    years = range(2019, 2029)
     # 使用 render 函数渲染 'Reimbursement.html' 模板。
     # 向模板传递一个名为 'departments' 的上下文变量，其中包含部门选项。
     months = ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月']
-    return render(request, 'Reimbursement.html', {'departments': departments, 'months': months})
+    return render(request, 'Reimbursement.html', {'departments': departments, 'months': months, 'years': years})
 
 
 def get_target_data(request):
-    # 从请求的 GET 参数中获取 'department' 参数的值。
     department = request.GET.get('department')
-
-    # 在数据库中查询指定部门的第一个匹配项。
-    reimbursement = models.Reimbursement.objects.filter(name=department).first()
-
-    # 如果找到了指定部门的回款目标数据
+    year = request.GET.get('year')
+    reimbursement = models.Reimbursement.objects.filter(name=department, year=year).first()
     if reimbursement:
-        # 将该部门每个月的回款目标值组织成一个列表。
         targets = [
             reimbursement.target_jan, reimbursement.target_feb, reimbursement.target_mar, reimbursement.target_apr,
             reimbursement.target_may, reimbursement.target_jun, reimbursement.target_jul, reimbursement.target_aug,
             reimbursement.target_sep, reimbursement.target_oct, reimbursement.target_nov, reimbursement.target_dec
         ]
-        # 将目标值列表作为 JSON 响应返回。
         return JsonResponse({'targets': targets})
-
-    # 如果没有找到指定部门的数据，则返回一个空列表。
     return JsonResponse({'targets': []})
 
 
@@ -40,7 +32,8 @@ def get_target_data(request):
 def update_target_data(request):
     if request.method == 'POST':
         department = request.POST.get('department')
-        reimbursement = models.Reimbursement.objects.filter(name=department).first()
+        year = request.POST.get('year')
+        reimbursement = models.Reimbursement.objects.filter(name=department, year=year).first()
         if reimbursement:
             # 更新每个月的回款目标
             reimbursement.target_jan = request.POST.get('1月Target')
@@ -59,12 +52,13 @@ def update_target_data(request):
             reimbursement.save()
 
             return JsonResponse({'status': 'success', 'message': '目标更新成功'})
-        return JsonResponse({'status': 'error', 'message': '部门未找到'})
+        return JsonResponse({'status': 'error', 'message': '部门或年份未找到'})
 
 
 def get_summary_data(request):
     department = request.GET.get('department')
-    reimbursement = models.Reimbursement.objects.filter(name=department).first()
+    year = request.GET.get('year')
+    reimbursement = models.Reimbursement.objects.filter(name=department, year=year).first()
     if reimbursement:
         # 计算汇总数据，例如年度目标总和
         total_target = sum([
@@ -78,10 +72,12 @@ def get_summary_data(request):
 
 def get_current_targets(request):
     department_name = request.GET.get('department')
+    year = request.GET.get('year')  # 使用 GET 方法获取年份
+
     try:
-        target = models.Reimbursement.objects.get(name=department_name)
+        target = models.Reimbursement.objects.get(name=department_name, year=year)
     except models.Reimbursement.DoesNotExist:
-        return JsonResponse({'error': 'Department not found'}, status=404)
+        return JsonResponse({'error': 'Department or year not found'}, status=404)
 
     # 创建包含每月目标的字典
     targets = {

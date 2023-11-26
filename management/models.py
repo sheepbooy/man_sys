@@ -813,6 +813,7 @@ class Reimbursement(models.Model):
     ]
 
     name = models.CharField(max_length=20, choices=DEPARTMENT_CHOICES, unique=True)
+    year = models.IntegerField(verbose_name="年份")
     target_jan = models.DecimalField(max_digits=10, decimal_places=2, verbose_name="1月回款目标")
     target_feb = models.DecimalField(max_digits=10, decimal_places=2, verbose_name="2月回款目标")
     target_mar = models.DecimalField(max_digits=10, decimal_places=2, verbose_name="3月回款目标")
@@ -827,6 +828,7 @@ class Reimbursement(models.Model):
     target_dec = models.DecimalField(max_digits=10, decimal_places=2, verbose_name="12月回款目标")
 
     class Meta:
+        unique_together = ('name', 'year')
         managed = False
         db_table = '各部门回款目标'
 
