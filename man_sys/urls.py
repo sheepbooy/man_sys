@@ -155,10 +155,12 @@ urlpatterns = [
     path('update-target-data/', reimbursement.update_target_data, name='update_target_data'),
     path('get-summary-data/', reimbursement.get_summary_data, name='get_summary_data'),
     path('get-current-targets/', reimbursement.get_current_targets, name='get-current-targets'),
-    path('add_year_with_defaults_view/', reimbursement.add_year_with_defaults_view, name='add_year_with_defaults'),
+    # 增加年份功能
+    path('add_year_with_defaults_view/', reimbursement.add_year_with_defaults_view, name='add_year_with_defaults_view'),
 
     # 各部门回款目标与实际完成的结果
     path('targets-achievements/', actual_sales.targets_and_achievements_view, name='targets-achievements'),
+    # 增加年份功能
     path('add_year_with_defaults/', actual_sales.add_year_with_defaults_view, name='add_year_with_defaults'),
 
 ]

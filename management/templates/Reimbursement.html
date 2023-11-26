@@ -81,7 +81,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form method="post" action="{% url 'add_year_with_defaults' %}">
+                    <form method="post" action="{% url 'add_year_with_defaults_view' %}">
                         {% csrf_token %}
                         <div class="mb-3">
                             <label for="newYear" class="form-label">年份：</label>
