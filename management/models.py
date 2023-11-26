@@ -835,6 +835,7 @@ class Reimbursement(models.Model):
 
 class ActualSales(models.Model):
     department = models.ForeignKey(Reimbursement, on_delete=models.CASCADE)
+    year = models.IntegerField()
     actual_jan = models.DecimalField(max_digits=10, decimal_places=2, verbose_name="1月实际回款")
     actual_feb = models.DecimalField(max_digits=10, decimal_places=2, verbose_name="2月实际回款")
     actual_mar = models.DecimalField(max_digits=10, decimal_places=2, verbose_name="3月实际回款")

@@ -1,46 +1,48 @@
 {% extends 'layout.html' %}
 
 {% block content %}
-    <div class="container mt-4">
-        <div class="row">
-            <div class="col-md-12">
-                <h4>汇总数据</h4>
-                <div id="summaryData">
-                    <!-- 在这里动态展示汇总数据 -->
-                </div>
-            </div>
-        </div>
-        <div class="row align-items-center mt-2"> <!-- 添加一点上边距 -->
-            <!-- 部门选择框 -->
-            <div class="col-md-4">
-                <select id="departmentSelect" class="form-select">
-                    {% for value, name in departments %}
-                        <option value="{{ value }}">{{ name }}</option>
-                    {% endfor %}
-                </select>
-            </div>
-            <!-- 年份选择框 -->
-            <div class="col-md-4">
-                <select id="yearSelect" class="form-select">
-                    {% for year in years %}
-                        <option value="{{ year }}">{{ year }}</option>
-                    {% endfor %}
-                </select>
-            </div>
-            <!-- 编辑按钮 -->
-            <div class="col-md-4">
-                <button type="button" class="btn btn-primary w-100" data-bs-toggle="modal"
-                        data-bs-target="#editTargetsModal">
-                    编辑回款目标
-                </button>
-            </div>
-        </div>
-        <div class="row mt-4">
-            <div class="col-md-12">
-                <canvas id="targetChart"></canvas>
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-12">
+            <h4 class="text-center mb-4" style="color: #007bff;">汇总数据</h4> <!-- 加入居中和颜色样式 -->
+            <div id="summaryData" style="padding: 15px; border: 1px solid #ddd; border-radius: 5px;">
+                <!-- 在这里动态展示汇总数据 -->
             </div>
         </div>
     </div>
+    <div class="row align-items-center mt-3"> <!-- 调整上边距 -->
+        <div class="col-md-4">
+            <select id="departmentSelect" class="form-select">
+                {% for value, name in departments %}
+                    <option value="{{ value }}">{{ name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="col-md-4">
+            <select id="yearSelect" class="form-select">
+                {% for year in years %}
+                    <option value="{{ year }}">{{ year }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="col-md-2">
+            <button type="button" class="btn btn-info w-100" data-bs-toggle="modal" data-bs-target="#editTargetsModal">
+                编辑回款目标
+            </button>
+        </div>
+        <div class="col-md-2">
+            <button type="button" class="btn btn-success w-100 mt-2 mt-md-0" data-bs-toggle="modal" data-bs-target="#addYearModal">
+                增加年份及默认值
+            </button>
+        </div>
+    </div>
+    <div class="row mt-4">
+        <div class="col-md-12">
+            <canvas id="targetChart" style="max-width: 100%; height: auto;"></canvas>
+        </div>
+    </div>
+</div>
+
 
 
     <!-- 模态框 -->
@@ -70,12 +72,40 @@
             </div>
         </div>
     </div>
+    <!-- 添加年份的模态框 -->
+    <div class="modal fade" id="addYearModal" tabindex="-1" aria-labelledby="addYearModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addYearModalLabel">增加年份及默认值</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form method="post" action="{% url 'add_year_with_defaults' %}">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label for="newYear" class="form-label">年份：</label>
+                            <input type="number" id="newYear" name="newYear" class="form-control" min="2000" max="2100"
+                                   required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="defaultValue" class="form-label">默认值：</label>
+                            <input type="number" id="defaultValue" name="defaultValue" class="form-control" min="0"
+                                   required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">增加年份及默认值</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}
 
 
 {% block js %}
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
+        // 填充模态框中的表单字段值
         function fillModalWithCurrentValues(department, year) {
             $.ajax({
                 url: '/get-current-targets/',
@@ -97,6 +127,7 @@
             });
         }
 
+        // 当编辑模态框显示时触发事件
         $('#editTargetsModal').on('show.bs.modal', function () {
             var selectedDepartment = $('#departmentSelect').val();
             var selectedYear = $('#yearSelect').val();
@@ -125,6 +156,7 @@
 
         var myChart = null; // 在外部声明一个变量来持有图表实例
 
+        // 更新图表数据
         function updateChart(department, year) {
             $.ajax({
                 url: '/get-target-data/',
@@ -152,6 +184,7 @@
             });
         }
 
+        // 更新摘要数据
         function updateSummary(department, year) {
             $.ajax({
                 url: '/get-summary-data/',
@@ -185,4 +218,24 @@
         });
 
     </script>
+    <script type="text/javascript">
+    {% if messages %}
+        let messages = [
+            {% for message in messages %}
+                {"level": "{{ message.level_tag }}", "text": "{{ message }}"},
+            {% endfor %}
+        ];
+
+        // 遍历消息
+        messages.forEach(function (msg) {
+            if (msg.level === 'success') {
+                alert("成功: " + msg.text);  // 成功消息使用弹窗显示
+            } else if (msg.level === 'error') {
+                alert("错误: " + msg.text);  // 错误消息使用不同的弹窗显示
+            }
+            // 可以根据需要处理其他类型的消息
+        });
+    {% endif %}
+</script>
+
 {% endblock %}

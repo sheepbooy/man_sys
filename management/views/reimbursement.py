@@ -1,13 +1,16 @@
 from django.shortcuts import render
+from django.urls import reverse
+from django.contrib import messages
 from management import models
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponseRedirect
 from django.views.decorators.csrf import csrf_exempt
 
 
 def reimbursement(request):
+    """从数据库中得到部门和年份列表"""
     # 从 Reimbursement 模型中获取部门选择项。
     departments = models.Reimbursement.DEPARTMENT_CHOICES
-    years = range(2019, 2029)
+    years = models.Reimbursement.objects.order_by('year').values_list('year', flat=True).distinct()
     # 使用 render 函数渲染 'Reimbursement.html' 模板。
     # 向模板传递一个名为 'departments' 的上下文变量，其中包含部门选项。
     months = ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月']
@@ -15,6 +18,7 @@ def reimbursement(request):
 
 
 def get_target_data(request):
+    """此函数根据用户选择的部门和年份从数据库中检索每个月的回款目标。它是一个 AJAX 调用的响应函数，用于动态更新页面上的数据。"""
     department = request.GET.get('department')
     year = request.GET.get('year')
     reimbursement = models.Reimbursement.objects.filter(name=department, year=year).first()
@@ -30,6 +34,7 @@ def get_target_data(request):
 
 @csrf_exempt  # 如果您没有设置 CSRF 令牌，可以使用此装饰器暂时禁用 CSRF 保护
 def update_target_data(request):
+    """根据输入的数据对指定的记录进行更新"""
     if request.method == 'POST':
         department = request.POST.get('department')
         year = request.POST.get('year')
@@ -56,6 +61,7 @@ def update_target_data(request):
 
 
 def get_summary_data(request):
+    """计算年度目标"""
     department = request.GET.get('department')
     year = request.GET.get('year')
     reimbursement = models.Reimbursement.objects.filter(name=department, year=year).first()
@@ -71,6 +77,7 @@ def get_summary_data(request):
 
 
 def get_current_targets(request):
+    """此函数根据提供的部门和年份获取当前的目标值。它可能用于初始化或更新页面上的表单字段。"""
     department_name = request.GET.get('department')
     year = request.GET.get('year')  # 使用 GET 方法获取年份
 
@@ -96,3 +103,40 @@ def get_current_targets(request):
     }
 
     return JsonResponse(targets)
+
+
+def add_year_with_defaults_view(request):
+    """这个函数用于处理增加新年份记录的逻辑。当用户提交新年份和默认值时，它会为指定的部门列表创建新的记录。"""
+    if request.method == 'POST':
+        year = request.POST.get('newYear')
+        if models.Reimbursement.objects.filter(year=year).exists():
+            messages.error(request, '这个年份已经存在。请重新输入。')
+            return HttpResponseRedirect(reverse('reimbursement'))
+
+        default_value = request.POST.get('defaultValue')
+        print(year)
+        print(default_value)
+
+        departments = ['sales1', 'sales2', 'sales3', 'sales4', 'sales5', 'sales6', 'additives', 'rnd_service',
+                       'foreign_trade']
+
+        for dept in departments:
+            # 创建新记录
+            reimbursement, created = models.Reimbursement.objects.get_or_create(
+                name=dept, year=year,
+                defaults={
+                    'target_jan': default_value, 'target_feb': default_value,  # 等等，为每个月设置默认值
+                    'target_mar': default_value, 'target_apr': default_value,
+                    'target_may': default_value, 'target_jun': default_value,
+                    'target_jul': default_value, 'target_aug': default_value,
+                    'target_sep': default_value, 'target_oct': default_value,
+                    'target_nov': default_value, 'target_dec': default_value
+                    # 其他字段根据需要设置
+                }
+            )
+
+        messages.success(request, '年份及默认值添加成功！')
+        return HttpResponseRedirect(reverse('reimbursement'))  # 重定向到一个成功页面或列表页面
+
+        # 如果不是 POST 请求，显示表单或重定向
+    return render(request, 'Reimbursement.html')
