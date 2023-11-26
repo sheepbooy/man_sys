@@ -5,18 +5,35 @@
         <div class="row justify-content-center mb-3">
             <div class="col-md-6">
                 <form method="get" action="{% url 'targets-achievements' %}" class="mb-3">
-                    <label for="department" class="form-label">选择部门：</label>
-                    <select name="department" id="department" class="form-select" onchange="this.form.submit()">
-{#                        <option value="">请选择一个部门</option>#}
-                        {% for code, name in departments %}
-                            <option value="{{ code }}"
-                                    {% if selected_department == code %}selected{% endif %}>{{ name }}</option>
-                        {% endfor %}
-                    </select>
+                    <div class="row">
+                        <div class="col">
+                            <label for="department" class="form-label">选择部门：</label>
+                            <select name="department" id="department" class="form-select" onchange="this.form.submit()">
+                                {% for code, name in departments %}
+                                    <option value="{{ code }}"
+                                            {% if selected_department == code %}selected{% endif %}>{{ name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="col">
+                            <label for="year" class="form-label">选择年份：</label>
+                            <select name="year" id="year" class="form-select" onchange="this.form.submit()">
+                                {% for year in years %}
+                                    <option value="{{ year }}"
+                                            {% if selected_year|stringformat:"s" == year|stringformat:"s" %}selected{% endif %}>{{ year }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="col-md-3 d-flex align-items-end">
+                            <button type="button" class="btn btn-primary  btn-block" data-bs-toggle="modal"
+                                    data-bs-target="#addYearModal">
+                                增加年份
+                            </button>
+                        </div>
+                    </div>
                 </form>
             </div>
         </div>
-
         {% if results %}
             <div class="row">
                 <div class="col-lg-6 mb-4">
@@ -53,6 +70,9 @@
                                             <input type="hidden" name="month" value="{{ month }}">
                                             <input type="number" name="new_actual_amount" min="0"
                                                    value="{{ data.actual }}" class="form-control form-control-sm me-2">
+                                            <input type="hidden" name="selected_year" id="selected_year"
+                                                   value="{{ selected_year }}">
+
                                             <button type="submit" class="btn btn-primary btn-sm">更新</button>
                                         </form>
                                     </td>
@@ -63,7 +83,43 @@
                     </div>
                 </div>
             </div>
+        {% else %}
+            <div class="alert alert-info" role="alert">
+                没有找到数据，请选择不同的部门或年份。
+            </div>
         {% endif %}
+    </div>
+
+    <!-- 添加年份的模态框 -->
+    <!-- 模态框本身 -->
+    <div class="modal fade" id="addYearModal" tabindex="-1" aria-labelledby="addYearModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addYearModalLabel">增加年份及默认值</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form method="post" action="{% url 'add_year_with_defaults' %}">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label for="yearSelect" class="form-label">选择年份</label>
+                            <select id="yearSelect" name="yearSelect" class="form-select">
+                                {% for year in years %}
+                                    <option value="{{ year }}">{{ year }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="defaultValue" class="form-label">默认值</label>
+                            <input type="number" id="defaultValue" name="defaultValue" class="form-control" min="0"
+                                   required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">提交</button>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
 {% endblock %}
 
@@ -109,5 +165,30 @@
                 }
             }
         });
+    </script>
+
+    <script type="text/javascript">
+        {% if messages %}
+            let messages = [
+                    {% for message in messages %}
+                        {"level": "{{ message.level_tag }}", "text": "{{ message }}"},
+                    {% endfor %}
+                ]
+            ;
+
+            // 检查是否有成功消息
+            messages.forEach(function (msg) {
+                if (msg.level === 'success') {
+                    alert(msg.text);  // 使用 JavaScript 弹窗显示消息
+                }
+            })
+            ;
+        {% endif %}
+    </script>
+    <script>
+        function updateSelectedYear(selectElement) {
+            var selectedYearInput = document.getElementById('selected_year');
+            selectedYearInput.value = selectElement.value;
+        }
     </script>
 {% endblock %}
