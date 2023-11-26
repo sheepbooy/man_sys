@@ -1,0 +1,66 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+    <div class="my-4 fade-in">
+        <h1 class="mb-3">统计面板</h1>
+
+        <!-- 添加年份和月份筛选 -->
+        <form method="get" class="mb-4 d-flex justify-content-start">
+            <select name="year" class="form-select me-2" onchange="this.form.submit()">
+                <option value="">选择年份</option>
+                {% for year in years %}
+                    <option value="{{ year }}" {% if year == selected_year %}selected{% endif %}>{{ year }}年</option>
+                {% endfor %}
+            </select>
+            <select name="month" class="form-select" onchange="this.form.submit()">
+                <option value="">选择月份</option>
+                {% for month in months %}
+                    <option value="{{ month }}" {% if month == selected_month %}selected{% endif %}>{{ month }}月
+                    </option>
+                {% endfor %}
+            </select>
+        </form>
+
+        <!-- 部门数据展示 -->
+        <div class="row">
+            {% for department, data in departments.items %}
+                <div class="col-md-6 col-lg-4 mb-3">
+                    <div class="card card-hover">
+                        <div class="card-body">
+                            <h3 class="card-title">{{ department }}</h3>
+                            <p class="card-text">一次客户数量: {{ data.first_time_count }}</p>
+                            <p class="card-text">销售额: {{ data.sales_amount }}</p>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+{% endblock %}
+
+
+{% block css %}
+    <style>
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .fade-in {
+            animation: fadeIn 1s ease-out;
+        }
+
+        .card-hover:hover {
+            transform: scale(1.05);
+            transition: transform 0.3s ease-in-out;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+
+{% endblock %}

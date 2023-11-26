@@ -32,6 +32,7 @@ from management.views import question
 from management.views import y_m_receivable_details
 from management.views import reimbursement
 from management.views import actual_sales
+from management.views import customers_sales
 
 urlpatterns = [
     # path('admin/', admin.site.urls),
@@ -162,5 +163,9 @@ urlpatterns = [
     path('targets-achievements/', actual_sales.targets_and_achievements_view, name='targets-achievements'),
     # 增加年份功能
     path('add_year_with_defaults/', actual_sales.add_year_with_defaults_view, name='add_year_with_defaults'),
+
+    # 开发目标客户数和实现销售额
+    path('customers_sales/', customers_sales.customers_sales, name='dashboard'),
+
 
 ]

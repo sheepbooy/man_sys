@@ -647,3 +647,9 @@ G.idea/sonarlint/issuestore/9/3/93b3a6b5e6a16ac3047e56267f36a0534402c7f6,8\d\8d
 Q.idea/sonarlint/securityhotspotstore/8/d/8d5402fdd7e046407652f4c71a8558f4f57d2a33,1\f\1f37d6aa945b780cef4be4dc97e0ba1c6bbee981
 w
 G.idea/sonarlint/issuestore/9/3/9320604278dc23ea31032b58a4785dddd346b58a,e\7\e75d702b1366fdc4810f10a4f3786a15f77e6678
+S
+#management/views/customers_sales.py,a\e\aebae22f07f1836a787cae7de6219c6ddb95e0b4
+Z
+*management/views/customers_sales_actual.py,4\8\480d098132e65262ce864ac5c6878788976fa094
+Z
+*management/templates/target_customers.html,e\e\ee39798fd9db4208c03bd39aa04f4923e6f83814

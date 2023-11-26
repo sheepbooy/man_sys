@@ -853,4 +853,3 @@ class ActualSales(models.Model):
         managed = False
         db_table = '实际销售数据'
 
-

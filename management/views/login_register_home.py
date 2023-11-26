@@ -16,12 +16,12 @@ def login_view(request):
         work_id = request.POST.get('id')  # 获取工号
         password = request.POST.get('password')  # 获取密码
         user = models.Employees.objects.filter(work_id=work_id).first()
-        print(work_id, password)
+        # print(work_id, password)
         # 获取用户输入的验证码
         user_entered_image_code = request.POST.get('image_code', '')
         # 获取session中的验证码
         stored_image_code = request.session.get('image_code', '')
-        print(user_entered_image_code, stored_image_code)
+        # print(user_entered_image_code, stored_image_code)
         # 验证成功，生成cookie并写入浏览器，再写入session
         if user is not None and user.password == password and user_entered_image_code.upper() == stored_image_code.upper():
             name = user.name

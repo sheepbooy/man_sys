@@ -1,5 +1,5 @@
 
 }python:S1192W"^Define a constant instead of duplicating this literal 'targets_and_achievements.html' 3 times.(‰ò¤Ë8ÛÃÀÕÀ1
 €python:S117"\Rename this local variable "actualSales" to match the regular expression ^[_a-z][a-z0-9_]*$.(¨´é½üÿÿÿÿ8ÜÃÀÕÀ1
-Vpython:S1481"1Replace unused local variable "created" with "_".(¨´é½üÿÿÿÿ8ÜÃÀÕÀ1
 Zpython:S1481"5Replace unused local variable "actualSales" with "_".(¨´é½üÿÿÿÿ8ÜÃÀÕÀ1
+Vpython:S1481"1Replace unused local variable "created" with "_".(¨´é½üÿÿÿÿ8ÜÃÀÕÀ1
