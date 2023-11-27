@@ -101,6 +101,33 @@
                 borderWidth: 1
             });
         }
+        // 处理内贸部增量数据
+        if (chartData.internal_increments) {
+            Object.keys(chartData.internal_increments).forEach(function (department, index) {
+                var color = colors[(index + colors.length / 2) % colors.length]; // 使用不同的颜色
+                datasets.push({
+                    label: '{{ selected_year }}年 ' + department + ' 增量',
+                    data: chartData.internal_increments[department],
+                    type: 'line', // 使用线形图来表示增量
+                    fill: false,
+                    borderColor: color,
+                    tension: 0.1
+                });
+            });
+        }
+
+        // 处理外贸部增量数据
+        if (chartData.foreign_increments) {
+            var foreignIncrementColor = 'rgba(255, 193, 7, 0.6)'; // 选择特定颜色用于外贸部增量
+            datasets.push({
+                label: '{{ selected_year }}年 外贸部增量',
+                data: chartData.foreign_increments,
+                type: 'line', // 使用线形图来表示增量
+                fill: false,
+                borderColor: foreignIncrementColor,
+                tension: 0.1
+            });
+        }
 
         // 创建图表
         var salesChart = new Chart(ctx, {
@@ -117,10 +144,6 @@
                 }
             }
         });
+
     </script>
-
-
-
-
-
 {% endblock %}

@@ -158,7 +158,7 @@ def order_summary(request):
 
 
 def get_sales(year, customer_type=None):
-    """从内贸部和外贸部得到对应年份每个月的订单金额"""
+    """从内贸部和外贸部得到对应年份每个月每个部门的订单金额"""
     internal_sales_totals = {}
     foreign_sales_totals = [0] * 12  # 初始化12个月的外贸部数据
 
@@ -212,7 +212,7 @@ def sales_increments(request):
     years = get_exists_years()
     selected_year = request.GET.get('year', None)
     customer_type = request.GET.get('customer_type', None)  # 获取客户类型
-    print(customer_type)
+    # print(customer_type)
     context = {
         'selected_year': selected_year,
         'years': years,
@@ -220,17 +220,29 @@ def sales_increments(request):
     }
     if selected_year:
         selected_year = int(selected_year)
+        prev_year = selected_year - 1
+
+        # 获取当前年份和前一年的销售数据
         internal_sales, foreign_sales = get_sales(selected_year, customer_type)
+        internal_sales_prev, foreign_sales_prev = get_sales(prev_year, customer_type)
+
+        # 计算差额
+        internal_increments = {
+            dept: [curr - prev for curr, prev in zip(internal_sales[dept], internal_sales_prev.get(dept, [0] * 12))] for
+            dept in internal_sales}
+        foreign_increments = [curr - prev for curr, prev in zip(foreign_sales, foreign_sales_prev)]
 
         # 准备图表数据
         chart_data = {
             'labels': [f"{month}月" for month in range(1, 13)],
             'internal_sales': internal_sales,
-            'foreign_sales': foreign_sales
+            'foreign_sales': foreign_sales,
+            'internal_increments': internal_increments,
+            'foreign_increments': foreign_increments
         }
 
         context.update({
-            'chart_data': json.dumps(chart_data)  # 将数据转换为 JSON 格式
+            'chart_data': json.dumps(chart_data)
         })
 
     return render(request, 'sales_increments.html', context)
