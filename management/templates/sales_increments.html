@@ -40,7 +40,7 @@
             </div>
 
         </form>
-
+        <button id="toggleMode" class="btn btn-info mb-3">切换至季度显示</button>
 
 
         {% if selected_year %}
@@ -54,11 +54,12 @@
 
 {% block js %}
 
+
     <script>
         var chartData = JSON.parse('{{ chart_data|safe }}');
         var ctx = document.getElementById('salesChart').getContext('2d');
-        var datasets = [];
-
+        var salesChart;
+        var displayMode = 'annual'; // 默认为年度显示
         // 扩展的颜色数组
         var colors = [
             'rgba(255, 99, 132, 0.6)',   // 红色
@@ -76,74 +77,145 @@
             // ... 可以继续添加更多颜色 ...
         ];
 
-        // 检查并处理内贸部数据
-        if (chartData.internal_sales) {
-            Object.keys(chartData.internal_sales).forEach(function (department, index) {
-                var color = colors[index % colors.length]; // 循环使用颜色数组中的颜色
+        // 函数：根据给定模式获取数据集
+        function getDatasets(data, mode) {
+            var datasets = [];
+            var colorIndex = 0;
+
+            // 处理内贸部销售数据
+            Object.keys(data.internal_sales).forEach(function (department) {
+                var deptData = data.internal_sales[department];
+                var color = colors[colorIndex % colors.length];
+                colorIndex++;
+
+                if (mode === 'quarterly') {
+                    deptData = convertToQuarterly(deptData);
+                }
+
                 datasets.push({
-                    label: '{{ selected_year }}年 ' + department + ' 销售额',
-                    data: chartData.internal_sales[department],
+                    label: department + ' 销售额 (' + mode + ')',
+                    data: deptData,
                     backgroundColor: color,
                     borderColor: color,
                     borderWidth: 1
                 });
             });
-        }
 
-        // 处理外贸部数据
-        if (chartData.foreign_sales) {
-            var foreignColor = 'rgba(103, 58, 183, 0.6)'; // 选择特定颜色用于外贸部
+            // 处理外贸部销售数据
+            var foreignSalesData = data.foreign_sales;
+            if (mode === 'quarterly') {
+                foreignSalesData = convertToQuarterly(foreignSalesData);
+            }
+
             datasets.push({
-                label: '{{ selected_year }}年 外贸部销售额',
-                data: chartData.foreign_sales,
-                backgroundColor: foreignColor,
-                borderColor: foreignColor,
+                label: '外贸部销售额 (' + mode + ')',
+                data: foreignSalesData,
+                backgroundColor: 'rgba(103, 58, 183, 0.6)',
+                borderColor: 'rgba(103, 58, 183, 0.6)',
                 borderWidth: 1
             });
-        }
-        // 处理内贸部增量数据
-        if (chartData.internal_increments) {
-            Object.keys(chartData.internal_increments).forEach(function (department, index) {
-                var color = colors[(index + colors.length / 2) % colors.length]; // 使用不同的颜色
+
+            // 处理内贸部增量数据
+            Object.keys(data.internal_increments).forEach(function (department) {
+                var deptIncrementData = data.internal_increments[department];
+                var incrementColor = colors[(colorIndex + colors.length / 2) % colors.length];
+                colorIndex++;
+
+                if (mode === 'quarterly') {
+                    deptIncrementData = convertToQuarterlyIncrements(deptIncrementData);
+                }
+
                 datasets.push({
-                    label: '{{ selected_year }}年 ' + department + ' 增量',
-                    data: chartData.internal_increments[department],
-                    type: 'line', // 使用线形图来表示增量
+                    label: department + ' 增量 (' + mode + ')',
+                    data: deptIncrementData,
+                    type: 'line',
                     fill: false,
-                    borderColor: color,
+                    borderColor: incrementColor,
                     tension: 0.1
                 });
             });
+
+            // 处理外贸部增量数据
+            var foreignIncrementsData = data.foreign_increments;
+            if (mode === 'quarterly') {
+                foreignIncrementsData = convertToQuarterlyIncrements(foreignIncrementsData);
+            }
+
+            datasets.push({
+                label: '外贸部增量 (' + mode + ')',
+                data: foreignIncrementsData,
+                type: 'line',
+                fill: false,
+                borderColor: 'rgba(255, 193, 7, 0.6)',
+                tension: 0.1
+            });
+
+            return datasets;
         }
 
-        // 处理外贸部增量数据
-        if (chartData.foreign_increments) {
-            var foreignIncrementColor = 'rgba(255, 193, 7, 0.6)'; // 选择特定颜色用于外贸部增量
-            datasets.push({
-                label: '{{ selected_year }}年 外贸部增量',
-                data: chartData.foreign_increments,
-                type: 'line', // 使用线形图来表示增量
-                fill: false,
-                borderColor: foreignIncrementColor,
-                tension: 0.1
+        function convertToQuarterly(monthlyData) {
+            var quarterlyData = [];
+            for (var i = 0; i < monthlyData.length; i += 3) {
+                quarterlyData.push((monthlyData[i] || 0) + (monthlyData[i + 1] || 0) + (monthlyData[i + 2] || 0));
+            }
+            return quarterlyData;
+        }
+
+
+        function convertToQuarterlyIncrements(monthlyIncrementData) {
+            var quarterlyIncrementData = [];
+
+            for (var i = 0; i < monthlyIncrementData.length; i += 3) {
+                // 将每个季度的三个月增量相加
+                var quarterIncrement = 0;
+                quarterIncrement += monthlyIncrementData[i] || 0;    // 第一个月
+                if (i + 1 < monthlyIncrementData.length) {
+                    quarterIncrement += monthlyIncrementData[i + 1] || 0;  // 第二个月
+                }
+                if (i + 2 < monthlyIncrementData.length) {
+                    quarterIncrement += monthlyIncrementData[i + 2] || 0;  // 第三个月
+                }
+
+                quarterlyIncrementData.push(quarterIncrement);
+            }
+
+            return quarterlyIncrementData;
+        }
+
+
+        // 函数：更新图表
+        function updateChart(mode) {
+            var datasets = getDatasets(chartData, mode);
+
+            // 销毁现有图表并创建新图表
+            if (salesChart) {
+                salesChart.destroy();
+            }
+
+            salesChart = new Chart(ctx, {
+                type: 'bar', // 默认类型为条形图，增量数据使用线形图
+                data: {
+                    labels: mode === 'annual' ? chartData.labels : ['Q1', 'Q2', 'Q3', 'Q4'],
+                    datasets: datasets
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
             });
         }
 
-        // 创建图表
-        var salesChart = new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: chartData.labels,
-                datasets: datasets
-            },
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true
-                    }
-                }
-            }
+        // 切换显示模式按钮的事件监听器
+        document.getElementById('toggleMode').addEventListener('click', function () {
+            displayMode = displayMode === 'annual' ? 'quarterly' : 'annual';
+            this.textContent = displayMode === 'annual' ? '切换至季度显示' : '切换至年度显示';
+            updateChart(displayMode);
         });
 
+        // 初始渲染年度图表
+        updateChart('annual');
     </script>
 {% endblock %}
