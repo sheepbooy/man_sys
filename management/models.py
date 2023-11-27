@@ -199,7 +199,7 @@ class ForeignTradeLedger(models.Model):
     payment_date = models.DateField(verbose_name='收款日期')
     invoice_number = models.CharField(max_length=255, blank=True, verbose_name='发票号码')
     invoice_receipt_number = models.CharField(max_length=255, blank=True, verbose_name='发票收据号')
-    sales_month = models.CharField(max_length=255, blank=True, verbose_name='销售月份')
+    sales_month = models.DateField(verbose_name='销售月份')
     international_freight_rmb = models.CharField(max_length=255, blank=True,
 
                                                  verbose_name='国际运费（RMB)')  # Field name made lowercase. Field renamed to remove unsuitable characters.

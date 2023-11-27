@@ -166,6 +166,7 @@ urlpatterns = [
 
     # 开发目标客户数和实现销售额
     path('customers_sales/', customers_sales.customers_sales, name='dashboard'),
-
+    # 月实现订单数的统计
+    path('order_summary/', customers_sales.order_summary, name='order-summary'),
 
 ]

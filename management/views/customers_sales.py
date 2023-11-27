@@ -1,9 +1,13 @@
 from management import models
 from django.shortcuts import render
-from django.db.models import Count, Sum, F, Case, When
+from django.db.models import Sum
+from django.db.models import Count
+from django.db.models.functions import TruncMonth, ExtractYear
+from management.models import ForeignTradeLedger, InternalTradeLedger
 
 
 def customers_sales(request):
+    """开发目标客户数和实现销售额的统计"""
     # 获取请求的年份和月份
     selected_year = request.GET.get('year')
     selected_month = request.GET.get('month')
@@ -76,4 +80,67 @@ def customers_sales(request):
         'years': years,
         'months': months,
     }
-    return render(request, 'target_customers.html', context)
+    return render(request, 'customers_sales.html', context)
+
+
+def order_summary(request):
+    # 提取内贸部的年份
+    internal_years = InternalTradeLedger.objects.annotate(
+        year_annotate=ExtractYear('sales_month')
+    ).values_list('year_annotate', flat=True).distinct()
+
+    print(internal_years)
+
+    # 提取外贸部的年份
+    foreign_years = ForeignTradeLedger.objects.annotate(
+        year_annotate=ExtractYear('sales_month')
+    ).values_list('year_annotate', flat=True).distinct()
+
+    print(foreign_years)
+
+    # 合并并排序年份
+    years = sorted(set(list(internal_years) + list(foreign_years)))
+    print(years)
+    selected_year = request.GET.get('year', None)
+    context = {'selected_year': selected_year, 'years': years}
+    print(selected_year)
+
+    if selected_year:
+        # try:
+        # 内贸部每月订单数
+        internal_trade_counts = InternalTradeLedger.objects.filter(
+            sales_month__year=selected_year
+        ).annotate(
+            month_annotate=TruncMonth('sales_month')
+        ).values('month_annotate', 'region_department').annotate(
+            count=Count('company_name', distinct=True)
+        ).order_by('month_annotate', 'region_department')
+
+        print(internal_trade_counts)
+
+        # 外贸部每月订单数
+        foreign_trade_counts = ForeignTradeLedger.objects.filter(
+            sales_month__year=selected_year
+        ).annotate(
+            month_annotate=TruncMonth('sales_month')
+        ).values('month_annotate').annotate(
+            count=Count('company_name', distinct=True)
+        ).order_by('month_annotate')
+
+        print(foreign_trade_counts)
+
+        # 计算每月的总订单数
+        total_monthly_orders = {}
+        for record in internal_trade_counts:
+            month_annotate = record['month_annotate'].strftime("%Y-%m")
+            total_monthly_orders[month_annotate] = total_monthly_orders.get(month_annotate, 0) + record['count']
+
+        for record in foreign_trade_counts:
+            month_annotate = record['month_annotate'].strftime("%Y-%m")
+            total_monthly_orders[month_annotate] = total_monthly_orders.get(month_annotate, 0) + record['count']
+
+        context['total_monthly_orders'] = total_monthly_orders
+        context['internal_trade_department_counts'] = internal_trade_counts
+        context['foreign_trade_department_counts'] = foreign_trade_counts
+
+    return render(request, 'order_summary.html', context)

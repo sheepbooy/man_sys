@@ -1,0 +1,190 @@
+{% extends 'layout.html' %}
+{% block css %}
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+{% endblock %}
+
+{% block content %}
+    <div class="container mt-4">
+        <form method="get" action="" class="mb-3">
+            <div class="row justify-content-center">
+                <div class="col-md-auto mb-3">
+                    <select id="year" name="year" class="form-select">
+                        <option value="">所有年份</option>
+                        {% for year in years %}
+                            <option value="{{ year }}"
+                                    {% if year|stringformat:"s" == selected_year %}selected{% endif %}>
+                                {{ year }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-md-auto">
+                    <button type="submit" class="btn btn-primary">查询</button>
+                </div>
+            </div>
+        </form>
+
+        {% if error %}
+            <div class="alert alert-danger">{{ error }}</div>
+        {% endif %}
+
+        {% if total_monthly_orders %}
+            <div class="row">
+                <div class="col-lg-12">
+                    <h2 class="h5 mb-3">{{ selected_year }}年订单总数</h2>
+                    <canvas id="totalOrdersChart"></canvas>
+                </div>
+            </div>
+        {% endif %}
+
+        {% if internal_trade_department_counts %}
+            <div class="row">
+                <div class="col-lg-12">
+                    <h2 class="h5 mb-3">{{ selected_year }}年内贸部各部门订单数</h2>
+                    <canvas id="internalOrdersChart"></canvas>
+                </div>
+            </div>
+        {% endif %}
+
+        {% if foreign_trade_department_counts %}
+            <div class="row">
+                <div class="col-lg-12">
+                    <h2 class="h5 mb-3">{{ selected_year }}年外贸部订单数</h2>
+                    <canvas id="foreignOrdersChart"></canvas>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+
+{% endblock %}
+
+{% block js %}
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // 总订单数数据
+            var totalOrdersData = {
+                labels: [{% for month, count in total_monthly_orders.items %}"{{ month }}", {% endfor %}],
+                datasets: [{
+                    label: '订单数量',
+                    data: [{% for month, count in total_monthly_orders.items %}{{ count }}, {% endfor %}],
+                    backgroundColor: 'rgba(0, 123, 255, 0.5)',
+                    borderColor: 'rgba(0, 123, 255, 1)',
+                    borderWidth: 1
+                }]
+            };
+            // 创建总订单数的图表
+            if (document.getElementById('totalOrdersChart')) {
+                var totalOrdersCtx = document.getElementById('totalOrdersChart').getContext('2d');
+                new Chart(totalOrdersCtx, {
+                    type: 'bar',
+                    data: totalOrdersData,
+                    options: {
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+            }
+
+            // 内贸部各部门订单数
+            // 初始化内贸部订单数据结构
+            var internalOrdersData = {
+                labels: [],
+                datasets: []
+            };
+
+            var departmentColors = {
+                '销售一部': 'rgba(255, 99, 132, 0.5)',
+                '销售二部': 'rgba(54, 162, 235, 0.5)',
+                '销售三部': 'rgba(255, 206, 86, 0.5)',
+                '销售四部': 'rgba(75, 192, 192, 0.5)',
+                '销售五部': 'rgba(153, 102, 255, 0.5)',
+                '销售六部': 'rgba(255, 159, 64, 0.5)',
+                '研发服务部': 'rgba(199, 199, 199, 0.5)',
+                '食品添加剂部': 'rgba(233, 30, 99, 0.5)',
+                {#'foreign_trade': 'rgba(0, 150, 136, 0.5)',#}
+                'default': 'rgba(0, 0, 0, 0.5)'  // 默认颜色
+            };
+            // 初始化部门数据
+            var departmentData = {};
+
+            // 处理内贸部数据
+            {% for record in internal_trade_department_counts %}
+                var month = "{{ record.month_annotate|date:'Y-m' }}";
+                var department = "{{ record.region_department }}";
+                if (!internalOrdersData.labels.includes(month)) {
+                    internalOrdersData.labels.push(month);
+                }
+                if (!departmentData[department]) {
+                    departmentData[department] = Array(internalOrdersData.labels.length).fill(0);
+                }
+                var index = internalOrdersData.labels.indexOf(month);
+                departmentData[department][index] = {{ record.count }};
+            {% endfor %}
+
+            // 添加部门数据集
+            for (var dep in departmentData) {
+                var bgColor = departmentColors[dep] || departmentColors['default'];
+                internalOrdersData.datasets.push({
+                    label: dep,
+                    data: departmentData[dep],
+                    backgroundColor: bgColor,
+                    borderColor: bgColor.replace('0.5', '1'),
+                    borderWidth: 1
+                });
+            }
+
+            // 创建内贸部订单图表
+            if (document.getElementById('internalOrdersChart')) {
+                var internalOrdersCtx = document.getElementById('internalOrdersChart').getContext('2d');
+                new Chart(internalOrdersCtx, {
+                    type: 'bar',
+                    data: internalOrdersData,
+                    options: {
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+            }
+
+            // 外贸部订单数
+            var foreignOrdersData = {
+                labels: [],
+                datasets: [{
+                    label: '订单数量',
+                    data: [],
+                    backgroundColor: 'rgba(255, 159, 64, 0.5)',
+                    borderColor: 'rgba(255, 159, 64, 1)',
+                    borderWidth: 1
+                }]
+            };
+
+            // 处理外贸部数据
+            {% for record in foreign_trade_department_counts %}
+                foreignOrdersData.labels.push("{{ record.month_annotate|date:'Y-m' }}");
+                foreignOrdersData.datasets[0].data.push({{ record.count }});
+            {% endfor %}
+
+            // 创建外贸部订单图表
+            if (document.getElementById('foreignOrdersChart')) {
+                var foreignOrdersCtx = document.getElementById('foreignOrdersChart').getContext('2d');
+                new Chart(foreignOrdersCtx, {
+                    type: 'bar',
+                    data: foreignOrdersData,
+                    options: {
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+            }
+        });
+    </script>
+{% endblock %}
