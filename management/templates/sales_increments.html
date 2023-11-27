@@ -1,0 +1,109 @@
+{% extends 'layout.html' %}
+
+{% block css %}
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+{% endblock %}
+
+{% block content %}
+    <div class="container mt-4">
+        <form method="get" action="" class="mb-3">
+            <div class="row justify-content-center">
+                <div class="col-md-auto mb-3">
+                    <select id="year" name="year" class="form-select">
+                        <option value="">选择年份</option>
+                        {% for year in years %}
+                            <option value="{{ year }}"
+                                    {% if year|stringformat:"s" == selected_year|stringformat:"s" %}selected{% endif %}>
+                                {{ year }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-md-auto">
+                    <button type="submit" class="btn btn-primary">查询</button>
+                </div>
+            </div>
+        </form>
+
+        {% if selected_year %}
+            <!-- 图表容器 -->
+            <canvas id="salesChart" width="400" height="200"></canvas>
+        {% else %}
+            <p class="text-center">请选择一个年份以查看销售数据。</p>
+        {% endif %}
+    </div>
+{% endblock %}
+
+{% block js %}
+
+    <script>
+        var chartData = JSON.parse('{{ chart_data|safe }}');
+        var ctx = document.getElementById('salesChart').getContext('2d');
+        var datasets = [];
+
+        // 扩展的颜色数组
+        var colors = [
+            'rgba(255, 99, 132, 0.6)',   // 红色
+            'rgba(54, 162, 235, 0.6)',   // 蓝色
+            'rgba(255, 206, 86, 0.6)',   // 黄色
+            'rgba(75, 192, 192, 0.6)',   // 绿色
+            'rgba(153, 102, 255, 0.6)',  // 紫色
+            'rgba(255, 159, 64, 0.6)',   // 橙色
+            'rgba(199, 199, 199, 0.6)',  // 灰色
+            'rgba(233, 30, 99, 0.6)',    // 桃红色
+            'rgba(33, 150, 243, 0.6)',   // 亮蓝色
+            'rgba(76, 175, 80, 0.6)',    // 草绿色
+            'rgba(255, 87, 34, 0.6)',    // 深橙色
+            'rgba(96, 125, 139, 0.6)',   // 蓝灰色
+            // ... 可以继续添加更多颜色 ...
+        ];
+
+        // 检查并处理内贸部数据
+        if (chartData.internal_sales) {
+            Object.keys(chartData.internal_sales).forEach(function (department, index) {
+                var color = colors[index % colors.length]; // 循环使用颜色数组中的颜色
+                datasets.push({
+                    label: '{{ selected_year }}年 ' + department + ' 销售额',
+                    data: chartData.internal_sales[department],
+                    backgroundColor: color,
+                    borderColor: color,
+                    borderWidth: 1
+                });
+            });
+        }
+
+        // 处理外贸部数据
+        if (chartData.foreign_sales) {
+            var foreignColor = 'rgba(103, 58, 183, 0.6)'; // 选择特定颜色用于外贸部
+            datasets.push({
+                label: '{{ selected_year }}年 外贸部销售额',
+                data: chartData.foreign_sales,
+                backgroundColor: foreignColor,
+                borderColor: foreignColor,
+                borderWidth: 1
+            });
+        }
+
+        // 创建图表
+        var salesChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: chartData.labels,
+                datasets: datasets
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
+
+
+
+
+
+{% endblock %}

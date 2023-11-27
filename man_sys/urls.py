@@ -168,5 +168,7 @@ urlpatterns = [
     path('customers_sales/', customers_sales.customers_sales, name='dashboard'),
     # 月实现订单数的统计
     path('order_summary/', customers_sales.order_summary, name='order-summary'),
+    # 月度销售额增量
+    path('sales_increments/', customers_sales.sales_increments, name='sales_increments'),
 
 ]

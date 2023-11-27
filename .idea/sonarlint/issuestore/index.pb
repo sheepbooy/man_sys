@@ -653,3 +653,5 @@ Y
 )management/templates/customers_sales.html,2\a\2a94006f23727031ebfe0478ea779ccd9d539b44
 W
 'management/templates/order_summary.html,f\a\fa16074f4252b574261ade752556a4377a0e5ce4
+Z
+*management/templates/sales_increments.html,e\1\e1d04665dab05294b5016128b9f0d0bf8338cca8
