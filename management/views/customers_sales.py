@@ -89,21 +89,21 @@ def order_summary(request):
         year_annotate=ExtractYear('sales_month')
     ).values_list('year_annotate', flat=True).distinct()
 
-    print(internal_years)
+    # print(internal_years)
 
     # 提取外贸部的年份
     foreign_years = ForeignTradeLedger.objects.annotate(
         year_annotate=ExtractYear('sales_month')
     ).values_list('year_annotate', flat=True).distinct()
 
-    print(foreign_years)
+    # print(foreign_years)
 
     # 合并并排序年份
     years = sorted(set(list(internal_years) + list(foreign_years)))
-    print(years)
+    # print(years)
     selected_year = request.GET.get('year', None)
     context = {'selected_year': selected_year, 'years': years}
-    print(selected_year)
+    # print(selected_year)
 
     if selected_year:
         # try:
@@ -116,7 +116,7 @@ def order_summary(request):
             count=Count('company_name', distinct=True)
         ).order_by('month_annotate', 'region_department')
 
-        print(internal_trade_counts)
+        # print(internal_trade_counts)
 
         # 外贸部每月订单数
         foreign_trade_counts = ForeignTradeLedger.objects.filter(
@@ -127,7 +127,7 @@ def order_summary(request):
             count=Count('company_name', distinct=True)
         ).order_by('month_annotate')
 
-        print(foreign_trade_counts)
+        # print(foreign_trade_counts)
 
         # 计算每月的总订单数
         total_monthly_orders = {}
