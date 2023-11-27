@@ -9,6 +9,7 @@
     <div class="container mt-4">
         <form method="get" action="" class="mb-3">
             <div class="row justify-content-center">
+                <!-- 年份选择框 -->
                 <div class="col-md-auto mb-3">
                     <select id="year" name="year" class="form-select">
                         <option value="">选择年份</option>
@@ -20,11 +21,27 @@
                         {% endfor %}
                     </select>
                 </div>
-                <div class="col-md-auto">
-                    <button type="submit" class="btn btn-primary">查询</button>
+
+                <!-- 客户类型选择框 -->
+                <div class="col-md-auto mb-3">
+                    <select name="customer_type" class="form-select">
+                        <option value="" {% if customer_type == "" %}selected{% endif %}>所有客户</option>
+                        <option value="新" {% if customer_type == "新" %}selected{% endif %}>新客户</option>
+                        <option value="老" {% if customer_type == "老" %}selected{% endif %}>老客户</option>
+                        <option value="二次" {% if customer_type == "二次" %}selected{% endif %}>二次客户</option>
+                    </select>
+                </div>
+                <div class="col-md-auto mb-3">
+                    <!-- 查询按钮 -->
+                    <div class="col-md-auto">
+                        <button type="submit" class="btn btn-primary">查询</button>
+                    </div>
                 </div>
             </div>
+
         </form>
+
+
 
         {% if selected_year %}
             <!-- 图表容器 -->

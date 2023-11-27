@@ -157,7 +157,7 @@ def order_summary(request):
     return render(request, 'order_summary.html', context)
 
 
-def get_sales(year):
+def get_sales(year, customer_type=None):
     """从内贸部和外贸部得到对应年份每个月的订单金额"""
     internal_sales_totals = {}
     foreign_sales_totals = [0] * 12  # 初始化12个月的外贸部数据
@@ -169,7 +169,13 @@ def get_sales(year):
         # 内贸部销售总额
         internal_sales = InternalTradeLedger.objects.filter(
             sales_month__range=[start_date, end_date]
-        ).values('region_department').annotate(
+        )
+
+        # 如果指定了客户类型，进一步筛选
+        if customer_type:
+            internal_sales = internal_sales.filter(customer_type=customer_type)
+
+        internal_sales = internal_sales.values('region_department').annotate(
             total_amount=Sum('order_amount')
         )
 
@@ -181,7 +187,13 @@ def get_sales(year):
         # 外贸部销售总额
         foreign_sales = ForeignTradeLedger.objects.filter(
             sales_month__range=[start_date, end_date]
-        ).aggregate(
+        )
+
+        # 如果指定了客户类型，进一步筛选
+        if customer_type:
+            foreign_sales = foreign_sales.filter(customer_type=customer_type)
+
+        foreign_sales = foreign_sales.aggregate(
             total_sales_amount_usd=Sum('order_amount_usd'), total_sales_amount_cny=Sum('order_amount_cny')
         )
 
@@ -199,11 +211,16 @@ def sales_increments(request):
     # 假设 get_exists_years() 是一个函数，返回内贸部和外贸部存在销售数据的年份列表
     years = get_exists_years()
     selected_year = request.GET.get('year', None)
-    context = {'selected_year': selected_year, 'years': years}
-
+    customer_type = request.GET.get('customer_type', None)  # 获取客户类型
+    print(customer_type)
+    context = {
+        'selected_year': selected_year,
+        'years': years,
+        'customer_type': customer_type  # 添加客户类型到上下文
+    }
     if selected_year:
         selected_year = int(selected_year)
-        internal_sales, foreign_sales = get_sales(selected_year)
+        internal_sales, foreign_sales = get_sales(selected_year, customer_type)
 
         # 准备图表数据
         chart_data = {
