@@ -835,6 +835,7 @@ class Reimbursement(models.Model):
 
 
 class ActualSales(models.Model):
+    """实际销售数据"""
     department = models.ForeignKey(Reimbursement, on_delete=models.CASCADE)
     year = models.IntegerField()
     actual_jan = models.DecimalField(max_digits=10, decimal_places=2, verbose_name="1月实际回款")
@@ -854,3 +855,36 @@ class ActualSales(models.Model):
         managed = False
         db_table = '实际销售数据'
 
+
+class Complaint_summary(models.Model):
+    """全国客诉汇总"""
+    id = models.AutoField(primary_key=True)
+    month = models.CharField(max_length=20, verbose_name='月份')
+    shipment_date = models.DateField(verbose_name='发货日期')
+    department = models.CharField(max_length=100, verbose_name='部门')
+
+    # 使用choices参数限制complaint_type字段的选项
+    complaint_type = models.CharField(max_length=100,verbose_name='客诉问题类型')
+    form_type = models.CharField(max_length=100, verbose_name='表单类型')
+    contract_number = models.CharField(max_length=100, verbose_name='合同编号')
+    customer_name = models.CharField(max_length=100, verbose_name='客户名称')
+    product_name = models.CharField(max_length=100, verbose_name='产品名称')
+    specification = models.CharField(max_length=100, verbose_name='规格')
+    replacement_quantity = models.FloatField(verbose_name='补/换货数量（KG）')
+    reason = models.TextField(verbose_name='原因')
+    # 定义选择项
+    CATEGORY_CHOICES = [
+        ('A', 'A'),
+        ('B', 'B'),
+        ('C', 'C'),
+        ('D', 'D'),
+        ('E', 'E'),
+    ]
+    category = models.CharField(max_length=1,
+                                choices=CATEGORY_CHOICES, verbose_name='分类')
+    remarks = models.TextField(verbose_name='备注（补/换货运单号）')
+    return_history = models.TextField(verbose_name='退货记录')
+
+    class Meta:
+        managed = False
+        db_table = '全国客诉汇总'

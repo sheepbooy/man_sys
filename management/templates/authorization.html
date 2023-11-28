@@ -1,39 +1,40 @@
 {% extends 'layout.html' %}
 
 {% block content %}
-    <table>
-        <thead>
-        <h2 class="mb-4">授权书总表</h2>
-        <div class="row mb-3">
-            <div class="col">
-                <a href="/authorization/add/" class="btn btn-primary mb-3">添加</a>
-            </div>
-            <div class="col text-end">
-                <form method="get">
-                    <div class="input-group">
-                        <input type="text" name='q' class="form-control" placeholder="搜索" value="{{ value }}">
-                        <button class="btn btn-outline-secondary" type="submit">搜索</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-        </tr>
+    <h2 class="mb-4">授权书总表</h2>
 
-        <th>授权书编号</th>
-        <th>签发月份</th>
-        <th>产品名称</th>
-        <th>注册号</th>
-        <th>注册状态</th>
-        <th>相关制造商</th>
-        <th>相关产品名称</th>
-        <th>管理途径</th>
-        <th>跟进人员</th>
-        <th>审查状态</th>
-        <th>受理月份</th>
-        <th>审查中月份</th>
-        <th>消失月份</th>
-        <th>备注</th>
-        <th>操作</th>
+    <div class="row mb-3">
+        <div class="col">
+            <a href="/authorization/add/" class="btn btn-primary mb-3">添加</a>
+        </div>
+        <div class="col text-end">
+            <form method="get">
+                <div class="input-group">
+                    <input type="text" name='q' class="form-control" placeholder="搜索" value="{{ value }}">
+                    <button class="btn btn-outline-secondary" type="submit">搜索</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>授权书编号</th>
+            <th>签发月份</th>
+            <th>产品名称</th>
+            <th>注册号</th>
+            <th>注册状态</th>
+            <th>相关制造商</th>
+            <th>相关产品名称</th>
+            <th>管理途径</th>
+            <th>跟进人员</th>
+            <th>审查状态</th>
+            <th>受理月份</th>
+            <th>审查中月份</th>
+            <th>消失月份</th>
+            <th>备注</th>
+            <th>操作</th>
         </tr>
         </thead>
         <tbody>
@@ -62,11 +63,10 @@
         {% endfor %}
         </tbody>
     </table>
+
     <nav aria-label="Page navigation example">
         <ul class="pagination justify-content-center">
             {{ page_string|safe }}
         </ul>
     </nav>
-
-
 {% endblock %}

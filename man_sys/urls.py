@@ -33,6 +33,7 @@ from management.views import y_m_receivable_details
 from management.views import reimbursement
 from management.views import actual_sales
 from management.views import customers_sales
+from management.views import complaint_summary
 
 urlpatterns = [
     # path('admin/', admin.site.urls),
@@ -172,4 +173,12 @@ urlpatterns = [
     path('sales_increments/', customers_sales.sales_increments, name='sales_increments'),
     # 月度/季度回款金额及其增量
     path('sales_payback/', customers_sales.sales_payback, name='sales_payback'),
+
+    # 退换货台账表-全国客诉汇总
+    path('complaint_summary/', complaint_summary.complaint_summary, name='complaint_summary'),
+    path('complaint_summary/add/', complaint_summary.complaint_summary_add, name='complaint_summary_add'),
+    path('complaint_summary/edit/<int:_id>/', complaint_summary.complaint_summary_edit, name='complaint_summary_edit'),
+    path('complaint_summary/delete/<int:_id>/', complaint_summary.complaint_summary_delete,
+         name='complaint_summary_delete'),
+
 ]

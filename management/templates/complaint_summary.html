@@ -1,0 +1,79 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+    <h2 class="mb-4">全国客诉汇总</h2>
+
+    <div class="row mb-3">
+        <div class="col">
+            <a href="/complaint_summary/add/" class="btn btn-primary mb-3">添加</a>
+        </div>
+        <div class="col text-end">
+            <form method="get" class="mb-4 d-flex justify-content-start">
+                <select name="department" id="department-select" class="form-select me-2">
+                    <option value="">所有部门</option>
+
+                    {% for department in departments %}
+                        <option value="{{ department }}"
+                                {% if department|stringformat:"s" == selected_department %}selected{% endif %}>
+                            {{ department }}
+                        </option>
+                    {% endfor %}
+                </select>
+                <button class="btn btn-outline-secondary" type="submit">搜索</button>
+            </form>
+        </div>
+    </div>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>月份</th>
+            <th>发货日期</th>
+            <th>部门</th>
+            <th>客诉问题类型</th>
+            <th>表单类型</th>
+            <th>合同编号</th>
+            <th>客户名称</th>
+            <th>产品名称</th>
+            <th>规格</th>
+            <th>补/换货数量（KG）</th>
+            <th>原因</th>
+            <th>分类</th>
+            <th>备注（补/换货运单号）</th>
+            <th>退货记录</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for item in page_queryset %}
+            <tr>
+                <td>{{ item.month }}</td>
+                <td>{{ item.shipment_date }}</td>
+                <td>{{ item.department }}</td>
+                <td>{{ item.complaint_type }}</td>
+                <td>{{ item.form_type }}</td>
+                <td>{{ item.contract_number }}</td>
+                <td>{{ item.customer_name }}</td>
+                <td>{{ item.product_name }}</td>
+                <td>{{ item.specification }}</td>
+                <td>{{ item.replacement_quantity }}</td>
+                <td>{{ item.reason }}</td>
+                <td>{{ item.category }}</td>
+                <td>{{ item.remarks }}</td>
+                <td>{{ item.return_history }}</td>
+                <td>
+                    <a href="/complaint_summary/edit/{{ item.id }}/" class="btn btn-info btn-sm">编辑</a>
+                    <a href="/complaint_summary/delete/{{ item.id }}/"
+                       class="btn btn-danger btn-sm">删除</a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+            {{ page_string|safe }}
+        </ul>
+    </nav>
+{% endblock %}

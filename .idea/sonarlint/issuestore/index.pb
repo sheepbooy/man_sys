@@ -657,3 +657,9 @@ Z
 *management/templates/sales_increments.html,e\1\e1d04665dab05294b5016128b9f0d0bf8338cca8
 W
 'management/templates/sales_payback.html,a\b\abef12df009fef07447366f6c56b2900f91518b9
+9
+	manage.py,3\1\3156ad13e4d695cd526bbb7b031016ecba842270
+U
+%management/views/complaint_summary.py,1\3\1300d7ab3af7cfbb76c4e57d576fd4f549408973
+[
++management/templates/complaint_summary.html,d\d\ddf9b8766c64e47da77fda13b2ecec03e16940a9

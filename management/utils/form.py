@@ -346,3 +346,9 @@ class Foreign_receivable_form(BootStrapModelForm):
         self.fields['salesperson'].required = False
         self.fields['accounts_receivable_usd'].required = False
         self.fields['accounts_receivable_rmb'].required = False
+
+
+class Complaint_summary_form(BootStrapModelForm):
+    class Meta:
+        model = models.Complaint_summary
+        fields = '__all__'
