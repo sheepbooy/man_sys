@@ -1,7 +1,7 @@
 
-}python:S1192p"^Define a constant instead of duplicating this literal 'targets_and_achievements.html' 3 times.(‰ò¤Ë8èé®¥Á1
+}python:S1192q"^Define a constant instead of duplicating this literal 'targets_and_achievements.html' 3 times.(‰ò¤Ë8èé®¥Á1
 xpython:S37767"TRefactor this function to reduce its Cognitive Complexity from 19 to the 15 allowed.(ìå°ùÿÿÿÿ8Î¥Á1
-Bpython:S125n"Remove this commented out code.(›ˆıüÿÿÿÿ8äÔ¥Á1
-€python:S117š"\Rename this local variable "actualSales" to match the regular expression ^[_a-z][a-z0-9_]*$.(¨´é½üÿÿÿÿ8ÜÃÀÕÀ1
-Zpython:S1481š"5Replace unused local variable "actualSales" with "_".(¨´é½üÿÿÿÿ8ÜÃÀÕÀ1
-Vpython:S1481š"1Replace unused local variable "created" with "_".(¨´é½üÿÿÿÿ8ÜÃÀÕÀ1
+Bpython:S125o"Remove this commented out code.(›ˆıüÿÿÿÿ8äÔ¥Á1
+€python:S117›"\Rename this local variable "actualSales" to match the regular expression ^[_a-z][a-z0-9_]*$.(¨´é½üÿÿÿÿ8ÜÃÀÕÀ1
+Zpython:S1481›"5Replace unused local variable "actualSales" with "_".(¨´é½üÿÿÿÿ8ÜÃÀÕÀ1
+Vpython:S1481›"1Replace unused local variable "created" with "_".(¨´é½üÿÿÿÿ8ÜÃÀÕÀ1

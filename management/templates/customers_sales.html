@@ -7,19 +7,23 @@
 
         <!-- 添加年份和月份筛选 -->
         <form method="get" class="mb-4 d-flex justify-content-start">
-            <select name="year" class="form-select me-2" onchange="this.form.submit()">
-                <option value="">选择年份</option>
+            <select name="year" id="year-select" class="form-select me-2">
                 {% for year in years %}
-                    <option value="{{ year }}" {% if year == selected_year %}selected{% endif %}>{{ year }}年</option>
+                    <option value="{{ year }}"
+                            {% if year|stringformat:"s" == selected_year %}selected{% endif %}>
+                        {{ year }}
+                    </option>
                 {% endfor %}
+
             </select>
-            <select name="month" class="form-select" onchange="this.form.submit()">
-                <option value="">选择月份</option>
+            <select name="month" id="month-select" class="form-select me-2">
+                <option value="">全部月份</option>
                 {% for month in months %}
                     <option value="{{ month }}" {% if month == selected_month %}selected{% endif %}>{{ month }}月
                     </option>
                 {% endfor %}
             </select>
+            <button type="submit" class="btn btn-primary">提交</button>
         </form>
 
         <!-- 部门数据展示 -->
@@ -63,4 +67,19 @@
         }
     </style>
 
+{% endblock %}
+
+{% block js %}
+{#    <script>#}
+{#        function checkYear() {#}
+{#            var yearSelect = document.getElementById('year-select');#}
+{#            var monthSelect = document.getElementById('month-select');#}
+{#            if (yearSelect.value) {#}
+{#                monthSelect.disabled = false;#}
+{#            } else {#}
+{#                monthSelect.disabled = true;#}
+{#                monthSelect.value = ''; // 可选：重置月份选择#}
+{#            }#}
+{#        }#}
+{#    </script>#}
 {% endblock %}

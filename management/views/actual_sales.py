@@ -55,6 +55,7 @@ def calculate_targets_and_achievements_for_department(department_name, year):
 def targets_and_achievements_view(request):
     departments = [('all', '全部')] + list(models.Reimbursement.DEPARTMENT_CHOICES)
     years = models.ActualSales.objects.order_by('year').values_list('year', flat=True).distinct()
+
     selected_department = request.GET.get('department', 'all')  # 默认选择“全部”
     selected_year = request.GET.get('year', datetime.now().year)
     # 如果选择了“全部”部门

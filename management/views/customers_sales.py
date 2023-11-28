@@ -34,8 +34,9 @@ def get_exists_years():
 def customers_sales(request):
     """开发目标客户数和实现销售额的统计"""
     # 获取请求的年份和月份
-    selected_year = request.GET.get('year')
+    selected_year = request.GET.get('year', datetime.now().year)
     selected_month = request.GET.get('month')
+    print(selected_year, selected_month)
 
     # 初始化部门列表
     departments = {
@@ -46,21 +47,19 @@ def customers_sales(request):
         '销售五部': {'first_time_count': 0, 'sales_amount': 0},
         '销售六部': {'first_time_count': 0, 'sales_amount': 0},
         '研发和产品': {'first_time_count': 0, 'sales_amount': 0},
-        '食品': {'first_time_count': 0, 'sales_amount': 0},
+        '食品添加剂部': {'first_time_count': 0, 'sales_amount': 0},
         '外贸部': {'first_time_count': 0, 'sales_amount': 0},
     }
 
     # 构建查询过滤条件
     query_filter_internal = {}
     query_filter_foreign = {}
-    if selected_year and selected_month:
+    if selected_year:
         query_filter_internal['sales_month__year'] = selected_year
-        query_filter_internal['sales_month__month'] = selected_month
-        query_filter_foreign['sales_date__year'] = selected_year  # 确保这个字段与您的模型字段相匹配
-        query_filter_foreign['sales_date__month'] = selected_month
+        query_filter_foreign['sales_month__year'] = selected_year  # 确保这个字段与您的模型字段相匹配
 
     # 一次客户数量统计
-    internal_first_time = models.InternalTradeLedger.objects.filter(first_occurrence__isnull=False,
+    internal_first_time = models.InternalTradeLedger.objects.filter(customer_type='一次',
                                                                     **query_filter_internal).values(
         'region_department').annotate(first_time_count=Count('id'))
     for item in internal_first_time:
@@ -72,7 +71,7 @@ def customers_sales(request):
     departments['外贸部']['first_time_count'] = foreign_first_time_count
 
     # 销售额统计
-    internal_sales = models.InternalTradeLedger.objects.filter(new__isnull=False, **query_filter_internal).values(
+    internal_sales = models.InternalTradeLedger.objects.filter(customer_type='新', **query_filter_internal).values(
         'region_department').annotate(total_sales_amount=Sum('order_amount'))
     for item in internal_sales:
         if item['region_department'] in departments:
@@ -89,13 +88,16 @@ def customers_sales(request):
 
     usd_sales_amount = foreign_sales.get('total_sales_amount_usd') or 0
     cny_sales_amount = foreign_sales.get('total_sales_amount_cny') or 0
-    print(usd_sales_amount, cny_sales_amount)
+
     usd_to_cny = usd_sales_amount * exchange_rate
     total_foreign_sales = usd_to_cny + cny_sales_amount
     departments['外贸部']['sales_amount'] = total_foreign_sales
+    print(internal_sales)
+
+    print(departments)
 
     # 添加年份和月份列表
-    years = get_exists_years()  # 示例年份范围，根据需要调整
+    years = get_exists_years()
     months = [str(i).zfill(2) for i in range(1, 13)]
 
     context = {
@@ -265,7 +267,7 @@ def sales_payback(request):
         prev_year = selected_year - 1
 
         # 获取当前年份和前一年的销售数据
-        internal_sales, foreign_sales = get_sales(selected_year, None,'payback_amount', 'payment_received_usd',
+        internal_sales, foreign_sales = get_sales(selected_year, None, 'payback_amount', 'payment_received_usd',
                                                   'payment_received_cny')
         internal_sales_prev, foreign_sales_prev = get_sales(prev_year, None, 'payback_amount',
                                                             'payment_received_usd',
