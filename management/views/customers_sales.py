@@ -157,8 +157,8 @@ def order_summary(request):
     return render(request, 'order_summary.html', context)
 
 
-def get_sales(year, customer_type=None):
-    """从内贸部和外贸部得到对应年份每个月每个部门的订单金额"""
+def get_sales(year, customer_type=None, field_inner=None, field_foreign_usd=None, field_foreign_cny=None):
+    """从内贸部和外贸部得到对应年份每个月每个部门的相应字段"""
     internal_sales_totals = {}
     foreign_sales_totals = [0] * 12  # 初始化12个月的外贸部数据
 
@@ -176,7 +176,7 @@ def get_sales(year, customer_type=None):
             internal_sales = internal_sales.filter(customer_type=customer_type)
 
         internal_sales = internal_sales.values('region_department').annotate(
-            total_amount=Sum('order_amount')
+            total_amount=Sum(field_inner)
         )
 
         for sale in internal_sales:
@@ -194,7 +194,7 @@ def get_sales(year, customer_type=None):
             foreign_sales = foreign_sales.filter(customer_type=customer_type)
 
         foreign_sales = foreign_sales.aggregate(
-            total_sales_amount_usd=Sum('order_amount_usd'), total_sales_amount_cny=Sum('order_amount_cny')
+            total_sales_amount_usd=Sum(field_foreign_usd), total_sales_amount_cny=Sum(field_foreign_cny)
         )
 
         exchange_rate_value = models.ForeignTradeLedger.objects.last().exchange_rate
@@ -207,7 +207,7 @@ def get_sales(year, customer_type=None):
 
 
 def sales_increments(request):
-    """销售额增量"""
+    """月度和季度销售额增量"""
     # 假设 get_exists_years() 是一个函数，返回内贸部和外贸部存在销售数据的年份列表
     years = get_exists_years()
     selected_year = request.GET.get('year', None)
@@ -223,8 +223,11 @@ def sales_increments(request):
         prev_year = selected_year - 1
 
         # 获取当前年份和前一年的销售数据
-        internal_sales, foreign_sales = get_sales(selected_year, customer_type)
-        internal_sales_prev, foreign_sales_prev = get_sales(prev_year, customer_type)
+        internal_sales, foreign_sales = get_sales(selected_year, customer_type, 'order_amount', 'order_amount_usd',
+                                                  'order_amount_cny')
+        internal_sales_prev, foreign_sales_prev = get_sales(prev_year, customer_type, 'order_amount',
+                                                            'order_amount_usd',
+                                                            'order_amount_cny')
 
         # 计算差额
         internal_increments = {
@@ -246,3 +249,54 @@ def sales_increments(request):
         })
 
     return render(request, 'sales_increments.html', context)
+
+
+def sales_payback(request):
+    """月度和季度回款额及其增量"""
+    years = get_exists_years()
+    selected_year = request.GET.get('year', None)
+    context = {
+        'selected_year': selected_year,
+        'years': years,
+    }
+
+    if selected_year:
+        selected_year = int(selected_year)
+        prev_year = selected_year - 1
+
+        # 获取当前年份和前一年的销售数据
+        internal_sales, foreign_sales = get_sales(selected_year, None,'payback_amount', 'payment_received_usd',
+                                                  'payment_received_cny')
+        internal_sales_prev, foreign_sales_prev = get_sales(prev_year, None, 'payback_amount',
+                                                            'payment_received_usd',
+                                                            'payment_received_cny')
+
+        # 计算差额
+        internal_increments = {
+            dept: [curr - prev for curr, prev in zip(internal_sales[dept], internal_sales_prev.get(dept, [0] * 12))] for
+            dept in internal_sales}
+        foreign_increments = [curr - prev for curr, prev in zip(foreign_sales, foreign_sales_prev)]
+
+        # 计算增长比例
+        internal_growth_rates = {
+            dept: [((inc / prev) if prev != 0 else 0) for inc, prev in
+                   zip(internal_increments[dept], internal_sales_prev.get(dept, [0] * 12))] for dept in internal_sales}
+        foreign_growth_rates = [((inc / prev) if prev != 0 else 0) for inc, prev in
+                                zip(foreign_increments, foreign_sales_prev)]
+
+        # 准备图表数据
+        chart_data = {
+            'labels': [f"{month}月" for month in range(1, 13)],
+            'internal_sales': internal_sales,
+            'foreign_sales': foreign_sales,
+            'internal_increments': internal_increments,
+            'foreign_increments': foreign_increments,
+            'internal_growth_rates': internal_growth_rates,
+            'foreign_growth_rates': foreign_growth_rates
+        }
+
+        context.update({
+            'chart_data': json.dumps(chart_data)
+        })
+
+    return render(request, 'sales_payback.html', context)
