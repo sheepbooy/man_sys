@@ -663,3 +663,5 @@ U
 %management/views/complaint_summary.py,1\3\1300d7ab3af7cfbb76c4e57d576fd4f549408973
 [
 +management/templates/complaint_summary.html,d\d\ddf9b8766c64e47da77fda13b2ecec03e16940a9
+d
+4management/templates/complaint_summary_category.html,2\9\294fde444ba2c20997dbf5065adedfe8789eb53a

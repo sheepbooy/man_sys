@@ -180,5 +180,6 @@ urlpatterns = [
     path('complaint_summary/edit/<int:_id>/', complaint_summary.complaint_summary_edit, name='complaint_summary_edit'),
     path('complaint_summary/delete/<int:_id>/', complaint_summary.complaint_summary_delete,
          name='complaint_summary_delete'),
+    # 产品分类客诉汇总
 
 ]

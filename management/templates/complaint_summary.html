@@ -2,7 +2,6 @@
 
 {% block content %}
     <h2 class="mb-4">全国客诉汇总</h2>
-
     <div class="row mb-3">
         <div class="col">
             <a href="/complaint_summary/add/" class="btn btn-primary mb-3">添加</a>
@@ -11,7 +10,6 @@
             <form method="get" class="mb-4 d-flex justify-content-start">
                 <select name="department" id="department-select" class="form-select me-2">
                     <option value="">所有部门</option>
-
                     {% for department in departments %}
                         <option value="{{ department }}"
                                 {% if department|stringformat:"s" == selected_department %}selected{% endif %}>
@@ -19,61 +17,101 @@
                         </option>
                     {% endfor %}
                 </select>
+
+                <select name="category" id="category-select" class="form-select me-2">
+                    <option value="">所有分类</option>
+                    {% for category_key, category_value in category_choices.items %}
+                        <option value="{{ category_key }}"
+                                {% if category_key == selected_category %}selected{% endif %}>
+                            {{ category_value }}
+                        </option>
+                    {% endfor %}
+                </select>
+
                 <button class="btn btn-outline-secondary" type="submit">搜索</button>
             </form>
         </div>
     </div>
-    <table class="table">
-        <thead>
-        <tr>
-            <th>月份</th>
-            <th>发货日期</th>
-            <th>部门</th>
-            <th>客诉问题类型</th>
-            <th>表单类型</th>
-            <th>合同编号</th>
-            <th>客户名称</th>
-            <th>产品名称</th>
-            <th>规格</th>
-            <th>补/换货数量（KG）</th>
-            <th>原因</th>
-            <th>分类</th>
-            <th>备注（补/换货运单号）</th>
-            <th>退货记录</th>
-            <th>操作</th>
-        </tr>
-        </thead>
-        <tbody>
+
+    <!-- 使用 Chart.js 创建饼图展示类别统计 -->
+    <div class="row mt-4">
+        <div class="col">
+            <canvas id="categoryChart" width="400" height="400"></canvas>
+        </div>
+    </div>
+
+    <!-- 使用卡片布局来展示数据 -->
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3">
         {% for item in page_queryset %}
-            <tr>
-                <td>{{ item.month }}</td>
-                <td>{{ item.shipment_date }}</td>
-                <td>{{ item.department }}</td>
-                <td>{{ item.complaint_type }}</td>
-                <td>{{ item.form_type }}</td>
-                <td>{{ item.contract_number }}</td>
-                <td>{{ item.customer_name }}</td>
-                <td>{{ item.product_name }}</td>
-                <td>{{ item.specification }}</td>
-                <td>{{ item.replacement_quantity }}</td>
-                <td>{{ item.reason }}</td>
-                <td>{{ item.category }}</td>
-                <td>{{ item.remarks }}</td>
-                <td>{{ item.return_history }}</td>
-                <td>
-                    <a href="/complaint_summary/edit/{{ item.id }}/" class="btn btn-info btn-sm">编辑</a>
-                    <a href="/complaint_summary/delete/{{ item.id }}/"
-                       class="btn btn-danger btn-sm">删除</a>
-                </td>
-            </tr>
+            <div class="col">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ item.product_name }}</h5>
+                        <p class="card-text">部门: {{ item.department }}</p>
+                        <p class="card-text">客诉问题类型: {{ item.complaint_type }}</p>
+                        <p class="card-text">合同编号: {{ item.contract_number }}</p>
+                        <!-- 添加折叠内容，展开时显示全部信息 -->
+                        <div class="collapse" id="collapse{{ item.id }}">
+                            <p class="card-text">发货日期: {{ item.shipment_date }}</p>
+                            <p class="card-text">规格: {{ item.specification }}</p>
+                            <p class="card-text">补/换货数量（KG）: {{ item.replacement_quantity }}</p>
+                            <p class="card-text">原因: {{ item.reason }}</p>
+                            <p class="card-text">分类: {{ item.category }}</p>
+                            <p class="card-text">备注（补/换货运单号）: {{ item.remarks }}</p>
+                            <p class="card-text">退货记录: {{ item.return_history }}</p>
+                        </div>
+                        <!-- 添加展开按钮的样式 -->
+                        <a href="#collapse{{ item.id }}" class="btn btn-link" data-bs-toggle="collapse">
+                            <i class="bi bi-arrow-down-circle"></i> 展开
+                        </a> <a href="/complaint_summary/edit/{{ item.id }}" class="btn btn-info btn-sm">编辑</a>
+                        <a href="/complaint_summary/delete/{{ item.id }}" class="btn btn-danger btn-sm">删除</a>
+                    </div>
+                </div>
+            </div>
         {% endfor %}
-        </tbody>
-    </table>
+    </div>
 
 
-    <nav aria-label="Page navigation example">
+
+    <!-- 分页样式 -->
+    <nav aria-label="Page navigation example" class="mt-4">
         <ul class="pagination justify-content-center">
             {{ page_string|safe }}
         </ul>
     </nav>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        // 准备类别统计数据
+        var categoryData = {
+            labels: [{% for category_key, count in category_counts.items %}"{{ category_key }}", {% endfor %}],
+            datasets: [{
+                data: [{% for category_key, count in category_counts.items %}{{ count }}, {% endfor %}],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.6)',
+                    'rgba(54, 162, 235, 0.6)',
+                    'rgba(255, 206, 86, 0.6)',
+                    'rgba(75, 192, 192, 0.6)',
+                    'rgba(153, 102, 255, 0.6)',
+                    'rgba(255, 159, 64, 0.6)'
+                ]
+            }]
+        };
+
+        // 创建饼图
+        var ctx = document.getElementById('categoryChart').getContext('2d');
+        var categoryChart = new Chart(ctx, {
+            type: 'pie',
+            data: categoryData,
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                legend: {
+                    position: 'bottom'
+                }
+            }
+        });
+    </script>
+    </div>
+
 {% endblock %}

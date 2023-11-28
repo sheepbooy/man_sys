@@ -326,6 +326,7 @@ class OverdueForm(BootStrapModelForm):
 
 
 class Foreign_receivable_form(BootStrapModelForm):
+    """应收账款明细（外贸部）"""
     class Meta:
         model = models.Foreign_receivable
 
@@ -349,6 +350,7 @@ class Foreign_receivable_form(BootStrapModelForm):
 
 
 class Complaint_summary_form(BootStrapModelForm):
+    """全国客诉汇总"""
     class Meta:
         model = models.Complaint_summary
         fields = '__all__'
