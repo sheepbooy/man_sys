@@ -53,10 +53,36 @@ def calculate_targets_and_achievements_for_department(department_name, year):
 
 
 def targets_and_achievements_view(request):
-    departments = models.Reimbursement.DEPARTMENT_CHOICES
+    departments = [('all', '全部')] + list(models.Reimbursement.DEPARTMENT_CHOICES)
     years = models.ActualSales.objects.order_by('year').values_list('year', flat=True).distinct()
-    selected_department = request.GET.get('department', departments[0][0])  # 默认选择第一个部门
-    selected_year = request.GET.get('year', datetime.now().year)  # 使用当前年份作为默认值
+    selected_department = request.GET.get('department', 'all')  # 默认选择“全部”
+    selected_year = request.GET.get('year', datetime.now().year)
+    # 如果选择了“全部”部门
+    if selected_department == 'all':
+        aggregated_results = {}
+        for department_code, _ in models.Reimbursement.DEPARTMENT_CHOICES:
+            department_results = calculate_targets_and_achievements_for_department(department_code, selected_year)
+
+            # 合并数据
+            for month, data in department_results.items():
+                if month not in aggregated_results:
+                    aggregated_results[month] = {'target': 0, 'actual': 0, 'difference': 0, 'completion_ratio': 0}
+
+                aggregated_results[month]['target'] += data['target']
+                aggregated_results[month]['actual'] += data['actual']
+                aggregated_results[month]['difference'] += data['difference']
+                # 完成比例需要重新计算
+
+        # 重新计算每个月的完成比例
+        for month, data in aggregated_results.items():
+            if data['target'] > 0:
+                data['completion_ratio'] = round(data['actual'] / data['target'] * 100, 2)
+            else:
+                data['completion_ratio'] = 0
+
+        results = aggregated_results
+    else:
+        results = calculate_targets_and_achievements_for_department(selected_department, selected_year)
 
     if request.method == 'POST':
         # 从POST请求中提取数据
@@ -73,7 +99,6 @@ def targets_and_achievements_view(request):
         }
         month = month_fields.get(month, month)
 
-
         # 这里确保处理的是正确的年份
         department = models.Reimbursement.objects.get(name=selected_department, year=year)
         actual_sales, _ = models.ActualSales.objects.get_or_create(department=department, year=year)
@@ -82,7 +107,7 @@ def targets_and_achievements_view(request):
 
         return redirect(f"{reverse('targets-achievements')}?department={selected_department}&year={year}")
 
-    results = calculate_targets_and_achievements_for_department(selected_department, selected_year)
+    # results = calculate_targets_and_achievements_for_department(selected_department, selected_year)
     if not results:
         return render(request, 'targets_and_achievements.html', {
             'departments': departments,
@@ -99,7 +124,7 @@ def targets_and_achievements_view(request):
         'departments': departments,
         'years': years,
         'selected_department': selected_department,
-        'selected_year': selected_year,  # 确保这里是 selected_year
+        'selected_year': selected_year,
         'results': results,
         'total_target': total_target,
         'total_actual': total_actual
