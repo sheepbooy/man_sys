@@ -9,8 +9,6 @@
                         <div class="col">
                             <label for="department" class="form-label">选择部门：</label>
                             <select name="department" id="department" class="form-select" onchange="this.form.submit()">
-                                {#                                <option value="all" {% if selected_department == 'all' %}selected{% endif %}>全部#}
-                                {#                                </option>#}
                                 {% for code, name in departments %}
                                     <option value="{{ code }}"
                                             {% if selected_department == code %}selected{% endif %}>{{ name }}</option>

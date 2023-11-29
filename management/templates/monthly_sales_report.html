@@ -3,17 +3,26 @@
 {% block content %}
     <h1 class="text-center mb-4">销售报表</h1>
 
-    <!-- 年份选择表单 -->
+    <!-- 年份和部门选择表单 -->
     <form action="" method="get" class="row mb-4 justify-content-center">
         <div class="col-auto">
             <label for="year" class="col-form-label">选择年份：</label>
-        </div>
-        <div class="col-auto">
             <select name="year" id="year" class="form-select">
                 {% for year in years %}
                     <option value="{{ year }}"
                             {% if year|stringformat:"s" == selected_year %}selected{% endif %}>
                         {{ year }}
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="col-auto">
+            <label for="department" class="col-form-label">选择部门：</label>
+            <select name="department" id="department" class="form-select">
+                {% for name in departments %}
+                    <option value="{{ name }}"
+                            {% if selected_department == name %}selected{% endif %}>
+                        {{ name }}
                     </option>
                 {% endfor %}
             </select>
@@ -85,7 +94,7 @@
         document.addEventListener('DOMContentLoaded', function () {
             var salesData = {{ sales_data_json|safe }};
 
-            // 初始化一个月份到销售总额的映射
+            // 初始化月份和销售额的映射
             var monthlySales = {};
             for (var i = 1; i <= 12; i++) {
                 var month = i < 10 ? '0' + i : '' + i;
@@ -94,19 +103,21 @@
 
             // 累加每个月的销售总额
             salesData.forEach(function (item) {
-                var month = item.month_annotate.split('-')[1]; // 获取月份
-                monthlySales[month] += item.total_sales;
+                var month = item.month_annotate.split('-')[1]; // 提取月份
+                monthlySales[month] += parseFloat(item.total_sales) || 0; // 确保转换为数字
             });
 
-            var labels = Object.keys(monthlySales);
-            var data = Object.values(monthlySales);
+            var sortedMonths = Object.keys(monthlySales).sort();
+            var data = sortedMonths.map(function (month) {
+                return monthlySales[month];
+            });
 
             // 创建图表
             var ctx = document.getElementById('salesChart').getContext('2d');
             var salesChart = new Chart(ctx, {
                 type: 'bar',
                 data: {
-                    labels: labels.map(function (label) {
+                    labels: sortedMonths.map(function (label) {
                         return label + '月';
                     }),
                     datasets: [{
@@ -126,5 +137,6 @@
                 }
             });
         });
+
     </script>
 {% endblock %}
