@@ -1,8 +1,5 @@
 import json
-from calendar import month_name
-from collections import defaultdict
 from datetime import datetime
-
 from management import models
 from django.shortcuts import render
 from django.db.models import Sum, F
@@ -36,7 +33,7 @@ def customers_sales(request):
     # 获取请求的年份和月份
     selected_year = request.GET.get('year', datetime.now().year)
     selected_month = request.GET.get('month')
-    print(selected_year, selected_month)
+    # print(selected_year, selected_month)
 
     # 初始化部门列表
     departments = {
@@ -92,9 +89,9 @@ def customers_sales(request):
     usd_to_cny = usd_sales_amount * exchange_rate
     total_foreign_sales = usd_to_cny + cny_sales_amount
     departments['外贸部']['sales_amount'] = total_foreign_sales
-    print(internal_sales)
+    # print(internal_sales)
 
-    print(departments)
+    # print(departments)
 
     # 添加年份和月份列表
     years = get_exists_years()

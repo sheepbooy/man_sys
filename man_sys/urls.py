@@ -34,6 +34,7 @@ from management.views import reimbursement
 from management.views import actual_sales
 from management.views import customers_sales
 from management.views import complaint_summary
+from management.views import Salesperson_Sales_Category
 
 urlpatterns = [
     # path('admin/', admin.site.urls),
@@ -180,6 +181,9 @@ urlpatterns = [
     path('complaint_summary/edit/<int:_id>/', complaint_summary.complaint_summary_edit, name='complaint_summary_edit'),
     path('complaint_summary/delete/<int:_id>/', complaint_summary.complaint_summary_delete,
          name='complaint_summary_delete'),
-    # 产品分类客诉汇总
+
+    # 202X年-销售部-业务员-月度各品类销售金额
+    path('customer_sales/salesperson/category/', Salesperson_Sales_Category.monthly_sales_report,
+         name='monthly_sales_report'),
 
 ]

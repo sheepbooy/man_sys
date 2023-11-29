@@ -663,5 +663,7 @@ U
 %management/views/complaint_summary.py,1\3\1300d7ab3af7cfbb76c4e57d576fd4f549408973
 [
 +management/templates/complaint_summary.html,d\d\ddf9b8766c64e47da77fda13b2ecec03e16940a9
-d
-4management/templates/complaint_summary_category.html,2\9\294fde444ba2c20997dbf5065adedfe8789eb53a
+^
+.management/views/Salesperson_Sales_Category.py,3\f\3f6aae956722e191d693ec0463e2a5a09265b321
+^
+.management/templates/monthly_sales_report.html,b\c\bceda5104da21e82de7221ec570492697fa45fe7
