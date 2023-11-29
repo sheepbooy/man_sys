@@ -36,23 +36,27 @@ class InternalTradeLedger(models.Model):
     model = models.CharField(max_length=255, blank=True, verbose_name='型号')
     code = models.CharField(max_length=255, blank=True, verbose_name='编码')
     specification = models.CharField(max_length=255, blank=True, verbose_name='规格')
-    quantity = models.CharField(max_length=255, blank=True, verbose_name='数量')
-    unit_price = models.CharField(max_length=255, blank=True, verbose_name='单价')
-    total_amount = models.CharField(max_length=255, blank=True, verbose_name='总金额')
-    quantity1 = models.CharField(max_length=255, blank=True, verbose_name='数量1')
-    unit_price1 = models.CharField(max_length=255, blank=True, verbose_name='单价1')
-    increase_debit = models.CharField(max_length=255, blank=True, verbose_name='增加借方')
-    decrease_credit = models.CharField(max_length=255, blank=True, verbose_name='减少贷方')
-    balance = models.CharField(max_length=255, blank=True, verbose_name='余额')
-    order_amount = models.CharField(max_length=255, blank=True, verbose_name='销售金额')
-    payback_amount = models.CharField(max_length=255, blank=True, verbose_name='回款金额')
+    cash_sales_quantity = models.IntegerField(blank=True, null=True, verbose_name='现款销售数量')
+    cash_sales_unit_price = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True,
+                                                verbose_name='现款销售单价')
+    cash_sales_total_amount = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True,
+                                                  verbose_name='现款销售总金额')
+    receivable_sales_quantity = models.IntegerField(blank=True, null=True, verbose_name='应收账款数量')
+    receivable_sales_unit_price = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True,
+                                                      verbose_name='应收账款单价')
+    receivable_sales_increase_debit = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True,
+                                                          verbose_name='应收账款增加额')
+    receivable_sales_decrease_credit = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True,
+                                                           verbose_name='应收账款减少额')
+    receivable_sales_balance = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True,
+                                                   verbose_name='应收账款余额')
+    order_amount = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True, verbose_name='订单金额')
+    payback_amount = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True,
+                                         verbose_name='回款金额')
     first_occurrence = models.CharField(max_length=255, blank=True, verbose_name='首次出现')
-    # new = models.CharField(max_length=255, blank=True, verbose_name='新')
-    # second_occurrence = models.CharField(max_length=255, blank=True, verbose_name='第二次出现')
     customer_type = models.CharField(max_length=255, blank=True, verbose_name="客户类型")
     unreceived_payment = models.CharField(max_length=255, blank=True, verbose_name='未收付款')
     payment_date = models.DateField(verbose_name='付款日期')
-    # old = models.CharField(max_length=255, blank=True, verbose_name='老')
     salesperson = models.CharField(max_length=255, blank=True, verbose_name='销售员')
     acceptance_amount = models.CharField(max_length=255, blank=True, verbose_name='验收金额')
     cash = models.CharField(max_length=255, blank=True, verbose_name='现金')
@@ -864,7 +868,7 @@ class Complaint_summary(models.Model):
     department = models.CharField(max_length=100, verbose_name='部门')
 
     # 使用choices参数限制complaint_type字段的选项
-    complaint_type = models.CharField(max_length=100,verbose_name='客诉问题类型')
+    complaint_type = models.CharField(max_length=100, verbose_name='客诉问题类型')
     form_type = models.CharField(max_length=100, verbose_name='表单类型')
     contract_number = models.CharField(max_length=100, verbose_name='合同编号')
     customer_name = models.CharField(max_length=100, verbose_name='客户名称')

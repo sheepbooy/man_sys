@@ -667,3 +667,5 @@ U
 .management/views/Salesperson_Sales_Category.py,3\f\3f6aae956722e191d693ec0463e2a5a09265b321
 ^
 .management/templates/monthly_sales_report.html,b\c\bceda5104da21e82de7221ec570492697fa45fe7
+]
+-management/templates/sales_amount_report.html,0\b\0b0bc8820937ee4637afc5fddafc3a2efe15d96f

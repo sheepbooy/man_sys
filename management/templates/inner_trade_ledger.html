@@ -38,14 +38,14 @@
                 <th>型号</th>
                 <th>编码</th>
                 <th>规格</th>
-                <th>数量</th>
-                <th>单价</th>
-                <th>总金额</th>
-                <th>数量1</th>
-                <th>单价1</th>
-                <th>增加借方</th>
-                <th>减少贷方</th>
-                <th>余额</th>
+                <th>现款销售数量</th>
+                <th>现款销售单价</th>
+                <th>现款销售总金额</th>
+                <th>应收账款数量</th>
+                <th>应收账款单价</th>
+                <th>应收账款增加额</th>
+                <th>应收账款减少额</th>
+                <th>应收账款余额</th>
                 <th>订单金额</th>
                 <th>回款金额</th>
                 <th>首次出现</th>
@@ -89,14 +89,14 @@
                     <td>{{ entry.model }}</td>
                     <td>{{ entry.code }}</td>
                     <td>{{ entry.specification }}</td>
-                    <td>{{ entry.quantity }}</td>
-                    <td>{{ entry.unit_price }}</td>
-                    <td>{{ entry.total_amount }}</td>
-                    <td>{{ entry.quantity1 }}</td>
-                    <td>{{ entry.unit_price1 }}</td>
-                    <td>{{ entry.increase_debit }}</td>
-                    <td>{{ entry.decrease_credit }}</td>
-                    <td>{{ entry.balance }}</td>
+                    <td>{{ entry.cash_sales_quantity }}</td>
+                    <td>{{ entry.cash_sales_unit_price }}</td>
+                    <td>{{ entry.cash_sales_total_amount }}</td>
+                    <td>{{ entry.receivable_sales_quantity }}</td>
+                    <td>{{ entry.receivable_sales_unit_price }}</td>
+                    <td>{{ entry.receivable_sales_increase_debit }}</td>
+                    <td>{{ entry.receivable_sales_decrease_credit }}</td>
+                    <td>{{ entry.receivable_sales_balance }}</td>
                     <td>{{ entry.order_amount }}</td>
                     <td>{{ entry.payback_amount }}</td>
                     <td>{{ entry.first_occurrence }}</td>

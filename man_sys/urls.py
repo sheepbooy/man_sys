@@ -186,4 +186,6 @@ urlpatterns = [
     path('customer_sales/salesperson/category/', Salesperson_Sales_Category.monthly_sales_report,
          name='monthly_sales_report'),
 
+    # 202X年-销售部-业务员-月度各品类销售数量
+    path('sales_amount/salesperson/category/',Salesperson_Sales_Category.sales_amount_report, name='sales_amount_report'),
 ]
