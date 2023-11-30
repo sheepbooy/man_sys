@@ -94,22 +94,27 @@
         document.addEventListener('DOMContentLoaded', function () {
             var salesData = {{ sales_data_json|safe }};
 
-            // 初始化月份和销售额的映射
-            var monthlySales = {};
+            // 初始化月份和销售额及增量的映射
+            var monthlySales = {}, monthlyIncrements = {};
             for (var i = 1; i <= 12; i++) {
                 var month = i < 10 ? '0' + i : '' + i;
                 monthlySales[month] = 0;
+                monthlyIncrements[month] = 0;
             }
 
-            // 累加每个月的销售总额
+            // 累加每个月的销售总额和增量
             salesData.forEach(function (item) {
-                var month = item.month_annotate.split('-')[1]; // 提取月份
-                monthlySales[month] += parseFloat(item.total_sales_quantity) || 0; // 确保转换为数字
+                var month = item.month_annotate.split('-')[1];
+                monthlySales[month] += parseFloat(item.total_sales_quantity) || 0;
+                monthlyIncrements[month] += parseFloat(item.sales_increment) || 0;
             });
 
             var sortedMonths = Object.keys(monthlySales).sort();
             var data = sortedMonths.map(function (month) {
                 return monthlySales[month];
+            });
+            var incrementDataArray = sortedMonths.map(function (month) {
+                return monthlyIncrements[month];
             });
 
             // 创建图表
@@ -126,7 +131,15 @@
                         backgroundColor: 'rgba(0, 123, 255, 0.5)',
                         borderColor: 'rgba(0, 123, 255, 1)',
                         borderWidth: 1
-                    }]
+                    },
+                        {
+                            label: '销售增量',
+                            data: incrementDataArray,
+                            backgroundColor: 'rgba(255, 99, 132, 0.5)',
+                            borderColor: 'rgba(255, 99, 132, 1)',
+                            borderWidth: 1
+                        }
+                    ]
                 },
                 options: {
                     scales: {
