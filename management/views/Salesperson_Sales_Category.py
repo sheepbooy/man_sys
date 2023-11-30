@@ -36,15 +36,50 @@ def monthly_sales_report(request):
     # 使用 DjangoJSONEncoder 来处理日期
     sales_data_json = json.dumps(list(sales_data), cls=DjangoJSONEncoder)
 
+    # 获取前一年的年份
+    previous_year = str(int(selected_year) - 1) if selected_year else ''
+
+    # 查询当前选定年份的销售数据
+    current_year_sales = query \
+        .annotate(month_annotate=TruncMonth('sales_month')) \
+        .values('salesperson', 'product_name', 'month_annotate', 'region_department') \
+        .annotate(total_sales=Sum('order_amount')) \
+        .order_by('salesperson', 'product_name', 'month_annotate', 'region_department')
+
+    # 查询前一年的销售数据
+    previous_year_sales = InternalTradeLedger.objects.annotate(
+        year_annotate=ExtractYear('sales_month')
+    ).filter(year_annotate=previous_year) \
+        .annotate(month_annotate=TruncMonth('sales_month')) \
+        .values('salesperson', 'product_name', 'month_annotate', 'region_department') \
+        .annotate(total_sales=Sum('order_amount'))
+
+    # 将前一年的销售数据转换为字典以便快速查找
+    previous_year_sales_dict = {
+        (item['salesperson'], item['product_name'], item['month_annotate'], item['region_department']): item[
+            'total_sales']
+        for item in previous_year_sales}
+
+    # 计算增量
+    for item in current_year_sales:
+        prev_sales = previous_year_sales_dict.get(
+            (item['salesperson'], item['product_name'], item['month_annotate'], item['region_department']), 0)
+        item['sales_increment'] = item['total_sales'] - prev_sales
+
+    # 使用 DjangoJSONEncoder 来处理日期和增量数据
+    sales_data_json = json.dumps(list(current_year_sales), cls=DjangoJSONEncoder)
+
     # 渲染页面并传递数据
     context = {
         'sales_data_json': sales_data_json,
-        'sales_data': sales_data,
+        'sales_data': current_year_sales,  # 确保这是包含增量数据的查询集
         'selected_year': selected_year,
         'selected_department': selected_department,
         'years': years,
         'departments': departments
     }
+
+    print(sales_data)
     return render(request, 'monthly_sales_report.html', context)
 
 
