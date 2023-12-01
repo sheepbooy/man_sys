@@ -15,6 +15,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.urls import path
+from django.contrib import admin
 from management.views import login_register_home
 from management.views import employee
 from management.views import inner_trade_ledger
@@ -35,9 +36,10 @@ from management.views import actual_sales
 from management.views import customers_sales
 from management.views import complaint_summary
 from management.views import Salesperson_Sales_Category
+from management.views import sales_visit_report
 
 urlpatterns = [
-    # path('admin/', admin.site.urls),
+    path('admin/', admin.site.urls),
     # 登录，注册，主页等相关功能
     path('login/', login_register_home.login_view),
     path('register/', login_register_home.register),
@@ -187,5 +189,13 @@ urlpatterns = [
          name='monthly_sales_report'),
 
     # 202X年-销售部-业务员-月度各品类销售数量
-    path('sales_amount/salesperson/category/',Salesperson_Sales_Category.sales_amount_report, name='sales_amount_report'),
+    path('sales_amount/salesperson/category/', Salesperson_Sales_Category.sales_amount_report,
+         name='sales_amount_report'),
+
+    # 销售客户拜访报告
+    path('sales_visit/', sales_visit_report.sales_visit_report, name='sales_visit_report'),
+    path('sales_visit/add/', sales_visit_report.sales_visit_add, name='sales_visit_add'),
+    path('sales_visit/edit/<int:_id>/', sales_visit_report.sales_visit_edit, name='sales_visit_edit'),
+    path('sales_visit/delete/<int:_id>/', sales_visit_report.sales_visit_delete, name='sales_visit_delete'),
+
 ]

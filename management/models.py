@@ -860,7 +860,7 @@ class ActualSales(models.Model):
         db_table = '实际销售数据'
 
 
-class Complaint_summary(models.Model):
+class ComplaintSummary(models.Model):
     """全国客诉汇总"""
     id = models.AutoField(primary_key=True)
     month = models.CharField(max_length=20, verbose_name='月份')
@@ -892,3 +892,33 @@ class Complaint_summary(models.Model):
     class Meta:
         managed = False
         db_table = '全国客诉汇总'
+
+
+class SalesVisitReport(models.Model):
+    """销售客户拜访报告"""
+    # 假设序号是自动生成的，不需要手动输入
+    serial_number = models.AutoField(primary_key=True, verbose_name='序号')
+    # 企业名称
+    company_name = models.CharField(max_length=255, verbose_name='企业名称')
+    # 拜访日期
+    visit_date = models.DateField(verbose_name='拜访日期')
+    # 本年度拜访次数
+    visits_this_year = models.PositiveIntegerField(verbose_name='本年度拜访次数')
+    # 客户性质 - 新客户或老客户
+    CUSTOMER_TYPE_CHOICES = [
+        ('new', '新客户'),
+        ('existing', '老客户'),
+    ]
+    customer_type = models.CharField(max_length=10, choices=CUSTOMER_TYPE_CHOICES, verbose_name='客户性质')
+    # 拜访性质
+    visit_nature = models.CharField(max_length=255, verbose_name='拜访性质')
+    # 拜访目的
+    visit_purpose = models.TextField(verbose_name='拜访目的')
+    # 拜访结果及反馈
+    visit_feedback = models.TextField(verbose_name='拜访结果及反馈')
+    # 备注
+    remarks = models.TextField(blank=True, verbose_name='备注')
+
+    class Meta:
+        managed = False
+        db_table = '销售客户拜访报告'

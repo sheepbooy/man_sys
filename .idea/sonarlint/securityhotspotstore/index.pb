@@ -669,3 +669,11 @@ U
 .management/templates/monthly_sales_report.html,b\c\bceda5104da21e82de7221ec570492697fa45fe7
 ]
 -management/templates/sales_amount_report.html,0\b\0b0bc8820937ee4637afc5fddafc3a2efe15d96f
+C
+management/admin.py,0\b\0ba5ea70bcc8e9d9ca1bea968b1df03c6e8e08cf
+V
+&management/views/sales_visit_report.py,b\1\b1328f2b68bfb25e3b5b62ff24a0401168a59e53
+\
+,management/templates/Sales_Visit_Report.html,c\9\c996b3bb0963657c994693cbe4e1cad322015dac
+Å
+Qmanagement/migrations/0006_actualsales_complaintsummary_reimbursement_and_more.py,d\1\d156897cd813cc8c5a8b8fbd92c415b3e6584bf9

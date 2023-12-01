@@ -1,11 +1,21 @@
 import json
 from datetime import datetime
+from decimal import Decimal
+
 from management import models
 from django.shortcuts import render
 from django.db.models import Sum, F
 from django.db.models import Count
 from django.db.models.functions import TruncMonth, ExtractYear
 from management.models import ForeignTradeLedger, InternalTradeLedger
+
+
+# 自定义转换函数
+def handle_decimal(obj):
+    """将decimal类型转化为字符串类型"""
+    if isinstance(obj, Decimal):
+        return str(obj)  # 将 Decimal 转换为字符串
+    raise TypeError(f"Object of type {obj.__class__.__name__} is not JSON serializable")
 
 
 def get_exists_years():
@@ -244,8 +254,7 @@ def sales_increments(request):
         }
 
         context.update({
-            'chart_data': json.dumps(chart_data)
-        })
+            'chart_data': json.dumps(chart_data, default=handle_decimal)})
 
     return render(request, 'sales_increments.html', context)
 
@@ -295,7 +304,6 @@ def sales_payback(request):
         }
 
         context.update({
-            'chart_data': json.dumps(chart_data)
-        })
+            'chart_data': json.dumps(chart_data, default=handle_decimal)})
 
     return render(request, 'sales_payback.html', context)
