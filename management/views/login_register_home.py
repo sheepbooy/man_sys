@@ -1,6 +1,7 @@
+from django.contrib.auth.models import User
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
-from management.utils.form import EmployeesForm
+from management.utils.form import EmployeesForm, EmployeesAddForm
 from management import models
 from io import BytesIO
 from management.utils.code import check_code
@@ -22,8 +23,11 @@ def login_view(request):
         # 获取session中的验证码
         stored_image_code = request.session.get('image_code', '')
         # print(user_entered_image_code, stored_image_code)
+
         # 验证成功，生成cookie并写入浏览器，再写入session
-        if user is not None and user.password == password and user_entered_image_code.upper() == stored_image_code.upper():
+        if (user is not None and user.password == password and
+                user_entered_image_code.upper() == stored_image_code.upper() and
+                user.position):  # 检查职位是否为空
             name = user.name
             request.session['info'] = {'work_id': work_id, 'name': name}
             # 重置cookie超时时间
@@ -37,8 +41,10 @@ def login_view(request):
                 error_message = "工号不存在，请重新输入。"
             elif user.password != password:
                 error_message = "密码错误，请重新输入。"
-            elif user_entered_image_code != stored_image_code:
+            elif user_entered_image_code.upper() != stored_image_code.upper():
                 error_message = "验证码错误，请重新输入。"
+            elif not user.position:  # 职位为空的情况
+                error_message = "该账户没有指定职位，无法登录。"
 
     return render(request, 'login.html', {'display_error': display_error, 'error_message': error_message})
 
@@ -46,12 +52,24 @@ def login_view(request):
 def register(request):
     """注册"""
     if request.method == 'GET':
-        form = EmployeesForm()
+        form = EmployeesAddForm()
         return render(request, 'register.html', {'form': form})
 
-    form = EmployeesForm(data=request.POST)
+    form = EmployeesAddForm(data=request.POST)
     if form.is_valid():
-        form.save()
+        # 在这里创建或更新User实例
+        work_id = form.cleaned_data['work_id']
+        password = form.cleaned_data['password']
+        user, created = User.objects.get_or_create(username=work_id)
+        if created or user.password != password:
+            user.set_password(password)
+            user.save()
+
+        # 保存Employees实例
+        employee = form.save(commit=False)
+        employee.user = user
+        employee.save()
+
         return redirect('/login/')
     else:
         return render(request, 'register.html', {'form': form})
@@ -60,6 +78,7 @@ def register(request):
 def home(request):
     """登录后的主页面"""
     return render(request, 'home.html')
+
 
 def report_home(request):
     """登录后的视图主页面"""
@@ -77,7 +96,7 @@ def user_detail(request, _id):
     row_object = models.Employees.objects.filter(work_id=_id).first()
 
     if request.method == 'GET':
-        form = EmployeesForm(instance=row_object)
+        form = EmployeesAddForm(instance=row_object)
         return render(request, 'change.html', {'form': form, 'address': 'home'})
 
     form = EmployeesForm(data=request.POST, instance=row_object)

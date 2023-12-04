@@ -699,17 +699,25 @@ class ExistingProductCompleted(models.Model):
 
 
 class Employees(models.Model):
+    DEPARTMENT_CHOICES = [
+        ('原辅料销售部', '原辅料销售部'),
+        ('食品添加剂部', '食品添加剂部'),
+        ('外贸部', '外贸部'),
+        ('研发服务部', '研发服务部'),
+        ('产品管理部', '产品管理部'),
+        ('内务部', '内务部'),
+        ('信管部', '信管部'),
+    ]
     user = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
-    department = models.CharField(max_length=255, blank=True, verbose_name='部门')
+    department = models.CharField(max_length=255, choices=DEPARTMENT_CHOICES, blank=True, verbose_name='部门')
+    position = models.CharField(max_length=255, blank=True, verbose_name='职位')
     name = models.CharField(max_length=255, blank=True, verbose_name='姓名')
     gender = models.CharField(max_length=255, blank=True, verbose_name='性别')
-    position = models.CharField(max_length=255, blank=True, verbose_name='职位')
     work_id = models.CharField(primary_key=True, max_length=255, verbose_name='工号')
     status = models.CharField(max_length=255, blank=True, verbose_name='状态')
     password = models.CharField(max_length=255, blank=True, verbose_name='密码')
 
     class Meta:
-        # managed = False
         db_table = '员工信息表'
 
 

@@ -54,6 +54,7 @@ urlpatterns = [
     path('employees/add/', employee.employees_add),
     path('employees/edit/<str:_id>/', employee.employees_edit),
     path('employees/delete/<str:_id>/', employee.employees_delete),
+    path('get-positions/', employee.get_positions, name='get-positions'),
 
     # 内贸部台账表
     path('innertrade/ledger/', inner_trade_ledger.inner_trade_ledger),

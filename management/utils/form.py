@@ -3,13 +3,17 @@ from management.utils.BootStrap import BootStrapModelForm
 
 
 class EmployeesForm(BootStrapModelForm):
-    """员工信息表类"""
+    class Meta:
+        model = models.Employees
+        exclude = ['user']
+
+
+class EmployeesAddForm(BootStrapModelForm):
+    """用户添加时的表单类"""
 
     class Meta:
         model = models.Employees
-        # fields = ['na/me', 'password', 'department', 'gender', 'position', 'work_id', 'status']
-        # fields = '__all__'
-        exclude = ['user']
+        exclude = ['user', 'position', 'department', 'status']
 
 
 class inner_trade_ledger_form(BootStrapModelForm):

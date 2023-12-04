@@ -11,7 +11,7 @@
                     <div class="mb-3">
                         <label class="form-label">{{ item.label }}</label>
                         {{ item }}
-                         <!-- 显示字段的错误信息 -->
+                        <!-- 显示字段的错误信息 -->
                         {% if item.errors %}
                             <div class="alert alert-danger">
                                 {{ item.errors.0 }}
@@ -29,4 +29,41 @@
         </div>
     </div>
 
+{% endblock %}
+{% block js %}
+    <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+            const departmentSelect = document.getElementById('id_department');
+            if (departmentSelect) {
+                departmentSelect.addEventListener('change', function () {
+                    const department = this.value;
+                    fetch(`/get-positions/?department=${encodeURIComponent(department)}`)
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error('Network response was not ok');
+                            }
+                            return response.json();
+                        })
+                        .then(data => {
+                            const positionContainer = document.getElementById('id_position').parentNode;
+                            const newSelect = document.createElement('select');
+                            newSelect.id = 'id_position';
+                            newSelect.name = 'position';
+                            newSelect.classList.add('form-control');
+                            newSelect.innerHTML = '<option value="">请选择职位</option>';
+                            data.forEach((response_data) => {
+                                const option = document.createElement('option');
+                                option.value = response_data;
+                                option.text = response_data;
+                                newSelect.appendChild(option);
+                            });
+                            positionContainer.replaceChild(newSelect, document.getElementById('id_position'));
+                        })
+                        .catch(error => {
+                            console.error('There has been a problem with your fetch operation:', error);
+                        });
+                });
+            }
+        });
+    </script>
 {% endblock %}
