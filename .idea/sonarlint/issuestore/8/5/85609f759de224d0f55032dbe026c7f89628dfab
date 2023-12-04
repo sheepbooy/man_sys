@@ -1,18 +1,42 @@
 
-|python:S1192œ"\Define a constant instead of duplicating this literal 'æ˜¯å¦ä¸€è‡´æ€§è¯„ä»·äº§å“' 3 times.(¯¦¥§8­öÎ‚Â1
-ypython:S1192¨"YDefine a constant instead of duplicating this literal 'é™„åŠ ç”³è¯·è®°å½•æ›´æ”¹' 3 times.(„›«¿8®öÎ‚Â1
-spython:S1192°"SDefine a constant instead of duplicating this literal 'ç€é™†ä¼ä¸šåç§°' 3 times.(Ò©ØÙ8®öÎ‚Â1
-xpython:S1192¥"SDefine a constant instead of duplicating this literal 'é¦–æ‰¹ä¸‰æ‰¹ç”Ÿäº§' 3 times.(áª‡°øÿÿÿÿ8®öÎ‚Â1
-upython:S1192­"PDefine a constant instead of duplicating this literal 'è¯•ç‚¹è§„æ¨¡å‰' 3 times.(§±òæıÿÿÿÿ8®öÎ‚Â1
-xpython:S1192²"SDefine a constant instead of duplicating this literal 'äº¤æ¥é”€å”®ç»ç†' 3 times.(ı‹Âüÿÿÿÿÿ8®öÎ‚Â1
-ppython:S1192"PDefine a constant instead of duplicating this literal 'å½“å‰åˆ¶é€ å•†' 3 times.(åãíë8®öÎ‚Â1
-spython:S1192"SDefine a constant instead of duplicating this literal 'é¢„ä¼°å¹´æ¶ˆè€—é‡' 3 times.(»ú¢ˆ8®öÎ‚Â1
-upython:S1192¤"VDefine a constant instead of duplicating this literal 'è¿ç»­æ‰¹æ ·å“æµ‹è¯•' 3 times.(¸²Æc8®öÎ‚Â1
-upython:S1192 "PDefine a constant instead of duplicating this literal 'å®¢æˆ·é‡è¦æ€§' 3 times.(¨ˆÍ²øÿÿÿÿ8®öÎ‚Â1
-upython:S1192¦"PDefine a constant instead of duplicating this literal 'ç¨³å®šæ€§ç ”ç©¶' 3 times.(ˆéÖğÿÿÿÿÿ8®öÎ‚Â1
-opython:S1192{"PDefine a constant instead of duplicating this literal 'ä¾›åº”å•†å®¡è®¡' 6 times.(’‘Ù8¯öÎ‚Â1
-upython:S1192“"PDefine a constant instead of duplicating this literal 'æ¯å…¬æ–¤ä»·æ ¼' 3 times.(¿²üØûÿÿÿÿ8¯öÎ‚Â1
-{python:S1192¢"VDefine a constant instead of duplicating this literal 'ä¾›åº”å•†å˜æ›´ç”³è¯·' 3 times.(•³°Şÿÿÿÿÿ8¯öÎ‚Â1
-xpython:S1192Œ"SDefine a constant instead of duplicating this literal 'å¯¹åº”è§„æ ¼ä»£ç ' 3 times.(»Éó¼ıÿÿÿÿ8¯öÎ‚Â1
-xpython:S1192¦"SDefine a constant instead of duplicating this literal 'æ­£å¼åˆåŒç­¾è®¢' 5 times.(ë’¯àüÿÿÿÿ8¯öÎ‚Â1
-‹python:S101ú"lRename class "Foreign_receivable" to match the regular expression ^_?([A-Z_][a-zA-Z0-9]*|[a-z_][a-z0-9_]*)$.(Şï¦ï8¯öÎ‚Â1
+|python:S1192"\Define a constant instead of duplicating this literal 'æ˜¯å¦ä¸€è‡´æ€§è¯„ä»·äº§å“' 3 times.(¯¦¥§8£¸°Â1
+ypython:S1192©"YDefine a constant instead of duplicating this literal 'é™„åŠ ç”³è¯·è®°å½•æ›´æ”¹' 3 times.(„›«¿8£¸°Â1
+spython:S1192±"SDefine a constant instead of duplicating this literal 'ç€é™†ä¼ä¸šåç§°' 3 times.(Ò©ØÙ8¤¸°Â1
+xpython:S1192¦"SDefine a constant instead of duplicating this literal 'é¦–æ‰¹ä¸‰æ‰¹ç”Ÿäº§' 3 times.(áª‡°øÿÿÿÿ8¤¸°Â1
+upython:S1192®"PDefine a constant instead of duplicating this literal 'è¯•ç‚¹è§„æ¨¡å‰' 3 times.(§±òæıÿÿÿÿ8¤¸°Â1
+xpython:S1192³"SDefine a constant instead of duplicating this literal 'äº¤æ¥é”€å”®ç»ç†' 3 times.(ı‹Âüÿÿÿÿÿ8¤¸°Â1
+ppython:S1192"PDefine a constant instead of duplicating this literal 'å½“å‰åˆ¶é€ å•†' 3 times.(åãíë8¤¸°Â1
+spython:S1192"SDefine a constant instead of duplicating this literal 'é¢„ä¼°å¹´æ¶ˆè€—é‡' 3 times.(»ú¢ˆ8¤¸°Â1
+upython:S1192¥"VDefine a constant instead of duplicating this literal 'è¿ç»­æ‰¹æ ·å“æµ‹è¯•' 3 times.(¸²Æc8¤¸°Â1
+upython:S1192¡"PDefine a constant instead of duplicating this literal 'å®¢æˆ·é‡è¦æ€§' 3 times.(¨ˆÍ²øÿÿÿÿ8¤¸°Â1
+upython:S1192§"PDefine a constant instead of duplicating this literal 'ç¨³å®šæ€§ç ”ç©¶' 3 times.(ˆéÖğÿÿÿÿÿ8¤¸°Â1
+opython:S1192|"PDefine a constant instead of duplicating this literal 'ä¾›åº”å•†å®¡è®¡' 6 times.(’‘Ù8¤¸°Â1
+upython:S1192”"PDefine a constant instead of duplicating this literal 'æ¯å…¬æ–¤ä»·æ ¼' 3 times.(¿²üØûÿÿÿÿ8¤¸°Â1
+{python:S1192£"VDefine a constant instead of duplicating this literal 'ä¾›åº”å•†å˜æ›´ç”³è¯·' 3 times.(•³°Şÿÿÿÿÿ8¤¸°Â1
+xpython:S1192"SDefine a constant instead of duplicating this literal 'å¯¹åº”è§„æ ¼ä»£ç ' 3 times.(»Éó¼ıÿÿÿÿ8¤¸°Â1
+xpython:S1192§"SDefine a constant instead of duplicating this literal 'æ­£å¼åˆåŒç­¾è®¢' 5 times.(ë’¯àüÿÿÿÿ8¤¸°Â1
+=python:S125"Remove this commented out code.(‡éÊµ8¼ÖØ°Â1
+=python:S125K"Remove this commented out code.(‡éÊµ8éûà°Â1
+=python:S125a"Remove this commented out code.(‡éÊµ8õ¬á°Â1
+>python:S125†"Remove this commented out code.(‡éÊµ8õ¬á°Â1
+>python:S125â"Remove this commented out code.(‡éÊµ8ÉÇá°Â1
+>python:S125ò"Remove this commented out code.(‡éÊµ8½òá°Â1
+>python:S125ş"Remove this commented out code.(‡éÊµ8³›â°Â1
+>python:S125´"Remove this commented out code.(‡éÊµ8³›â°Â1
+>python:S125ê"Remove this commented out code.(‡éÊµ8ä´â°Â1
+>python:S125’"Remove this commented out code.(‡éÊµ8îĞâ°Â1
+>python:S125Æ"Remove this commented out code.(‡éÊµ8çâ°Â1
+>python:S125ı"Remove this commented out code.(‡éÊµ8¸ƒã°Â1
+>python:S125·"Remove this commented out code.(‡éÊµ8áŸã°Â1
+>python:S125Ã"Remove this commented out code.(‡éÊµ8ş»ã°Â1
+>python:S125ş"Remove this commented out code.(‡éÊµ8ş»ã°Â1
+>python:S125¹"Remove this commented out code.(‡éÊµ8šæã°Â1
+>python:S125È"Remove this commented out code.(‡éÊµ8¦„ä°Â1
+>python:S125ë"Remove this commented out code.(‡éÊµ8«¶ä°Â1
+>python:S125ø"Remove this commented out code.(‡éÊµ8«¶ä°Â1
+‹python:S101ü"lRename class "Foreign_receivable" to match the regular expression ^_?([A-Z_][a-zA-Z0-9]*|[a-z_][a-z0-9_]*)$.(Şï¦ï8¤¸°Â1
+>python:S125¤"Remove this commented out code.(‡éÊµ8íÍä°Â1
+>python:S125Ç"Remove this commented out code.(‡éÊµ8šâä°Â1
+>python:S125İ"Remove this commented out code.(‡éÊµ8ƒıä°Â1
+>python:S125ÿ"Remove this commented out code.(‡éÊµ8‚–å°Â1
+>python:S125"Remove this commented out code.(‡éÊµ8ø«å°Â1

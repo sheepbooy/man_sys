@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.db import models
 
 
@@ -14,7 +15,7 @@ class Products(models.Model):
     spec_code = models.CharField(primary_key=True, max_length=255, verbose_name='规格编码')
 
     class Meta:
-        managed = False
+        # managed = False
         db_table = '辅料'
 
 
@@ -71,7 +72,7 @@ class InternalTradeLedger(models.Model):
                                                            verbose_name='单价低于当前价格表')
 
     class Meta:
-        managed = False
+        # managed = False
         db_table = '内贸部台账'
 
 
@@ -93,7 +94,7 @@ class Authorization(models.Model):
     notes = models.CharField(max_length=255, blank=True, verbose_name='备注')
 
     class Meta:
-        managed = False
+        # managed = False
         db_table = '授权书总表'
 
 
@@ -130,7 +131,7 @@ class ForeignCustomerProfile(models.Model):
     progress_description = models.TextField(blank=True, verbose_name='进展描述')
 
     class Meta:
-        managed = False
+        # managed = False
         db_table = '外贸部客户档案表'
 
 
@@ -222,7 +223,7 @@ class ForeignTradeLedger(models.Model):
     exchange_rate = models.CharField(max_length=255, blank=True, verbose_name='汇率')
 
     class Meta:
-        managed = False
+        # managed = False
         db_table = '外贸部台账'
 
 
@@ -238,7 +239,7 @@ class Feedback(models.Model):
     details = models.CharField(max_length=255, blank=True, verbose_name='详细信息')
 
     class Meta:
-        managed = False
+        # managed = False
         db_table = '问题反馈表'
 
 
@@ -250,7 +251,7 @@ class NewProductDevelopment(models.Model):
     subordinate_id = models.CharField(max_length=255, blank=True, verbose_name='隶属ID')
 
     class Meta:
-        managed = False
+        # managed = False
         db_table = '新品开发进度描述表'
 
 
@@ -304,7 +305,7 @@ class NewProductDevelopingProgress(models.Model):
     transfer_date = models.DateField(verbose_name='移交时间')
 
     class Meta:
-        managed = False
+        # managed = False
         db_table = '新品开发中进度表'
 
 
@@ -358,7 +359,7 @@ class NewProductCompleted(models.Model):
     transfer_date = models.DateField(verbose_name='移交时间')
 
     class Meta:
-        managed = False
+        # managed = False
         db_table = '新品已完成进度表'
 
 
@@ -398,7 +399,7 @@ class CustomerEngagement(models.Model):
     resolution_solution = models.TextField(blank=True, verbose_name='解决方案')
 
     class Meta:
-        managed = False
+        # managed = False
         db_table = '研部客户对接表'
 
 
@@ -450,7 +451,7 @@ class CustomerFlow(models.Model):
     former_employer = models.CharField(max_length=255, blank=True, verbose_name='前雇主')
 
     class Meta:
-        managed = False
+        # managed = False
         db_table = '研部客户流水表'
 
 
@@ -505,7 +506,7 @@ class CustomerProfile(models.Model):
                                                      verbose_name='电话销售/拜访描述')  # Field renamed to remove unsuitable characters.
 
     class Meta:
-        managed = False
+        # managed = False
         db_table = '研发部客户档案表'
 
 
@@ -563,7 +564,7 @@ class ExistingFormulationToDevelop(models.Model):
     handover_time = models.DateField(verbose_name='交接时间')
 
     class Meta:
-        managed = False
+        # managed = False
         db_table = '已有制剂待开发进度表'
 
 
@@ -575,7 +576,7 @@ class ExistingFormulationProgressDescription(models.Model):
     subordinate_id = models.CharField(max_length=255, blank=True, verbose_name='隶属ID')
 
     class Meta:
-        managed = False
+        # managed = False
         db_table = '已有制剂进度描述表'
 
 
@@ -634,7 +635,7 @@ class ExistingFormulationDeveloping(models.Model):
     handover_time = models.DateField(verbose_name='交接时间')
 
     class Meta:
-        managed = False
+        # managed = False
         db_table = '已有制剂开发中进度表'
 
 
@@ -693,11 +694,12 @@ class ExistingProductCompleted(models.Model):
     handover_time = models.DateField(verbose_name='交接时间')
 
     class Meta:
-        managed = False
+        # managed = False
         db_table = '已有制剂已完成进度表'
 
 
 class Employees(models.Model):
+    user = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
     department = models.CharField(max_length=255, blank=True, verbose_name='部门')
     name = models.CharField(max_length=255, blank=True, verbose_name='姓名')
     gender = models.CharField(max_length=255, blank=True, verbose_name='性别')
@@ -707,7 +709,7 @@ class Employees(models.Model):
     password = models.CharField(max_length=255, blank=True, verbose_name='密码')
 
     class Meta:
-        managed = False
+        # managed = False
         db_table = '员工信息表'
 
 
@@ -742,7 +744,7 @@ class Receivable(models.Model):
     remarks = models.TextField(blank=True, verbose_name='备注')
 
     class Meta:
-        managed = False
+        # managed = False
         db_table = '收账款明细'
 
 
@@ -755,7 +757,7 @@ class Overdue(models.Model):
     received_id = models.IntegerField()
 
     class Meta:
-        managed = False
+        # managed = False
         db_table = '逾期账款明细'
 
 
@@ -799,7 +801,7 @@ class Foreign_receivable(models.Model):
     remarks = models.TextField(blank=True, verbose_name='备注')
 
     class Meta:
-        managed = False
+        # managed = False
         db_table = '外贸部收款明细'
 
 
@@ -834,7 +836,7 @@ class Reimbursement(models.Model):
 
     class Meta:
         unique_together = ('name', 'year')
-        managed = False
+        # managed = False
         db_table = '各部门回款目标'
 
 
@@ -856,7 +858,7 @@ class ActualSales(models.Model):
     actual_dec = models.DecimalField(max_digits=10, decimal_places=2, verbose_name="12月实际回款")
 
     class Meta:
-        managed = False
+        # managed = False
         db_table = '实际销售数据'
 
 
@@ -890,7 +892,7 @@ class ComplaintSummary(models.Model):
     return_history = models.TextField(verbose_name='退货记录')
 
     class Meta:
-        managed = False
+        # managed = False
         db_table = '全国客诉汇总'
 
 
@@ -920,5 +922,5 @@ class SalesVisitReport(models.Model):
     remarks = models.TextField(blank=True, verbose_name='备注')
 
     class Meta:
-        managed = False
+        # managed = False
         db_table = '销售客户拜访报告'

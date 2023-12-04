@@ -8,7 +8,8 @@ class EmployeesForm(BootStrapModelForm):
     class Meta:
         model = models.Employees
         # fields = ['na/me', 'password', 'department', 'gender', 'position', 'work_id', 'status']
-        fields = '__all__'
+        # fields = '__all__'
+        exclude = ['user']
 
 
 class inner_trade_ledger_form(BootStrapModelForm):

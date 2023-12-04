@@ -267,24 +267,16 @@ N
 management/templates/test.html,8\e\8ec5d8d663e7dfe09560353a23be2b6ea54f87bc
 U
 %management/migrations/0001_initial.py,3\e\3e9607287036604f4206ab1cb396be0e8f536b49
-c
-3management/migrations/0003_alter_overdue_options.py,f\b\fb56c02f43cdb7e29dd86d78880da7e23e168244
-U
-%management/migrations/0002_overdue.py,6\1\61440f8c2a0e3d2350d06ba0e26197d137892ac3
 Z
 *management/templates/d_overdue_detail.html,d\6\d69d6d9132b59a5cf23dce335e5cd5f2e3215507
 _
 /management/templates/receivable_detail_add.html,3\2\325393223ae9cebeda323393c218d143cc8ecb5f
 ^
 .management/templates/d_overdue_detali_add.html,d\a\da76a29fb10499761091eeb3f6392378b41e5946
-c
-3management/migrations/0004_alter_overdue_options.py,b\6\b6ad2571a6f18aac0a63eba1d504c65647e1ec2e
 \
 ,management/templates/foreign_receivable.html,0\9\099c4b3009e8bda53ea62bc678280c3c2fac03cb
 `
 0management/templates/foreign_receivable_add.html,e\c\ec53dc41f314e842890ae9689877439be513336a
-`
-0management/migrations/0005_foreign_receivable.py,9\a\9a6d9f0ddad73b6fc350a073111d63f45b7b953d
 Q
 !management/views/Reimbursement.py,c\e\ce2807dd9141734ff25bc62712e9f415bc5f1346
 Q
@@ -675,5 +667,3 @@ V
 &management/views/sales_visit_report.py,b\1\b1328f2b68bfb25e3b5b62ff24a0401168a59e53
 \
 ,management/templates/Sales_Visit_Report.html,c\9\c996b3bb0963657c994693cbe4e1cad322015dac
-Å
-Qmanagement/migrations/0006_actualsales_complaintsummary_reimbursement_and_more.py,d\1\d156897cd813cc8c5a8b8fbd92c415b3e6584bf9

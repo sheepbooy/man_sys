@@ -1,4 +1,4 @@
 
-ppython:S11920"LDefine a constant instead of duplicating this literal '/employees/' 4 times.(€ÄÖìıÿÿÿÿ8ùôĞŒ¼1
-ppython:S1192+"LDefine a constant instead of duplicating this literal 'change.html' 6 times.(©¾øÿÿÿÿ8¢ŸÑŒ¼1
-Spython:S1172E"/Remove the unused function parameter "request".(í–­˜ıÿÿÿÿ8ùôĞŒ¼1
+ppython:S1192="LDefine a constant instead of duplicating this literal '/employees/' 3 times.(€ÄÖìıÿÿÿÿ8”¹‰’Ã1
+ppython:S1192,"LDefine a constant instead of duplicating this literal 'change.html' 4 times.(©¾øÿÿÿÿ8¢ŸÑŒ¼1
+Spython:S1172["/Remove the unused function parameter "request".(í–­˜ıÿÿÿÿ8ùôĞŒ¼1
