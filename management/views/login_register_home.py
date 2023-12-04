@@ -20,7 +20,15 @@ def login_view(request):
         work_id = request.POST.get('id')
         password = request.POST.get('password')
 
-        # 尝试获取与 Employees 关联的 User 对象
+        # 首先尝试使用 Django 的标准用户模型进行验证
+        user = authenticate(request, username=work_id, password=password)
+        if user is not None:
+            # 检查是否是超级用户
+            if user.is_superuser:
+                login(request, user)
+                return redirect('/admin/')  # 重定向到 Django admin 界面
+
+        # 如果不是超级用户，尝试获取与 Employees 关联的 User 对象
         try:
             employee = models.Employees.objects.get(work_id=work_id)
             if employee and employee.user:
