@@ -36,6 +36,7 @@ POSITION_TO_GROUP = {
 
 @permission_required('management.view_employees', login_url='/warning/')
 def employees_list(request):
+    print(request.user)
     """所有员工信息表"""
     value = request.GET.get('q', '')
     if value:
@@ -164,5 +165,5 @@ def get_positions(request):
         '信管部': ['数据库开发工程师'],
     }
     response_data = positions.get(department, [])
-    print("Returning positions:", response_data)  # 打印返回的职位列表
+    # print("Returning positions:", response_data)  # 打印返回的职位列表
     return JsonResponse(response_data, safe=False)

@@ -5,182 +5,258 @@
         <h2 class="mb-4">功能菜单</h2>
         <div class="row">
 
-            <div class="col-md-6">
-                <div class="card mb-4 custom-card" onmouseover="hoverCard(this)" onmouseout="unhoverCard(this)">
-                    <div class="card-body">
-                        <h5 class="card-title">员工信息管理</h5>
-                        <p class="card-text">全体员工信息，可以进行基本操作</p>
-                        <a href="/employees/" class="btn btn-primary"
-                           onclick="clickCard('/employees/')">前往员工管理页面</a>
+            {% if 'management.view_employees' in request.session.info.user_permissions %}
+                <div class="col-md-6">
+                    <div class="card mb-4 custom-card" onmouseover="hoverCard(this)" onmouseout="unhoverCard(this)">
+                        <div class="card-body">
+                            <h5 class="card-title">员工信息管理</h5>
+                            <p class="card-text">全体员工信息，可以进行基本操作</p>
+                            <a href="/employees/" class="btn btn-primary"
+                               onclick="clickCard('/employees/')">前往员工管理页面</a>
+                        </div>
                     </div>
                 </div>
-            </div>
+            {% endif %}
 
-            <div class="col-md-6">
-                <div class="card mb-4 custom-card" onmouseover="hoverCard(this)" onmouseout="unhoverCard(this)">
-                    <div class="card-body">
-                        <h5 class="card-title">药用辅料管理</h5>
-                        <p class="card-text">对药用辅料进行管理</p>
-                        <a href="/product/" class="btn btn-primary" onclick="clickCard('/url2')">前往药用辅料管理</a>
+            {% if 'management.view_products' in request.session.info.user_permissions %}
+
+                <div class="col-md-6">
+                    <div class="card mb-4 custom-card" onmouseover="hoverCard(this)" onmouseout="unhoverCard(this)">
+                        <div class="card-body">
+                            <h5 class="card-title">药用辅料管理</h5>
+                            <p class="card-text">对药用辅料进行管理</p>
+                            <a href="/product/" class="btn btn-primary"
+                               onclick="clickCard('/url2')">前往药用辅料管理</a>
+                        </div>
                     </div>
                 </div>
-            </div>
+            {% endif %}
+
+            {% if 'management.view_internaltradeledger' in request.session.info.user_permissions %}
 
 
-            <div class="col-md-6">
-                <div class="card mb-4 custom-card" onmouseover="hoverCard(this)" onmouseout="unhoverCard(this)">
-                    <div class="card-body">
-                        <h5 class="card-title">内贸部台账管理</h5>
-                        <p class="card-text">对于内贸部的台账进行管理</p>
-                        <a href="/innertrade/ledger/" class="btn btn-primary"
-                           onclick="clickCard('/url2')">前往内贸部台账管理</a>
+                <div class="col-md-6">
+                    <div class="card mb-4 custom-card" onmouseover="hoverCard(this)" onmouseout="unhoverCard(this)">
+                        <div class="card-body">
+                            <h5 class="card-title">内贸部台账管理</h5>
+                            <p class="card-text">对于内贸部的台账进行管理</p>
+                            <a href="/innertrade/ledger/" class="btn btn-primary"
+                               onclick="clickCard('/url2')">前往内贸部台账管理</a>
+                        </div>
                     </div>
                 </div>
-            </div>
+            {% endif %}
 
-            <div class="col-md-6">
-                <div class="card mb-4 custom-card" onmouseover="hoverCard(this)" onmouseout="unhoverCard(this)">
-                    <div class="card-body">
-                        <h5 class="card-title">外贸部台账</h5>
-                        <p class="card-text">对于外贸部的台账进行管理</p>
-                        <a href="/foreign/ledger/" class="btn btn-primary"
-                           onclick="clickCard('/url2')">前往外贸部台账</a>
+            {% if 'management.view_foreigntradeledger' in request.session.info.user_permissions %}
+
+                <div class="col-md-6">
+                    <div class="card mb-4 custom-card" onmouseover="hoverCard(this)" onmouseout="unhoverCard(this)">
+                        <div class="card-body">
+                            <h5 class="card-title">外贸部台账</h5>
+                            <p class="card-text">对于外贸部的台账进行管理</p>
+                            <a href="/foreign/ledger/" class="btn btn-primary"
+                               onclick="clickCard('/url2')">前往外贸部台账</a>
+                        </div>
                     </div>
                 </div>
-            </div>
+            {% endif %}
 
-            <div class="col-md-6">
-                <div class="card mb-4 custom-card" onmouseover="hoverCard(this)" onmouseout="unhoverCard(this)">
-                    <div class="card-body">
-                        <h5 class="card-title">外贸部客户档案管理</h5>
-                        <p class="card-text">对于外贸部的客户档案进行管理</p>
-                        <a href="/foreign/customer/" class="btn btn-primary"
-                           onclick="clickCard('/url2')">前往外贸部客户档案</a>
+
+            {% if 'management.view_foreigncustomerprofile' in request.session.info.user_permissions %}
+
+                <div class="col-md-6">
+                    <div class="card mb-4 custom-card" onmouseover="hoverCard(this)" onmouseout="unhoverCard(this)">
+                        <div class="card-body">
+                            <h5 class="card-title">外贸部客户档案管理</h5>
+                            <p class="card-text">对于外贸部的客户档案进行管理</p>
+                            <a href="/foreign/customer/" class="btn btn-primary"
+                               onclick="clickCard('/url2')">前往外贸部客户档案</a>
+                        </div>
                     </div>
                 </div>
-            </div>
+            {% endif %}
 
-            <div class="col-md-6">
-                <div class="card mb-4 custom-card" onmouseover="hoverCard(this)" onmouseout="unhoverCard(this)">
-                    <div class="card-body">
-                        <h5 class="card-title">已有制剂进度管理</h5>
-                        <p class="card-text">对于已有制剂的进度进行管理</p>
-                        <a href="/preparation/completed" class="btn btn-primary" onclick="clickCard('/url2')">已完成</a>
-                        <a href="/preparation/ing" class="btn btn-primary" onclick="clickCard('/url2')">研发中</a>
-                        <a href="/preparation/todev" class="btn btn-primary" onclick="clickCard('/url2')">待研发</a>
+
+            {% if 'management.view_existingformulationdeveloping' or 'manageent.view_existingformulationtodevelop' or 'management.view_existingproductcompleted' in request.session.info.user_permissions %}
+
+                <div class="col-md-6">
+                    <div class="card mb-4 custom-card" onmouseover="hoverCard(this)" onmouseout="unhoverCard(this)">
+                        <div class="card-body">
+                            <h5 class="card-title">已有制剂进度管理</h5>
+                            <p class="card-text">对于已有制剂的进度进行管理</p>
+                            {% if 'management.view_existingproductcompleted' in request.session.info.user_permissions %}
+                                <a href="/preparation/completed" class="btn btn-primary"
+                                   onclick="clickCard('/url2')">已完成</a>
+                            {% endif %}
+                            {% if 'management.view_existingformulationdeveloping' in request.session.info.user_permissions %}
+                                <a href="/preparation/ing" class="btn btn-primary"
+                                   onclick="clickCard('/url2')">研发中</a>
+                            {% endif %}
+                            {% if 'manageent.view_existingformulationtodevelop' in request.session.info.user_permissions %}
+                                <a href="/preparation/todev" class="btn btn-primary"
+                                   onclick="clickCard('/url2')">待研发</a>
+                            {% endif %}
+                        </div>
                     </div>
                 </div>
-            </div>
+            {% endif %}
 
-            <div class="col-md-6">
-                <div class="card mb-4 custom-card" onmouseover="hoverCard(this)" onmouseout="unhoverCard(this)">
-                    <div class="card-body">
-                        <h5 class="card-title">授权书管理</h5>
-                        <p class="card-text">对于已有授权书进行管理</p>
-                        <a href="/authorization/" class="btn btn-primary"
-                           onclick="clickCard('/url2')">前往授权书管理</a>
+
+            {% if 'management.view_authorization' in request.session.info.user_permissions %}
+                <div class="col-md-6">
+                    <div class="card mb-4 custom-card" onmouseover="hoverCard(this)" onmouseout="unhoverCard(this)">
+                        <div class="card-body">
+                            <h5 class="card-title">授权书管理</h5>
+                            <p class="card-text">对于已有授权书进行管理</p>
+                            <a href="/authorization/" class="btn btn-primary"
+                               onclick="clickCard('/url2')">前往授权书管理</a>
+                        </div>
                     </div>
                 </div>
-            </div>
+            {% endif %}
 
-            <div class="col-md-6">
-                <div class="card mb-4 custom-card" onmouseover="hoverCard(this)" onmouseout="unhoverCard(this)">
-                    <div class="card-body">
-                        <h5 class="card-title">新品进度管理</h5>
-                        <p class="card-text">对于新品开发的进度进行管理</p>
-                        <a href="/new/completed" class="btn btn-primary" onclick="clickCard('/url2')">已完成</a>
-                        <a href="/new/ing" class="btn btn-primary" onclick="clickCard('/url2')">开发中</a>
+
+            {% if 'management.view_newproductdevelopingprogress' or 'management.view_newproductcompleted' in request.session.info.user_permissions %}
+
+                <div class="col-md-6">
+                    <div class="card mb-4 custom-card" onmouseover="hoverCard(this)" onmouseout="unhoverCard(this)">
+                        <div class="card-body">
+                            <h5 class="card-title">新品进度管理</h5>
+                            <p class="card-text">对于新品开发的进度进行管理</p>
+                            {% if 'management.view_newproductcompleted' in request.session.info.user_permissions %}
+                                <a href="/new/completed" class="btn btn-primary" onclick="clickCard('/url2')">已完成</a>
+                            {% endif %}
+                            {% if 'management.view_newproductdevelopingprogress' in request.session.info.user_permissions %}
+                                <a href="/new/ing" class="btn btn-primary" onclick="clickCard('/url2')">开发中</a>
+                            {% endif %}
+                        </div>
                     </div>
                 </div>
-            </div>
+            {% endif %}
 
-            <div class="col-md-6">
-                <div class="card mb-4 custom-card" onmouseover="hoverCard(this)" onmouseout="unhoverCard(this)">
-                    <div class="card-body">
-                        <h5 class="card-title">进度描述</h5>
-                        <p class="card-text">对于已有制剂和新品的进度进行管理</p>
-                        <a href="/progress/preparation" class="btn btn-primary"
-                           onclick="clickCard('/url2')">已有制剂</a>
-                        <a href="/progress/new" class="btn btn-primary" onclick="clickCard('/url2')">新品</a>
+
+            {% if 'management.view_existingformulationdeveloping' or 'manageent.view_existingformulationtodevelop' or 'management.view_existingproductcompleted' or 'management.view_newproductdevelopingprogress' or 'management.view_newproductcompleted' in request.session.info.user_permissions %}
+                <div class="col-md-6">
+                    <div class="card mb-4 custom-card" onmouseover="hoverCard(this)" onmouseout="unhoverCard(this)">
+                        <div class="card-body">
+                            <h5 class="card-title">进度描述</h5>
+                            <p class="card-text">对于已有制剂和新品的进度进行管理</p>
+                            {% if 'management.view_existingformulationdeveloping' or 'manageent.view_existingformulationtodevelop' or 'management.view_existingproductcompleted' in request.session.info.user_permissions %}
+                                <a href="/progress/preparation" class="btn btn-primary"
+                                   onclick="clickCard('/url2')">已有制剂</a>
+                            {% endif %}
+                            {% if 'management.view_newproductdevelopingprogress' or 'management.view_newproductcompleted' in request.session.info.user_permissions %}
+                                <a href="/progress/new" class="btn btn-primary" onclick="clickCard('/url2')">新品</a>
+                            {% endif %}
+                        </div>
                     </div>
                 </div>
-            </div>
+            {% endif %}
 
-            <div class="col-md-6">
-                <div class="card mb-4 custom-card" onmouseover="hoverCard(this)" onmouseout="unhoverCard(this)">
-                    <div class="card-body">
-                        <h5 class="card-title">研发部客户档案管理</h5>
-                        <p class="card-text">对于研发部的客户档案进行管理</p>
-                        <a href="/develop/customer/" class="btn btn-primary"
-                           onclick="clickCard('/url2')">研发部客户档案管理</a>
+
+            {% if 'management.view_internaltradeledger' in request.session.info.user_permissions %}
+
+                <div class="col-md-6">
+                    <div class="card mb-4 custom-card" onmouseover="hoverCard(this)" onmouseout="unhoverCard(this)">
+                        <div class="card-body">
+                            <h5 class="card-title">研发部客户档案管理</h5>
+                            <p class="card-text">对于研发部的客户档案进行管理</p>
+                            <a href="/develop/customer/" class="btn btn-primary"
+                               onclick="clickCard('/url2')">研发部客户档案管理</a>
+                        </div>
                     </div>
                 </div>
-            </div>
+            {% endif %}
 
-            <div class="col-md-6">
-                <div class="card mb-4 custom-card" onmouseover="hoverCard(this)" onmouseout="unhoverCard(this)">
-                    <div class="card-body">
-                        <h5 class="card-title">研发部客户对接管理</h5>
-                        <p class="card-text">对于研发部客户的对接进行管理</p>
-                        <a href="/develop/butting/" class="btn btn-primary"
-                           onclick="clickCard('/url2')">前往研发部客户对接管理</a>
+
+            {% if 'management.view_customerengagement' in request.session.info.user_permissions %}
+
+                <div class="col-md-6">
+                    <div class="card mb-4 custom-card" onmouseover="hoverCard(this)" onmouseout="unhoverCard(this)">
+                        <div class="card-body">
+                            <h5 class="card-title">研发部客户对接管理</h5>
+                            <p class="card-text">对于研发部客户的对接进行管理</p>
+                            <a href="/develop/butting/" class="btn btn-primary"
+                               onclick="clickCard('/url2')">前往研发部客户对接管理</a>
+                        </div>
                     </div>
                 </div>
-            </div>
+            {% endif %}
 
-            <div class="col-md-6">
-                <div class="card mb-4 custom-card" onmouseover="hoverCard(this)" onmouseout="unhoverCard(this)">
-                    <div class="card-body">
-                        <h5 class="card-title">研发部流水管理</h5>
-                        <p class="card-text">对于研发部的流水进行管理</p>
-                        <a href="/develop/turnover/" class="btn btn-primary"
-                           onclick="clickCard('/url2')">前往研发部流水管理</a>
+
+            {% if 'management.view_customerflow' in request.session.info.user_permissions %}
+
+                <div class="col-md-6">
+                    <div class="card mb-4 custom-card" onmouseover="hoverCard(this)" onmouseout="unhoverCard(this)">
+                        <div class="card-body">
+                            <h5 class="card-title">研发部流水管理</h5>
+                            <p class="card-text">对于研发部的流水进行管理</p>
+                            <a href="/develop/turnover/" class="btn btn-primary"
+                               onclick="clickCard('/url2')">前往研发部流水管理</a>
+                        </div>
                     </div>
                 </div>
-            </div>
+            {% endif %}
 
-            <div class="col-md-6">
-                <div class="card mb-4 custom-card" onmouseover="hoverCard(this)" onmouseout="unhoverCard(this)">
-                    <div class="card-body">
-                        <h5 class="card-title">问题反馈管理</h5>
-                        <p class="card-text">对于提交的问题进行管理</p>
-                        <a href="/question/" class="btn btn-primary" onclick="clickCard('/url2')">前往问题反馈管理</a>
+
+            {% if 'management.view_feedback' in request.session.info.user_permissions %}
+
+                <div class="col-md-6">
+                    <div class="card mb-4 custom-card" onmouseover="hoverCard(this)" onmouseout="unhoverCard(this)">
+                        <div class="card-body">
+                            <h5 class="card-title">问题反馈管理</h5>
+                            <p class="card-text">对于提交的问题进行管理</p>
+                            <a href="/question/" class="btn btn-primary"
+                               onclick="clickCard('/url2')">前往问题反馈管理</a>
+                        </div>
                     </div>
                 </div>
-            </div>
+            {% endif %}
 
 
-            <div class="col-md-6">
-                <div class="card mb-4 custom-card" onmouseover="hoverCard(this)" onmouseout="unhoverCard(this)">
-                    <div class="card-body">
-                        <h5 class="card-title">退换货台账表-全国客诉汇总</h5>
-                        <p class="card-text">可以根据部门来筛选全国客诉</p>
-                        <a href="/complaint_summary/" class="btn btn-primary" onclick="clickCard('/url2')">前往全国客诉管理</a>
+            {% if 'management.view_complaintsummary' in request.session.info.user_permissions %}
+
+                <div class="col-md-6">
+                    <div class="card mb-4 custom-card" onmouseover="hoverCard(this)" onmouseout="unhoverCard(this)">
+                        <div class="card-body">
+                            <h5 class="card-title">退换货台账表-全国客诉汇总</h5>
+                            <p class="card-text">可以根据部门来筛选全国客诉</p>
+                            <a href="/complaint_summary/" class="btn btn-primary"
+                               onclick="clickCard('/url2')">前往全国客诉管理</a>
+                        </div>
                     </div>
                 </div>
-            </div>
+            {% endif %}
 
-            <div class="col-md-6">
-                <div class="card mb-4 custom-card" onmouseover="hoverCard(this)" onmouseout="unhoverCard(this)">
-                    <div class="card-body">
-                        <h5 class="card-title">销售各部门回款目标</h5>
-                        <p class="card-text">每个销售部门每个月的回款目标</p>
-                        <a href="/reimbursement/" class="btn btn-primary"
-                           onclick="clickCard('/url2')">前往查看</a>
+
+            {% if 'management.view_reimbursement' in request.session.info.user_permissions %}
+
+                <div class="col-md-6">
+                    <div class="card mb-4 custom-card" onmouseover="hoverCard(this)" onmouseout="unhoverCard(this)">
+                        <div class="card-body">
+                            <h5 class="card-title">销售各部门回款目标</h5>
+                            <p class="card-text">每个销售部门每个月的回款目标</p>
+                            <a href="/reimbursement/" class="btn btn-primary"
+                               onclick="clickCard('/url2')">前往查看</a>
+                        </div>
                     </div>
                 </div>
-            </div>
+            {% endif %}
 
-            <div class="col-md-6">
-                <div class="card mb-4 custom-card" onmouseover="hoverCard(this)" onmouseout="unhoverCard(this)">
-                    <div class="card-body">
-                        <h5 class="card-title">销售客户拜访报告</h5>
-                        <p class="card-text">销售客户拜访报告</p>
-                        <a href="/sales_visit/" class="btn btn-primary"
-                           onclick="clickCard('/url2')">前往查看</a>
+
+            {% if 'management.view_salesvisitreport' in request.session.info.user_permissions %}
+
+                <div class="col-md-6">
+                    <div class="card mb-4 custom-card" onmouseover="hoverCard(this)" onmouseout="unhoverCard(this)">
+                        <div class="card-body">
+                            <h5 class="card-title">销售客户拜访报告</h5>
+                            <p class="card-text">销售客户拜访报告</p>
+                            <a href="/sales_visit/" class="btn btn-primary"
+                               onclick="clickCard('/url2')">前往查看</a>
+                        </div>
                     </div>
                 </div>
-            </div>
+            {% endif %}
 
         </div>
     </div>

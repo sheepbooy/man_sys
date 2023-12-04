@@ -37,7 +37,11 @@ def login_view(request):
             login(request, user)
             # 从 Employees 对象获取姓名
             name = employee.name
-            request.session['info'] = {'work_id': work_id, 'name': name}
+            user_permissions = user.get_all_permissions()
+            user_permissions = list(user_permissions)
+            print(user_permissions)
+            request.session['info'] = {'work_id': work_id, 'name': name, 'user_permissions': user_permissions}
+
             request.session.set_expiry(60 * 60 * 24)
             return redirect('/home/')
         else:
