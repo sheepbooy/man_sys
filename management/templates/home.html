@@ -19,7 +19,6 @@
             {% endif %}
 
             {% if 'management.view_products' in request.session.info.user_permissions %}
-
                 <div class="col-md-6">
                     <div class="card mb-4 custom-card" onmouseover="hoverCard(this)" onmouseout="unhoverCard(this)">
                         <div class="card-body">
@@ -34,7 +33,6 @@
 
             {% if 'management.view_internaltradeledger' in request.session.info.user_permissions %}
 
-
                 <div class="col-md-6">
                     <div class="card mb-4 custom-card" onmouseover="hoverCard(this)" onmouseout="unhoverCard(this)">
                         <div class="card-body">
@@ -48,7 +46,6 @@
             {% endif %}
 
             {% if 'management.view_foreigntradeledger' in request.session.info.user_permissions %}
-
                 <div class="col-md-6">
                     <div class="card mb-4 custom-card" onmouseover="hoverCard(this)" onmouseout="unhoverCard(this)">
                         <div class="card-body">
@@ -63,7 +60,6 @@
 
 
             {% if 'management.view_foreigncustomerprofile' in request.session.info.user_permissions %}
-
                 <div class="col-md-6">
                     <div class="card mb-4 custom-card" onmouseover="hoverCard(this)" onmouseout="unhoverCard(this)">
                         <div class="card-body">
@@ -77,22 +73,20 @@
             {% endif %}
 
 
-            {% if 'management.view_existingformulationdeveloping' or 'manageent.view_existingformulationtodevelop' or 'management.view_existingproductcompleted' in request.session.info.user_permissions %}
-
+            {% if 'management.view_existingformulationdeveloping' in request.session.info.user_permissions or 'management.view_existingformulationtodevelop' in request.session.info.user_permissions or 'management.view_existingproductcompleted' in request.session.info.user_permissions %}
                 <div class="col-md-6">
                     <div class="card mb-4 custom-card" onmouseover="hoverCard(this)" onmouseout="unhoverCard(this)">
                         <div class="card-body">
                             <h5 class="card-title">已有制剂进度管理</h5>
                             <p class="card-text">对于已有制剂的进度进行管理</p>
                             {% if 'management.view_existingproductcompleted' in request.session.info.user_permissions %}
-                                <a href="/preparation/completed" class="btn btn-primary"
-                                   onclick="clickCard('/url2')">已完成</a>
+                                <a href="/preparation/completed" class="btn btn-primary" onclick="clickCard('/url2')">已完成</a>
                             {% endif %}
                             {% if 'management.view_existingformulationdeveloping' in request.session.info.user_permissions %}
                                 <a href="/preparation/ing" class="btn btn-primary"
                                    onclick="clickCard('/url2')">研发中</a>
                             {% endif %}
-                            {% if 'manageent.view_existingformulationtodevelop' in request.session.info.user_permissions %}
+                            {% if 'management.view_existingformulationtodevelop' in request.session.info.user_permissions %}
                                 <a href="/preparation/todev" class="btn btn-primary"
                                    onclick="clickCard('/url2')">待研发</a>
                             {% endif %}
@@ -100,6 +94,7 @@
                     </div>
                 </div>
             {% endif %}
+
 
 
             {% if 'management.view_authorization' in request.session.info.user_permissions %}
@@ -116,8 +111,7 @@
             {% endif %}
 
 
-            {% if 'management.view_newproductdevelopingprogress' or 'management.view_newproductcompleted' in request.session.info.user_permissions %}
-
+            {% if 'management.view_newproductdevelopingprogress' in request.session.info.user_permissions or 'management.view_newproductcompleted' in request.session.info.user_permissions %}
                 <div class="col-md-6">
                     <div class="card mb-4 custom-card" onmouseover="hoverCard(this)" onmouseout="unhoverCard(this)">
                         <div class="card-body">
@@ -135,17 +129,17 @@
             {% endif %}
 
 
-            {% if 'management.view_existingformulationdeveloping' or 'manageent.view_existingformulationtodevelop' or 'management.view_existingproductcompleted' or 'management.view_newproductdevelopingprogress' or 'management.view_newproductcompleted' in request.session.info.user_permissions %}
+
+            {% if 'management.view_existingformulationdeveloping' in request.session.info.user_permissions or 'management.view_existingformulationtodevelop' in request.session.info.user_permissions or 'management.view_existingproductcompleted' in request.session.info.user_permissions %}
                 <div class="col-md-6">
                     <div class="card mb-4 custom-card" onmouseover="hoverCard(this)" onmouseout="unhoverCard(this)">
                         <div class="card-body">
                             <h5 class="card-title">进度描述</h5>
                             <p class="card-text">对于已有制剂和新品的进度进行管理</p>
-                            {% if 'management.view_existingformulationdeveloping' or 'manageent.view_existingformulationtodevelop' or 'management.view_existingproductcompleted' in request.session.info.user_permissions %}
-                                <a href="/progress/preparation" class="btn btn-primary"
-                                   onclick="clickCard('/url2')">已有制剂</a>
+                            {% if 'management.view_existingformulationdeveloping' in request.session.info.user_permissions or 'management.view_existingformulationtodevelop' in request.session.info.user_permissions or 'management.view_existingproductcompleted' in request.session.info.user_permissions %}
+                                <a href="/progress/preparation" class="btn btn-primary" onclick="clickCard('/url2')">已有制剂</a>
                             {% endif %}
-                            {% if 'management.view_newproductdevelopingprogress' or 'management.view_newproductcompleted' in request.session.info.user_permissions %}
+                            {% if 'management.view_newproductdevelopingprogress' in request.session.info.user_permissions or 'management.view_newproductcompleted' in request.session.info.user_permissions %}
                                 <a href="/progress/new" class="btn btn-primary" onclick="clickCard('/url2')">新品</a>
                             {% endif %}
                         </div>
@@ -154,8 +148,8 @@
             {% endif %}
 
 
-            {% if 'management.view_internaltradeledger' in request.session.info.user_permissions %}
 
+            {% if 'management.view_customerprofile' in request.session.info.user_permissions %}
                 <div class="col-md-6">
                     <div class="card mb-4 custom-card" onmouseover="hoverCard(this)" onmouseout="unhoverCard(this)">
                         <div class="card-body">
@@ -170,7 +164,6 @@
 
 
             {% if 'management.view_customerengagement' in request.session.info.user_permissions %}
-
                 <div class="col-md-6">
                     <div class="card mb-4 custom-card" onmouseover="hoverCard(this)" onmouseout="unhoverCard(this)">
                         <div class="card-body">
@@ -185,7 +178,6 @@
 
 
             {% if 'management.view_customerflow' in request.session.info.user_permissions %}
-
                 <div class="col-md-6">
                     <div class="card mb-4 custom-card" onmouseover="hoverCard(this)" onmouseout="unhoverCard(this)">
                         <div class="card-body">
@@ -200,7 +192,6 @@
 
 
             {% if 'management.view_feedback' in request.session.info.user_permissions %}
-
                 <div class="col-md-6">
                     <div class="card mb-4 custom-card" onmouseover="hoverCard(this)" onmouseout="unhoverCard(this)">
                         <div class="card-body">
@@ -215,7 +206,6 @@
 
 
             {% if 'management.view_complaintsummary' in request.session.info.user_permissions %}
-
                 <div class="col-md-6">
                     <div class="card mb-4 custom-card" onmouseover="hoverCard(this)" onmouseout="unhoverCard(this)">
                         <div class="card-body">
@@ -230,7 +220,6 @@
 
 
             {% if 'management.view_reimbursement' in request.session.info.user_permissions %}
-
                 <div class="col-md-6">
                     <div class="card mb-4 custom-card" onmouseover="hoverCard(this)" onmouseout="unhoverCard(this)">
                         <div class="card-body">
@@ -245,7 +234,6 @@
 
 
             {% if 'management.view_salesvisitreport' in request.session.info.user_permissions %}
-
                 <div class="col-md-6">
                     <div class="card mb-4 custom-card" onmouseover="hoverCard(this)" onmouseout="unhoverCard(this)">
                         <div class="card-body">
