@@ -13,7 +13,7 @@ class EmployeesForm(BootStrapModelForm):
 class PasswordChangeForm(BootStrapModelForm):
     class Meta:
         model = models.Employees
-        fields = '__all__'
+        exclude = ['user']
 
     def __init__(self, *args, **kwargs):
         super(PasswordChangeForm, self).__init__(*args, **kwargs)
