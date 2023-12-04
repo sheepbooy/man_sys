@@ -3,9 +3,24 @@ from management.utils.BootStrap import BootStrapModelForm
 
 
 class EmployeesForm(BootStrapModelForm):
+    """用来编辑用户全部信息的表单"""
+
     class Meta:
         model = models.Employees
         exclude = ['user']
+
+
+class PasswordChangeForm(BootStrapModelForm):
+    class Meta:
+        model = models.Employees
+        fields = '__all__'
+
+    def __init__(self, *args, **kwargs):
+        super(PasswordChangeForm, self).__init__(*args, **kwargs)
+        # 禁用除了密码以外的所有字段
+        for field_name in self.fields:
+            if field_name != 'password':  # 假设密码字段名为 'password'
+                self.fields[field_name].disabled = True
 
 
 class EmployeesAddForm(BootStrapModelForm):

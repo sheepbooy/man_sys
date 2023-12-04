@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
-from management.utils.form import EmployeesForm, EmployeesAddForm
+from management.utils.form import EmployeesForm, EmployeesAddForm, PasswordChangeForm
 from management import models
 from io import BytesIO
 from management.utils.code import check_code
@@ -96,10 +96,10 @@ def user_detail(request, _id):
     row_object = models.Employees.objects.filter(work_id=_id).first()
 
     if request.method == 'GET':
-        form = EmployeesAddForm(instance=row_object)
+        form = PasswordChangeForm(instance=row_object)
         return render(request, 'change.html', {'form': form, 'address': 'home'})
 
-    form = EmployeesForm(data=request.POST, instance=row_object)
+    form = PasswordChangeForm(data=request.POST, instance=row_object)
     if form.is_valid():
         form.save()
         return redirect('/home/')
