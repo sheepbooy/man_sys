@@ -655,3 +655,5 @@ Q
 !management/templates/warning.html,a\3\a3c977ad9b9ce7302b2d757da81106f20febac0c
 Å
 Qmanagement/migrations/0002_alter_employees_department_alter_employees_position.py,a\c\acd0886ed7ca4dc5bd2a1044544964e479e64e12
+@
+django_debug.log,8\a\8aab2c286c8404f316c041bdeb9b84a73d5c3aa4

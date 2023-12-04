@@ -46,6 +46,9 @@ urlpatterns = [
     path('home/', login_register_home.home),
     path('logout/', login_register_home.logout),
     path('detail/<str:_id>/', login_register_home.user_detail),
+
+    # 警告页面
+    path('warning/', login_register_home.warning),
     # 生成图片验证码
     path('image/code/', login_register_home.image_code),
 

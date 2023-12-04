@@ -5,46 +5,47 @@ from management.utils.form import EmployeesForm, EmployeesAddForm, PasswordChang
 from management import models
 from io import BytesIO
 from management.utils.code import check_code
+from django.contrib.auth import authenticate, login
 
 
 # Create your views here.
+
+
 def login_view(request):
     """登录页面"""
-    display_error = False  # 默认情况下，不显示错误消息
-    error_message = ""  # 默认错误消息为空字符串
+    display_error = False
+    error_message = ""
 
     if request.method == 'POST':
-        work_id = request.POST.get('id')  # 获取工号
-        password = request.POST.get('password')  # 获取密码
-        user = models.Employees.objects.filter(work_id=work_id).first()
-        # print(work_id, password)
-        # 获取用户输入的验证码
-        user_entered_image_code = request.POST.get('image_code', '')
-        # 获取session中的验证码
-        stored_image_code = request.session.get('image_code', '')
-        # print(user_entered_image_code, stored_image_code)
+        work_id = request.POST.get('id')
+        password = request.POST.get('password')
 
-        # 验证成功，生成cookie并写入浏览器，再写入session
-        if (user is not None and user.password == password and
-                user_entered_image_code.upper() == stored_image_code.upper() and
-                user.position):  # 检查职位是否为空
-            name = user.name
+        # 尝试获取与 Employees 关联的 User 对象
+        try:
+            employee = models.Employees.objects.get(work_id=work_id)
+            if employee and employee.user:
+                user = authenticate(request, username=employee.user.username, password=password)
+            else:
+                user = None
+        except models.Employees.DoesNotExist:
+            user = None
+
+        user_entered_image_code = request.POST.get('image_code', '')
+        stored_image_code = request.session.get('image_code', '')
+
+        if user is not None and user_entered_image_code.upper() == stored_image_code.upper():
+            login(request, user)
+            # 从 Employees 对象获取姓名
+            name = employee.name
             request.session['info'] = {'work_id': work_id, 'name': name}
-            # 重置cookie超时时间
             request.session.set_expiry(60 * 60 * 24)
             return redirect('/home/')
         else:
-            display_error = True  # 登录失败时显示错误消息
-
-            # 设置不同的错误信息
+            display_error = True
             if user is None:
-                error_message = "工号不存在，请重新输入。"
-            elif user.password != password:
-                error_message = "密码错误，请重新输入。"
+                error_message = "工号或密码错误，请重新输入。"
             elif user_entered_image_code.upper() != stored_image_code.upper():
                 error_message = "验证码错误，请重新输入。"
-            elif not user.position:  # 职位为空的情况
-                error_message = "该账户没有指定职位，无法登录。"
 
     return render(request, 'login.html', {'display_error': display_error, 'error_message': error_message})
 
@@ -120,3 +121,8 @@ def image_code(request):
     img.save(stream, 'png')
 
     return HttpResponse(stream.getvalue())
+
+
+def warning(request):
+    """显示错误信息"""
+    return render(request, 'warning.html')

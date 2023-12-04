@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import permission_required
 from django.contrib.auth.models import User, Group
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
@@ -33,6 +34,7 @@ POSITION_TO_GROUP = {
 }
 
 
+@permission_required('management.view_employees', login_url='/warning/')
 def employees_list(request):
     """所有员工信息表"""
     value = request.GET.get('q', '')
@@ -64,6 +66,7 @@ def employees_list(request):
     return render(request, 'employees_list.html', context)
 
 
+@permission_required('management.add_employees', login_url='/warning/')
 def employees_add(request):
     """员工信息添加"""
     if request.method == 'GET':
@@ -90,13 +93,14 @@ def employees_add(request):
     return render(request, 'change.html', {'form': form, 'address': 'employees'})
 
 
+@permission_required('management.change_employees', login_url='/warning/')
 def employees_edit(request, _id):
     """编辑员工信息"""
     row_object = models.Employees.objects.filter(work_id=_id).first()
 
     # 权限检查
-    if not request.user.has_perm('management.change_employees'):
-        return render(request, 'warning.html', {"message": '您没有权限编辑此员工信息'})
+    # if not request.user.has_perm('management.change_employees'):
+    #     return render(request, 'warning.html', {"message": '您没有权限编辑此员工信息'})
 
     if request.method == 'GET':
         form = EmployeesForm(instance=row_object)  # 使用完整的 EmployeesForm
@@ -130,6 +134,7 @@ def employees_edit(request, _id):
     return render(request, 'change.html', {'form': form, 'address': 'employees'})
 
 
+@permission_required('management.delete_employees', login_url='/warning/')
 def employees_delete(request, _id):
     """用户删除"""
     models.Employees.objects.filter(work_id=_id).delete()
