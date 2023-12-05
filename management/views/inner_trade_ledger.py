@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import permission_required
 from django.shortcuts import render, redirect
 from django.db.models import Q
 from management.utils.pagination import Pagination
@@ -5,6 +6,7 @@ from management.utils.form import inner_trade_ledger_form
 from management import models
 
 
+@permission_required('management.view_internaltradeledger', login_url='/warning/')
 def inner_trade_ledger(request):
     """内贸部台账表"""
     value = request.GET.get('q', '')
@@ -58,6 +60,7 @@ def x_month_inner_trade_ledger(request):
     return render(request, 'm_inner_trade_ledger.html', context)
 
 
+@permission_required('management.add_internaltradeledger', login_url='/warning/')
 def inner_trade_ledger_add(request):
     """内贸部台账表添加"""
     if request.method == 'GET':
@@ -72,6 +75,7 @@ def inner_trade_ledger_add(request):
     return render(request, 'change.html', {'form': form, 'address': 'innertrade/ledger'})
 
 
+@permission_required('management.change_internaltradeledger', login_url='/warning/')
 def inner_trade_ledger_edit(request, _id):
     """编辑内贸部台账信息"""
     row_object = models.InternalTradeLedger.objects.filter(id=_id).first()
@@ -88,6 +92,7 @@ def inner_trade_ledger_edit(request, _id):
     return render(request, 'change.html', {'form': form, 'address': 'innertrade/ledger'})
 
 
+@permission_required('management.delete_internaltradeledger', login_url='/warning/')
 def inner_trade_ledger_delete(request, _id):
     """内贸部台账表删除"""
     models.InternalTradeLedger.objects.filter(id=_id).delete()

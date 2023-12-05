@@ -3,9 +3,11 @@
 {% block content %}
     <h1>药用辅料表</h1>
     <div class="row mb-3">
-        <div class="col">
-            <a href="/product/add/" class="btn btn-primary mb-3">添加</a>
-        </div>
+        {% if 'management.add_products' in request.session.info.user_permissions %}
+            <div class="col">
+                <a href="/product/add/" class="btn btn-primary mb-3">添加</a>
+            </div>
+        {% endif %}
         <div class="col text-end">
             <form method="get">
                 <div class="input-group">
@@ -36,8 +38,12 @@
                 <td>{{ product.labels }}</td>
                 <td>{{ product.spec_code }}</td>
                 <td>
-                    <a href="/product/edit/{{ product.spec_code }}/" class="btn btn-info btn-sm">编辑</a>
-                    <a href="/product/delete/{{ product.spec_code }}/" class="btn btn-danger btn-sm">删除</a>
+                    {% if 'management.change_products' in request.session.info.user_permissions %}
+                        <a href="/product/edit/{{ product.spec_code }}/" class="btn btn-info btn-sm">编辑</a>
+                    {% endif %}
+                    {% if 'management.delete_products' in request.session.info.user_permissions %}
+                        <a href="/product/delete/{{ product.spec_code }}/" class="btn btn-danger btn-sm">删除</a>
+                    {% endif %}
                 </td>
             </tr>
         {% empty %}

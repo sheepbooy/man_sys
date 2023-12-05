@@ -1,3 +1,4 @@
+from django.core.exceptions import PermissionDenied
 from django.shortcuts import render, redirect
 from django.db.models import Q
 from management.utils.pagination import Pagination
@@ -7,6 +8,17 @@ from management import models
 
 def new(request, _type):
     """新品开发中，已完成进度表"""
+
+    # 权限映射
+    permission_map = {
+        'ing': 'management.view_newproductdevelopingprogress',
+        'completed': 'management.view_newproductcompleted',
+    }
+    # 检查权限
+    user_has_permission = request.user.has_perm(permission_map.get(_type, ''))
+    if not user_has_permission:
+        raise PermissionDenied
+
     model_map = {
         'ing': models.NewProductDevelopingProgress,
         'completed': models.NewProductCompleted
@@ -41,13 +53,32 @@ def new(request, _type):
         'page_queryset': page_object.page_queryset,
         'page_string': page_object.page_string,
         'value': value,
-        'type': _type
+        'type': _type,
+
+        # 为每种类型和操作组合检查权限
+        'can_add_completed': request.user.has_perm('management.add_newproductcompleted'),
+        'can_edit_completed': request.user.has_perm('management.change_newproductcompleted'),
+        'can_delete_completed': request.user.has_perm('management.delete_newproductcompleted'),
+
+        'can_add_ing': request.user.has_perm('management.add_newproductdevelopingprogress'),
+        'can_edit_ing': request.user.has_perm('management.change_newproductdevelopingprogress'),
+        'can_delete_ing': request.user.has_perm('management.delete_newproductdevelopingprogress'),
     }
     return render(request, 'new_product.html', context)
 
 
 def new_add(request, _type):
     """新品（已完成，开发中）添加"""
+    # 权限映射
+    permission_map = {
+        'ing': 'management.add_newproductdevelopingprogress',
+        'completed': 'management.add_newproductcompleted',
+    }
+    # 检查权限
+    user_has_permission = request.user.has_perm(permission_map.get(_type, ''))
+    if not user_has_permission:
+        raise PermissionDenied
+
     form_cls = {
         'completed': NewProductCompleted_form,
         'ing': NewProductDeveloping_form,
@@ -65,6 +96,16 @@ def new_add(request, _type):
 
 def new_edit(request, _type, _id):
     """编辑新品开发表"""
+    # 权限映射
+    permission_map = {
+        'ing': 'management.change_newproductdevelopingprogress',
+        'completed': 'management.change_newproductcompleted',
+    }
+    # 检查权限
+    user_has_permission = request.user.has_perm(permission_map.get(_type, ''))
+    if not user_has_permission:
+        raise PermissionDenied
+
     if _type == 'ing':
         row_object = models.NewProductDevelopingProgress.objects.filter(serial_number=_id).first()
     elif _type == 'completed':
@@ -85,6 +126,16 @@ def new_edit(request, _type, _id):
 
 
 def new_delete(request, _type, _id):
+    # 权限映射
+    permission_map = {
+        'ing': 'management.delete_newproductdevelopingprogress',
+        'completed': 'management.delete_newproductcompleted',
+    }
+    # 检查权限
+    user_has_permission = request.user.has_perm(permission_map.get(_type, ''))
+    if not user_has_permission:
+        raise PermissionDenied
+
     """删除新品开发表"""
     if _type == 'ing':
         models.NewProductDevelopingProgress.objects.filter(serial_number=_id).delete()

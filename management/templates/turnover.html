@@ -3,9 +3,11 @@
 {% block content %}
     <h1>研发部流水表</h1>
     <div class="row mb-3">
-        <div class="col">
-            <a href="/develop/turnover/add/" class="btn btn-primary mb-3">添加</a>
-        </div>
+        {% if 'management.add_customerflow' in request.session.info.user_permissions %}
+            <div class="col">
+                <a href="/develop/turnover/add/" class="btn btn-primary mb-3">添加</a>
+            </div>
+        {% endif %}
         <div class="col text-end">
             <form method="get">
                 <div class="input-group">
@@ -81,8 +83,13 @@
                 <td>{{ flow.year_end_gift_2022 }}</td>
                 <td>{{ flow.former_employer }}</td>
                 <td>
-                    <a href="/develop/turnover/edit/{{ flow.customer_id }}/" class="btn btn-info btn-sm">编辑</a>
-                    <a href="/develop/turnover/delete/{{ flow.customer_id }}/" class="btn btn-danger btn-sm">删除</a>
+                    {% if 'management.change_customerflow' in request.session.info.user_permissions %}
+                        <a href="/develop/turnover/edit/{{ flow.customer_id }}/" class="btn btn-info btn-sm">编辑</a>
+                    {% endif %}
+                    {% if 'management.delete_customerflow' in request.session.info.user_permissions %}
+                        <a href="/develop/turnover/delete/{{ flow.customer_id }}/"
+                           class="btn btn-danger btn-sm">删除</a>
+                    {% endif %}
                 </td>
             </tr>
         {% empty %}

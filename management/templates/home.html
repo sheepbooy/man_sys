@@ -32,7 +32,6 @@
             {% endif %}
 
             {% if 'management.view_internaltradeledger' in request.session.info.user_permissions %}
-
                 <div class="col-md-6">
                     <div class="card mb-4 custom-card" onmouseover="hoverCard(this)" onmouseout="unhoverCard(this)">
                         <div class="card-body">
@@ -96,7 +95,6 @@
             {% endif %}
 
 
-
             {% if 'management.view_authorization' in request.session.info.user_permissions %}
                 <div class="col-md-6">
                     <div class="card mb-4 custom-card" onmouseover="hoverCard(this)" onmouseout="unhoverCard(this)">
@@ -130,23 +128,22 @@
 
 
 
-            {% if 'management.view_existingformulationdeveloping' in request.session.info.user_permissions or 'management.view_existingformulationtodevelop' in request.session.info.user_permissions or 'management.view_existingproductcompleted' in request.session.info.user_permissions %}
+            {% if 'management.view_newproductdevelopment' in request.session.info.user_permissions or 'management.view_existingformulationprogressdescription' in request.session.info.user_permissions %}
                 <div class="col-md-6">
                     <div class="card mb-4 custom-card" onmouseover="hoverCard(this)" onmouseout="unhoverCard(this)">
                         <div class="card-body">
                             <h5 class="card-title">进度描述</h5>
                             <p class="card-text">对于已有制剂和新品的进度进行管理</p>
-                            {% if 'management.view_existingformulationdeveloping' in request.session.info.user_permissions or 'management.view_existingformulationtodevelop' in request.session.info.user_permissions or 'management.view_existingproductcompleted' in request.session.info.user_permissions %}
+                            {% if 'management.view_existingformulationprogressdescription' in request.session.info.user_permissions %}
                                 <a href="/progress/preparation" class="btn btn-primary" onclick="clickCard('/url2')">已有制剂</a>
                             {% endif %}
-                            {% if 'management.view_newproductdevelopingprogress' in request.session.info.user_permissions or 'management.view_newproductcompleted' in request.session.info.user_permissions %}
+                            {% if 'management.view_newproductdevelopment' in request.session.info.user_permissions %}
                                 <a href="/progress/new" class="btn btn-primary" onclick="clickCard('/url2')">新品</a>
                             {% endif %}
                         </div>
                     </div>
                 </div>
             {% endif %}
-
 
 
             {% if 'management.view_customerprofile' in request.session.info.user_permissions %}

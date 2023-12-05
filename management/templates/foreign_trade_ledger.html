@@ -5,9 +5,12 @@
         <h2 class="mb-4">外贸部台账表</h2></tr>
 
         <div class="row mb-3">
-            <div class="col">
-                <a href="/foreign/ledger/add/" class="btn btn-primary mb-3">添加</a>
-            </div>
+            {% if 'management.add_foreigntradeledger' in request.session.info.user_permissions %}
+                <div class="col">
+                    <a href="/foreign/ledger/add/" class="btn btn-primary mb-3">添加</a>
+                </div>
+            {% endif %}
+
             <div class="col text-end">
                 <form method="get">
                     <div class="input-group">
@@ -40,8 +43,8 @@
             <th>应收账款销售数量</th>
             <th>应收账款销售单价 (USD)</th>
             <th>应收账款销售单价 (人民币)</th>
-{#            <th>应收账款销售总额 (USD)</th>#}
-{#            <th>应收账款销售总额 (人民币)</th>#}
+            {#            <th>应收账款销售总额 (USD)</th>#}
+            {#            <th>应收账款销售总额 (人民币)</th>#}
             <th>应收账款销售总额借 (USD)</th>
             <th>应收账款销售总额借 (人民币)</th>
             <th>应收账款销售总额贷 (USD)</th>
@@ -129,8 +132,13 @@
                 <td>{{ entry.tax_refund_amount }}</td>
                 <td>{{ entry.exchange_rate }}</td>
                 <td>
-                    <a href="/foreign/ledger/edit/{{ entry.serial_number }}/" class="btn btn-info btn-sm">编辑</a>
-                    <a href="/foreign/ledger/delete/{{ entry.serial_number }}/" class="btn btn-danger btn-sm">删除</a>
+                    {% if 'management.change_foreigntradeledger' in request.session.info.user_permissions %}
+                        <a href="/foreign/ledger/edit/{{ entry.serial_number }}/" class="btn btn-info btn-sm">编辑</a>
+                    {% endif %}
+                    {% if 'management.delete_foreigntradeledger' in request.session.info.user_permissions %}
+                        <a href="/foreign/ledger/delete/{{ entry.serial_number }}/"
+                           class="btn btn-danger btn-sm">删除</a>
+                    {% endif %}
                 </td>
             </tr>
         {% endfor %}

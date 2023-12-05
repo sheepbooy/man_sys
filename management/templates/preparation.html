@@ -10,9 +10,14 @@
             <h2 class="mb-4">已有制剂已完成开发表</h2></tr>
         {% endif %}
         <div class="row mb-3">
-            <div class="col">
-                <a href="/preparation/{{ type }}/add/" class="btn btn-primary mb-3">添加</a>
-            </div>
+            {% if type == 'completed' and can_add_completed %}
+                <a href="/preparation/completed/add/" class="btn btn-primary mb-3">添加</a>
+            {% elif type == 'ing' and can_add_ing %}
+                <a href="/preparation/ing/add/" class="btn btn-primary mb-3">添加</a>
+            {% elif type == 'todev' and can_add_todev %}
+                <a href="/preparation/todev/add/" class="btn btn-primary mb-3">添加</a>
+            {% endif %}
+
             <div class="col text-end">
                 <form method="get">
                     <div class="input-group">
@@ -122,10 +127,26 @@
                 <td>{{ entry.transfer_to_sales_manager }}</td>
                 <td>{{ entry.transfer_time }}</td>
                 <td>
-                    <a href="/preparation/{{ type }}/edit/{{ entry.serial_number }}/"
-                       class="btn btn-info btn-sm">编辑</a>
-                    <a href="/preparation/{{ type }}/delete/{{ entry.serial_number }}/"
-                       class="btn btn-danger btn-sm">删除</a>
+                    {% if type == 'completed' and can_edit_completed %}
+                        <a href="/preparation/completed/edit/{{ entry.serial_number }}/"
+                           class="btn btn-info btn-sm">编辑</a>
+                    {% elif type == 'ing' and can_edit_ing %}
+                        <a href="/preparation/ing/edit/{{ entry.serial_number }}/" class="btn btn-info btn-sm">编辑</a>
+                    {% elif type == 'todev' and can_edit_todev %}
+                        <a href="/preparation/todev/edit/{{ entry.serial_number }}/"
+                           class="btn btn-info btn-sm">编辑</a>
+                    {% endif %}
+
+                    {% if type == 'completed' and can_delete_completed %}
+                        <a href="/preparation/completed/delete/{{ entry.serial_number }}/"
+                           class="btn btn-danger btn-sm">删除</a>
+                    {% elif type == 'ing' and can_delete_ing %}
+                        <a href="/preparation/ing/delete/{{ entry.serial_number }}/"
+                           class="btn btn-danger btn-sm">删除</a>
+                    {% elif type == 'todev' and can_delete_todev %}
+                        <a href="/preparation/todev/delete/{{ entry.serial_number }}/"
+                           class="btn btn-danger btn-sm">删除</a>
+                    {% endif %}
                 </td>
             </tr>
         {% endfor %}

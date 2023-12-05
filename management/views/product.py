@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import permission_required
 from django.shortcuts import render, redirect
 from django.db.models import Q
 from management.utils.pagination import Pagination
@@ -5,6 +6,7 @@ from management.utils.form import Products_form
 from management import models
 
 
+@permission_required('management.view_products', '/warning/')
 def product(request):
     """辅料表"""
     value = request.GET.get('q', '')
@@ -36,6 +38,7 @@ def product(request):
     return render(request, 'product.html', context)
 
 
+@permission_required('management.add_products', '/warning/')
 def product_add(request):
     """辅料表添加"""
     if request.method == 'GET':
@@ -50,6 +53,7 @@ def product_add(request):
     return render(request, 'change.html', {'form': form, 'address': 'product'})
 
 
+@permission_required('management.change_products', '/warning/')
 def product_edit(request, _id):
     """编辑药用辅料表"""
     row_object = models.Products.objects.filter(spec_code=_id).first()
@@ -65,6 +69,7 @@ def product_edit(request, _id):
     return render(request, 'change.html', {'form': form, 'address': 'product'})
 
 
+@permission_required('management.delete_products', '/warning/')
 def product_delete(request, _id):
     """删除辅料信息"""
     models.Products.objects.filter(spec_code=_id).delete()

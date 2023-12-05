@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import permission_required
 from django.shortcuts import render, redirect
 from django.db.models import Q, Count
 from management.utils.pagination import Pagination
@@ -5,6 +6,7 @@ from management.utils.form import Complaint_summary_form
 from management import models
 
 
+@permission_required('management.view_complaintsummary', '/warning/')
 def complaint_summary(request):
     """结合部门和产品分类的客诉汇总"""
     departments_query = models.ComplaintSummary.objects.values('department').distinct()
@@ -49,6 +51,7 @@ def complaint_summary(request):
     return render(request, 'complaint_summary.html', context)
 
 
+@permission_required('management.add_complaintsummary', '/warning/')
 def complaint_summary_add(request):
     """全国客诉汇总添加"""
     if request.method == 'GET':
@@ -63,6 +66,7 @@ def complaint_summary_add(request):
     return render(request, 'change.html', {'form': form, 'address': 'complaint_summary'})
 
 
+@permission_required('management.change_complaintsummary', '/warning/')
 def complaint_summary_edit(request, _id):
     """全国客诉汇总编辑"""
     row_object = models.ComplaintSummary.objects.filter(id=_id).first()
@@ -78,6 +82,7 @@ def complaint_summary_edit(request, _id):
     return render(request, 'change.html', {'form': form, 'address': 'complaint_summary'})
 
 
+@permission_required('management.delete_complaintsummary', '/warning/')
 def complaint_summary_delete(request, _id):
     """全国客诉汇总删除"""
     models.ComplaintSummary.objects.filter(id=_id).delete()

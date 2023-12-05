@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import permission_required
 from django.shortcuts import render, redirect
 from django.db.models import Q
 from management.utils.pagination import Pagination
@@ -5,6 +6,7 @@ from management.utils.form import Feedback_form
 from management import models
 
 
+@permission_required('management.view_feedback', '/warning/')
 def question(request):
     """问题调查表"""
     value = request.GET.get('q', '')
@@ -35,6 +37,7 @@ def question(request):
     return render(request, 'question.html', context)
 
 
+@permission_required('management.add_feedback', '/warning/')
 def question_add(request):
     """问题反馈表添加"""
     if request.method == 'GET':
@@ -49,6 +52,7 @@ def question_add(request):
     return render(request, 'change.html', {'form': form, 'address': 'question'})
 
 
+@permission_required('management.change_feedback', '/warning/')
 def question_edit(request, _id):
     """编辑问题反馈表"""
     row_object = models.Feedback.objects.filter(id=_id).first()
@@ -64,6 +68,7 @@ def question_edit(request, _id):
     return render(request, 'change.html', {'form': form, 'address': 'question'})
 
 
+@permission_required('management.delete_feedback', '/warning/')
 def question_delete(request, _id):
     """编辑问题反馈信息"""
     models.Feedback.objects.filter(id=_id).delete()

@@ -1,3 +1,4 @@
+from django.core.exceptions import PermissionDenied
 from django.shortcuts import render, redirect
 from django.db.models import Q
 from management.utils.pagination import Pagination
@@ -7,6 +8,17 @@ from management import models
 
 def progress(request, _type):
     """新品，已有制剂进度描述表"""
+    # 权限映射
+    permission_map = {
+        'new': 'management.view_newproductdevelopment',
+        'preparation': 'management.view_existingformulationprogressdescription',
+    }
+
+    # 检查权限
+    user_has_permission = request.user.has_perm(permission_map.get(_type, ''))
+    if not user_has_permission:
+        raise PermissionDenied
+
     model_map = {
         'new': models.NewProductDevelopment,
         'preparation': models.ExistingFormulationProgressDescription
@@ -29,12 +41,31 @@ def progress(request, _type):
         'page_string': page_object.page_string,
         'value': value,
         'type': _type,
+
+        # 为每种类型和操作组合检查权限
+        'can_add_new': request.user.has_perm('management.add_newproductdevelopment'),
+        'can_edit_new': request.user.has_perm('management.change_newproductdevelopment'),
+        'can_delete_new': request.user.has_perm('management.delete_newproductdevelopment'),
+
+        'can_add_preparation': request.user.has_perm('management.add_existingformulationprogressdescription'),
+        'can_edit_preparation': request.user.has_perm('management.change_existingformulationprogressdescription'),
+        'can_delete_preparation': request.user.has_perm('management.delete_existingformulationprogressdescription'),
     }
     return render(request, 'progress.html', context)
 
 
 def progress_add(request, _type):
     """添加新品或已有制剂的进度描述"""
+    # 权限映射
+    permission_map = {
+        'new': 'management.add_newproductdevelopment',
+        'preparation': 'management.add_existingformulationprogressdescription',
+    }
+    # 检查权限
+    user_has_permission = request.user.has_perm(permission_map.get(_type, ''))
+    if not user_has_permission:
+        raise PermissionDenied
+
     form_cls = {
         'new': NewProductDevelopment_form,
         'preparation': ExistingFormulationProgressDescription_form,
@@ -52,6 +83,16 @@ def progress_add(request, _type):
 
 def progress_edit(request, _type, _id):
     """新品和已有制剂进度描述信息"""
+    # 权限映射
+    permission_map = {
+        'new': 'management.change_newproductdevelopment',
+        'preparation': 'management.change_existingformulationprogressdescription',
+    }
+    # 检查权限
+    user_has_permission = request.user.has_perm(permission_map.get(_type, ''))
+    if not user_has_permission:
+        raise PermissionDenied
+
     if _type == 'new':
         row_object = models.NewProductDevelopment.objects.filter(id=_id).first()
     elif _type == 'preparation':
@@ -73,6 +114,16 @@ def progress_edit(request, _type, _id):
 
 def progress_delete(request, _type, _id):
     """编辑进度描述信息"""
+    # 权限映射
+    permission_map = {
+        'new': 'management.delete_newproductdevelopment',
+        'preparation': 'management.delete_existingformulationprogressdescription',
+    }
+    # 检查权限
+    user_has_permission = request.user.has_perm(permission_map.get(_type, ''))
+    if not user_has_permission:
+        raise PermissionDenied
+
     if _type == 'new':
         models.NewProductDevelopment.objects.filter(id=_id).delete()
     elif _type == 'preparation':

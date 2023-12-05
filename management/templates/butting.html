@@ -3,9 +3,11 @@
 {% block content %}
     <h1>研部客户对接表</h1>
     <div class="row mb-3">
-        <div class="col">
-            <a href="/develop/butting/add/" class="btn btn-primary mb-3">添加</a>
-        </div>
+        {% if 'management.add_customerengagement' in request.session.info.user_permissions %}
+            <div class="col">
+                <a href="/develop/butting/add/" class="btn btn-primary mb-3">添加</a>
+            </div>
+        {% endif %}
         <div class="col text-end">
             <form method="get">
                 <div class="input-group">
@@ -66,9 +68,14 @@
                 <td>{{ engagement.is_resolved }}</td>
                 <td>{{ engagement.resolution_solution }}</td>
                 <td>
-                    <a href="/develop/butting/edit/{{ engagement.engagement_number }}/"
-                       class="btn btn-info btn-sm">编辑</a>
-                    <a href="/develop/butting/delete/{{ engagement.engagement_number }}/" class="btn btn-danger btn-sm">删除</a>
+                    {% if 'management.change_customerengagement' in request.session.info.user_permissions %}
+                        <a href="/develop/butting/edit/{{ engagement.engagement_number }}/"
+                           class="btn btn-info btn-sm">编辑</a>
+                    {% endif %}
+                    {% if 'management.delete_customerengagement' in request.session.info.user_permissions %}
+                        <a href="/develop/butting/delete/{{ engagement.engagement_number }}/"
+                           class="btn btn-danger btn-sm">删除</a>
+                    {% endif %}
                 </td>
             </tr>
         {% empty %}

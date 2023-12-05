@@ -4,9 +4,11 @@
     <h2 class="mb-4">销售客户拜访报告表</h2>
 
     <div class="row mb-3">
-        <div class="col">
-            <a href="/sales_visit/add/" class="btn btn-primary mb-3">添加</a>
-        </div>
+        {% if 'management.add_salesvisitreport' in request.session.info.user_permissions %}
+            <div class="col">
+                <a href="/sales_visit/add/" class="btn btn-primary mb-3">添加</a>
+            </div>
+        {% endif %}
         <div class="col text-end">
             <form method="get">
                 <div class="input-group">
@@ -46,9 +48,13 @@
                 <td>{{ item.visit_feedback }}</td>
                 <td>{{ item.remarks }}</td>
                 <td>
-                    <a href="/sales_visit/edit/{{ item.serial_number }}/" class="btn btn-info btn-sm">编辑</a>
-                    <a href="/sales_visit/delete/{{ item.serial_number }}/"
-                       class="btn btn-danger btn-sm">删除</a>
+                    {% if 'management.change_salesvisitreport' in request.session.info.user_permissions %}
+                        <a href="/sales_visit/edit/{{ item.serial_number }}/" class="btn btn-info btn-sm">编辑</a>
+                    {% endif %}
+                    {% if 'management.delete_salesvisitreport' in request.session.info.user_permissions %}
+                        <a href="/sales_visit/delete/{{ item.serial_number }}/"
+                           class="btn btn-danger btn-sm">删除</a>
+                    {% endif %}
                 </td>
             </tr>
         {% endfor %}

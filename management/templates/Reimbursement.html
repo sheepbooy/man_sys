@@ -1,47 +1,57 @@
 {% extends 'layout.html' %}
 
 {% block content %}
-<div class="container mt-4">
-    <div class="row">
-        <div class="col-md-12">
-            <h4 class="text-center mb-4" style="color: #007bff;">汇总数据</h4> <!-- 加入居中和颜色样式 -->
-            <div id="summaryData" style="padding: 15px; border: 1px solid #ddd; border-radius: 5px;">
-                <!-- 在这里动态展示汇总数据 -->
+    <div class="container mt-4">
+        {% if 'management.view_reimbursement' in request.session.info.user_permissions %}
+            <div class="row">
+                <div class="col-md-12">
+                    <h4 class="text-center mb-4" style="color: #007bff;">汇总数据</h4> <!-- 加入居中和颜色样式 -->
+                    <div id="summaryData" style="padding: 15px; border: 1px solid #ddd; border-radius: 5px;">
+                        <!-- 在这里动态展示汇总数据 -->
+                    </div>
+                </div>
             </div>
+        {% endif %}
+        <div class="row align-items-center mt-3"> <!-- 调整上边距 -->
+            <div class="col-md-4">
+                <select id="departmentSelect" class="form-select">
+                    {% for value, name in departments %}
+                        <option value="{{ value }}">{{ name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-md-4">
+                <select id="yearSelect" class="form-select">
+                    {% for year in years %}
+                        <option value="{{ year }}">{{ year }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            {% if 'management.change_reimbursement' in request.session.info.user_permissions %}
+                <div class="col-md-2">
+                    <button type="button" class="btn btn-info w-100" data-bs-toggle="modal"
+                            data-bs-target="#editTargetsModal">
+                        编辑回款目标
+                    </button>
+                </div>
+            {% endif %}
+            {% if 'management.add_reimbursement' in request.session.info.user_permissions %}
+                <div class="col-md-2">
+                    <button type="button" class="btn btn-success w-100 mt-2 mt-md-0" data-bs-toggle="modal"
+                            data-bs-target="#addYearModal">
+                        增加年份及默认值
+                    </button>
+                </div>
+            {% endif %}
         </div>
+        {% if 'management.view_reimbursement' in request.session.info.user_permissions %}
+            <div class="row mt-4">
+                <div class="col-md-12">
+                    <canvas id="targetChart" style="max-width: 100%; height: auto;"></canvas>
+                </div>
+            </div>
+        {% endif %}
     </div>
-    <div class="row align-items-center mt-3"> <!-- 调整上边距 -->
-        <div class="col-md-4">
-            <select id="departmentSelect" class="form-select">
-                {% for value, name in departments %}
-                    <option value="{{ value }}">{{ name }}</option>
-                {% endfor %}
-            </select>
-        </div>
-        <div class="col-md-4">
-            <select id="yearSelect" class="form-select">
-                {% for year in years %}
-                    <option value="{{ year }}">{{ year }}</option>
-                {% endfor %}
-            </select>
-        </div>
-        <div class="col-md-2">
-            <button type="button" class="btn btn-info w-100" data-bs-toggle="modal" data-bs-target="#editTargetsModal">
-                编辑回款目标
-            </button>
-        </div>
-        <div class="col-md-2">
-            <button type="button" class="btn btn-success w-100 mt-2 mt-md-0" data-bs-toggle="modal" data-bs-target="#addYearModal">
-                增加年份及默认值
-            </button>
-        </div>
-    </div>
-    <div class="row mt-4">
-        <div class="col-md-12">
-            <canvas id="targetChart" style="max-width: 100%; height: auto;"></canvas>
-        </div>
-    </div>
-</div>
 
 
 
@@ -219,23 +229,23 @@
 
     </script>
     <script type="text/javascript">
-    {% if messages %}
-        let messages = [
-            {% for message in messages %}
-                {"level": "{{ message.level_tag }}", "text": "{{ message }}"},
-            {% endfor %}
-        ];
+        {% if messages %}
+            let messages = [
+                {% for message in messages %}
+                    {"level": "{{ message.level_tag }}", "text": "{{ message }}"},
+                {% endfor %}
+            ];
 
-        // 遍历消息
-        messages.forEach(function (msg) {
-            if (msg.level === 'success') {
-                alert("成功: " + msg.text);  // 成功消息使用弹窗显示
-            } else if (msg.level === 'error') {
-                alert("错误: " + msg.text);  // 错误消息使用不同的弹窗显示
-            }
-            // 可以根据需要处理其他类型的消息
-        });
-    {% endif %}
-</script>
+            // 遍历消息
+            messages.forEach(function (msg) {
+                if (msg.level === 'success') {
+                    alert("成功: " + msg.text);  // 成功消息使用弹窗显示
+                } else if (msg.level === 'error') {
+                    alert("错误: " + msg.text);  // 错误消息使用不同的弹窗显示
+                }
+                // 可以根据需要处理其他类型的消息
+            });
+        {% endif %}
+    </script>
 
 {% endblock %}

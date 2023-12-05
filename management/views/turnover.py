@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import permission_required
 from django.shortcuts import render, redirect
 from django.db.models import Q
 from management.utils.pagination import Pagination
@@ -5,6 +6,7 @@ from management.utils.form import CustomerFlow_form
 from management import models
 
 
+@permission_required('management.view_customerflow', '/warning/')
 def turnover(request):
     """研发部客户流水表"""
     value = request.GET.get('q', '')
@@ -36,6 +38,7 @@ def turnover(request):
     return render(request, 'turnover.html', context)
 
 
+@permission_required('management.add_customerflow', '/warning/')
 def turnover_add(request):
     """研发部客户流水表添加"""
     if request.method == 'GET':
@@ -50,6 +53,7 @@ def turnover_add(request):
     return render(request, 'change.html', {'form': form, 'address': 'develop/turnover'})
 
 
+@permission_required('management.change_customerflow', '/warning/')
 def turnover_edit(request, _id):
     """编辑研发部客户流水表"""
     row_object = models.CustomerFlow.objects.filter(customer_id=_id).first()
@@ -65,6 +69,7 @@ def turnover_edit(request, _id):
     return render(request, 'change.html', {'form': form, 'address': 'develop/turnover'})
 
 
+@permission_required('management.delete_customerflow', '/warning/')
 def turnover_delete(request, _id):
     """删除研发部客户流水信息"""
     models.CustomerFlow.objects.filter(customer_id=_id).delete()

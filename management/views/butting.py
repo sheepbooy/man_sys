@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import permission_required
 from django.shortcuts import render, redirect
 from django.db.models import Q
 from management.utils.pagination import Pagination
@@ -5,6 +6,7 @@ from management.utils.form import CustomerEngagement_form
 from management import models
 
 
+@permission_required('management.view_customerengagement', '/warning/')
 def butting(request):
     """研发部客户对接表"""
     value = request.GET.get('q', '')
@@ -35,6 +37,7 @@ def butting(request):
     return render(request, 'butting.html', context)
 
 
+@permission_required('management.add_customerengagement', '/warning/')
 def butting_add(request):
     """研发部客户对接表添加"""
     if request.method == 'GET':
@@ -49,6 +52,7 @@ def butting_add(request):
     return render(request, 'change.html', {'form': form, 'address': 'develop/butting'})
 
 
+@permission_required('management.change_customerengagement', '/warning/')
 def butting_edit(request, _id):
     """编辑研发部客户对接表"""
     row_object = models.CustomerEngagement.objects.filter(engagement_number=_id).first()
@@ -64,6 +68,7 @@ def butting_edit(request, _id):
     return render(request, 'change.html', {'form': form, 'address': 'develop/butting'})
 
 
+@permission_required('management.delete_customerengagement', '/warning/')
 def butting_delete(request, _id):
     """删除研发部客户对接信息"""
     models.CustomerEngagement.objects.filter(engagement_number=_id).delete()

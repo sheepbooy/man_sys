@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import permission_required
 from django.shortcuts import render, redirect
 from django.db.models import Q
 from management.utils.pagination import Pagination
@@ -5,6 +6,7 @@ from management.utils.form import Sales_Visit_Form
 from management import models
 
 
+@permission_required('management.view_salesvisitreport', '/warning/')
 def sales_visit_report(request):
     """销售客户拜访报告"""
     value = request.GET.get('q', '')
@@ -35,6 +37,7 @@ def sales_visit_report(request):
     return render(request, 'Sales_Visit_Report.html', context)
 
 
+@permission_required('management.add_salesvisitreport', '/warning/')
 def sales_visit_add(request):
     if request.method == 'GET':
         form = Sales_Visit_Form()
@@ -48,6 +51,7 @@ def sales_visit_add(request):
     return render(request, 'change.html', {'form': form, 'address': 'sales_visit'})
 
 
+@permission_required('management.change_salesvisitreport', '/warning/')
 def sales_visit_edit(request, _id):
     row_object = models.SalesVisitReport.objects.filter(serial_number=_id).first()
     if request.method == 'GET':
@@ -62,6 +66,7 @@ def sales_visit_edit(request, _id):
     return render(request, 'change.html', {'form': form, 'address': 'sales_visit'})
 
 
+@permission_required('management.delete_salesvisitreport', '/warning/')
 def sales_visit_delete(request, _id):
     models.SalesVisitReport.objects.filter(serial_number=_id).delete()
     return redirect('/sales_visit/')

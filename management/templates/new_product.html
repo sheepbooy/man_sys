@@ -7,9 +7,13 @@
             <h2 class="mb-4">新品已完成开发表</h2></tr>
         {% endif %}
         <div class="row mb-3">
-            <div class="col">
-                <a href="/new/{{ type }}/add/" class="btn btn-primary mb-3">添加</a>
-            </div>
+            {% if type == 'completed' and can_add_completed %}
+                <a href="/new/completed/add/" class="btn btn-primary mb-3">添加</a>
+            {% elif type == 'ing' and can_add_ing %}
+                <a href="/new/ing/add/" class="btn btn-primary mb-3">添加</a>
+            {% endif %}
+
+
             <div class="col text-end">
                 <form method="get">
                     <div class="input-group">
@@ -113,8 +117,19 @@
                 <td>{{ item.transfer_to_sales_manager }}</td>
                 <td>{{ item.transfer_date }}</td>
                 <td>
-                    <a href="/new/{{ type }}/edit/{{ item.serial_number }}/" class="btn btn-info btn-sm">编辑</a>
-                    <a href="/new/{{ type }}/delete/{{ item.serial_number }}/" class="btn btn-danger btn-sm">删除</a>
+                    {% if type == 'completed' and can_edit_completed %}
+                        <a href="/new/completed/edit/{{ item.serial_number }}/" class="btn btn-info btn-sm">编辑</a>
+                    {% elif type == 'ing' and can_edit_ing %}
+                        <a href="/new/ing/edit/{{ item.serial_number }}/" class="btn btn-info btn-sm">编辑</a>
+                    {% endif %}
+
+                    {% if type == 'completed' and can_delete_completed %}
+                        <a href="/new/completed/delete/{{ item.serial_number }}/"
+                           class="btn btn-danger btn-sm">删除</a>
+                    {% elif type == 'ing' and can_delete_ing %}
+                        <a href="/new/ing/delete/{{ item.serial_number }}/"
+                           class="btn btn-danger btn-sm">删除</a>
+                    {% endif %}
                 </td>
             </tr>
         {% endfor %}

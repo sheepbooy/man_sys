@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import permission_required
 from django.shortcuts import render
 from django.urls import reverse
 from django.contrib import messages
@@ -17,6 +18,7 @@ def reimbursement(request):
     return render(request, 'Reimbursement.html', {'departments': departments, 'months': months, 'years': years})
 
 
+@permission_required('management.view_reimbursement', '/warning/')
 def get_target_data(request):
     """此函数根据用户选择的部门和年份从数据库中检索每个月的回款目标。它是一个 AJAX 调用的响应函数，用于动态更新页面上的数据。"""
     department = request.GET.get('department')
@@ -33,6 +35,7 @@ def get_target_data(request):
 
 
 @csrf_exempt  # 如果您没有设置 CSRF 令牌，可以使用此装饰器暂时禁用 CSRF 保护
+@permission_required('management.change_reimbursement', '/warning/')
 def update_target_data(request):
     """根据输入的数据对指定的记录进行更新"""
     if request.method == 'POST':
@@ -60,6 +63,7 @@ def update_target_data(request):
         return JsonResponse({'status': 'error', 'message': '部门或年份未找到'})
 
 
+@permission_required('management.view_reimbursement', '/warning/')
 def get_summary_data(request):
     """计算年度目标"""
     department = request.GET.get('department')
@@ -76,6 +80,7 @@ def get_summary_data(request):
     return JsonResponse({'total_target': 0})
 
 
+@permission_required('management.view_reimbursement', '/warning/')
 def get_current_targets(request):
     """此函数根据提供的部门和年份获取当前的目标值。它可能用于初始化或更新页面上的表单字段。"""
     department_name = request.GET.get('department')
@@ -105,6 +110,7 @@ def get_current_targets(request):
     return JsonResponse(targets)
 
 
+@permission_required('management.add_reimbursement', '/warning/')
 def add_year_with_defaults_view(request):
     """这个函数用于处理增加新年份记录的逻辑。当用户提交新年份和默认值时，它会为指定的部门列表创建新的记录。"""
     if request.method == 'POST':

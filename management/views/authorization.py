@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import permission_required
 from django.shortcuts import render, redirect
 from django.db.models import Q
 from management.utils.pagination import Pagination
@@ -5,6 +6,7 @@ from management.utils.form import authorization_form
 from management import models
 
 
+@permission_required('management.view_authorization', '/warning/')
 def authorization(request):
     """授权书总表"""
     value = request.GET.get('q', '')
@@ -35,6 +37,7 @@ def authorization(request):
     return render(request, 'authorization.html', context)
 
 
+@permission_required('management.add_authorization', '/warning/')
 def authorization_add(request):
     """授权书添加"""
     if request.method == 'GET':
@@ -49,6 +52,7 @@ def authorization_add(request):
     return render(request, 'change.html', {'form': form, 'address': 'authorization'})
 
 
+@permission_required('management.change_authorization', '/warning/')
 def authorization_edit(request, _id):
     """编辑授权书总表"""
     row_object = models.Authorization.objects.filter(authorization_number=_id).first()
@@ -64,6 +68,7 @@ def authorization_edit(request, _id):
     return render(request, 'change.html', {'form': form, 'address': 'authorization'})
 
 
+@permission_required('management.delete_authorization', '/warning/')
 def authorization_delete(request, _id):
     """授权表删除"""
     models.Authorization.objects.filter(authorization_number=_id).delete()

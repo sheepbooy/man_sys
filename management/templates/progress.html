@@ -8,9 +8,12 @@
             <h2 class="mb-4">已有制剂进度描述表</h2>
         {% endif %}
         <div class="row mb-3">
-            <div class="col">
-                <a href="/progress/{{ type }}/add/" class="btn btn-primary mb-3">添加</a>
-            </div>
+            {% if type == 'new' and  can_add_new %}
+                <a href="/progress/new/add/" class="btn btn-primary mb-3">添加</a>
+            {% elif type == 'preparation' and can_add_preparation %}
+                <a href="/progress/preparation/add/" class="btn btn-primary mb-3">添加</a>
+            {% endif %}
+
             <div class="col text-end">
                 <form method="get">
                     <div class="input-group">
@@ -34,8 +37,18 @@
                 <td>{{ item.status }}</td>
                 <td>{{ item.subordinate_id }}</td>
                 <td>
-                    <a href="/progress/{{ type }}/edit/{{ item.id }}/" class="btn btn-info btn-sm">编辑</a>
-                    <a href="/progress/{{ type }}/delete/{{ item.id }}/" class="btn btn-danger btn-sm">删除</a>
+                    {% if type == 'new' and  can_edit_new %}
+                        <a href="/progress/new/edit/{{ item.id }}/" class="btn btn-info btn-sm">编辑</a>
+                    {% elif type == 'preparation' and can_edit_preparation %}
+                        <a href="/progress/preparation/edit/{{ item.id }}/" class="btn btn-info btn-sm">编辑</a>
+                    {% endif %}
+
+                    {% if type == 'new' and  can_delete_new %}
+                        <a href="/progress/new/delete/{{ item.id }}/" class="btn btn-danger btn-sm">删除</a>
+                    {% elif type == 'preparation' and can_delete_preparation %}
+                        <a href="/progress/preparation/delete/{{ item.id }}/" class="btn btn-danger btn-sm">删除</a>
+                    {% endif %}
+
                 </td>
             </tr>
         {% empty %}

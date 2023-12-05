@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import permission_required
 from django.shortcuts import render, redirect
 from django.db.models import Q
 from management.utils.pagination import Pagination
@@ -5,6 +6,7 @@ from management.utils.form import CustomerProfile_form
 from management import models
 
 
+@permission_required('management.view_customerprofile', '/warning/')
 def dev_custom(request):
     """研发部客户档案表"""
     value = request.GET.get('q', '')
@@ -35,6 +37,7 @@ def dev_custom(request):
     return render(request, 'dev_custom.html', context)
 
 
+@permission_required('management.add_customerprofile', '/warning/')
 def dev_custom_add(request):
     """研发部客户档案添加"""
     if request.method == 'GET':
@@ -49,6 +52,7 @@ def dev_custom_add(request):
     return render(request, 'change.html', {'form': form, 'address': 'develop/customer'})
 
 
+@permission_required('management.change_customerprofile', '/warning/')
 def dev_custom_edit(request, _id):
     """编辑研发部客户档案"""
     row_object = models.CustomerProfile.objects.filter(customer_id=_id).first()
@@ -64,6 +68,7 @@ def dev_custom_edit(request, _id):
     return render(request, 'change.html', {'form': form, 'address': 'develop/customer'})
 
 
+@permission_required('management.delete_customerprofile', '/warning/')
 def dev_custom_delete(request, _id):
     """删除研发部客户信息"""
     models.CustomerProfile.objects.filter(customer_id=_id).delete()

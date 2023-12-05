@@ -1,5 +1,4 @@
 
-upython:S1192G"QDefine a constant instead of duplicating this literal '/foreign/ledger/' 3 times.(áàŸŒùÿÿÿÿ8øæ‹Œ¼1
-npython:S1192B"ODefine a constant instead of duplicating this literal 'foreign/ledger' 4 times.(éÃÎ­8 ‘ŒŒ¼1
-kpython:S1192B"LDefine a constant instead of duplicating this literal 'change.html' 4 times.(éÃÎ­8 ‘ŒŒ¼1
-Spython:S1172["/Remove the unused function parameter "request".(ºµî‡ùÿÿÿÿ8«è³Õ¾1
+kpython:S1192E"LDefine a constant instead of duplicating this literal 'change.html' 4 times.(éÃÎ­8ÀÓœ¬Ã1
+upython:S1192J"QDefine a constant instead of duplicating this literal '/foreign/ledger/' 3 times.(áàŸŒùÿÿÿÿ8¿Óœ¬Ã1
+npython:S1192E"ODefine a constant instead of duplicating this literal 'foreign/ledger' 4 times.(éÃÎ­8ÀÓœ¬Ã1

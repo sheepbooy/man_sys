@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import permission_required
 from django.shortcuts import render, redirect
 from django.db.models import Q
 from management.utils.pagination import Pagination
@@ -5,6 +6,7 @@ from management.utils.form import foreign_customer_form
 from management import models
 
 
+@permission_required('management.view_foreigncustomerprofile', '/warning/')
 def foreign_customer(request):
     """外贸部客户档案"""
     value = request.GET.get('q', '')
@@ -35,6 +37,7 @@ def foreign_customer(request):
     return render(request, 'foreign_customer_list.html', context)
 
 
+@permission_required('management.add_foreigncustomerprofile', '/warning/')
 def foreign_customer_add(request):
     """外贸部客户添加"""
     if request.method == 'GET':
@@ -49,6 +52,7 @@ def foreign_customer_add(request):
     return render(request, 'change.html', {'form': form, 'address': 'foreign/customer'})
 
 
+@permission_required('management.change_foreigncustomerprofile', '/warning/')
 def foreign_customer_edit(request, _id):
     """编辑外贸部客户信息"""
     row_object = models.ForeignCustomerProfile.objects.filter(customer_profile_number=_id).first()
@@ -64,6 +68,7 @@ def foreign_customer_edit(request, _id):
     return render(request, 'change.html', {'form': form, 'address': 'foreign/customer'})
 
 
+@permission_required('management.delete_foreigncustomerprofile', '/warning/')
 def foreign_customer_delete(request, _id):
     """外贸部客户删除"""
     models.ForeignCustomerProfile.objects.filter(customer_profile_number=_id).delete()
