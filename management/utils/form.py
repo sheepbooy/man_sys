@@ -1,9 +1,11 @@
+import re
+from django.core.exceptions import ValidationError
 from management import models
 from management.utils.BootStrap import BootStrapModelForm
 
 
 class EmployeesForm(BootStrapModelForm):
-    """用来编辑用户全部信息的表单"""
+    """用来编辑员工全部信息的表单"""
 
     class Meta:
         model = models.Employees
@@ -29,6 +31,13 @@ class EmployeesAddForm(BootStrapModelForm):
     class Meta:
         model = models.Employees
         exclude = ['user', 'position', 'department', 'status']
+
+    def clean_work_id(self):
+        work_id = self.cleaned_data.get('work_id')
+        # 使用正则表达式检查格式
+        if not re.match(r'^[A-Z]{2}\d{3}$', work_id):
+            raise ValidationError('工号必须是两个大写字母加三个数字')
+        return work_id
 
 
 class inner_trade_ledger_form(BootStrapModelForm):

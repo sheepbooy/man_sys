@@ -49,6 +49,25 @@
                         <a href="/progress/preparation/delete/{{ item.id }}/" class="btn btn-danger btn-sm">删除</a>
                     {% endif %}
 
+                    {% if type == 'new'%}
+                        {% if item.status == '已完成' %}
+                            <a href="/new/completed/" class="btn btn-secondary btn-sm">跳转</a>
+                        {% endif %}
+                        {% if item.status == '开发中' %}
+                            <a href="/new/ing/" class="btn btn-secondary btn-sm">跳转</a>
+                        {% endif %}
+                    {% elif type == 'preparation' and can_delete_preparation %}
+                        {% if item.status == '开发中' %}
+                            <a href="/preparation/ing/" class="btn btn-secondary btn-sm">跳转</a>
+                        {% endif %}
+                        {% if item.status == '已完成' %}
+                            <a href="/preparation/completed/" class="btn btn-secondary btn-sm">跳转</a>
+                        {% endif %}
+                        {% if item.status == '待开发' %}
+                            <a href="/preparation/todev/edit/" class="btn btn-secondary btn-sm">跳转</a>
+                        {% endif %}
+                    {% endif %}
+
                 </td>
             </tr>
         {% empty %}

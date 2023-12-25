@@ -1,12 +1,26 @@
 from django.contrib.auth.models import User
 from django.db import models
 
-
 # Create your models here.
+# 性别可选项
+GENDER_CHOICES = [
+    ('男', '男'),
+    ('女', '女'),
+]
+
+# 职位状态可选项
+STATUS_CHOICES = [
+    ('L', 'L'),
+    ('非L', '非L')
+]
 
 
 class Products(models.Model):
-    category = models.CharField(max_length=255, blank=True, verbose_name='产品类别')
+    CATEGORY_CHOICES = [
+        ('固体', '固体'),
+        ('液体', '液体')
+    ]
+    category = models.CharField(max_length=255, choices=CATEGORY_CHOICES, blank=True, verbose_name='产品类别')
     product_name = models.CharField(max_length=255, blank=True, verbose_name='产品名称')
     specification = models.CharField(max_length=255, blank=True, verbose_name='规格')
     specification_features = models.CharField(max_length=255, blank=True, verbose_name='规格特点')
@@ -364,28 +378,36 @@ class NewProductCompleted(models.Model):
 
 
 class CustomerEngagement(models.Model):
+    ENGAGEMENT_CHOICES = [
+        ('主动对接', '主动对接'),
+        ('被动对接', '被动对接')
+    ]
+    ISORNOT_CHOICES = [
+        ('1', '是'),
+        ('0', '否')
+    ]
     engagement_number = models.AutoField(primary_key=True, verbose_name='对接编号')
     recorder = models.CharField(max_length=255, blank=True, verbose_name='记录人')
     proactive_or_passive_engagement = models.CharField(max_length=255,
                                                        blank=True,
-
+                                                       choices=ENGAGEMENT_CHOICES,
                                                        verbose_name='主动/被动对接')  # Field renamed to remove unsuitable characters.
     company_name = models.CharField(max_length=255, blank=True, verbose_name='公司名称')
     company_category = models.CharField(max_length=255, blank=True, verbose_name='公司类别')
     customer_name = models.CharField(max_length=255, blank=True, verbose_name='客户名称')
     customer_category = models.CharField(max_length=255, blank=True, verbose_name='客户类别')
-    product_inquiry = models.CharField(max_length=255, blank=True, verbose_name='产品咨询')
-    price_inquiry = models.CharField(max_length=255, blank=True, verbose_name='价格咨询')
-    sample_request = models.CharField(max_length=255, blank=True, verbose_name='样品请求')
-    purchase = models.CharField(max_length=255, blank=True, verbose_name='采购')
-    electronic_material_provision = models.CharField(max_length=255, blank=True,
+    product_inquiry = models.CharField(max_length=255, choices=ISORNOT_CHOICES, blank=True, verbose_name='产品咨询')
+    price_inquiry = models.CharField(max_length=255, choices=ISORNOT_CHOICES, blank=True, verbose_name='价格咨询')
+    sample_request = models.CharField(max_length=255, blank=True, choices=ISORNOT_CHOICES, verbose_name='样品请求')
+    purchase = models.CharField(max_length=255, blank=True, choices=ISORNOT_CHOICES, verbose_name='采购')
+    electronic_material_provision = models.CharField(max_length=255, blank=True, choices=ISORNOT_CHOICES,
                                                      verbose_name='电子资料提供')
-    physical_material_preparation = models.CharField(max_length=255, blank=True,
+    physical_material_preparation = models.CharField(max_length=255, blank=True, choices=ISORNOT_CHOICES,
                                                      verbose_name='物料准备')
-    sample_tracking = models.CharField(max_length=255, blank=True, verbose_name='样品跟踪')
+    sample_tracking = models.CharField(max_length=255, choices=ISORNOT_CHOICES, blank=True, verbose_name='样品跟踪')
     product_use_or_question_inquiry = models.CharField(max_length=255,
                                                        blank=True,
-
+                                                       choices=ISORNOT_CHOICES,
                                                        verbose_name='产品使用/问题咨询')  # Field renamed to remove unsuitable characters.
     product_name = models.CharField(max_length=255, blank=True, verbose_name='产品名称')
     specification_code = models.CharField(max_length=255, blank=True, verbose_name='规格编码')
@@ -712,9 +734,9 @@ class Employees(models.Model):
     department = models.CharField(max_length=255, choices=DEPARTMENT_CHOICES, blank=True, verbose_name='部门')
     position = models.CharField(max_length=255, blank=True, verbose_name='职位')
     name = models.CharField(max_length=255, blank=True, verbose_name='姓名')
-    gender = models.CharField(max_length=255, blank=True, verbose_name='性别')
+    gender = models.CharField(max_length=255, choices=GENDER_CHOICES, blank=True, verbose_name='性别')
     work_id = models.CharField(primary_key=True, max_length=255, verbose_name='工号')
-    status = models.CharField(max_length=255, blank=True, verbose_name='状态')
+    status = models.CharField(max_length=255, choices=STATUS_CHOICES, blank=True, verbose_name='状态')
     password = models.CharField(max_length=255, blank=True, verbose_name='密码')
 
     class Meta:

@@ -6,6 +6,7 @@ from django.db.models import Q
 from management.utils.pagination import Pagination
 from management.utils.form import EmployeesForm, EmployeesAddForm
 from management import models
+import django.db.models
 
 # 职位与组名的映射关系
 POSITION_TO_GROUP = {
@@ -36,7 +37,7 @@ POSITION_TO_GROUP = {
 
 @permission_required('management.view_employees', login_url='/warning/')
 def employees_list(request):
-    print(request.user)
+    # print(request.user)
     """所有员工信息表"""
     value = request.GET.get('q', '')
     if value:
@@ -44,7 +45,7 @@ def employees_list(request):
         fields = models.Employees._meta.fields
         for field in fields:
             # 排除 id 和 OneToOneField 字段
-            if field.name != "id" and not isinstance(field, models.OneToOneField):
+            if field.name != "id" and not isinstance(field, django.db.models.OneToOneField):
                 q = Q(**{f"{field.name}__icontains": value})
                 query |= q
 
@@ -74,7 +75,7 @@ def employees_add(request):
         form = EmployeesAddForm()
         return render(request, 'change.html', {'form': form, 'address': 'employees'})
 
-    form = EmployeesForm(data=request.POST)
+    form = EmployeesAddForm(data=request.POST)
     if form.is_valid():
         # 在这里创建或更新User实例
         work_id = form.cleaned_data['work_id']
