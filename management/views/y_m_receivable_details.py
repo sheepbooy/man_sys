@@ -10,24 +10,30 @@ from management import models
 def receivable_detail(request):
     """202X年X月应收账款明细"""
     value = request.GET.get('q', '')
-    if value:
-        # 创建 Q 对象来过滤 sales_month
-        # 查询条件：未收款不等于0且不为空白的记录
-        query = Q(logistics_shipment_date__icontains=value) & Q(unreceived_payment__isnull=False,
-                                                                unreceived_payment__gt=0)
-        query_set = models.InternalTradeLedger.objects.filter(query)
-    else:
-        query = Q(unreceived_payment__isnull=False, unreceived_payment__gt=0)
-        query_set = models.InternalTradeLedger.objects.filter(query)
+    value1 = request.GET.get('q1', '')  # 获取第二个查询参数
+    # value2 = request.GET.get('q2', '')  # 获取第三个查询参数
 
-        # 进行分页等后续处理，保持不变
+    # 基本查询条件：未收款不等于0且不为空白的记录
+    query = Q(unreceived_payment__isnull=False, unreceived_payment__gt=0)
+
+    if value:
+        query &= Q(logistics_shipment_date__icontains=value)
+    if value1:
+        query &= Q(salesperson__icontains=value1)
+    # if value2:
+    #     query &= Q(product_name__icontains=value2)
+
+    query_set = models.InternalTradeLedger.objects.filter(query)
+    # 进行分页等后续处理，保持不变
     page_object = Pagination(request, query_set)
     page_object.html()
 
     context = {
         'page_queryset': page_object.page_queryset,
         'page_string': page_object.page_string,
-        'value': value
+        'value': value,
+        'value1': value1,
+        # 'value2': value2
     }
     return render(request, 'y_m_receivable_details.html', context)
 
@@ -82,16 +88,19 @@ def receivable_detail_add(request, _id):
 def d_overdue_detali(request):
     """截止202X年X月X日已逾期账款明细"""
     value = request.GET.get('q', '')
+    value1 = request.GET.get('q1', '')  # 获取第二个查询参数
+    print(value)
+
+    # 查询条件：未收款不等于0且不为空白的记录
+    query = Q(accounts_receivable_balance__isnull=False, accounts_receivable_balance__gt=0)
+
     if value:
-        # 创建 Q 对象来过滤 sales_month
-        # 查询条件：未收款不等于0且不为空白的记录
-        # 创建查询条件
-        query = Q(repayment_date__lte=value) & Q(accounts_receivable_balance__isnull=False,
-                                                 accounts_receivable_balance__gt=0)
-        query_set = models.Receivable.objects.filter(query)
-    else:
-        query = Q(accounts_receivable_balance__isnull=False, accounts_receivable_balance__gt=0)
-        query_set = models.Receivable.objects.filter(query)
+        query &= Q(repayment_date__lte=value)
+
+    if value1:
+        query &= Q(salesperson__icontains=value1)
+
+    query_set = models.Receivable.objects.filter(query)
 
         # 进行分页等后续处理，保持不变
     page_object = Pagination(request, query_set)
@@ -100,7 +109,8 @@ def d_overdue_detali(request):
     context = {
         'page_queryset': page_object.page_queryset,
         'page_string': page_object.page_string,
-        'value': value
+        'value': value,
+        'value1': value1,
     }
     return render(request, 'd_overdue_detail.html', context)
 
@@ -137,13 +147,16 @@ def d_overdue_detali_add(request, _id):
 def foreign_receivable(request):
     """应收账款明细（外贸部）"""
     value = request.GET.get('q', '')
-    if value:
-        query = Q(sales_date__icontains=value) & (Q(unreceived_payment_usd__gt=0) | Q(unreceived_payment_cny__gt=0))
-        query_set = models.ForeignTradeLedger.objects.filter(query)
+    value1 = request.GET.get('q1', '')
 
-    else:
-        query = Q(unreceived_payment_usd__gt=0) | Q(unreceived_payment_cny__gt=0)
-        query_set = models.ForeignTradeLedger.objects.filter(query)
+    query = Q(unreceived_payment_usd__gt=0) | Q(unreceived_payment_cny__gt=0)
+
+    if value:
+        query &= Q(sales_date__icontains=value)
+    if value1:
+        query &= Q(salesperson__icontains=value1)
+
+    query_set = models.ForeignTradeLedger.objects.filter(query)
 
     # 进行分页等后续处理，保持不变
 
@@ -153,7 +166,8 @@ def foreign_receivable(request):
     context = {
         'page_queryset': page_object.page_queryset,
         'page_string': page_object.page_string,
-        'value': value
+        'value': value,
+        'value1': value1
     }
     return render(request, 'foreign_receivable.html', context)
 

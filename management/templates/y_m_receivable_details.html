@@ -9,6 +9,10 @@
                     <div class="input-group">
                         <input type="month" name="q" class="form-control datepicker" placeholder="选择年份和月份"
                                value="{{ value }}" readonly>
+                        <!-- 新增的搜索框 -->
+                        <input type="text" name="q1" class="form-control" placeholder="销售员" value="{{ value1 }}">
+{#                        <input type="text" name="q2" class="form-control" placeholder="产品名称" value="{{ value2 }}">#}
+
                         <div class="input-group-append">
                             <button class="btn btn-outline-secondary" type="submit">搜索</button>
                             <button class="btn btn-outline-secondary" type="button" id="clear-search">清空</button>
@@ -117,6 +121,8 @@
             $('#clear-search').click(function () {
                 // 清空搜索框
                 $('input[name="q"]').val('');
+                $('input[name="q1"]').val('');
+                {#$('input[name="q2"]').val('');#}
                 // 触发搜索按钮点击事件
                 $('button[type="submit"]').click();
             });

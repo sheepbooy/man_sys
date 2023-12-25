@@ -41,13 +41,20 @@ def x_month_foreign_trade_ledger(request):
     """报表"""
     """根据 sales_month 进行查询"""
     value = request.GET.get('q', '')
+    value1 = request.GET.get('q1', '')
+    value2 = request.GET.get('q2', '')
 
+    query = Q()
     if value:
-        # 创建 Q 对象来过滤 sales_month
-        query = Q(sales_month__icontains=value)
-        query_set = models.ForeignTradeLedger.objects.filter(query)
-    else:
-        query_set = models.ForeignTradeLedger.objects.all()
+        query &= Q(sales_month__icontains=value)
+    if value1:
+        # 假设 value1 对应的查询条件
+        query &= Q(salesperson__icontains=value1)
+    if value2:
+        # 假设 value2 对应的查询条件
+        query &= Q(product_name__icontains=value2)
+
+    query_set = models.ForeignTradeLedger.objects.filter(query)
 
     # 进行分页等后续处理，保持不变
     page_object = Pagination(request, query_set)
@@ -56,7 +63,9 @@ def x_month_foreign_trade_ledger(request):
     context = {
         'page_queryset': page_object.page_queryset,
         'page_string': page_object.page_string,
-        'value': value
+        'value': value,
+        'value1': value1,
+        'value2': value2
     }
     return render(request, 'm_foreign_trade_ledger.html', context)
 

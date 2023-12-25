@@ -1,4 +1,4 @@
 
-kpython:S1192E"LDefine a constant instead of duplicating this literal 'change.html' 4 times.(éÃÎ­8ÀÓœ¬Ã1
-upython:S1192J"QDefine a constant instead of duplicating this literal '/foreign/ledger/' 3 times.(áàŸŒùÿÿÿÿ8¿Óœ¬Ã1
-npython:S1192E"ODefine a constant instead of duplicating this literal 'foreign/ledger' 4 times.(éÃÎ­8ÀÓœ¬Ã1
+upython:S1192S"QDefine a constant instead of duplicating this literal '/foreign/ledger/' 3 times.(áàŸŒùÿÿÿÿ8ìİå‡Ê1
+npython:S1192N"ODefine a constant instead of duplicating this literal 'foreign/ledger' 4 times.(éÃÎ­8íİå‡Ê1
+kpython:S1192N"LDefine a constant instead of duplicating this literal 'change.html' 4 times.(éÃÎ­8íİå‡Ê1
