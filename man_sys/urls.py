@@ -41,7 +41,8 @@ from management.views import sales_visit_report
 urlpatterns = [
     path('admin/', admin.site.urls),
     # 登录，注册，主页等相关功能
-    path('login/', login_register_home.login_view),
+    path('', login_register_home.login_view),
+    # path('login/', login_register_home.login_view),
     path('register/', login_register_home.register),
     path('home/', login_register_home.home),
     path('logout/', login_register_home.logout),
