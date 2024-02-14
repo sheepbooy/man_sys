@@ -11,7 +11,7 @@ class AuthMiddleware(MiddlewareMixin):
             return
 
         # 其他排除的路径
-        excluded_paths = ['', '/image/code/', '/register/']
+        excluded_paths = ['login/', '/image/code/', '/register/']
         if request.path_info in excluded_paths:
             return
 
@@ -21,4 +21,4 @@ class AuthMiddleware(MiddlewareMixin):
             return
 
         # 若没有登录,则重定向回登录页面
-        return redirect('')
+        return redirect('login/')
