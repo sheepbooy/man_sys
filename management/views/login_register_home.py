@@ -47,11 +47,11 @@ def login_view(request):
             name = employee.name
             user_permissions = user.get_all_permissions()
             user_permissions = list(user_permissions)
-            print(user_permissions)
+            # print(user_permissions)
             request.session['info'] = {'work_id': work_id, 'name': name, 'user_permissions': user_permissions}
 
             request.session.set_expiry(60 * 60 * 24)
-            return redirect('/home/')
+            return redirect('/customer/management/')
         else:
             display_error = True
             if user is None:
@@ -98,6 +98,26 @@ def report_home(request):
     return render(request, 'report_home.html')
 
 
+def customer_management_home(request):
+    """登录后的客户管理页面"""
+    return render(request, 'customer_management_home.html')
+
+
+def project_management_home(request):
+    """登录后的项目管理页面"""
+    return render(request, 'project_management_home.html')
+
+
+def ledger_management_home(request):
+    """登录后的台账管理页面"""
+    return render(request, 'ledger_management_home.html')
+
+
+def user_management_home(request):
+    """用户管理页面"""
+    return render(request, 'user_management_home.html')
+
+
 def logout(request):
     """注销登录"""
     request.session.clear()
@@ -115,7 +135,7 @@ def user_detail(request, _id):
     form = PasswordChangeForm(data=request.POST, instance=row_object)
     if form.is_valid():
         form.save()
-        return redirect('/home/')
+        return redirect('/customer/management/')
 
     return render(request, 'change.html', {'form': form, 'address': 'home'})
 
@@ -138,3 +158,8 @@ def image_code(request):
 def warning(request):
     """显示错误信息"""
     return render(request, 'warning.html')
+
+
+def test(request):
+    """测试"""
+    return render(request, 'test.html')

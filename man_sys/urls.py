@@ -40,7 +40,9 @@ from management.views import sales_visit_report
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    # 登录，注册，主页等相关功能
+
+    # 测试
+    path('test/', login_register_home.test),    # 登录，注册，主页等相关功能
     path('', login_register_home.login_view),
     path('login/', login_register_home.login_view),
     path('register/', login_register_home.register),
@@ -52,6 +54,20 @@ urlpatterns = [
     path('warning/', login_register_home.warning),
     # 生成图片验证码
     path('image/code/', login_register_home.image_code),
+
+    # 客户管理
+    path('customer/management/', login_register_home.customer_management_home),
+
+    # 项目管理
+    path('project/management/', login_register_home.project_management_home),
+
+    # 台账管理
+    path('ledger/management/', login_register_home.ledger_management_home),
+
+    # 用户管理
+    path('user/management/',login_register_home.user_management_home),
+
+
 
     # 所有员工信息
     path('employees/', employee.employees_list),
