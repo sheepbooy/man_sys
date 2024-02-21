@@ -1,92 +1,106 @@
 {% extends 'layout.html' %}
-
 {% block content %}
-    <h1>研部客户对接表</h1>
-    <div class="row mb-3">
-        {% if 'management.add_customerengagement' in request.session.info.user_permissions %}
-            <div class="col">
-                <a href="/develop/butting/add/" class="btn btn-primary mb-3">添加</a>
-            </div>
-        {% endif %}
-        <div class="col text-end">
-            <form method="get">
-                <div class="input-group">
-                    <input type="text" name='q' class="form-control" placeholder="搜索" value="{{ value }}">
-                    <button class="btn btn-outline-secondary" type="submit">搜索</button>
+    <div class="container mt-4">
+        <h2 class="mb-4">研部客户对接表</h2>
+        <div class="row mb-3">
+            <!-- 搜索和添加按钮的代码 -->
+            {% if 'management.add_customerengagement' in request.session.info.user_permissions %}
+                <div class="col">
+                    <a href="/develop/butting/add/" class="btn btn-primary mb-3">添加</a>
                 </div>
-            </form>
+            {% endif %}
+            <div class="col text-end">
+                <form method="get">
+                    <div class="input-group">
+                        <input type="text" name='q' class="form-control" placeholder="搜索" value="{{ value }}">
+                        <button class="btn btn-outline-secondary" type="submit">搜索</button>
+                    </div>
+                </form>
+            </div>
         </div>
+
+        <div class="scrollable-table">
+            <table class="table table-fixed custom-table">
+                <!-- 表头和表格内容 -->
+                <thead>
+                <tr>
+                    <th>对接编号</th>
+                    <th>记录人</th>
+                    <th>主动/被动对接</th>
+                    <th>公司名称</th>
+                    <th>公司类别</th>
+                    <th>客户名称</th>
+                    <th>客户类别</th>
+                    <th>产品咨询</th>
+                    <th>价格咨询</th>
+                    <th>样品请求</th>
+                    <th>采购</th>
+                    <th>电子资料提供</th>
+                    <th>物料准备</th>
+                    <th>样品跟踪</th>
+                    <th>产品使用/问题咨询</th>
+                    <th>产品名称</th>
+                    <th>规格编码</th>
+                    <th>重量</th>
+                    <th>剂型/剂量类别</th>
+                    <th>问题</th>
+                    <th>问题是否解决</th>
+                    <th>解决方案</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for engagement in page_queryset %}
+                    <tr>
+                        <td>{{ engagement.engagement_number }}</td>
+                        <td>{{ engagement.recorder }}</td>
+                        <td>{{ engagement.proactive_or_passive_engagement }}</td>
+                        <td>{{ engagement.company_name }}</td>
+                        <td>{{ engagement.company_category }}</td>
+                        <td>{{ engagement.customer_name }}</td>
+                        <td>{{ engagement.customer_category }}</td>
+                        <td>{{ engagement.product_inquiry }}</td>
+                        <td>{{ engagement.price_inquiry }}</td>
+                        <td>{{ engagement.sample_request }}</td>
+                        <td>{{ engagement.purchase }}</td>
+                        <td>{{ engagement.electronic_material_provision }}</td>
+                        <td>{{ engagement.physical_material_preparation }}</td>
+                        <td>{{ engagement.sample_tracking }}</td>
+                        <td>{{ engagement.product_use_or_question_inquiry }}</td>
+                        <td>{{ engagement.product_name }}</td>
+                        <td>{{ engagement.specification_code }}</td>
+                        <td>{{ engagement.weight }}</td>
+                        <td>{{ engagement.dosage_form_or_dosage_category }}</td>
+                        <td>{{ engagement.issue }}</td>
+                        <td>{{ engagement.is_resolved }}</td>
+                        <td>{{ engagement.resolution_solution }}</td>
+                        <td>
+                            {% if 'management.change_customerengagement' in request.session.info.user_permissions %}
+                                <a href="/develop/butting/edit/{{ engagement.engagement_number }}/"
+                                   class="btn btn-info btn-sm">编辑</a>
+                            {% endif %}
+                            {% if 'management.delete_customerengagement' in request.session.info.user_permissions %}
+                                <button type="button" class="btn btn-danger btn-sm delete-btn"
+                                        data-delete-url="/develop/butting/delete/{{ engagement.engagement_number }}/">
+                                    删除
+                                </button>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="21">No data available</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <nav aria-label="Page navigation example">
+            <!-- 分页导航 -->
+            <ul class="pagination justify-content-center">
+                {{ page_string|safe }}
+            </ul>
+        </nav>
     </div>
-    <table>
-        <tr>
-            <th>对接编号</th>
-            <th>记录人</th>
-            <th>主动/被动对接</th>
-            <th>公司名称</th>
-            <th>公司类别</th>
-            <th>客户名称</th>
-            <th>客户类别</th>
-            <th>产品咨询</th>
-            <th>价格咨询</th>
-            <th>样品请求</th>
-            <th>采购</th>
-            <th>电子资料提供</th>
-            <th>物料准备</th>
-            <th>样品跟踪</th>
-            <th>产品使用/问题咨询</th>
-            <th>产品名称</th>
-            <th>规格编码</th>
-            <th>重量</th>
-            <th>剂型/剂量类别</th>
-            <th>问题</th>
-            <th>问题是否解决</th>
-            <th>解决方案</th>
-            <th>操作</th>
-        </tr>
-        {% for engagement in page_queryset %}
-            <tr>
-                <td>{{ engagement.engagement_number }}</td>
-                <td>{{ engagement.recorder }}</td>
-                <td>{{ engagement.proactive_or_passive_engagement }}</td>
-                <td>{{ engagement.company_name }}</td>
-                <td>{{ engagement.company_category }}</td>
-                <td>{{ engagement.customer_name }}</td>
-                <td>{{ engagement.customer_category }}</td>
-                <td>{{ engagement.product_inquiry }}</td>
-                <td>{{ engagement.price_inquiry }}</td>
-                <td>{{ engagement.sample_request }}</td>
-                <td>{{ engagement.purchase }}</td>
-                <td>{{ engagement.electronic_material_provision }}</td>
-                <td>{{ engagement.physical_material_preparation }}</td>
-                <td>{{ engagement.sample_tracking }}</td>
-                <td>{{ engagement.product_use_or_question_inquiry }}</td>
-                <td>{{ engagement.product_name }}</td>
-                <td>{{ engagement.specification_code }}</td>
-                <td>{{ engagement.weight }}</td>
-                <td>{{ engagement.dosage_form_or_dosage_category }}</td>
-                <td>{{ engagement.issue }}</td>
-                <td>{{ engagement.is_resolved }}</td>
-                <td>{{ engagement.resolution_solution }}</td>
-                <td>
-                    {% if 'management.change_customerengagement' in request.session.info.user_permissions %}
-                        <a href="/develop/butting/edit/{{ engagement.engagement_number }}/"
-                           class="btn btn-info btn-sm">编辑</a>
-                    {% endif %}
-                    {% if 'management.delete_customerengagement' in request.session.info.user_permissions %}
-                        <a href="/develop/butting/delete/{{ engagement.engagement_number }}/"
-                           class="btn btn-danger btn-sm">删除</a>
-                    {% endif %}
-                </td>
-            </tr>
-        {% empty %}
-            <tr>
-                <td colspan="21">No data available</td>
-            </tr>
-        {% endfor %}
-    </table>
-    <nav aria-label="Page navigation example">
-        <ul class="pagination justify-content-center">
-            {{ page_string|safe }}
-        </ul>
-    </nav>
 {% endblock %}

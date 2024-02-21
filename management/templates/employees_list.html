@@ -1,9 +1,9 @@
 {% extends 'layout.html' %}
-
 {% block content %}
     <div class="container mt-4">
         <h2 class="mb-4">员工列表</h2>
         <div class="row mb-3">
+            <!-- 搜索和添加按钮的代码 -->
             {% if 'management.add_employees' in request.session.info.user_permissions %}
                 <div class="col">
                     <a href="/employees/add/" class="btn btn-primary">添加</a>
@@ -19,44 +19,50 @@
             </div>
         </div>
 
-        <table class="table">
-            <thead>
-            <tr>
-                <th scope="col">工号</th>
-                <th scope="col">姓名</th>
-                <th scope="col">性别</th>
-                <th scope="col">部门</th>
-                <th scope="col">职位</th>
-                <th scope="col">状态</th>
-                <th scope="col">操作</th>
-            </tr>
-            </thead>
-            <tbody>
-            {% for employee in page_queryset %}
+        <div class="scrollable-table">
+            <table class="table table-fixed custom-table">
+                <!-- 表头和表格内容 -->
+                <thead>
                 <tr>
-                    <th scope="row">{{ employee.work_id }}</th>
-                    <td>{{ employee.name }}</td>
-                    <td>{{ employee.gender }}</td>
-                    <td>{{ employee.department }}</td>
-                    <td>{{ employee.position }}</td>
-                    <td>{{ employee.status }}</td>
-                    <td>
-                        {% if 'management.change_employees' in request.session.info.user_permissions %}
-                            <a href="/employees/edit/{{ employee.work_id }}/" class="btn btn-info btn-sm">编辑</a>
-                        {% endif %}
-                        {% if 'management.delete_employees' in request.session.info.user_permissions %}
-                            <a href="/employees/delete/{{ employee.work_id }}/" class="btn btn-danger btn-sm">删除</a>
-                        {% endif %}
-                    </td>
+                    <th scope="col">工号</th>
+                    <th scope="col">姓名</th>
+                    <th scope="col">性别</th>
+                    <th scope="col">部门</th>
+                    <th scope="col">职位</th>
+                    <th scope="col">状态</th>
+                    <th scope="col">操作</th>
                 </tr>
-            {% endfor %}
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                {% for employee in page_queryset %}
+                    <tr>
+                        <th scope="row">{{ employee.work_id }}</th>
+                        <td>{{ employee.name }}</td>
+                        <td>{{ employee.gender }}</td>
+                        <td>{{ employee.department }}</td>
+                        <td>{{ employee.position }}</td>
+                        <td>{{ employee.status }}</td>
+                        <td>
+                            {% if 'management.change_employees' in request.session.info.user_permissions %}
+                                <a href="/employees/edit/{{ employee.work_id }}/" class="btn btn-info btn-sm">编辑</a>
+                            {% endif %}
+                            {% if 'management.delete_employees' in request.session.info.user_permissions %}
+                                <button type="button" class="btn btn-danger btn-sm delete-btn"
+                                        data-delete-url="/employees/delete/{{ employee.work_id }}/">删除
+                                </button>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
         <nav aria-label="Page navigation example">
+            <!-- 分页导航 -->
             <ul class="pagination justify-content-center">
                 {{ page_string|safe }}
             </ul>
         </nav>
-
     </div>
 {% endblock %}

@@ -130,14 +130,14 @@ def user_detail(request, _id):
 
     if request.method == 'GET':
         form = PasswordChangeForm(instance=row_object)
-        return render(request, 'change.html', {'form': form, 'address': 'home'})
+        return render(request, 'change.html', {'form': form, 'address': 'customer/management'})
 
     form = PasswordChangeForm(data=request.POST, instance=row_object)
     if form.is_valid():
         form.save()
         return redirect('/customer/management/')
 
-    return render(request, 'change.html', {'form': form, 'address': 'home'})
+    return render(request, 'change.html', {'form': form, 'address': 'customer/management'})
 
 
 def image_code(request):

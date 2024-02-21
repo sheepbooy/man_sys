@@ -1,9 +1,9 @@
 {% extends 'layout.html' %}
-
 {% block content %}
-    <table>
-        <h2 class="mb-4">外贸部客户档案表</h2></tr>
+    <div class="container mt-4">
+        <h2 class="mb-4">外贸部客户档案表</h2>
         <div class="row mb-3">
+            <!-- 搜索和添加按钮的代码 -->
             {% if 'management.add_foreigncustomerprofile' in request.session.info.user_permissions %}
                 <div class="col">
                     <a href="/foreign/customer/add/" class="btn btn-primary mb-3">添加</a>
@@ -18,87 +18,101 @@
                 </form>
             </div>
         </div>
-        <tr>
-            <th>客户档案编号</th>
-            <th>销售员工</th>
-            <th>分类</th>
-            <th>开发日期</th>
-            <th>公司名称</th>
-            <th>国家</th>
-            <th>媒体渠道</th>
-            <th>产品名称</th>
-            <th>规格编码</th>
-            <th>规格编码备注</th>
-            <th>用途</th>
-            <th>跟进记录</th>
-            <th>公司类型</th>
-            <th>公司简介</th>
-            <th>客户联系人</th>
-            <th>客户邮箱</th>
-            <th>客户电话</th>
-            <th>客户网站</th>
-            <th>初步洽谈</th>
-            <th>样品</th>
-            <th>问卷</th>
-            <th>交易</th>
-            <th>供应商审计</th>
-            <th>年度预估用量</th>
-            <th>现有供应商</th>
-            <th>级别</th>
-            <th>型号</th>
-            <th>单价</th>
-            <th>时间</th>
-            <th>进展描述</th>
-            <th>操作</th>
-        </tr>
-        {% for entry in page_queryset %}
-            <tr>
-                <td>{{ entry.customer_profile_number }}</td>
-                <td>{{ entry.salesperson }}</td>
-                <td>{{ entry.classification }}</td>
-                <td>{{ entry.development_date }}</td>
-                <td>{{ entry.company_name }}</td>
-                <td>{{ entry.country }}</td>
-                <td>{{ entry.media }}</td>
-                <td>{{ entry.product_name }}</td>
-                <td>{{ entry.specification_code }}</td>
-                <td>{{ entry.specification_code_notes }}</td>
-                <td>{{ entry.usage }}</td>
-                <td>{{ entry.follow_up_record }}</td>
-                <td>{{ entry.company_type }}</td>
-                <td>{{ entry.company_profile }}</td>
-                <td>{{ entry.customer_contact }}</td>
-                <td>{{ entry.customer_email }}</td>
-                <td>{{ entry.customer_phone }}</td>
-                <td>{{ entry.customer_website }}</td>
-                <td>{{ entry.preliminary_negotiation }}</td>
-                <td>{{ entry.samples }}</td>
-                <td>{{ entry.questionnaire }}</td>
-                <td>{{ entry.deal }}</td>
-                <td>{{ entry.supplier_audit }}</td>
-                <td>{{ entry.estimated_annual_usage }}</td>
-                <td>{{ entry.current_supplier }}</td>
-                <td>{{ entry.level }}</td>
-                <td>{{ entry.model }}</td>
-                <td>{{ entry.unit_price }}</td>
-                <td>{{ entry.time }}</td>
-                <td>{{ entry.progress_description }}</td>
-                <td>
-                    {% if 'management.change_foreigncustomerprofile' in request.session.info.user_permissions %}
-                        <a href="/foreign/customer/edit/{{ entry.customer_profile_number }}/"
-                           class="btn btn-info btn-sm">编辑</a>
-                    {% endif %}
-                    {% if 'management.delete_foreigncustomerprofile' in request.session.info.user_permissions %}
-                        <a href="/foreign/customer/delete/{{ entry.customer_profile_number }}/"
-                           class="btn btn-danger btn-sm">删除</a>
-                    {% endif %}
-                </td>
-            </tr>
-        {% endfor %}
-    </table>
-    <nav aria-label="Page navigation example">
-        <ul class="pagination justify-content-center">
-            {{ page_string|safe }}
-        </ul>
-    </nav>
+
+        <div class="scrollable-table">
+            <table class="table table-fixed custom-table">
+                <!-- 表头和表格内容 -->
+                <thead>
+                <tr>
+                    <th>客户档案编号</th>
+                    <th>销售员工</th>
+                    <th>分类</th>
+                    <th>开发日期</th>
+                    <th>公司名称</th>
+                    <th>国家</th>
+                    <th>媒体渠道</th>
+                    <th>产品名称</th>
+                    <th>规格编码</th>
+                    <th>规格编码备注</th>
+                    <th>用途</th>
+                    <th>跟进记录</th>
+                    <th>公司类型</th>
+                    <th>公司简介</th>
+                    <th>客户联系人</th>
+                    <th>客户邮箱</th>
+                    <th>客户电话</th>
+                    <th>客户网站</th>
+                    <th>初步洽谈</th>
+                    <th>样品</th>
+                    <th>问卷</th>
+                    <th>交易</th>
+                    <th>供应商审计</th>
+                    <th>年度预估用量</th>
+                    <th>现有供应商</th>
+                    <th>级别</th>
+                    <th>型号</th>
+                    <th>单价</th>
+                    <th>时间</th>
+                    <th>进展描述</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for entry in page_queryset %}
+                    <tr>
+                        <td>{{ entry.customer_profile_number }}</td>
+                        <td>{{ entry.salesperson }}</td>
+                        <td>{{ entry.classification }}</td>
+                        <td>{{ entry.development_date }}</td>
+                        <td>{{ entry.company_name }}</td>
+                        <td>{{ entry.country }}</td>
+                        <td>{{ entry.media }}</td>
+                        <td>{{ entry.product_name }}</td>
+                        <td>{{ entry.specification_code }}</td>
+                        <td>{{ entry.specification_code_notes }}</td>
+                        <td>{{ entry.usage }}</td>
+                        <td>{{ entry.follow_up_record }}</td>
+                        <td>{{ entry.company_type }}</td>
+                        <td>{{ entry.company_profile }}</td>
+                        <td>{{ entry.customer_contact }}</td>
+                        <td>{{ entry.customer_email }}</td>
+                        <td>{{ entry.customer_phone }}</td>
+                        <td>{{ entry.customer_website }}</td>
+                        <td>{{ entry.preliminary_negotiation }}</td>
+                        <td>{{ entry.samples }}</td>
+                        <td>{{ entry.questionnaire }}</td>
+                        <td>{{ entry.deal }}</td>
+                        <td>{{ entry.supplier_audit }}</td>
+                        <td>{{ entry.estimated_annual_usage }}</td>
+                        <td>{{ entry.current_supplier }}</td>
+                        <td>{{ entry.level }}</td>
+                        <td>{{ entry.model }}</td>
+                        <td>{{ entry.unit_price }}</td>
+                        <td>{{ entry.time }}</td>
+                        <td>{{ entry.progress_description }}</td>
+                        <td>
+                            {% if 'management.change_foreigncustomerprofile' in request.session.info.user_permissions %}
+                                <a href="/foreign/customer/edit/{{ entry.customer_profile_number }}/"
+                                   class="btn btn-info btn-sm">编辑</a>
+                            {% endif %}
+                            {% if 'management.delete_foreigncustomerprofile' in request.session.info.user_permissions %}
+                                <button type="button" class="btn btn-danger btn-sm delete-btn"
+                                        data-delete-url="/foreign/customer/delete/{{ entry.customer_profile_number }}/">
+                                    删除
+                                </button>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <nav aria-label="Page navigation example">
+            <!-- 分页导航 -->
+            <ul class="pagination justify-content-center">
+                {{ page_string|safe }}
+            </ul>
+        </nav>
+    </div>
 {% endblock %}

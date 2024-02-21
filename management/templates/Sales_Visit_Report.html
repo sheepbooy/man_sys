@@ -1,69 +1,77 @@
 {% extends 'layout.html' %}
-
 {% block content %}
-    <h2 class="mb-4">销售客户拜访报告表</h2>
-
-    <div class="row mb-3">
-        {% if 'management.add_salesvisitreport' in request.session.info.user_permissions %}
-            <div class="col">
-                <a href="/sales_visit/add/" class="btn btn-primary mb-3">添加</a>
-            </div>
-        {% endif %}
-        <div class="col text-end">
-            <form method="get">
-                <div class="input-group">
-                    <input type="text" name='q' class="form-control" placeholder="搜索" value="{{ value }}">
-                    <button class="btn btn-outline-secondary" type="submit">搜索</button>
+    <div class="container mt-4">
+        <h2 class="mb-4">销售客户拜访报告表</h2>
+        <div class="row mb-3">
+            <!-- 搜索和添加按钮的代码 -->
+            {% if 'management.add_salesvisitreport' in request.session.info.user_permissions %}
+                <div class="col">
+                    <a href="/sales_visit/add/" class="btn btn-primary mb-3">添加</a>
                 </div>
-            </form>
+            {% endif %}
+            <div class="col text-end">
+                <form method="get">
+                    <div class="input-group">
+                        <input type="text" name='q' class="form-control" placeholder="搜索" value="{{ value }}">
+                        <button class="btn btn-outline-secondary" type="submit">搜索</button>
+                    </div>
+                </form>
+            </div>
         </div>
+
+        <div class="scrollable-table">
+            <table class="table table-fixed custom-table">
+                <!-- 表头和表格内容 -->
+                <thead>
+                <tr>
+                    <th>序号</th>
+                    <th>公司名称</th>
+                    <th>拜访日期</th>
+                    <th>本年度拜访次数</th>
+                    <th>客户性质</th>
+                    <th>拜访性质</th>
+                    <th>拜访目的</th>
+                    <th>拜访结果及反馈</th>
+                    <th>备注</th>
+                    <th>操作</th>
+
+                </tr>
+                </thead>
+                <tbody>
+                {% for item in page_queryset %}
+                    <tr>
+                        <td>{{ item.serial_number }}</td>
+                        <td>{{ item.company_name }}</td>
+                        <td>{{ item.visit_date }}</td>
+                        <td>{{ item.visits_this_year }}</td>
+                        <td>{{ item.get_customer_type_display }}</td>
+                        <td>{{ item.visit_nature }}</td>
+                        <td>{{ item.visit_purpose }}</td>
+                        <td>{{ item.visit_feedback }}</td>
+                        <td>{{ item.remarks }}</td>
+                        <td>
+                            {% if 'management.change_salesvisitreport' in request.session.info.user_permissions %}
+                                <a href="/sales_visit/edit/{{ item.serial_number }}/"
+                                   class="btn btn-info btn-sm">编辑</a>
+                            {% endif %}
+                            {% if 'management.delete_salesvisitreport' in request.session.info.user_permissions %}
+                                <button type="button" class="btn btn-danger btn-sm delete-btn"
+                                        data-delete-url="/sales_visit/delete/{{ item.serial_number }}/">
+                                    删除
+                                </button>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <nav aria-label="Page navigation example">
+            <!-- 分页导航 -->
+            <ul class="pagination justify-content-center">
+                {{ page_string|safe }}
+            </ul>
+        </nav>
     </div>
-
-    <table class="table">
-        <thead>
-        <tr>
-            <th>序号</th>
-            <th>公司名称</th>
-            <th>拜访日期</th>
-            <th>本年度拜访次数</th>
-            <th>客户性质</th>
-            <th>拜访性质</th>
-            <th>拜访目的</th>
-            <th>拜访结果及反馈</th>
-            <th>备注</th>
-            <th>操作</th>
-
-        </tr>
-        </thead>
-        <tbody>
-        {% for item in page_queryset %}
-            <tr>
-                <td>{{ item.serial_number }}</td>
-                <td>{{ item.company_name }}</td>
-                <td>{{ item.visit_date }}</td>
-                <td>{{ item.visits_this_year }}</td>
-                <td>{{ item.get_customer_type_display }}</td>
-                <td>{{ item.visit_nature }}</td>
-                <td>{{ item.visit_purpose }}</td>
-                <td>{{ item.visit_feedback }}</td>
-                <td>{{ item.remarks }}</td>
-                <td>
-                    {% if 'management.change_salesvisitreport' in request.session.info.user_permissions %}
-                        <a href="/sales_visit/edit/{{ item.serial_number }}/" class="btn btn-info btn-sm">编辑</a>
-                    {% endif %}
-                    {% if 'management.delete_salesvisitreport' in request.session.info.user_permissions %}
-                        <a href="/sales_visit/delete/{{ item.serial_number }}/"
-                           class="btn btn-danger btn-sm">删除</a>
-                    {% endif %}
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <nav aria-label="Page navigation example">
-        <ul class="pagination justify-content-center">
-            {{ page_string|safe }}
-        </ul>
-    </nav>
 {% endblock %}

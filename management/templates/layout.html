@@ -1,108 +1,3 @@
-{#{% load static %}#}
-{#<!DOCTYPE html>#}
-{#<html lang="en">#}
-{#<head>#}
-{#    <meta charset="UTF-8">#}
-{#    <title>管理系统</title>#}
-{#    <link rel="stylesheet" href="{% static 'plugins/bootstrap-5.3.0/css/bootstrap.min.css' %}">#}
-{#    <link rel="stylesheet" href="{% static 'plugins/datepicker/dist/datepicker.css' %}">#}
-{#    <style>#}
-{#        .active {#}
-{#            font-weight: bold;#}
-{#            font-size: larger;#}
-{#        }#}
-{#    </style>#}
-{#    {% block css %}#}
-{#    {% endblock %}#}
-{##}
-{#</head>#}
-{#<body>#}
-{#<nav class="navbar navbar-expand-lg navbar-light bg-light">#}
-{#    <div class="container">#}
-{#        <div class="collapse navbar-collapse" id="navbarSupportedContent">#}
-{#            <ul class="navbar-nav me-auto mb-2 mb-lg-0">#}
-{#                <li class="nav-item">#}
-{#                    <a class="nav-link" href="/home/">管理系统</a>#}
-{#                </li>#}
-{#                <li class="nav-item">#}
-{#                    <a class="nav-link" href="/report/">报表管理</a>#}
-{#                </li>#}
-{#                <li class="nav-item">#}
-{#                    <a class="nav-link" href="/customer/management/">客户管理</a>#}
-{#                </li>#}
-{#                <li class="nav-item">#}
-{#                    <a class="nav-link" href="/project/management/">项目管理</a>#}
-{#                </li>#}
-{#                <li class="nav-item">#}
-{#                    <a class="nav-link" href="/ledger/management/">台账管理</a>#}
-{#                </li>#}
-{#                <li class="nav-item">#}
-{#                    <a class="nav-link" href="/user/management/">用户管理</a>#}
-{#                </li>#}
-{#                <li class="nav-item dropdown">#}
-{#                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"#}
-{#                       data-bs-toggle="dropdown" aria-expanded="false">#}
-{#                        更多选项#}
-{#                    </a>#}
-{#                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">#}
-{#                        <li><a class="dropdown-item" href="#">动作</a></li>#}
-{#                        <li><a class="dropdown-item" href="#">另一个动作</a></li>#}
-{#                        <li>#}
-{#                            <hr class="dropdown-divider">#}
-{#                        </li>#}
-{#                        <li><a class="dropdown-item" href="#">其他选项</a></li>#}
-{#                    </ul>#}
-{#                </li>#}
-{#            </ul>#}
-{##}
-{#            <ul class="navbar-nav">#}
-{#                <li class="nav-item">#}
-{#                    <a class="nav-link" href="#">登录</a>#}
-{#                </li>#}
-{#                <li class="nav-item dropdown">#}
-{#                    <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"#}
-{#                       data-bs-toggle="dropdown" aria-expanded="false">#}
-{#                        {{ request.session.info.name }}#}
-{#                    </a>#}
-{#                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">#}
-{#                        <li><a class="dropdown-item" href="/detail/{{ request.session.info.work_id }}/">我的信息</a>#}
-{#                        </li>#}
-{#                        <li>#}
-{#                            <hr class="dropdown-divider">#}
-{#                        </li>#}
-{#                        <li><a class="dropdown-item" href="/logout">注销</a></li>#}
-{#                    </ul>#}
-{#                </li>#}
-{#            </ul>#}
-{#        </div>#}
-{#    </div>#}
-{#</nav>#}
-{##}
-{#<div class="container">#}
-{#    {% block content %}#}
-{#    {% endblock %}#}
-{#</div>#}
-{##}
-{#<script src="{% static 'js/jquery-3.7.1.min.js' %}"></script>#}
-{#<script src="{% static 'plugins/bootstrap-5.3.0/js/bootstrap.bundle.min.js' %}"></script>#}
-{#<script src="{% static 'plugins/datepicker/dist/datepicker.js' %}"></script>#}
-{#<script>#}
-{#    // 为导航链接添加点击事件#}
-{#    $(document).ready(function () {#}
-{#        $('.nav-link').each(function () {#}
-{#            // 检查当前页面的URL是否与链接的href属性匹配#}
-{#            if ($(this).attr('href') === window.location.pathname) {#}
-{#                // 如果匹配，则添加active类#}
-{#                $(this).addClass('active');#}
-{#            }#}
-{#        });#}
-{#    });#}
-{#</script>#}
-{##}
-{#{% block js %}#}
-{#{% endblock %}#}
-{#</body>#}
-{#</html>#}
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
@@ -111,6 +6,46 @@
     <title>管理系统</title>
     <link rel="stylesheet" href="{% static 'plugins/bootstrap-5.3.0/css/bootstrap.min.css' %}">
     <link rel="stylesheet" href="{% static 'plugins/datepicker/dist/datepicker.css' %}">
+    <style>
+        .custom-table th, .custom-table td {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 120px; /* 根据实际需要调整宽度 */
+        }
+
+        .scrollable-table {
+            overflow-x: auto;
+        }
+
+        .table-responsive {
+            display: block;
+            width: 100%;
+            overflow-x: auto;
+        }
+
+        .custom-table thead th {
+            position: sticky;
+            top: 0;
+            background-color: #fff;
+            z-index: 2;
+        }
+
+        .custom-table tbody td:last-child {
+            position: sticky;
+            right: 0;
+            background-color: #fff; /* 确保背景颜色与表格一致 */
+            z-index: 1; /* 设置操作列的 z-index 为 1 以便在横向滚动时不至于总是覆盖表头 */
+        }
+
+        .custom-table tbody tr:nth-child(odd) {
+            background-color: #f9f9f9; /* 斑马线条纹效果 */
+        }
+
+        .custom-table tbody tr:hover {
+            background-color: #f1f1f1; /* 悬停高亮效果 */
+        }
+    </style>
     <style>
         .active {
             font-weight: bold;
@@ -163,6 +98,26 @@
             background-color: #ffffff;
             box-shadow: 0 2px 4px rgba(0, 0, 0, .1);
         }
+
+        .scrollable-table {
+            display: block;
+            max-height: 400px;
+            overflow-y: scroll;
+            -ms-overflow-style: -ms-autohiding-scrollbar;
+        }
+
+        .table-fixed thead th {
+            position: sticky;
+            top: 0;
+            background-color: #fff;
+        }
+
+        .table {
+            border-collapse: separate;
+            border-spacing: 0 15px;
+        }
+
+
     </style>
     {% block css %}
     {% endblock %}
@@ -208,6 +163,24 @@
 <div class="content">
     {% block content %}
     {% endblock %}
+    <!-- 删除确认模态框 -->
+    <div class="modal fade" id="deleteConfirmModal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalLabel">确认删除</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    确定要删除吗？
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-danger" id="confirmDelete">删除</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <script src="{% static 'js/jquery-3.7.1.min.js' %}"></script>
@@ -220,6 +193,27 @@
             if ($(this).attr('href') === window.location.pathname) {
                 $(this).addClass('active');
             }
+        });
+    });
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var deleteButtons = document.querySelectorAll('.delete-btn');
+        // 假设你的模态框ID为 deleteConfirmModal
+        var deleteConfirmModal = document.getElementById('deleteConfirmModal');
+        // 假设模态框内有一个确认删除的按钮，其ID为 modalConfirmDelete
+        var modalConfirmDelete = document.getElementById('confirmDelete');
+
+        deleteButtons.forEach(function (btn) {
+            btn.addEventListener('click', function () {
+                var deleteUrl = this.getAttribute('data-delete-url');
+                // 显示模态框
+                $(deleteConfirmModal).modal('show');
+                // 绑定一次性点击事件到确认按钮
+                $(modalConfirmDelete).off('click').on('click', function () {
+                    window.location.href = deleteUrl;
+                });
+            });
         });
     });
 </script>

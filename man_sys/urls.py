@@ -46,7 +46,7 @@ urlpatterns = [
     path('', login_register_home.login_view),
     path('login/', login_register_home.login_view),
     path('register/', login_register_home.register),
-    path('home/', login_register_home.home),
+    # path('home/', login_register_home.home),
     path('logout/', login_register_home.logout),
     path('detail/<str:_id>/', login_register_home.user_detail),
 

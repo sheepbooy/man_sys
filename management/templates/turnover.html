@@ -1,106 +1,120 @@
 {% extends 'layout.html' %}
-
 {% block content %}
-    <h1>研发部流水表</h1>
-    <div class="row mb-3">
-        {% if 'management.add_customerflow' in request.session.info.user_permissions %}
-            <div class="col">
-                <a href="/develop/turnover/add/" class="btn btn-primary mb-3">添加</a>
-            </div>
-        {% endif %}
-        <div class="col text-end">
-            <form method="get">
-                <div class="input-group">
-                    <input type="text" name='q' class="form-control" placeholder="搜索" value="{{ value }}">
-                    <button class="btn btn-outline-secondary" type="submit">搜索</button>
+    <div class="container mt-4">
+        <h2 class="mb-4">研发部流水表</h2>
+        <div class="row mb-3">
+            <!-- 搜索和添加按钮的代码 -->
+            {% if 'management.add_customerflow' in request.session.info.user_permissions %}
+                <div class="col">
+                    <a href="/develop/turnover/add/" class="btn btn-primary mb-3">添加</a>
                 </div>
-            </form>
+            {% endif %}
+            <div class="col text-end">
+                <form method="get">
+                    <div class="input-group">
+                        <input type="text" name='q' class="form-control" placeholder="搜索" value="{{ value }}">
+                        <button class="btn btn-outline-secondary" type="submit">搜索</button>
+                    </div>
+                </form>
+            </div>
         </div>
-    </div>
 
-    <table border="1">
-        <tr>
-            <th>客户编号</th>
-            <th>销售部门</th>
-            <th>省份</th>
-            <th>城市</th>
-            <th>公司名称</th>
-            <th>公司类型</th>
-            <th>公司规模</th>
-            <th>公司地址</th>
-            <th>客户名称</th>
-            <th>电话</th>
-            <th>标签</th>
-            <th>部门</th>
-            <th>职位</th>
-            <th>职级评估</th>
-            <th>样品/购买</th>
-            <th>联系级别</th>
-            <th>联系人</th>
-            <th>重叠联系人</th>
-            <th>联系方式</th>
-            <th>初次联系时间</th>
-            <th>首次宣传资料</th>
-            <th>2021年夏季礼品</th>
-            <th>2021年注射册</th>
-            <th>2021年年底礼品交付</th>
-            <th>2022年夏季礼品</th>
-            <th>2022年图书</th>
-            <th>2022年重要客户礼品</th>
-            <th>2022年年底礼品</th>
-            <th>前雇主</th>
-            <th>操作</th>
-        </tr>
-        {% for flow in page_queryset %}
-            <tr>
-                <td>{{ flow.customer_id }}</td>
-                <td>{{ flow.sales_department }}</td>
-                <td>{{ flow.province }}</td>
-                <td>{{ flow.city }}</td>
-                <td>{{ flow.company_name }}</td>
-                <td>{{ flow.company_type }}</td>
-                <td>{{ flow.company_size }}</td>
-                <td>{{ flow.company_address }}</td>
-                <td>{{ flow.customer_name }}</td>
-                <td>{{ flow.phone }}</td>
-                <td>{{ flow.tags }}</td>
-                <td>{{ flow.department }}</td>
-                <td>{{ flow.position }}</td>
-                <td>{{ flow.job_level_assessment }}</td>
-                <td>{{ flow.sample_or_purchase }}</td>
-                <td>{{ flow.level_of_contact }}</td>
-                <td>{{ flow.contact_person }}</td>
-                <td>{{ flow.overlapping_contacts }}</td>
-                <td>{{ flow.contact_method }}</td>
-                <td>{{ flow.initial_contact_time }}</td>
-                <td>{{ flow.first_promotional_material }}</td>
-                <td>{{ flow.summer_gift_2021 }}</td>
-                <td>{{ flow.injection_books_2021 }}</td>
-                <td>{{ flow.year_end_gift_delivery_2021 }}</td>
-                <td>{{ flow.summer_gift_2022 }}</td>
-                <td>{{ flow.books_2022 }}</td>
-                <td>{{ flow.major_customer_gift_2022 }}</td>
-                <td>{{ flow.year_end_gift_2022 }}</td>
-                <td>{{ flow.former_employer }}</td>
-                <td>
-                    {% if 'management.change_customerflow' in request.session.info.user_permissions %}
-                        <a href="/develop/turnover/edit/{{ flow.customer_id }}/" class="btn btn-info btn-sm">编辑</a>
-                    {% endif %}
-                    {% if 'management.delete_customerflow' in request.session.info.user_permissions %}
-                        <a href="/develop/turnover/delete/{{ flow.customer_id }}/"
-                           class="btn btn-danger btn-sm">删除</a>
-                    {% endif %}
-                </td>
-            </tr>
-        {% empty %}
-            <tr>
-                <td colspan="28">No data available</td>
-            </tr>
-        {% endfor %}
-    </table>
-    <nav aria-label="Page navigation example">
-        <ul class="pagination justify-content-center">
-            {{ page_string|safe }}
-        </ul>
-    </nav>
+        <div class="scrollable-table">
+            <table class="table table-fixed custom-table">
+                <!-- 表头和表格内容 -->
+                <thead>
+                <tr>
+                    <th>客户编号</th>
+                    <th>销售部门</th>
+                    <th>省份</th>
+                    <th>城市</th>
+                    <th>公司名称</th>
+                    <th>公司类型</th>
+                    <th>公司规模</th>
+                    <th>公司地址</th>
+                    <th>客户名称</th>
+                    <th>电话</th>
+                    <th>标签</th>
+                    <th>部门</th>
+                    <th>职位</th>
+                    <th>职级评估</th>
+                    <th>样品/购买</th>
+                    <th>联系级别</th>
+                    <th>联系人</th>
+                    <th>重叠联系人</th>
+                    <th>联系方式</th>
+                    <th>初次联系时间</th>
+                    <th>首次宣传资料</th>
+                    <th>2021年夏季礼品</th>
+                    <th>2021年注射册</th>
+                    <th>2021年年底礼品交付</th>
+                    <th>2022年夏季礼品</th>
+                    <th>2022年图书</th>
+                    <th>2022年重要客户礼品</th>
+                    <th>2022年年底礼品</th>
+                    <th>前雇主</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for flow in page_queryset %}
+                    <tr>
+                        <td>{{ flow.customer_id }}</td>
+                        <td>{{ flow.sales_department }}</td>
+                        <td>{{ flow.province }}</td>
+                        <td>{{ flow.city }}</td>
+                        <td>{{ flow.company_name }}</td>
+                        <td>{{ flow.company_type }}</td>
+                        <td>{{ flow.company_size }}</td>
+                        <td>{{ flow.company_address }}</td>
+                        <td>{{ flow.customer_name }}</td>
+                        <td>{{ flow.phone }}</td>
+                        <td>{{ flow.tags }}</td>
+                        <td>{{ flow.department }}</td>
+                        <td>{{ flow.position }}</td>
+                        <td>{{ flow.job_level_assessment }}</td>
+                        <td>{{ flow.sample_or_purchase }}</td>
+                        <td>{{ flow.level_of_contact }}</td>
+                        <td>{{ flow.contact_person }}</td>
+                        <td>{{ flow.overlapping_contacts }}</td>
+                        <td>{{ flow.contact_method }}</td>
+                        <td>{{ flow.initial_contact_time }}</td>
+                        <td>{{ flow.first_promotional_material }}</td>
+                        <td>{{ flow.summer_gift_2021 }}</td>
+                        <td>{{ flow.injection_books_2021 }}</td>
+                        <td>{{ flow.year_end_gift_delivery_2021 }}</td>
+                        <td>{{ flow.summer_gift_2022 }}</td>
+                        <td>{{ flow.books_2022 }}</td>
+                        <td>{{ flow.major_customer_gift_2022 }}</td>
+                        <td>{{ flow.year_end_gift_2022 }}</td>
+                        <td>{{ flow.former_employer }}</td>
+                        <td>
+                            {% if 'management.change_customerflow' in request.session.info.user_permissions %}
+                                <a href="/develop/turnover/edit/{{ flow.customer_id }}/"
+                                   class="btn btn-info btn-sm">编辑</a>
+                            {% endif %}
+                            {% if 'management.delete_customerflow' in request.session.info.user_permissions %}
+                                <button type="button" class="btn btn-danger btn-sm delete-btn"
+                                        data-delete-url="/develop/turnover/delete/{{ flow.customer_id }}/">
+                                    删除
+                                </button>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="28">No data available</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <nav aria-label="Page navigation example">
+            <!-- 分页导航 -->
+            <ul class="pagination justify-content-center">
+                {{ page_string|safe }}
+            </ul>
+        </nav>
+    </div>
 {% endblock %}
