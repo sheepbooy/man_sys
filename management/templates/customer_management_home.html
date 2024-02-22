@@ -6,7 +6,6 @@
         <div class="row g-4">
             <!-- 循环开始 -->
 
-
             {% if 'management.view_existingformulationdeveloping' in request.session.info.user_permissions or 'management.view_existingformulationtodevelop' in request.session.info.user_permissions or 'management.view_existingproductcompleted' in request.session.info.user_permissions %}
                 <div class="col-md-6 col-lg-4">
                     <div class="card border-0 shadow on-hover-effect" onmouseover="hoverCard(this)"
@@ -15,15 +14,13 @@
                             <h5 class="card-title">已有制剂进度管理</h5>
                             <p class="card-text">对于已有制剂的进度进行管理</p>
                             {% if 'management.view_existingproductcompleted' in request.session.info.user_permissions %}
-                                <a href="/preparation/completed" class="btn btn-primary" onclick="clickCard('/url2')">已完成</a>
+                                <a href="/preparation/completed" class="btn btn-primary" target="_blank">已完成</a>
                             {% endif %}
                             {% if 'management.view_existingformulationdeveloping' in request.session.info.user_permissions %}
-                                <a href="/preparation/ing" class="btn btn-primary"
-                                   onclick="clickCard('/url2')">研发中</a>
+                                <a href="/preparation/ing" class="btn btn-primary" target="_blank">研发中</a>
                             {% endif %}
                             {% if 'management.view_existingformulationtodevelop' in request.session.info.user_permissions %}
-                                <a href="/preparation/todev" class="btn btn-primary"
-                                   onclick="clickCard('/url2')">待研发</a>
+                                <a href="/preparation/todev" class="btn btn-primary" target="_blank">待研发</a>
                             {% endif %}
                         </div>
                     </div>
@@ -38,10 +35,10 @@
                             <h5 class="card-title">新品进度管理</h5>
                             <p class="card-text">对于新品开发的进度进行管理</p>
                             {% if 'management.view_newproductcompleted' in request.session.info.user_permissions %}
-                                <a href="/new/completed" class="btn btn-primary" onclick="clickCard('/url2')">已完成</a>
+                                <a href="/new/completed" class="btn btn-primary" target="_blank">已完成</a>
                             {% endif %}
                             {% if 'management.view_newproductdevelopingprogress' in request.session.info.user_permissions %}
-                                <a href="/new/ing" class="btn btn-primary" onclick="clickCard('/url2')">开发中</a>
+                                <a href="/new/ing" class="btn btn-primary" target="_blank">开发中</a>
                             {% endif %}
                         </div>
                     </div>
@@ -56,10 +53,10 @@
                             <h5 class="card-title">进度描述</h5>
                             <p class="card-text">对于已有制剂和新品的进度进行管理</p>
                             {% if 'management.view_existingformulationprogressdescription' in request.session.info.user_permissions %}
-                                <a href="/progress/preparation" class="btn btn-primary" onclick="clickCard('/url2')">已有制剂</a>
+                                <a href="/progress/preparation" class="btn btn-primary" target="_blank">已有制剂</a>
                             {% endif %}
                             {% if 'management.view_newproductdevelopment' in request.session.info.user_permissions %}
-                                <a href="/progress/new" class="btn btn-primary" onclick="clickCard('/url2')">新品</a>
+                                <a href="/progress/new" class="btn btn-primary" target="_blank">新品</a>
                             {% endif %}
                         </div>
                     </div>
@@ -74,7 +71,7 @@
                             <h5 class="card-title">外贸部客户档案管理</h5>
                             <p class="card-text">对于外贸部的客户档案进行管理</p>
                             <a href="/foreign/customer/" class="btn btn-primary"
-                               onclick="clickCard('/url2')">前往外贸部客户档案</a>
+                               target="_blank">前往外贸部客户档案</a>
                         </div>
                     </div>
                 </div>
@@ -88,7 +85,7 @@
                             <h5 class="card-title">研发部流水管理</h5>
                             <p class="card-text">对于研发部的流水进行管理</p>
                             <a href="/develop/turnover/" class="btn btn-primary"
-                               onclick="clickCard('/url2')">前往研发部流水管理</a>
+                               target="_blank">前往研发部流水管理</a>
                         </div>
                     </div>
                 </div>
@@ -102,7 +99,7 @@
                             <h5 class="card-title">研发部客户对接管理</h5>
                             <p class="card-text">对于研发部客户的对接进行管理</p>
                             <a href="/develop/butting/" class="btn btn-primary"
-                               onclick="clickCard('/url2')">前往研发部客户对接管理</a>
+                               target="_blank">前往研发部客户对接管理</a>
                         </div>
                     </div>
                 </div>
@@ -116,7 +113,7 @@
                             <h5 class="card-title">研发部客户档案管理</h5>
                             <p class="card-text">对于研发部的客户档案进行管理</p>
                             <a href="/develop/customer/" class="btn btn-primary"
-                               onclick="clickCard('/url2')">研发部客户档案管理</a>
+                               target="_blank">研发部客户档案管理</a>
                         </div>
                     </div>
                 </div>
@@ -130,7 +127,7 @@
                             <h5 class="card-title">销售客户拜访报告</h5>
                             <p class="card-text">销售客户拜访报告</p>
                             <a href="/sales_visit/" class="btn btn-primary"
-                               onclick="clickCard('/url2')">前往查看</a>
+                               target="_blank">前往查看</a>
                         </div>
                     </div>
                 </div>
@@ -145,7 +142,7 @@
                             <h5 class="card-title">客户审计表</h5>
                             <p class="card-text">对于客户审计表进行管理</p>
                             <a href="/#/" class="btn btn-primary"
-                               onclick="clickCard('/url2')">客户审计表档案管理</a>
+                               target="_blank">客户审计表档案管理</a>
                         </div>
                     </div>
                 </div>
