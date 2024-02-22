@@ -1,7 +1,10 @@
 {% extends 'layout.html' %}
 {% block content %}
     <div class="container mt-4">
-        <h2 class="mb-4">{{ value }}台账基础表(外贸部)</h2>
+        <div class="col-md-12">
+            <a href="/ledger/management/" class="btn btn-outline-secondary">&larr; 返回</a>
+            <h2 class="text-center mb-4" style="color: #007bff;">{{ value }}台账基础表(外贸部)</h2
+        </div>
         <div class="row mb-3">
             <!-- 搜索和添加按钮的代码 -->
             <div class="col text-end">

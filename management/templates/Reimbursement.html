@@ -5,8 +5,9 @@
         {% if 'management.view_reimbursement' in request.session.info.user_permissions %}
             <div class="row">
                 <div class="col-md-12">
-                    <h4 class="text-center mb-4" style="color: #007bff;">汇总数据</h4> <!-- 加入居中和颜色样式 -->
-                    <div id="summaryData" style="padding: 15px; border: 1px solid #ddd; border-radius: 5px;">
+                    <a href="/ledger/management/" class="btn btn-outline-secondary">&larr; 返回</a>
+                    <h2 class="text-center mb-4" style="color: #007bff;">各部门回款目标</h2>
+                    <div id="summaryData" class="p-3 bg-light border rounded">
                         <!-- 在这里动态展示汇总数据 -->
                     </div>
                 </div>
@@ -14,14 +15,14 @@
         {% endif %}
         <div class="row align-items-center mt-3"> <!-- 调整上边距 -->
             <div class="col-md-4">
-                <select id="departmentSelect" class="form-select">
+                <select id="departmentSelect" class="form-select mt-2">
                     {% for value, name in departments %}
                         <option value="{{ value }}">{{ name }}</option>
                     {% endfor %}
                 </select>
             </div>
             <div class="col-md-4">
-                <select id="yearSelect" class="form-select">
+                <select id="yearSelect" class="form-select mt-2">
                     {% for year in years %}
                         <option value="{{ year }}">{{ year }}</option>
                     {% endfor %}
@@ -29,7 +30,7 @@
             </div>
             {% if 'management.change_reimbursement' in request.session.info.user_permissions %}
                 <div class="col-md-2">
-                    <button type="button" class="btn btn-info w-100" data-bs-toggle="modal"
+                    <button type="button" class="btn btn-info w-100 mt-2" data-bs-toggle="modal"
                             data-bs-target="#editTargetsModal">
                         编辑回款目标
                     </button>
@@ -37,7 +38,7 @@
             {% endif %}
             {% if 'management.add_reimbursement' in request.session.info.user_permissions %}
                 <div class="col-md-2">
-                    <button type="button" class="btn btn-success w-100 mt-2 mt-md-0" data-bs-toggle="modal"
+                    <button type="button" class="btn btn-success w-100 mt-2" data-bs-toggle="modal"
                             data-bs-target="#addYearModal">
                         增加年份及默认值
                     </button>
@@ -65,9 +66,9 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form id="targetForm" class="row g-3"> <!-- 添加网格布局 -->
+                    <form id="targetForm" class="row g-3">
                         {% for month in months %}
-                            <div class="col-md-6 col-lg-4"> <!-- 每个月份占据一列 -->
+                            <div class="col-md-6 col-lg-4">
                                 <label for="{{ month }}Target" class="form-label">{{ month }}</label>
                                 <input type="number" class="form-control" id="{{ month }}Target"
                                        name="{{ month }}Target" required>
@@ -75,6 +76,7 @@
                         {% endfor %}
                     </form>
                 </div>
+
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">关闭</button>
                     <button type="submit" class="btn btn-primary" form="targetForm">更新目标</button>
@@ -187,8 +189,18 @@
                             datasets: [{
                                 label: '回款目标',
                                 data: data.targets,
+                                backgroundColor: 'rgba(0, 123, 255, 0.5)',
+                                borderColor: 'rgba(0, 123, 255, 1)',
+                                borderWidth: 1
                             }]
                         },
+                        options: {
+                            scales: {
+                                y: {
+                                    beginAtZero: true
+                                }
+                            }
+                        }
                     });
                 }
             });

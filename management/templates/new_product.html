@@ -11,10 +11,11 @@
         <div class="row mb-3">
             <!-- 权限检查和搜索表单，保持不变 -->
             <div class="col">
+                <a href="/customer/management/" class="btn btn-outline-primary">返回</a>
                 {% if type == 'completed' and can_add_completed %}
-                    <a href="/new/completed/add/" class="btn btn-primary mb-3">添加</a>
+                    <a href="/new/completed/add/" class="btn btn-primary">添加</a>
                 {% elif type == 'ing' and can_add_ing %}
-                    <a href="/new/ing/add/" class="btn btn-primary mb-3">添加</a>
+                    <a href="/new/ing/add/" class="btn btn-primary">添加</a>
                 {% endif %}
             </div>
 
@@ -23,6 +24,7 @@
                     <div class="input-group">
                         <input type="text" name='q' class="form-control" placeholder="搜索" value="{{ value }}">
                         <button class="btn btn-outline-secondary" type="submit">搜索</button>
+                        <button class="btn btn-outline-secondary" type="button" id="clear-search-button">清空</button>
                     </div>
                 </form>
             </div>

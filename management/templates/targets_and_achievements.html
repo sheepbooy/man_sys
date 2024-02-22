@@ -1,12 +1,15 @@
 {% extends 'layout.html' %}
 {% block content %}
     <div class="container mt-4">
-        <h1 class="mb-3 text-center">销售目标与实际完成</h1>
+        <div class="col-md-12">
+            <a href="/ledger/management/" class="btn btn-outline-secondary">&larr; 返回</a>
+            <h2 class="text-center mb-4" style="color: #007bff;">{{ value }}应收账款明细(外贸部)</h2>
+        </div>
         <div class="row justify-content-center mb-3">
-            <div class="col-md-6">
+            <div class="col-md-10">
                 <form method="get" action="{% url 'targets-achievements' %}" class="mb-3">
-                    <div class="row">
-                        <div class="col">
+                    <div class="form-row">
+                        <div class="col-md-4">
                             <label for="department" class="form-label">选择部门：</label>
                             <select name="department" id="department" class="form-select" onchange="this.form.submit()">
                                 {% for code, name in departments %}
@@ -15,7 +18,7 @@
                                 {% endfor %}
                             </select>
                         </div>
-                        <div class="col">
+                        <div class="col-md-4">
                             <label for="year" class="form-label">选择年份：</label>
                             <select name="year" id="year" class="form-select" onchange="this.form.submit()">
                                 {% for year in years %}
@@ -24,8 +27,8 @@
                                 {% endfor %}
                             </select>
                         </div>
-                        <div class="col-md-3 d-flex align-items-end">
-                            <button type="button" class="btn btn-primary  btn-block" data-bs-toggle="modal"
+                        <div class="col-md-4 d-flex align-items-end">
+                            <button type="button" class="btn btn-primary btn-block" data-bs-toggle="modal"
                                     data-bs-target="#addYearModal">
                                 增加年份
                             </button>
@@ -34,150 +37,134 @@
                 </form>
             </div>
         </div>
-        {% if results %}
-            <div class="row">
-                <div class="col-lg-6 mb-4">
-                    <div class="chart-container">
-                        <canvas id="salesPieChart"></canvas>
-                    </div>
+        <div class="chart-container">
+            <canvas id="salesPieChart"></canvas>
+        </div>
+        <button id="toggleTableBtn" class="btn btn-info mb-2">显示/隐藏表格</button>
+        <div id="tableContainer" class="table-responsive" style="display:none;">
+            {% if results %}
+                <table class="table table-striped table-hover table-bordered">
+                    <thead>
+                    <tr>
+                        <th>月份</th>
+                        <th>回款目标</th>
+                        <th>实际回款</th>
+                        <th>差额</th>
+                        <th>完成比例</th>
+                        {% if not selected_department == 'all' %}
+                            <th>实际回款编辑</th>
+                        {% endif %}
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for month, data in results.items %}
+                        <tr>
+                            <td>{{ month }}</td>
+                            <td>{{ data.target }}</td>
+                            <td>{{ data.actual }}</td>
+                            <td>{{ data.difference }}</td>
+                            <td>{{ data.completion_ratio }}%</td>
+                            {% if not selected_department == 'all' %}
+                                <td>
+                                    <form method="post" action="{% url 'targets-achievements' %}"
+                                          class="d-flex align-items-center">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="department" value="{{ selected_department }}">
+                                        <input type="hidden" name="month" value="{{ month }}">
+                                        <input type="number" name="new_actual_amount" min="0" value="{{ data.actual }}"
+                                               class="form-control form-control-sm me-2">
+                                        <input type="hidden" name="selected_year" id="selected_year"
+                                               value="{{ selected_year }}">
+                                        <button type="submit" class="btn btn-primary btn-sm">更新</button>
+                                    </form>
+                                </td>
+                            {% endif %}
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <div class="alert alert-info" role="alert">
+                    没有找到数据，请选择不同的部门或年份。
                 </div>
-                <div class="col-lg-6">
-                    <div class="table-responsive">
-                        <table class="table table-striped table-hover table-bordered">
-                            <thead>
-                            <tr>
-                                <th>月份</th>
-                                <th>回款目标</th>
-                                <th>实际回款</th>
-                                <th>差额</th>
-                                <th>完成比例</th>
-                                {% if not selected_department == 'all' %}
-                                    <th>操作</th>
-                                {% endif %}
-                            </tr>
-                            </thead>
-                            <tbody>
-                            {% for month, data in results.items %}
-                                <tr>
-                                    <td>{{ month }}</td>
-                                    <td>{{ data.target }}</td>
-                                    <td>{{ data.actual }}</td>
-                                    <td>{{ data.difference }}</td>
-                                    <td>{{ data.completion_ratio }}%</td>
-                                    {% if not selected_department == 'all' %}
-                                        <td>
-                                            <form method="post" action="{% url 'targets-achievements' %}"
-                                                  class="d-flex align-items-center">
-                                                {% csrf_token %}
-                                                <input type="hidden" name="department"
-                                                       value="{{ selected_department }}">
-                                                <input type="hidden" name="month" value="{{ month }}">
-                                                <input type="number" name="new_actual_amount" min="0"
-                                                       value="{{ data.actual }}"
-                                                       class="form-control form-control-sm me-2">
-                                                <input type="hidden" name="selected_year" id="selected_year"
-                                                       value="{{ selected_year }}">
-
-                                                <button type="submit" class="btn btn-primary btn-sm">更新</button>
-                                            </form>
-                                        </td>
-                                    {% endif %}
-                                </tr>
-                            {% endfor %}
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        {% else %}
-            <div class="alert alert-info" role="alert">
-                没有找到数据，请选择不同的部门或年份。
-            </div>
-        {% endif %}
-    </div>
-
-    <!-- 添加年份的模态框 -->
-    <!-- 模态框本身 -->
-    <div class="modal fade" id="addYearModal" tabindex="-1" aria-labelledby="addYearModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="addYearModalLabel">增加年份及默认值</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form method="post" action="{% url 'add_year_with_defaults' %}">
-                        {% csrf_token %}
-                        <div class="mb-3">
-                            <label for="yearSelect" class="form-label">选择年份</label>
-                            <select id="yearSelect" name="yearSelect" class="form-select">
-                                {% for year in years %}
-                                    <option value="{{ year }}">{{ year }}</option>
-                                {% endfor %}
-                            </select>
-                        </div>
-                        <div class="mb-3">
-                            <label for="defaultValue" class="form-label">默认值</label>
-                            <input type="number" id="defaultValue" name="defaultValue" class="form-control" min="0"
-                                   required>
-                        </div>
-                        <button type="submit" class="btn btn-primary">提交</button>
-                    </form>
-                </div>
-            </div>
+            {% endif %}
         </div>
     </div>
 {% endblock %}
 
-
 {% block css %}
     <style>
-        /* 自定义样式 */
         .chart-container {
-            position: relative;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        .table-responsive {
             max-width: 100%;
+            overflow-x: auto;
+            white-space: nowrap;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .btn-block {
+            width: 100%;
         }
     </style>
-
 {% endblock %}
-
 
 {% block js %}
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
-        var salesPieChart = document.getElementById('salesPieChart');
-        if (salesPieChart) {
-            var ctx = salesPieChart.getContext('2d');
+        document.addEventListener('DOMContentLoaded', function () {
+            var toggleBtn = document.getElementById('toggleTableBtn');
+            var tableContainer = document.getElementById('tableContainer');
 
-            // 现有的图表创建和配置代码
-            var data = {
-                labels: ['回款目标', '实际回款'],
-                datasets: [{
-                    data: [{{ total_target }}, {{ total_actual }}],
-                    backgroundColor: ['#007BFF', '#28A745'],
-                }]
-            };
-
-            var myPieChart = new Chart(ctx, {
-                type: 'pie',
-                data: data,
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    legend: {
-                        display: true,
-                        position: 'bottom'
-                    },
-                    title: {
-                        display: true,
-                        text: '销售目标与实际完成'
-                    }
+            toggleBtn.addEventListener('click', function () {
+                if (tableContainer.style.display === "none") {
+                    tableContainer.style.display = "block";
+                } else {
+                    tableContainer.style.display = "none";
                 }
             });
-        }
 
+            var salesPieChart = document.getElementById('salesPieChart');
+            if (salesPieChart) {
+                var ctx = salesPieChart.getContext('2d');
+
+                // 现有的图表创建和配置代码
+                var data = {
+                    labels: ['回款目标', '实际回款'],
+                    datasets: [{
+                        data: [{{ total_target }}, {{ total_actual }}],
+                        backgroundColor: ['#007BFF', '#28A745'],
+                    }]
+                };
+
+                var myPieChart = new Chart(ctx, {
+                    type: 'pie',
+                    data: data,
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        legend: {
+                            display: true,
+                            position: 'bottom'
+                        },
+                        title: {
+                            display: true,
+                            text: '销售目标与实际完成'
+                        }
+                    }
+                });
+            }
+        });
     </script>
-
     <script type="text/javascript">
         {% if messages %}
             let messages = [

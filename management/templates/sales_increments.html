@@ -1,12 +1,10 @@
 {% extends 'layout.html' %}
-
-{% block css %}
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-{% endblock %}
-
 {% block content %}
     <div class="container mt-4">
+        <div class="col-md-12">
+            <a href="/ledger/management/" class="btn btn-outline-secondary">&larr; 返回</a>
+            <h2 class="text-center mb-4" style="color: #007bff;">月度/季度销售额</h2>
+        </div>
         <form method="get" action="" class="mb-3">
             <div class="row justify-content-center">
                 <!-- 年份选择框 -->
@@ -56,7 +54,7 @@
 
 {% block js %}
 
-
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
         var chartData = JSON.parse('{{ chart_data|safe }}');
         var ctx = document.getElementById('salesChart').getContext('2d');

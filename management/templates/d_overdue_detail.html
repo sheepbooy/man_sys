@@ -5,7 +5,10 @@
 {% block content %}
 
     <main class="py-5">
-        <h2 class="mb-4">{{ value }}应收账款明细(内贸部)</h2>
+        <div class="col-md-12">
+            <a href="/ledger/management/" class="btn btn-outline-secondary">&larr; 返回</a>
+            <h2 class="text-center mb-4" style="color: #007bff;">{{ value }}已逾期账款明细(内贸部)</h2>
+        </div>
         <div class="row mb-3">
             <div class="col text-end">
                 <form method="get" id="search-form">
@@ -21,41 +24,38 @@
                 </form>
             </div>
         </div>
+
         <div class="container">
             <div class="row">
                 {% for item in page_queryset %}
-                    <div class="col-12 mb-4">
-                        <div class="d-flex card">
-                            <div class="card-body">
-                                <div class="info-item">
-                                    <h4 class="info-title">交易日期</h4>
-                                    <p class="info-content">{{ item.transaction_date }}</p>
-                                </div>
-                                <div class="info-item">
-                                    <h4 class="info-title">省份</h4>
-                                    <p class="info-content">{{ item.province }}</p>
-                                </div>
-                                <div class="info-item">
-                                    <h4 class="info-title">客户名称</h4>
-                                    <p class="info-content">{{ item.customer_name }}</p>
-                                </div>
-                                <div class="info-item">
-                                    <h4 class="info-title">业务员</h4>
-                                    <p class="info-content">{{ item.salesperson }}</p>
-                                </div>
-                                <div class="info-item">
-                                    <h4 class="info-title">还款日</h4>
-                                    <p class="info-content">{{ item.repayment_date }}</p>
-                                </div>
-                                <div class="info-item">
-                                    <h4 class="info-title">应收账款余额</h4>
-                                    <p class="info-content">{{ item.accounts_receivable_balance }}</p>
-                                </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="info-item">
+                                <h4 class="info-title">交易日期</h4>
+                                <p class="info-content">{{ item.transaction_date }}</p>
                             </div>
-                            <a href="/report/inner/d_overdue_detail/add/{{ item.id }}/" class="btn btn-info btn-primary edit-button"
-                               data-card-id="{{ item.id }}"
-                               data-explanation="{{ item.description }}">添加说明</a>
+                            <div class="info-item">
+                                <h4 class="info-title">省份</h4>
+                                <p class="info-content">{{ item.province }}</p>
+                            </div>
+                            <div class="info-item">
+                                <h4 class="info-title">客户名称</h4>
+                                <p class="info-content">{{ item.customer_name }}</p>
+                            </div>
+                            <div class="info-item">
+                                <h4 class="info-title">业务员</h4>
+                                <p class="info-content">{{ item.salesperson }}</p>
+                            </div>
+                            <div class="info-item">
+                                <h4 class="info-title">还款日</h4>
+                                <p class="info-content">{{ item.repayment_date }}</p>
+                            </div>
+                            <div class="info-item">
+                                <h4 class="info-title">应收账款余额</h4>
+                                <p class="info-content">{{ item.accounts_receivable_balance }}</p>
+                            </div>
                         </div>
+                        <a href="/report/inner/d_overdue_detail/add/{{ item.id }}/" class="btn btn-info edit-button">添加说明</a>
                     </div>
                 {% endfor %}
             </div>
@@ -70,41 +70,75 @@
 
 {% block css %}
     <style>
-        .card {
-            border: 1px solid #ccc;
-            border-radius: 5px;
+        /* 容器和卡片的基础样式调整 */
+        .container {
+            max-width: 1200px; /* 根据实际需求调整 */
+            margin: auto;
+            padding: 20px;
+        }
+
+        .row {
+            display: flex;
             flex-wrap: wrap;
-            justify-content: space-between;
+            margin-right: -15px;
+            margin-left: -15px;
+        }
+
+        /* 卡片样式调整 */
+        .card {
             background-color: #fff;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, .1);
+            margin: 10px;
+            flex-grow: 1;
+            flex-basis: calc(33.333% - 20px); /* 默认三列布局 */
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
         }
 
         .card-body {
+            padding: 15px;
             display: flex;
-            flex-direction: row;
-            flex-wrap: wrap;
+            flex-grow: 1;
+            flex-direction: column;
+            justify-content: space-around; /* 优化内容展示 */
         }
 
         .info-item {
-            flex-basis: calc(33.33% - 20px);
-            padding: 10px;
+            margin-bottom: 10px;
         }
 
         .info-title {
-            font-size: 18px;
+            font-size: 16px;
             font-weight: bold;
-            margin-bottom: 8px;
+            color: #333;
         }
 
         .info-content {
-            font-size: 16px;
-            margin-bottom: 16px;
+            font-size: 14px;
+            color: #666;
         }
 
-        .btn-primary {
-            background-color: #007bff;
-            color: #fff;
+        /* 调整编辑按钮的样式 */
+        .edit-button {
+            margin: 15px;
+            align-self: center;
         }
+
+        /* 响应式布局调整 */
+        @media (max-width: 768px) {
+            .card {
+                flex-basis: calc(50% - 20px); /* 在中等屏幕尺寸下调整为两列 */
+            }
+        }
+
+        @media (max-width: 576px) {
+            .card {
+                flex-basis: calc(100% - 20px); /* 在小屏幕尺寸下调整为一列 */
+            }
+        }
+
     </style>
     <style>
         /* 自定义模态框样式，使其垂直居中 */
@@ -130,18 +164,18 @@
 
 {% endblock %}
 {% block js %}
-<script>
-    $('.datepicker').datepicker({
-        language: 'zh-CN',
-        format: 'yyyy-mm-dd',
-        minViewMode: 0, // 设置为 '0' 以允许选择到天
-        startDate: '0',
-        autoClose: true
-    }).on('changeDate', function () {
-        $(this).datepicker('hide'); // 选择日期后自动关闭日期选择器
-    });
+    <script>
+        $('.datepicker').datepicker({
+            language: 'zh-CN',
+            format: 'yyyy-mm-dd',
+            minViewMode: 0, // 设置为 '0' 以允许选择到天
+            startDate: '0',
+            autoClose: true
+        }).on('changeDate', function () {
+            $(this).datepicker('hide'); // 选择日期后自动关闭日期选择器
+        });
 
-   $(document).ready(function () {
+        $(document).ready(function () {
             // 当清空按钮点击时，清空搜索框内的内容，并自动点击搜索按钮
             $('#clear-search').click(function () {
                 // 清空搜索框
@@ -152,5 +186,5 @@
                 $('button[type="submit"]').click();
             });
         });
-</script>
+    </script>
 {% endblock %}

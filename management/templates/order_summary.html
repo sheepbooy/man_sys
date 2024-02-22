@@ -1,10 +1,10 @@
 {% extends 'layout.html' %}
-{% block css %}
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-{% endblock %}
-
 {% block content %}
     <div class="container mt-4">
+        <div class="col-md-12">
+            <a href="/ledger/management/" class="btn btn-outline-secondary">&larr; 返回</a>
+            <h2 class="text-center mb-4">订单数统计</h2>
+        </div>
         <form method="get" action="" class="mb-3">
             <div class="row justify-content-center">
                 <div class="col-md-auto mb-3">
@@ -28,37 +28,33 @@
             <div class="alert alert-danger">{{ error }}</div>
         {% endif %}
 
-        {% if total_monthly_orders %}
-            <div class="row">
-                <div class="col-lg-12">
+        <div class="row">
+            {% if total_monthly_orders %}
+                <div class="col-md-4 chart-container">
                     <h2 class="h5 mb-3">{{ selected_year }}年订单总数</h2>
                     <canvas id="totalOrdersChart"></canvas>
                 </div>
-            </div>
-        {% endif %}
+            {% endif %}
 
-        {% if internal_trade_department_counts %}
-            <div class="row">
-                <div class="col-lg-12">
+            {% if internal_trade_department_counts %}
+                <div class="col-md-4 chart-container">
                     <h2 class="h5 mb-3">{{ selected_year }}年内贸部各部门订单数</h2>
                     <canvas id="internalOrdersChart"></canvas>
                 </div>
-            </div>
-        {% endif %}
+            {% endif %}
 
-        {% if foreign_trade_department_counts %}
-            <div class="row">
-                <div class="col-lg-12">
+            {% if foreign_trade_department_counts %}
+                <div class="col-md-4 chart-container">
                     <h2 class="h5 mb-3">{{ selected_year }}年外贸部订单数</h2>
                     <canvas id="foreignOrdersChart"></canvas>
                 </div>
-            </div>
-        {% endif %}
+            {% endif %}
+        </div>
     </div>
-
 {% endblock %}
 
 {% block js %}
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             // 总订单数数据
@@ -187,4 +183,43 @@
             }
         });
     </script>
+{% endblock %}
+
+{% block css %}
+    <style>
+        .container {
+            max-width: 1200px; /* 调整容器最大宽度 */
+        }
+
+        .btn-outline-secondary {
+            margin-bottom: 20px; /* 返回按钮下方间距 */
+        }
+
+        h2.text-center {
+            color: #007bff; /* 标题颜色 */
+            margin-bottom: 30px; /* 标题下方间距 */
+        }
+
+        .form-select, .btn-primary {
+            margin-right: 10px; /* 表单元素之间的间距 */
+        }
+
+        .mb-3 {
+            margin-bottom: 1rem !important; /* 调整下方间距 */
+        }
+
+        .chart-container {
+            margin-bottom: 50px; /* 图表下方间距 */
+        }
+
+        canvas {
+            background-color: #f8f9fa; /* 图表背景颜色 */
+            border-radius: 5px; /* 图表圆角 */
+            box-shadow: 0 0 10px rgba(0, 0, 0, .1); /* 图表阴影 */
+        }
+
+        .chart-container {
+            padding: 15px; /* 为图表添加内边距 */
+        }
+    </style>
 {% endblock %}

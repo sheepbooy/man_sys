@@ -6,7 +6,8 @@
             <!-- 搜索和添加按钮的代码 -->
             {% if 'management.add_foreigntradeledger' in request.session.info.user_permissions %}
                 <div class="col">
-                    <a href="/foreign/ledger/add/" class="btn btn-primary mb-3">添加</a>
+                    <a href="/ledger/management/" class="btn btn-outline-primary">返回</a>
+                    <a href="/foreign/ledger/add/" class="btn btn-primary">添加</a>
                 </div>
             {% endif %}
             <div class="col text-end">
@@ -14,6 +15,7 @@
                     <div class="input-group">
                         <input type="text" name='q' class="form-control" placeholder="搜索" value="{{ value }}">
                         <button class="btn btn-outline-secondary" type="submit">搜索</button>
+                        <button class="btn btn-outline-secondary" type="button" id="clear-search-button">清空</button>
                     </div>
                 </form>
             </div>

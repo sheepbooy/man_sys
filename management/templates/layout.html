@@ -217,6 +217,17 @@
         });
     });
 </script>
+<script>
+    $(document).ready(function () {
+        // 当清空按钮点击时，清空搜索框内的内容，并自动点击搜索按钮
+        $('#clear-search-button').click(function () {
+            // 清空搜索框
+            $('input[name="q"]').val('');
+            // 触发搜索按钮点击事件
+            $('button[type="submit"]').click();
+        });
+    });
+</script>
 {% block js %}
 {% endblock %}
 </body>

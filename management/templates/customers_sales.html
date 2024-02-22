@@ -3,7 +3,10 @@
 {% block content %}
 
     <div class="my-4 fade-in">
-        <h1 class="mb-3">统计面板</h1>
+        <div class="col-md-12">
+            <a href="/ledger/management/" class="btn btn-outline-secondary">&larr; 返回</a>
+            <h2 class="text-center mb-4" style="color: #007bff;">客户数和实现销售额</h2>
+        </div>
 
         <!-- 添加年份和月份筛选 -->
         <form method="get" class="mb-4 d-flex justify-content-start">
@@ -70,16 +73,16 @@
 {% endblock %}
 
 {% block js %}
-{#    <script>#}
-{#        function checkYear() {#}
-{#            var yearSelect = document.getElementById('year-select');#}
-{#            var monthSelect = document.getElementById('month-select');#}
-{#            if (yearSelect.value) {#}
-{#                monthSelect.disabled = false;#}
-{#            } else {#}
-{#                monthSelect.disabled = true;#}
-{#                monthSelect.value = ''; // 可选：重置月份选择#}
-{#            }#}
-{#        }#}
-{#    </script>#}
+    {#    <script>#}
+    {#        function checkYear() {#}
+    {#            var yearSelect = document.getElementById('year-select');#}
+    {#            var monthSelect = document.getElementById('month-select');#}
+    {#            if (yearSelect.value) {#}
+    {#                monthSelect.disabled = false;#}
+    {#            } else {#}
+    {#                monthSelect.disabled = true;#}
+    {#                monthSelect.value = ''; // 可选：重置月份选择#}
+    {#            }#}
+    {#        }#}
+    {#    </script>#}
 {% endblock %}

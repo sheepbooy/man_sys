@@ -1,12 +1,11 @@
 {% extends 'layout.html' %}
 
-{% block css %}
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-{% endblock %}
-
 {% block content %}
     <div class="container mt-4">
+        <div class="col-md-12">
+            <a href="/ledger/management/" class="btn btn-outline-secondary">&larr; 返回</a>
+            <h2 class="text-center mb-4" style="color: #007bff;">年度回款额和增量</h2>
+        </div>
         <form method="get" action="" class="mb-3">
             <div class="row justify-content-center">
                 <!-- 年份选择框 -->
@@ -39,7 +38,7 @@
             <div class="container mt-4">
                 <!-- 销售额和增量图表 -->
                 <div class="chart-container">
-                    <h5 class="text-center">年度回款额和增量</h5>
+{#                    <h5 class="text-center">年度回款额和增量</h5>#}
                     <canvas id="salesChart" width="400" height="200"></canvas>
                 </div>
 
@@ -58,7 +57,7 @@
 
 {% block js %}
 
-
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
         var chartData = JSON.parse('{{ chart_data|safe }}');
         var ctxSales = document.getElementById('salesChart').getContext('2d');

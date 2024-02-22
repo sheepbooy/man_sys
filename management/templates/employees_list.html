@@ -1,11 +1,15 @@
 {% extends 'layout.html' %}
 {% block content %}
     <div class="container mt-4">
-        <h2 class="mb-4">员工列表</h2>
+        <div class="col-md-12">
+{#            <a href="/user/management/" class="btn btn-outline-secondary">&larr; 返回</a>#}
+            <h2 class="text-center mb-4" style="color: #007bff;">员工列表</h2>
+        </div>
         <div class="row mb-3">
             <!-- 搜索和添加按钮的代码 -->
             {% if 'management.add_employees' in request.session.info.user_permissions %}
                 <div class="col">
+                    <a href="/user/management/" class="btn btn-outline-secondary">返回</a>
                     <a href="/employees/add/" class="btn btn-primary">添加</a>
                 </div>
             {% endif %}
@@ -14,6 +18,7 @@
                     <div class="input-group">
                         <input type="text" name='q' class="form-control" placeholder="搜索" value="{{ value }}">
                         <button class="btn btn-outline-secondary" type="submit">搜索</button>
+                        <button class="btn btn-outline-secondary" type="button" id="clear-search-button">清空</button>
                     </div>
                 </form>
             </div>

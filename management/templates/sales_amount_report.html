@@ -1,90 +1,95 @@
 {% extends 'layout.html' %}
 
 {% block content %}
-    <h1 class="text-center mb-4">销售报表</h1>
+    <div class="container mt-4">
 
-    <!-- 年份和部门选择表单 -->
-    <form action="" method="get" class="row mb-4 justify-content-center">
-        <div class="col-auto">
-            <label for="year" class="col-form-label">选择年份：</label>
-            <select name="year" id="year" class="form-select">
-                {% for year in years %}
-                    <option value="{{ year }}"
-                            {% if year|stringformat:"s" == selected_year %}selected{% endif %}>
-                        {{ year }}
-                    </option>
-                {% endfor %}
-            </select>
-        </div>
-        <div class="col-auto">
-            <label for="department" class="col-form-label">选择部门：</label>
-            <select name="department" id="department" class="form-select">
-                {% for name in departments %}
-                    <option value="{{ name }}"
-                            {% if selected_department == name %}selected{% endif %}>
-                        {{ name }}
-                    </option>
-                {% endfor %}
-            </select>
-        </div>
-        <div class="col-auto">
-            <button type="submit" class="btn btn-primary">查询</button>
-        </div>
-    </form>
-    {% if selected_year %}
-        <!-- 图表容器 -->
-        <div class="mb-4">
-            <canvas id="salesChart"></canvas>
+        <div class="col-md-12">
+            <a href="/ledger/management/" class="btn btn-outline-secondary">&larr; 返回</a>
+            <h2 class="text-center mb-4" style="color: #007bff;">销售数量报表</h2>
         </div>
 
-        <!-- 折叠组件用于展示结果的表格 -->
-        <div class="mb-4">
-            <button class="btn btn-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#salesDataTable"
-                    aria-expanded="false" aria-controls="salesDataTable">
-                显示/隐藏销售数据
-            </button>
-            <div class="collapse show" id="salesDataTable">
-                <table class="table table-striped mt-3">
-                    <thead>
-                    <tr>
-                        <th>部门</th>
-                        <th>业务员</th>
-                        <th>产品名称</th>
-                        <th>月份</th>
-                        <th>销售数量总额</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {% for item in sales_data %}
-                        <tr>
-                            <td>{{ item.region_department }}</td>
-                            <td>{{ item.salesperson }}</td>
-                            <td>{{ item.product_name }}</td>
-                            <td>{{ item.month_annotate|date:"Y-m" }}</td>
-                            <td>{{ item.total_sales_quantity }}</td>
-                        </tr>
+        <!-- 年份和部门选择表单 -->
+        <form action="" method="get" class="row mb-4 justify-content-center">
+            <div class="col-auto">
+                <label for="year" class="col-form-label">选择年份：</label>
+                <select name="year" id="year" class="form-select">
+                    {% for year in years %}
+                        <option value="{{ year }}"
+                                {% if year|stringformat:"s" == selected_year %}selected{% endif %}>
+                            {{ year }}
+                        </option>
                     {% endfor %}
-                    </tbody>
-                </table>
+                </select>
             </div>
-        </div>
-    {% else %}
-        {% if not selected_year %}
+            <div class="col-auto">
+                <label for="department" class="col-form-label">选择部门：</label>
+                <select name="department" id="department" class="form-select">
+                    {% for name in departments %}
+                        <option value="{{ name }}"
+                                {% if selected_department == name %}selected{% endif %}>
+                            {{ name }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-auto">
+                <button type="submit" class="btn btn-primary">查询</button>
+            </div>
+        </form>
+        {% if selected_year %}
+            <!-- 图表容器 -->
+            <div class="mb-4">
+                <canvas id="salesChart"></canvas>
+            </div>
+
+            <!-- 折叠组件用于展示结果的表格 -->
+            <div class="mb-4">
+                <button class="btn btn-secondary" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#salesDataTable"
+                        aria-expanded="false" aria-controls="salesDataTable">
+                    显示/隐藏销售数据
+                </button>
+                <div class="collapse show" id="salesDataTable">
+                    <table class="table table-striped mt-3">
+                        <thead>
+                        <tr>
+                            <th>部门</th>
+                            <th>业务员</th>
+                            <th>产品名称</th>
+                            <th>月份</th>
+                            <th>销售数量总额</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for item in sales_data %}
+                            <tr>
+                                <td>{{ item.region_department }}</td>
+                                <td>{{ item.salesperson }}</td>
+                                <td>{{ item.product_name }}</td>
+                                <td>{{ item.month_annotate|date:"Y-m" }}</td>
+                                <td>{{ item.total_sales_quantity }}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        {% else %}
             {% if not selected_year %}
-                <div class="d-flex justify-content-center mt-3 mb-3">
-                    <div class="card border-primary" style="max-width: 500px;">
-                        <div class="card-header text-center">提示</div>
-                        <div class="card-body text-center">
-                            <h5 class="card-title">等待数据展示</h5>
-                            <p class="card-text">请选择年份以展示数据。</p>
+                {% if not selected_year %}
+                    <div class="d-flex justify-content-center mt-3 mb-3">
+                        <div class="card border-primary" style="max-width: 500px;">
+                            <div class="card-header text-center">提示</div>
+                            <div class="card-body text-center">
+                                <h5 class="card-title">等待数据展示</h5>
+                                <p class="card-text">请选择年份以展示数据。</p>
+                            </div>
                         </div>
                     </div>
-                </div>
+                {% endif %}
             {% endif %}
-
         {% endif %}
-
-    {% endif %}
+    </div>
 {% endblock %}
 
 

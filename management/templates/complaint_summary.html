@@ -6,8 +6,9 @@
         <h2 class="mb-4">全国客诉汇总</h2>
         <div class="row mb-3">
             {% if 'management.add_complaintsummary' in request.session.info.user_permissions %}
-                <div class="col">
-                    <a href="/complaint_summary/add/" class="btn btn-primary mb-3">添加</a>
+                <div class="col">、
+                    <a href="/project/management/" class="btn btn-outline-primary">返回</a>
+                    <a href="/complaint_summary/add/" class="btn btn-primary">添加</a>
                 </div>
             {% endif %}
             <div class="col text-end">
@@ -122,6 +123,4 @@
             }
         });
     </script>
-    </div>
-
 {% endblock %}

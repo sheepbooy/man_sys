@@ -2,7 +2,10 @@
 
 {% block content %}
     <main class="py-5">
-        <h2 class="mb-4">应收账款明细(外贸部)</h2>
+        <div class="col-md-12">
+            <a href="/ledger/management/" class="btn btn-outline-secondary">&larr; 返回</a>
+            <h2 class="text-center mb-4" style="color: #007bff;">{{ value }}应收账款明细(外贸部)</h2>
+        </div>
         <div class="row mb-3">
             <div class="col text-end">
                 <form method="get" id="search-form">
@@ -19,37 +22,37 @@
                 </form>
             </div>
         </div>
+
+
         <div class="container">
             <div class="row">
                 {% for item in page_queryset %}
-                    <div class="col-12 mb-4">
-                        <div class="d-flex card">
-                            <div class="card-body">
-                                <div class="info-item">
-                                    <h4 class="info-title">交易日期</h4>
-                                    <p class="info-content">{{ item.sales_date }}</p>
-                                </div>
-                                <div class="info-item">
-                                    <h4 class="info-title">客户名称</h4>
-                                    <p class="info-content">{{ item.company_name }}</p>
-                                </div>
-                                <div class="info-item">
-                                    <h4 class="info-title">业务员</h4>
-                                    <p class="info-content">{{ item.salesperson }}</p>
-                                </div>
-                                <div class="info-item">
-                                    <h4 class="info-title">应收账款USD</h4>
-                                    <p class="info-content">{{ item.unreceived_payment_usd }}</p>
-                                </div>
-                                <div class="info-item">
-                                    <h4 class="info-title">应收账款RMB</h4>
-                                    <p class="info-content">{{ item.unreceived_payment_cny }}</p>
-                                </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="info-item">
+                                <h4 class="info-title">交易日期</h4>
+                                <p class="info-content">{{ item.sales_date }}</p>
                             </div>
-                            <div class="align-self-end">
-                                <a href="/report/foreign/m_receivable_detail/add/{{ item.serial_number }}/"
-                                   class="btn btn-info btn-primary">编辑</a>
+                            <div class="info-item">
+                                <h4 class="info-title">客户名称</h4>
+                                <p class="info-content">{{ item.company_name }}</p>
                             </div>
+                            <div class="info-item">
+                                <h4 class="info-title">业务员</h4>
+                                <p class="info-content">{{ item.salesperson }}</p>
+                            </div>
+                            <div class="info-item">
+                                <h4 class="info-title">应收账款USD</h4>
+                                <p class="info-content">{{ item.unreceived_payment_usd }}</p>
+                            </div>
+                            <div class="info-item">
+                                <h4 class="info-title">应收账款RMB</h4>
+                                <p class="info-content">{{ item.unreceived_payment_cny }}</p>
+                            </div>
+                        </div>
+                        <div class="align-self-center mb-3">
+                            <a href="/report/foreign/m_receivable_detail/add/{{ item.serial_number }}/"
+                               class="btn btn-info">编辑</a>
                         </div>
                     </div>
                 {% endfor %}
@@ -65,41 +68,69 @@
 
 {% block css %}
     <style>
-        .card {
-            border: 1px solid #ccc;
-            border-radius: 5px;
+        /* 容器和卡片的基础样式 */
+        .container {
+            max-width: 1200px; /* 根据实际需要调整 */
+            margin: auto;
+            padding: 20px;
+        }
+
+        .row {
+            display: flex;
             flex-wrap: wrap;
-            justify-content: space-between;
+            margin-right: -15px;
+            margin-left: -15px;
+        }
+
+        /* 卡片样式 */
+        .card {
             background-color: #fff;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, .1);
+            margin: 10px;
+            flex-grow: 1;
+            flex-basis: calc(33.333% - 20px); /* 三列布局 */
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
         }
 
         .card-body {
+            padding: 15px;
             display: flex;
-            flex-direction: row;
-            flex-wrap: wrap;
+            flex-grow: 1;
+            flex-direction: column;
+            justify-content: space-around;
         }
 
         .info-item {
-            flex-basis: calc(33.33% - 20px);
-            padding: 10px;
+            margin-bottom: 10px;
         }
 
         .info-title {
-            font-size: 18px;
+            font-size: 16px;
             font-weight: bold;
-            margin-bottom: 8px;
+            color: #333;
         }
 
         .info-content {
-            font-size: 16px;
-            margin-bottom: 16px;
+            font-size: 14px;
+            color: #666;
         }
 
-        .btn-primary {
-            background-color: #007bff;
-            color: #fff;
+        /* 响应式布局调整 */
+        @media (max-width: 768px) {
+            .card {
+                flex-basis: calc(50% - 20px); /* 两列布局 */
+            }
         }
+
+        @media (max-width: 576px) {
+            .card {
+                flex-basis: calc(100% - 20px); /* 单列布局 */
+            }
+        }
+
     </style>
 {% endblock %}
 
