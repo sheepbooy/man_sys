@@ -116,7 +116,7 @@ class Pagination(object):
             page_str_list.append(next)
         else:
             self.query_dict.setlist(self.page_param, [self.page + 10])
-            next = '<li  class="page-item"><a class="page-link" href="?page={}">{}</a></li>'.format(
+            next = '<li  class="page-item"><a class="page-link" href="?{}">{}</a></li>'.format(
                 self.query_dict.urlencode(), ">>")
             page_str_list.append(next)
 
