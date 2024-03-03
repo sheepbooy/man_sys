@@ -37,12 +37,13 @@ from management.views import customers_sales
 from management.views import complaint_summary
 from management.views import Salesperson_Sales_Category
 from management.views import sales_visit_report
+from management.views import sales_forecast
 
 urlpatterns = [
     path('admin/', admin.site.urls),
 
     # 测试
-    path('test/', login_register_home.test),    # 登录，注册，主页等相关功能
+    path('test/', login_register_home.test),  # 登录，注册，主页等相关功能
     path('', login_register_home.login_view),
     path('login/', login_register_home.login_view),
     path('register/', login_register_home.register),
@@ -65,9 +66,7 @@ urlpatterns = [
     path('ledger/management/', login_register_home.ledger_management_home),
 
     # 用户管理
-    path('user/management/',login_register_home.user_management_home),
-
-
+    path('user/management/', login_register_home.user_management_home),
 
     # 所有员工信息
     path('employees/', employee.employees_list),
@@ -217,5 +216,11 @@ urlpatterns = [
     path('sales_visit/add/', sales_visit_report.sales_visit_add, name='sales_visit_add'),
     path('sales_visit/edit/<int:_id>/', sales_visit_report.sales_visit_edit, name='sales_visit_edit'),
     path('sales_visit/delete/<int:_id>/', sales_visit_report.sales_visit_delete, name='sales_visit_delete'),
+
+    # 预算详情表
+    path('sales_forecast/', sales_forecast.sales_forecast, name='sales_forecast'),
+    path('sales_forecast/add/', sales_forecast.sales_forecast_add, name='sales_forecast_add'),
+    path('sales_forecast/edit/<int:_id>/', sales_forecast.sales_forecast_edit, name='sales_forecast_edit'),
+    path('sales_forecast/delete/<int:_id>/', sales_forecast.sales_forecast_delete, name='sales_forecast_delete'),
 
 ]

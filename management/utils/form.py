@@ -393,3 +393,11 @@ class Sales_Visit_Form(BootStrapModelForm):
     class Meta:
         model = models.SalesVisitReport
         fields = '__all__'
+
+
+class Sales_Forecast_Form(BootStrapModelForm):
+    """预算详情表"""
+
+    class Meta:
+        model = models.SalesForecast
+        fields = '__all__'

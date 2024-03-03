@@ -915,5 +915,27 @@ class SalesVisitReport(models.Model):
     remarks = models.TextField(blank=True, verbose_name='备注')
 
     class Meta:
-        # managed = False
         db_table = '销售客户拜访报告'
+
+
+class SalesForecast(models.Model):
+    """预算详情表"""
+    id = models.AutoField(primary_key=True, verbose_name='序号')
+    department = models.CharField(max_length=100, verbose_name="销售部")
+    province = models.CharField(max_length=100, verbose_name="省份")
+    city = models.CharField(max_length=100, verbose_name="城市")
+    company_name = models.CharField(max_length=200, verbose_name="企业名称")
+    company_category = models.CharField(max_length=50, verbose_name="企业分类")
+    customer_level = models.CharField(max_length=10, verbose_name="客户级别")
+    budget_category = models.TextField(verbose_name="预算分类")
+    product_name = models.CharField(max_length=200, verbose_name="产品名称")
+    specification_code = models.CharField(max_length=50, verbose_name="规格编码")
+    special_requirement = models.TextField(blank=True, verbose_name="特殊要求")
+    formulation_name = models.CharField(max_length=200, verbose_name="制剂项目名称")
+    quantity_kg = models.IntegerField(verbose_name="数量（KG）")
+    amount_ten_thousand = models.DecimalField(max_digits=10, decimal_places=2, verbose_name="金额（万元）")
+    check_price = models.IntegerField(verbose_name="核对单价")
+    year = models.IntegerField(verbose_name="年份")
+
+    class Meta:
+        db_table = '预算详情表'

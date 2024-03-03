@@ -653,8 +653,6 @@ V
 ,management/templates/Sales_Visit_Report.html,c\9\c996b3bb0963657c994693cbe4e1cad322015dac
 Q
 !management/templates/warning.html,a\3\a3c977ad9b9ce7302b2d757da81106f20febac0c
-Å
-Qmanagement/migrations/0002_alter_employees_department_alter_employees_position.py,a\c\acd0886ed7ca4dc5bd2a1044544964e479e64e12
 @
 django_debug.log,8\a\8aab2c286c8404f316c041bdeb9b84a73d5c3aa4
 b
@@ -665,3 +663,9 @@ a
 .management/templates/user_management_home.html,7\9\79f2d8f14d8db1912e9b597f50449dbf0e38a459
 `
 0management/templates/ledger_management_home.html,7\a\7aa67af18a41d74f0e1259b419acb64ad4c58641
+F
+management/__init__.py,4\6\462e324a475380b64fa6a5ad3898ce0d305b42e4
+R
+"management/views/sales_forecast.py,7\a\7a1dd09239bb51ae2f305c53e5c36538acbbde6c
+X
+(management/templates/sales_forecast.html,7\f\7f1b074fe76bce030a7ace19c6ba8d631b1012d5
