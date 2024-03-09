@@ -38,6 +38,7 @@ from management.views import complaint_summary
 from management.views import Salesperson_Sales_Category
 from management.views import sales_visit_report
 from management.views import sales_forecast
+from management.views import medicine
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -223,4 +224,9 @@ urlpatterns = [
     path('sales_forecast/edit/<int:_id>/', sales_forecast.sales_forecast_edit, name='sales_forecast_edit'),
     path('sales_forecast/delete/<int:_id>/', sales_forecast.sales_forecast_delete, name='sales_forecast_delete'),
 
+    # 仿制药参比制剂目录
+    path('medicine/', medicine.medicine, name='medicine'),
+    path('medicine/add/', medicine.medicine_add, name='medicine_add'),
+    path('medicine/edit/<int:_id>/', medicine.medicine_edit, name='medicine_edit'),
+    path('medicine/delete/<int:_id>/', medicine.medicine_delete, name='medicine_delete'),
 ]

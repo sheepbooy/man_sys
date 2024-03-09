@@ -1,0 +1,89 @@
+{% extends 'layout.html' %}
+{% block content %}
+    <div class="container mt-4">
+        <h2 class="mb-4">仿制药参比制剂目录</h2>
+        <div class="row mb-3">
+            <!-- 搜索和添加按钮的代码 -->
+            {% if 'management.add_medicine' in request.session.info.user_permissions %}
+                <div class="col">
+                    <a href="/project/management/" class="btn btn-outline-primary">返回</a>
+                    <a href="/medicine/add/" class="btn btn-primary">添加</a>
+                </div>
+            {% endif %}
+            <div class="col text-end">
+                <form method="get">
+                    <div class="input-group">
+                        <input type="text" name='q' class="form-control" placeholder="搜索" value="{{ value }}">
+                        <button class="btn btn-outline-secondary" type="submit">搜索</button>
+                        <button class="btn btn-outline-secondary" type="button" id="clear-search-button">清空</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="scrollable-table">
+            <table class="table table-fixed custom-table">
+                <!-- 表头和表格内容 -->
+                <thead>
+                <tr>
+                    <th>序号</th>
+                    <th>药品通用名称</th>
+                    <th>英文名称/商品名</th>
+                    <th>规格</th>
+                    <th>剂型</th>
+                    <th>持证商</th>
+                    <th>备注1</th>
+                    <th>备注2</th>
+                    <th>处方（原研）</th>
+                    <th>处方（翻译）</th>
+                    <th>是否含我司辅料</th>
+                    <th>辅料</th>
+                    <th>剂型</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for medicine in page_queryset %}
+                    <tr>
+                        <td>{{ medicine.serial_number }}</td>
+                        <td>{{ medicine.common_name }}</td>
+                        <td>{{ medicine.english_name }}</td>
+                        <td>{{ medicine.specification }}</td>
+                        <td>{{ medicine.dosage_form }}</td>
+                        <td>{{ medicine.license_holder }}</td>
+                        <td>{{ medicine.note1 }}</td>
+                        <td>{{ medicine.note2 }}</td>
+                        <td>{{ medicine.prescription_origin }}</td>
+                        <td>{{ medicine.prescription_translation }}</td>
+                        <td>{{ medicine.contains_our_excipient }}</td>
+                        <td>{{ medicine.excipient }}</td>
+                        <td>{{ medicine.dosage_form_1 }}</td>
+                        <td>
+                            {% if 'management.change_medicine' in request.session.info.user_permissions %}
+                                <a href="/medicine/edit/{{ medicine.id }}/" class="btn btn-info btn-sm">编辑</a>
+                            {% endif %}
+                            {% if 'management.delete_medicine' in request.session.info.user_permissions %}
+                                <button type="button" class="btn btn-danger btn-sm delete-btn"
+                                        data-delete-url="/medicine/delete/{{ medicine.id }}/">
+                                    删除
+                                </button>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="9">No data available</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <nav aria-label="Page navigation example">
+            <!-- 分页导航 -->
+            <ul class="pagination justify-content-center">
+                {{ page_string|safe }}
+            </ul>
+        </nav>
+    </div>
+{% endblock %}

@@ -25,7 +25,7 @@ def sales_forecast(request):
         query_set = models.SalesForecast.objects.filter(query)
     else:
         query_set = models.SalesForecast.objects.all()
-    print(query_set)
+    # print(query_set)
     page_object = Pagination(request, query_set)
     page_object.html()
 
@@ -44,14 +44,14 @@ def sales_forecast_add(request):
     """问题反馈表添加"""
     if request.method == 'GET':
         form = Sales_Forecast_Form()
-        return render(request, 'change.html', {'form': form, 'address': 'question'})
+        return render(request, 'change.html', {'form': form, 'address': 'sales_forecast'})
 
     form = Sales_Forecast_Form(data=request.POST)
     if form.is_valid():
         form.save()
         return redirect('/sales_forecast/')
 
-    return render(request, 'change.html', {'form': form, 'address': 'question'})
+    return render(request, 'change.html', {'form': form, 'address': 'sales_forecast'})
 
 
 @permission_required('management.change_salesforecast', '/warning/')
@@ -60,14 +60,14 @@ def sales_forecast_edit(request, _id):
     row_object = models.SalesForecast.objects.filter(id=_id).first()
     if request.method == 'GET':
         form = Sales_Forecast_Form(instance=row_object)
-        return render(request, 'change.html', {'form': form, 'address': 'question'})
+        return render(request, 'change.html', {'form': form, 'address': 'sales_forecast'})
 
     form = Sales_Forecast_Form(data=request.POST, instance=row_object)
     if form.is_valid():
         form.save()
         return redirect('/sales_forecast/')
 
-    return render(request, 'change.html', {'form': form, 'address': 'question'})
+    return render(request, 'change.html', {'form': form, 'address': 'sales_forecast'})
 
 
 @permission_required('management.delete_salesforecast', '/warning/')

@@ -935,7 +935,28 @@ class SalesForecast(models.Model):
     quantity_kg = models.IntegerField(verbose_name="数量（KG）")
     amount_ten_thousand = models.DecimalField(max_digits=10, decimal_places=2, verbose_name="金额（万元）")
     check_price = models.IntegerField(verbose_name="核对单价")
-    year = models.IntegerField(verbose_name="年份")
+    year = models.IntegerField(verbose_name="年份", blank=True)
 
     class Meta:
         db_table = '预算详情表'
+
+
+class Medicine(models.Model):
+    """仿制药参比制剂目录"""
+    id = models.AutoField(primary_key=True, verbose_name='ID')
+    serial_number = models.CharField(max_length=50, verbose_name='序号')
+    common_name = models.CharField(max_length=255, verbose_name='药品通用名称')
+    english_name = models.CharField(max_length=255, verbose_name='英文名称/商品名', blank=True)
+    specification = models.TextField(verbose_name='规格', blank=True)
+    dosage_form = models.CharField(max_length=50, verbose_name='剂型', blank=True)
+    license_holder = models.CharField(max_length=255, verbose_name='持证商', blank=True)
+    note1 = models.CharField(max_length=255, verbose_name='备注1', blank=True)
+    note2 = models.CharField(max_length=255, verbose_name='备注2', blank=True)
+    prescription_origin = models.TextField(verbose_name='处方（原研）', blank=True)
+    prescription_translation = models.TextField(verbose_name='处方（翻译）', blank=True)
+    contains_our_excipient = models.CharField(max_length=50, verbose_name='是否含我司辅料', blank=True)
+    excipient = models.CharField(max_length=255, verbose_name='辅料', blank=True)
+    dosage_form_1 = models.CharField(max_length=50, verbose_name='剂型', blank=True)
+
+    class Meta:
+        db_table = '仿制药参比制剂目录'

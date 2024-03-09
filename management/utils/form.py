@@ -401,3 +401,11 @@ class Sales_Forecast_Form(BootStrapModelForm):
     class Meta:
         model = models.SalesForecast
         fields = '__all__'
+
+
+class Medicine_Form(BootStrapModelForm):
+    """仿制药参比制剂目录"""
+
+    class Meta:
+        model = models.Medicine
+        exclude = ['id']

@@ -669,3 +669,13 @@ R
 "management/views/sales_forecast.py,7\a\7a1dd09239bb51ae2f305c53e5c36538acbbde6c
 X
 (management/templates/sales_forecast.html,7\f\7f1b074fe76bce030a7ace19c6ba8d631b1012d5
+r
+Bmanagement/migrations/0002_medicine_salesforecast_year_and_more.py,0\6\06a35447ac0565f616e4ce6ed35c81a2c3484972
+L
+management/views/medicine.py,2\e\2e89f66464a8a77c612cde1008998e3fbface90f
+R
+"management/templates/medicine.html,f\e\fe864d3d6052a8a145bd5dc5ba7a73b452064ba1
+Q
+!management/migrations/__init__.py,5\4\548032e67942839a45d5e9559cf0a73b47b53888
+ˆ
+Xmanagement/migrations/0002_authorization_complaintsummary_customerengagement_and_more.py,0\e\0eafd2c3842626b99dcd01a2461e07e6665b2f9b

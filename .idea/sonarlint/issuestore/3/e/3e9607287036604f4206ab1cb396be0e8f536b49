@@ -1,18 +1,0 @@
-
-xpython:S1192¹"SDefine a constant instead of duplicating this literal 'å¯¹åº”è§„æ ¼ç¼–ç ' 3 times.(ì¤ŒŠûÿÿÿÿ8‚ÉŠúß1
-xpython:S1192Ô"SDefine a constant instead of duplicating this literal 'è½åœ°ä¼ä¸šåç§°' 5 times.(äĞ×Âûÿÿÿÿ8‚ÉŠúß1
-python:S1192Á"\Define a constant instead of duplicating this literal 'æ˜¯å¦ä¸€è‡´æ€§è¯„ä»·å“ç§' 5 times.(¸¦µ¬üÿÿÿÿ8‚ÉŠúß1
-python:S1192Ç"\Define a constant instead of duplicating this literal 'æå‡ºä¾›åº”å•†å˜æ›´ç”³è¯·' 3 times.(éº‹ìşÿÿÿÿ8‚ÉŠúß1
-xpython:S1192Å"SDefine a constant instead of duplicating this literal 'å®¢æˆ·é‡è¦ç¨‹åº¦' 5 times.(§ÂµÅÿÿÿÿÿ8‚ÉŠúß1
-}python:S1192É"]Define a constant instead of duplicating this literal 'è¿ç»­3æ‰¹è¾…æ–™å°æ ·æ£€æµ‹' 3 times.(‘…º€8ƒÉŠúß1
-rpython:S1192Ö"SDefine a constant instead of duplicating this literal 'é£Ÿå“æ·»åŠ å‰‚éƒ¨' 3 times.(–Ï‡8ƒÉŠúß1
-„python:S1192Ì"_Define a constant instead of duplicating this literal 'è¡¥å……ç”³è¯·å¤‡æ¡ˆå®Œæˆå˜æ›´' 3 times.( º¿üÿÿÿÿ8ƒÉŠúß1
-spython:S1192Ä"SDefine a constant instead of duplicating this literal 'èµ·å§‹å¼€å‘æ—¥æœŸ' 5 times.(ïÂÒ‰8ƒÉŠúß1
-npython:S1192È"PDefine a constant instead of duplicating this literal 'ä¾›åº”å•†å®¡è®¡' 3 times.(‹ï‹Æúÿÿÿÿ
-spython:S1192Ö"SDefine a constant instead of duplicating this literal 'ç§»äº¤é”€å”®ç»ç†' 5 times.(ªø¹á8ƒÉŠúß1
-upython:S1192Ë"PDefine a constant instead of duplicating this literal 'ç¨³å®šæ€§è€ƒå¯Ÿ' 3 times.( ÜÄîúÿÿÿÿ8„ÉŠúß1
-python:S1192½"\Define a constant instead of duplicating this literal 'çº§åˆ«(è¯å“çº§/åŒ–å­¦çº§)' 3 times.(­İ÷ºûÿÿÿÿ8„ÉŠúß1
-vpython:S1192Ê"QDefine a constant instead of duplicating this literal 'é¦–æ¬¡ç”Ÿäº§3æ‰¹' 3 times.(ƒçï‰ÿÿÿÿÿ8„ÉŠúß1
-opython:S1192Ö"PDefine a constant instead of duplicating this literal 'ç ”å‘æœåŠ¡éƒ¨' 3 times.(–Ï‡8„ÉŠúß1
-ppython:S1192»"PDefine a constant instead of duplicating this literal 'é¢„ä¼°å¹´ç”¨é‡' 3 times.(ÖÅëÈ8„ÉŠúß1
-qpython:S1192Í"SDefine a constant instead of duplicating this literal 'æ­£å¼åˆåŒç­¾è®¢' 3 times.(„£™Øøÿÿÿÿ
