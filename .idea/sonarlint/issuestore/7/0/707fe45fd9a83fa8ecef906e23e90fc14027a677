@@ -1,4 +1,4 @@
 
-ppython:S1192-"QDefine a constant instead of duplicating this literal 'foreign/customer' 4 times.(íçÅŒ8œáŒ¼1
-wpython:S11922"SDefine a constant instead of duplicating this literal '/foreign/customer/' 3 times.(Ğ¶»€ÿÿÿÿÿ8Ğæ—Š¼1
-kpython:S1192-"LDefine a constant instead of duplicating this literal 'change.html' 4 times.(íçÅŒ8œáŒ¼1
+ppython:S11922"QDefine a constant instead of duplicating this literal 'foreign/customer' 4 times.(íçÅŒ8œáŒ¼1
+wpython:S11927"SDefine a constant instead of duplicating this literal '/foreign/customer/' 3 times.(Ğ¶»€ÿÿÿÿÿ8Ğæ—Š¼1
+kpython:S11922"LDefine a constant instead of duplicating this literal 'change.html' 4 times.(íçÅŒ8œáŒ¼1

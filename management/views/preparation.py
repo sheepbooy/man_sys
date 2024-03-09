@@ -5,6 +5,7 @@ from management.utils.pagination import Pagination
 from management.utils.form import ExistingProductCompleted_form, ExistingFormulationDeveloping_form, \
     ExistingFormulationToDevelop_form
 from management import models
+from management.utils.convert import convert_none_to_empty_string
 
 
 def preparation(request, _type):
@@ -50,6 +51,9 @@ def preparation(request, _type):
             query_set = None
     else:
         query_set = model.objects.all() if model else None
+
+    # 在这里处理查询集，将所有None值转换为空字符串
+    query_set = convert_none_to_empty_string(query_set)
 
     page_object = Pagination(request, query_set)
     page_object.html()

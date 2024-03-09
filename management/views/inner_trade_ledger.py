@@ -1,6 +1,8 @@
 from django.contrib.auth.decorators import permission_required
 from django.shortcuts import render, redirect
 from django.db.models import Q
+
+from management.utils.convert import convert_none_to_empty_string
 from management.utils.pagination import Pagination
 from management.utils.form import inner_trade_ledger_form
 from management import models
@@ -25,6 +27,9 @@ def inner_trade_ledger(request):
         query_set = models.InternalTradeLedger.objects.filter(query)
     else:
         query_set = models.InternalTradeLedger.objects.all()
+
+    # 在这里处理查询集，将所有None值转换为空字符串
+    query_set = convert_none_to_empty_string(query_set)
 
     page_object = Pagination(request, query_set)
     page_object.html()
@@ -54,6 +59,9 @@ def x_month_inner_trade_ledger(request):
         query &= Q(product_name__icontains=value2)
 
     query_set = models.InternalTradeLedger.objects.filter(query)
+
+    # 在这里处理查询集，将所有None值转换为空字符串
+    query_set = convert_none_to_empty_string(query_set)
 
     # 进行分页等后续处理，保持不变
     page_object = Pagination(request, query_set)

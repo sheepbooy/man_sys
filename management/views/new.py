@@ -1,6 +1,8 @@
 from django.core.exceptions import PermissionDenied
 from django.shortcuts import render, redirect
 from django.db.models import Q
+
+from management.utils.convert import convert_none_to_empty_string
 from management.utils.pagination import Pagination
 from management.utils.form import NewProductDeveloping_form, NewProductCompleted_form
 from management import models
@@ -45,6 +47,9 @@ def new(request, _type):
             query_set = None
     else:
         query_set = model.objects.all() if model else None
+
+    # 在这里处理查询集，将所有None值转换为空字符串
+    query_set = convert_none_to_empty_string(query_set)
 
     page_object = Pagination(request, query_set)
     page_object.html()

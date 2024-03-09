@@ -34,7 +34,8 @@ def get_exists_years():
     # print(foreign_years)
 
     # 合并并排序年份
-    years = sorted(set(list(internal_years) + list(foreign_years)))
+    # 合并年份，排除None值，然后排序
+    years = sorted(set([year for year in list(internal_years) + list(foreign_years) if year is not None]))
     return years
 
 

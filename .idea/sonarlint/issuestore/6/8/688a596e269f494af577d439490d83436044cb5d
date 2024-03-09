@@ -1,4 +1,4 @@
 
-spython:S1192R"TDefine a constant instead of duplicating this literal '/innertrade/ledger/' 3 times.(ÄÍ²¨8Ã‰ÅÒ¾1
-vpython:S1192M"RDefine a constant instead of duplicating this literal 'innertrade/ledger' 4 times.(‚Šıºûÿÿÿÿ8Ã‰ÅÒ¾1
-ppython:S1192M"LDefine a constant instead of duplicating this literal 'change.html' 4 times.(‚Šıºûÿÿÿÿ8Ã‰ÅÒ¾1
+spython:S1192Z"TDefine a constant instead of duplicating this literal '/innertrade/ledger/' 3 times.(ÄÍ²¨8Ã‰ÅÒ¾1
+vpython:S1192U"RDefine a constant instead of duplicating this literal 'innertrade/ledger' 4 times.(‚Šıºûÿÿÿÿ8Ã‰ÅÒ¾1
+ppython:S1192U"LDefine a constant instead of duplicating this literal 'change.html' 4 times.(‚Šıºûÿÿÿÿ8Ã‰ÅÒ¾1

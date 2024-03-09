@@ -4,6 +4,7 @@ from django.db.models import Q
 from management.utils.pagination import Pagination
 from management.utils.form import CustomerAudit_Form
 from management import models
+from management.utils.convert import convert_none_to_empty_string
 
 
 @permission_required('management.view_customeraudit', '/warning/')
@@ -26,6 +27,9 @@ def customer_audit(request):
     else:
         query_set = models.CustomerAudit.objects.all()
     # print(query_set)
+    # 在这里处理查询集，将所有None值转换为空字符串
+    query_set = convert_none_to_empty_string(query_set)
+
     page_object = Pagination(request, query_set)
     page_object.html()
 

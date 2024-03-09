@@ -685,3 +685,9 @@ X
 (management/templates/customer_audit.html,8\9\89da560c35d49db2de114d1305eb2e1e14819f4a
 [
 +management/migrations/0003_customeraudit.py,1\c\1c2f863046725774f0ba3782b325f6b60bdc343c
+`
+0management/utils/convert_none_to_empty_string.py,c\4\c4038d23589f54549e194150deff3acb42f120b7
+B
+management/apps.py,2\6\26c3f31ade803a34f199284139e13da270a7748f
+K
+management/utils/convert.py,0\c\0ce09c042dd8b2d64d441d3764e0ae21c83bf190

@@ -1,6 +1,8 @@
 from django.contrib.auth.decorators import permission_required
 from django.shortcuts import render, redirect
 from django.db.models import Q
+
+from management.utils.convert import convert_none_to_empty_string
 from management.utils.pagination import Pagination
 from management.utils.form import CustomerProfile_form
 from management import models
@@ -26,6 +28,8 @@ def dev_custom(request):
     else:
         query_set = models.CustomerProfile.objects.all()
 
+    # 在这里处理查询集，将所有None值转换为空字符串
+    query_set = convert_none_to_empty_string(query_set)
     page_object = Pagination(request, query_set)
     page_object.html()
 
