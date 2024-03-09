@@ -1,0 +1,83 @@
+{% extends 'layout.html' %}
+{% block content %}
+    <div class="container mt-4">
+        <h2 class="mb-4">客户审计表</h2>
+        <div class="row mb-3">
+            <!-- 搜索和添加按钮的代码 -->
+            {% if 'management.add_customeraudit' in request.session.info.user_permissions %}
+                <div class="col">
+                    <a href="/customer/management/" class="btn btn-outline-primary">返回</a>
+                    <a href="/customer_audit/add/" class="btn btn-primary">添加</a>
+                </div>
+            {% endif %}
+            <div class="col text-end">
+                <form method="get">
+                    <div class="input-group">
+                        <input type="text" name='q' class="form-control" placeholder="搜索" value="{{ value }}">
+                        <button class="btn btn-outline-secondary" type="submit">搜索</button>
+                        <button class="btn btn-outline-secondary" type="button" id="clear-search-button">清空</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="scrollable-table">
+            <table class="table table-fixed custom-table">
+                <!-- 表头和表格内容 -->
+                <thead>
+                <tr>
+                    <th>序号</th>
+                    <th>月份</th>
+                    <th>申请日期</th>
+                    <th>审计日期</th>
+                    <th>是否收到审计函</th>
+                    <th>客户名称</th>
+                    <th>销售经理</th>
+                    <th>审计品种</th>
+                    <th>审计类型</th>
+                    <th>备注</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for customer_audit in page_queryset %}
+                    <tr>
+                        <td>{{ customer_audit.id }}</td>
+                        <td>{{ customer_audit.month }}</td>
+                        <td>{{ customer_audit.application_date }}</td>
+                        <td>{{ customer_audit.audit_date }}</td>
+                        <td>{{ customer_audit.received_audit_letter }}</td>
+                        <td>{{ customer_audit.customer_name }}</td>
+                        <td>{{ customer_audit.sales_manager }}</td>
+                        <td>{{ customer_audit.audit_variety }}</td>
+                        <td>{{ customer_audit.audit_type }}</td>
+                        <td>{{ customer_audit.remarks }}</td>
+                        <td>
+                            {% if 'management.change_customeraudit' in request.session.info.user_permissions %}
+                                <a href="/customer_audit/edit/{{ customer_audit.id }}/" class="btn btn-info btn-sm">编辑</a>
+                            {% endif %}
+                            {% if 'management.delete_customeraudit' in request.session.info.user_permissions %}
+                                <button type="button" class="btn btn-danger btn-sm delete-btn"
+                                        data-delete-url="/customer_audit/delete/{{ customer_audit.id }}/">
+                                    删除
+                                </button>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="9">No data available</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <nav aria-label="Page navigation example">
+            <!-- 分页导航 -->
+            <ul class="pagination justify-content-center">
+                {{ page_string|safe }}
+            </ul>
+        </nav>
+    </div>
+{% endblock %}

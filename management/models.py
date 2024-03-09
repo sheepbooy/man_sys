@@ -960,3 +960,20 @@ class Medicine(models.Model):
 
     class Meta:
         db_table = '仿制药参比制剂目录'
+
+
+class CustomerAudit(models.Model):
+    """客户审计表"""
+    id = models.AutoField(primary_key=True, verbose_name='序号')
+    month = models.DateField(verbose_name="月份")
+    application_date = models.DateField(verbose_name="申请日期")
+    audit_date = models.DateField(verbose_name="审计日期")
+    received_audit_letter = models.BooleanField(verbose_name="是否收到审计函")
+    customer_name = models.CharField(max_length=255, verbose_name="客户名称")
+    sales_manager = models.CharField(max_length=100, verbose_name="销售经理")
+    audit_variety = models.TextField(verbose_name="审计品种")
+    audit_type = models.CharField(max_length=50, verbose_name="审计类型")
+    remarks = models.TextField(blank=True, verbose_name="备注")
+
+    class Meta:
+        db_table = '客户审计表'

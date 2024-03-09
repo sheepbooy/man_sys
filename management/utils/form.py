@@ -409,3 +409,9 @@ class Medicine_Form(BootStrapModelForm):
     class Meta:
         model = models.Medicine
         exclude = ['id']
+
+class CustomerAudit_Form(BootStrapModelForm):
+    """客户审计表"""
+    class Meta:
+        model = models.CustomerAudit
+        fields = '__all__'

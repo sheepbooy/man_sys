@@ -39,6 +39,7 @@ from management.views import Salesperson_Sales_Category
 from management.views import sales_visit_report
 from management.views import sales_forecast
 from management.views import medicine
+from management.views import customer_audit
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -229,4 +230,10 @@ urlpatterns = [
     path('medicine/add/', medicine.medicine_add, name='medicine_add'),
     path('medicine/edit/<int:_id>/', medicine.medicine_edit, name='medicine_edit'),
     path('medicine/delete/<int:_id>/', medicine.medicine_delete, name='medicine_delete'),
+
+    # 客户审计表
+    path('customer_audit/', customer_audit.customer_audit, name='customer_audit'),
+    path('customer_audit/add/', customer_audit.customer_audit_add, name='customer_audit_add'),
+    path('customer_audit/edit/<int:_id>/', customer_audit.customer_audit_edit, name='customer_audit_edit'),
+    path('customer_audit/delete/<int:_id>/', customer_audit.customer_audit_delete, name='customer_audit_delete'),
 ]

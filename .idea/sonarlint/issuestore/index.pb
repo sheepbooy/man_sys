@@ -679,3 +679,9 @@ Q
 !management/migrations/__init__.py,5\4\548032e67942839a45d5e9559cf0a73b47b53888
 ˆ
 Xmanagement/migrations/0002_authorization_complaintsummary_customerengagement_and_more.py,0\e\0eafd2c3842626b99dcd01a2461e07e6665b2f9b
+R
+"management/views/customer_audit.py,e\c\ec6933335791d0b500b6ac1a88ba5c8e2a06f37f
+X
+(management/templates/customer_audit.html,8\9\89da560c35d49db2de114d1305eb2e1e14819f4a
+[
++management/migrations/0003_customeraudit.py,1\c\1c2f863046725774f0ba3782b325f6b60bdc343c
