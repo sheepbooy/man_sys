@@ -40,68 +40,87 @@
                 </div>
             {% endif %}
 
-            <div class="col-md-6 col-lg-4">
-                <div class="card h-100 border-0 shadow">
-                    <div class="card-body">
-                        <h5 class="card-title">台账基础表（原辅料、食品、研发、产品）</h5>
-                        <p class="card-text">根据销售月份，查询内贸部每月的台账</p>
-                        <a href="/report/inner/m_inner_trade_ledger/" class="btn btn-primary"
-                           target="_blank">前往台账基础表(内贸部)管理</a>
+            {% if 'management.view_internaltradeledger' in request.session.info.user_permissions %}
+                <div class="col-md-6 col-lg-4">
+                    <div class="card h-100 border-0 shadow">
+                        <div class="card-body">
+                            <h5 class="card-title">台账基础表（原辅料、食品、研发、产品）</h5>
+                            <p class="card-text">根据销售月份，查询内贸部每月的台账</p>
+                            <a href="/report/inner/m_inner_trade_ledger/" class="btn btn-primary"
+                               target="_blank">前往台账基础表(内贸部)管理</a>
+                        </div>
                     </div>
                 </div>
-            </div>
+            {% endif %}
 
-            <div class="col-md-6 col-lg-4">
-                <div class="card h-100 border-0 shadow">
-                    <div class="card-body">
-                        <h5 class="card-title">台账基础表（外贸部）</h5>
-                        <p class="card-text">根据销售月份，查询外贸部每月的台账。</p>
-                        <a href="/report/foreign/m_foreign_trade_ledger/" class="btn btn-primary"
-                           target="_blank">前往台账基础表(外贸部)管理</a>
+
+            {% if 'management.view_foreigntradeledger' in request.session.info.user_permissions %}
+                <div class="col-md-6 col-lg-4">
+                    <div class="card h-100 border-0 shadow">
+                        <div class="card-body">
+                            <h5 class="card-title">台账基础表（外贸部）</h5>
+                            <p class="card-text">根据销售月份，查询外贸部每月的台账。</p>
+                            <a href="/report/foreign/m_foreign_trade_ledger/" class="btn btn-primary"
+                               target="_blank">前往台账基础表(外贸部)管理</a>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-md-6 col-lg-4">
-                <div class="card h-100 border-0 shadow">
-                    <div class="card-body">
-                        <h5 class="card-title">应收账款明细（原辅料、食品、研发、产品）</h5>
-                        <p class="card-text">
-                            这份报表汇总了内贸部应收账款明细，用户可添加应收账款的具体信息。</p>
-                        <a href="/report/inner/m_receivable_detail/" class="btn btn-primary"
-                           target="_blank">前往查看</a>
+            {% endif %}
+
+            {% if 'management.view_internaltradeledger' in request.session.info.user_permissions %}
+                <div class="col-md-6 col-lg-4">
+                    <div class="card h-100 border-0 shadow">
+                        <div class="card-body">
+                            <h5 class="card-title">应收账款明细（原辅料、食品、研发、产品）</h5>
+                            <p class="card-text">
+                                这份报表汇总了内贸部应收账款明细，用户可添加应收账款的具体信息。</p>
+                            <a href="/report/inner/m_receivable_detail/" class="btn btn-primary"
+                               target="_blank">前往查看</a>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-md-6 col-lg-4">
-                <div class="card h-100 border-0 shadow">
-                    <div class="card-body">
-                        <h5 class="card-title">已逾期账款明细（原辅料、食品、研发、产品）</h5>
-                        <p class="card-text">查询的月份超过该报表中的当月还款日未还款的账款明细</p>
-                        <a href="/report/inner/d_overdue_detail/" class="btn btn-primary"
-                           target="_blank">前往查看</a>
+            {% endif %}
+
+            {% if 'management.view_internaltradeledger' in request.session.info.user_permissions %}
+                <div class="col-md-6 col-lg-4">
+                    <div class="card h-100 border-0 shadow">
+                        <div class="card-body">
+                            <h5 class="card-title">已逾期账款明细（原辅料、食品、研发、产品）</h5>
+                            <p class="card-text">查询的月份超过该报表中的当月还款日未还款的账款明细</p>
+                            <a href="/report/inner/d_overdue_detail/" class="btn btn-primary"
+                               target="_blank">前往查看</a>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-md-6 col-lg-4">
-                <div class="card h-100 border-0 shadow">
-                    <div class="card-body">
-                        <h5 class="card-title">应收账款明细（外贸部）</h5>
-                        <p class="card-text">展示应收账款明细，用户输入已收账款内容</p>
-                        <a href="/report/foreign/m_receivable_detail/" class="btn btn-primary"
-                           target="_blank">前往查看</a>
+            {% endif %}
+
+            {% if 'management.view_foreigntradeledger' in request.session.info.user_permissions %}
+                <div class="col-md-6 col-lg-4">
+                    <div class="card h-100 border-0 shadow">
+                        <div class="card-body">
+                            <h5 class="card-title">应收账款明细（外贸部）</h5>
+                            <p class="card-text">展示应收账款明细，用户输入已收账款内容</p>
+                            <a href="/report/foreign/m_receivable_detail/" class="btn btn-primary"
+                               target="_blank">前往查看</a>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-md-6 col-lg-4">
-                <div class="card h-100 border-0 shadow">
-                    <div class="card-body">
-                        <h5 class="card-title">销售目标与实际完成情况</h5>
-                        <p class="card-text">每个月销售目标与实际回款金额的差额及完成比例</p>
-                        <a href="/targets-achievements/" class="btn btn-primary"
-                           target="_blank">前往查看</a>
+            {% endif %}
+
+            {% if 'management.view_reimbursement' in request.session.info.user_permissions %}
+                <div class="col-md-6 col-lg-4">
+                    <div class="card h-100 border-0 shadow">
+                        <div class="card-body">
+                            <h5 class="card-title">销售目标与实际完成情况</h5>
+                            <p class="card-text">每个月销售目标与实际回款金额的差额及完成比例</p>
+                            <a href="/targets-achievements/" class="btn btn-primary"
+                               target="_blank">前往查看</a>
+                        </div>
                     </div>
                 </div>
-            </div>
+            {% endif %}
+
+
             <div class="col-md-6 col-lg-4">
                 <div class="card h-100 border-0 shadow">
                     <div class="card-body">

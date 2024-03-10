@@ -28,10 +28,12 @@
                             </select>
                         </div>
                         <div class="col-md-4 d-flex align-items-end">
-                            <button type="button" class="btn btn-primary btn-block" data-bs-toggle="modal"
-                                    data-bs-target="#addYearModal">
-                                增加年份
-                            </button>
+                            {% if 'management.view_reimbursement' in request.session.info.user_permissions %}
+                                <button type="button" class="btn btn-primary btn-block" data-bs-toggle="modal"
+                                        data-bs-target="#addYearModal">
+                                    增加年份
+                                </button>
+                            {% endif %}
                         </div>
                     </div>
                 </form>
@@ -64,20 +66,23 @@
                             <td>{{ data.actual }}</td>
                             <td>{{ data.difference }}</td>
                             <td>{{ data.completion_ratio }}%</td>
-                            {% if not selected_department == 'all' %}
-                                <td>
-                                    <form method="post" action="{% url 'targets-achievements' %}"
-                                          class="d-flex align-items-center">
-                                        {% csrf_token %}
-                                        <input type="hidden" name="department" value="{{ selected_department }}">
-                                        <input type="hidden" name="month" value="{{ month }}">
-                                        <input type="number" name="new_actual_amount" min="0" value="{{ data.actual }}"
-                                               class="form-control form-control-sm me-2">
-                                        <input type="hidden" name="selected_year" id="selected_year"
-                                               value="{{ selected_year }}">
-                                        <button type="submit" class="btn btn-primary btn-sm">更新</button>
-                                    </form>
-                                </td>
+                            {% if 'management.view_reimbursement' in request.session.info.user_permissions %}
+                                {% if not selected_department == 'all' %}
+                                    <td>
+                                        <form method="post" action="{% url 'targets-achievements' %}"
+                                              class="d-flex align-items-center">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="department" value="{{ selected_department }}">
+                                            <input type="hidden" name="month" value="{{ month }}">
+                                            <input type="number" name="new_actual_amount" min="0"
+                                                   value="{{ data.actual }}"
+                                                   class="form-control form-control-sm me-2">
+                                            <input type="hidden" name="selected_year" id="selected_year"
+                                                   value="{{ selected_year }}">
+                                            <button type="submit" class="btn btn-primary btn-sm">更新</button>
+                                        </form>
+                                    </td>
+                                {% endif %}
                             {% endif %}
                         </tr>
                     {% endfor %}
