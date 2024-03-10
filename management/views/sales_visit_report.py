@@ -34,6 +34,9 @@ def sales_visit_report(request):
     page_object = Pagination(request, query_set)
     page_object.html()
 
+    # 保存当前页到会话，以便后续操作后可以返回到这一页
+    request.session['last_emp_page'] = request.get_full_path()
+
     context = {
         'page_queryset': page_object.page_queryset,
         'page_string': page_object.page_string,
@@ -46,14 +49,20 @@ def sales_visit_report(request):
 def sales_visit_add(request):
     if request.method == 'GET':
         form = Sales_Visit_Form()
-        return render(request, 'change.html', {'form': form, 'address': 'sales_visit'})
+        # 从会话中获取之前的页面路径，如果没有则默认回到第一页
+        back_url = request.session.get('last_emp_page', '/sales_visit/')
+        # 确保将back_url传递给模板
+        return render(request, 'change.html', {'form': form, 'back_url': back_url})
 
     form = Sales_Visit_Form(data=request.POST)
     if form.is_valid():
         form.save()
-        return redirect('/sales_visit/')
+        last_emp_page = request.session.get('last_emp_page', '/sales_visit/')
+        return redirect(last_emp_page)
+        # 如果表单验证不通过，也需要传递back_url到模板
+    back_url = request.session.get('last_emp_page', '/sales_visit/')
 
-    return render(request, 'change.html', {'form': form, 'address': 'sales_visit'})
+    return render(request, 'change.html', {'form': form, 'back_url': back_url})
 
 
 @permission_required('management.change_salesvisitreport', '/warning/')
@@ -61,17 +70,24 @@ def sales_visit_edit(request, _id):
     row_object = models.SalesVisitReport.objects.filter(serial_number=_id).first()
     if request.method == 'GET':
         form = Sales_Visit_Form(instance=row_object)
-        return render(request, 'change.html', {'form': form, 'address': 'sales_visit'})
+        back_url = request.session.get('last_emp_page', '/sales_visit/')
+        # 确保将back_url传递给模板
+        return render(request, 'change.html', {'form': form, 'back_url': back_url})
 
     form = Sales_Visit_Form(data=request.POST, instance=row_object)
     if form.is_valid():
         form.save()
-        return redirect('/sales_visit/')
+        last_emp_page = request.session.get('last_emp_page', '/sales_visit/')
+        return redirect(last_emp_page)
 
-    return render(request, 'change.html', {'form': form, 'address': 'sales_visit'})
+    # 如果表单验证不通过，也需要传递back_url到模板
+    back_url = request.session.get('last_emp_page', '/sales_visit/')
+    return render(request, 'change.html', {'form': form, 'back_url': back_url})
 
 
 @permission_required('management.delete_salesvisitreport', '/warning/')
 def sales_visit_delete(request, _id):
     models.SalesVisitReport.objects.filter(serial_number=_id).delete()
-    return redirect('/sales_visit/')
+    # 从会话中获取上一页的URL，如果没有则重定向到员工列表的首页
+    last_emp_page = request.session.get('last_emp_page', '/sales_visit/')
+    return redirect(last_emp_page)

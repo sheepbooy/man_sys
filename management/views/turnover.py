@@ -34,6 +34,9 @@ def turnover(request):
     page_object = Pagination(request, query_set)
     page_object.html()
 
+    # 保存当前页到会话，以便后续操作后可以返回到这一页
+    request.session['last_emp_page'] = request.get_full_path()
+
     context = {
         'page_queryset': page_object.page_queryset,
         'page_string': page_object.page_string,
@@ -48,14 +51,21 @@ def turnover_add(request):
     """研发部客户流水表添加"""
     if request.method == 'GET':
         form = CustomerFlow_form()
-        return render(request, 'change.html', {'form': form, 'address': 'develop/turnover'})
+        # 从会话中获取之前的页面路径，如果没有则默认回到第一页
+        back_url = request.session.get('last_emp_page', '/develop/turnover/')
+        # 确保将back_url传递给模板
+        return render(request, 'change.html', {'form': form, 'back_url': back_url})
 
     form = CustomerFlow_form(data=request.POST)
     if form.is_valid():
         form.save()
-        return redirect('/develop/turnover/')
+        last_emp_page = request.session.get('last_emp_page', '/develop/turnover/')
+        return redirect(last_emp_page)
 
-    return render(request, 'change.html', {'form': form, 'address': 'develop/turnover'})
+    # 如果表单验证不通过，也需要传递back_url到模板
+    back_url = request.session.get('last_emp_page', '/develop/turnover/')
+
+    return render(request, 'change.html', {'form': form, 'back_url': back_url})
 
 
 @permission_required('management.change_customerflow', '/warning/')
@@ -64,18 +74,26 @@ def turnover_edit(request, _id):
     row_object = models.CustomerFlow.objects.filter(customer_id=_id).first()
     if request.method == 'GET':
         form = CustomerFlow_form(instance=row_object)
-        return render(request, 'change.html', {'form': form, 'address': 'develop/turnover'})
+
+        # 确保将back_url传递给模板
+        back_url = request.session.get('last_emp_page', '/develop/turnover/')
+        return render(request, 'change.html', {'form': form, 'back_url': back_url})
 
     form = CustomerFlow_form(data=request.POST, instance=row_object)
     if form.is_valid():
         form.save()
-        return redirect('/develop/turnover/')
+        last_emp_page = request.session.get('last_emp_page', '/develop/turnover/')
+        return redirect(last_emp_page)
 
-    return render(request, 'change.html', {'form': form, 'address': 'develop/turnover'})
+    # 如果表单验证不通过，也需要传递back_url到模板
+    back_url = request.session.get('last_emp_page', '/develop/turnover/')
+    return render(request, 'change.html', {'form': form, 'back_url': back_url})
 
 
 @permission_required('management.delete_customerflow', '/warning/')
 def turnover_delete(request, _id):
     """删除研发部客户流水信息"""
     models.CustomerFlow.objects.filter(customer_id=_id).delete()
-    return redirect('/develop/turnover/')
+    # 从会话中获取上一页的URL，如果没有则重定向到员工列表的首页
+    last_emp_page = request.session.get('last_emp_page', '/develop/turnover/')
+    return redirect(last_emp_page)

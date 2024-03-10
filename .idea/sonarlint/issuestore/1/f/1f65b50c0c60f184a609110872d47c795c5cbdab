@@ -1,4 +1,3 @@
 
-wpython:S11926"SDefine a constant instead of duplicating this literal '/develop/customer/' 3 times.(ñÔ¬˜şÿÿÿÿ8 ô™Š¼1
-ppython:S11921"QDefine a constant instead of duplicating this literal 'develop/customer' 4 times.(Œ·ôó8¦÷ÀŒ¼1
-kpython:S11921"LDefine a constant instead of duplicating this literal 'change.html' 4 times.(Œ·ôó8¦÷ÀŒ¼1
+python:S11925"SDefine a constant instead of duplicating this literal '/develop/customer/' 7 times.(ÕÍÚÖùÿÿÿÿ8 ô™Š¼1J$3a8d3711-5137-4f88-a103-cf7e1c227c65
+–python:S11927"LDefine a constant instead of duplicating this literal 'change.html' 4 times.(ùŒû¼şÿÿÿÿ8¦÷ÀŒ¼1J$f22a4725-dd42-4759-ba79-700ffab955dc

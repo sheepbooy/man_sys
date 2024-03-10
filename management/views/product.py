@@ -34,6 +34,9 @@ def product(request):
     page_object = Pagination(request, query_set)
     page_object.html()
 
+    # 保存当前页到会话，以便后续操作后可以返回到这一页
+    request.session['last_emp_page'] = request.get_full_path()
+
     context = {
         'page_queryset': page_object.page_queryset,
         'page_string': page_object.page_string,
@@ -48,14 +51,21 @@ def product_add(request):
     """辅料表添加"""
     if request.method == 'GET':
         form = Products_form()
-        return render(request, 'change.html', {'form': form, 'address': 'product'})
+        # 从会话中获取之前的页面路径，如果没有则默认回到第一页
+        back_url = request.session.get('last_emp_page', '/product/')
+        # 确保将back_url传递给模板
+        return render(request, 'change.html', {'form': form, 'back_url': back_url})
 
     form = Products_form(data=request.POST)
     if form.is_valid():
         form.save()
-        return redirect('/product/')
+        last_emp_page = request.session.get('last_emp_page', '/product/')
+        return redirect(last_emp_page)
 
-    return render(request, 'change.html', {'form': form, 'address': 'product'})
+    # 从会话中获取之前的页面路径，如果没有则默认回到第一页
+    back_url = request.session.get('last_emp_page', '/product/')
+    # 确保将back_url传递给模板
+    return render(request, 'change.html', {'form': form, 'back_url': back_url})
 
 
 @permission_required('management.change_products', '/warning/')
@@ -64,18 +74,26 @@ def product_edit(request, _id):
     row_object = models.Products.objects.filter(spec_code=_id).first()
     if request.method == 'GET':
         form = Products_form(instance=row_object)
-        return render(request, 'change.html', {'form': form, 'address': 'product'})
+        # 从会话中获取之前的页面路径，如果没有则默认回到第一页
+        back_url = request.session.get('last_emp_page', '/product/')
+        # 确保将back_url传递给模板
+        return render(request, 'change.html', {'form': form, 'back_url': back_url})
 
     form = Products_form(data=request.POST, instance=row_object)
     if form.is_valid():
         form.save()
-        return redirect('/product/')
+        last_emp_page = request.session.get('last_emp_page', '/product/')
+        return redirect(last_emp_page)
 
-    return render(request, 'change.html', {'form': form, 'address': 'product'})
+    # 从会话中获取之前的页面路径，如果没有则默认回到第一页
+    back_url = request.session.get('last_emp_page', '/product/')
+    # 确保将back_url传递给模板
+    return render(request, 'change.html', {'form': form, 'back_url': back_url})
 
 
 @permission_required('management.delete_products', '/warning/')
 def product_delete(request, _id):
     """删除辅料信息"""
     models.Products.objects.filter(spec_code=_id).delete()
-    return redirect('/product/')
+    last_emp_page = request.session.get('last_emp_page', '/product/')
+    return redirect(last_emp_page)

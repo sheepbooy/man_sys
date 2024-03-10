@@ -1,6 +1,8 @@
 from django.contrib.auth.decorators import permission_required
 from django.shortcuts import render, redirect
 from django.db.models import Q, Count
+
+from management.utils.convert import convert_none_to_empty_string
 from management.utils.pagination import Pagination
 from management.utils.form import Complaint_summary_form
 from management import models
@@ -34,9 +36,15 @@ def complaint_summary(request):
     else:
         complaints = models.ComplaintSummary.objects.all()
 
+    # 在这里处理查询集，将所有None值转换为空字符串
+    complaints = convert_none_to_empty_string(complaints)
+
     summary_data = complaints.values('product_name', 'category').annotate(count=Count('id'))
     page_object = Pagination(request, complaints)
     page_object.html()
+
+    # 保存当前页到会话，以便后续操作后可以返回到这一页
+    request.session['last_emp_page'] = request.get_full_path()
 
     context = {
         'category_counts': category_counts,
@@ -56,14 +64,21 @@ def complaint_summary_add(request):
     """全国客诉汇总添加"""
     if request.method == 'GET':
         form = Complaint_summary_form()
-        return render(request, 'change.html', {'form': form, 'address': 'complaint_summary'})
+        # 从会话中获取之前的页面路径，如果没有则默认回到第一页
+        back_url = request.session.get('last_emp_page', '/complaint_summary/')
+        # 确保将back_url传递给模板
+        return render(request, 'change.html', {'form': form, 'back_url': back_url})
 
     form = Complaint_summary_form(data=request.POST)
     if form.is_valid():
         form.save()
-        return redirect('/complaint_summary/')
+        last_emp_page = request.session.get('last_emp_page', '/complaint_summary/')
+        return redirect(last_emp_page)
 
-    return render(request, 'change.html', {'form': form, 'address': 'complaint_summary'})
+    # 从会话中获取之前的页面路径，如果没有则默认回到第一页
+    back_url = request.session.get('last_emp_page', '/complaint_summary/')
+    # 确保将back_url传递给模板
+    return render(request, 'change.html', {'form': form, 'back_url': back_url})
 
 
 @permission_required('management.change_complaintsummary', '/warning/')
@@ -72,18 +87,26 @@ def complaint_summary_edit(request, _id):
     row_object = models.ComplaintSummary.objects.filter(id=_id).first()
     if request.method == 'GET':
         form = Complaint_summary_form(instance=row_object)
-        return render(request, 'change.html', {'form': form, 'address': 'complaint_summary'})
+        # 从会话中获取之前的页面路径，如果没有则默认回到第一页
+        back_url = request.session.get('last_emp_page', '/complaint_summary/')
+        # 确保将back_url传递给模板
+        return render(request, 'change.html', {'form': form, 'back_url': back_url})
 
     form = Complaint_summary_form(data=request.POST, instance=row_object)
     if form.is_valid():
         form.save()
-        return redirect('/complaint_summary/')
+        last_emp_page = request.session.get('last_emp_page', '/develop/butting/')
+        return redirect(last_emp_page)
 
-    return render(request, 'change.html', {'form': form, 'address': 'complaint_summary'})
+    # 从会话中获取之前的页面路径，如果没有则默认回到第一页
+    back_url = request.session.get('last_emp_page', '/complaint_summary/')
+    # 确保将back_url传递给模板
+    return render(request, 'change.html', {'form': form, 'back_url': back_url})
 
 
 @permission_required('management.delete_complaintsummary', '/warning/')
 def complaint_summary_delete(request, _id):
     """全国客诉汇总删除"""
     models.ComplaintSummary.objects.filter(id=_id).delete()
-    return redirect('/complaint_summary/')
+    last_emp_page = request.session.get('last_emp_page', '/complaint_summary/')
+    return redirect(last_emp_page)

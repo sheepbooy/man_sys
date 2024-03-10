@@ -35,7 +35,9 @@ def sales_forecast(request):
     page_object = Pagination(request, query_set)
     page_object.html()
 
-    # print(page_object)
+    # 保存当前页到会话，以便后续操作后可以返回到这一页
+    request.session['last_emp_page'] = request.get_full_path()
+
     context = {
         'page_queryset': page_object.page_queryset,
         'page_string': page_object.page_string,
@@ -50,14 +52,21 @@ def sales_forecast_add(request):
     """问题反馈表添加"""
     if request.method == 'GET':
         form = Sales_Forecast_Form()
-        return render(request, 'change.html', {'form': form, 'address': 'sales_forecast'})
+        # 从会话中获取之前的页面路径，如果没有则默认回到第一页
+        back_url = request.session.get('last_emp_page', '/sales_forecast/')
+        # 确保将back_url传递给模板
+        return render(request, 'change.html', {'form': form, 'back_url': back_url})
 
     form = Sales_Forecast_Form(data=request.POST)
     if form.is_valid():
         form.save()
-        return redirect('/sales_forecast/')
+        last_emp_page = request.session.get('last_emp_page', '/sales_forecast/')
+        return redirect(last_emp_page)
 
-    return render(request, 'change.html', {'form': form, 'address': 'sales_forecast'})
+    # 从会话中获取之前的页面路径，如果没有则默认回到第一页
+    back_url = request.session.get('last_emp_page', '/sales_forecast/')
+    # 确保将back_url传递给模板
+    return render(request, 'change.html', {'form': form, 'back_url': back_url})
 
 
 @permission_required('management.change_salesforecast', '/warning/')
@@ -66,18 +75,26 @@ def sales_forecast_edit(request, _id):
     row_object = models.SalesForecast.objects.filter(id=_id).first()
     if request.method == 'GET':
         form = Sales_Forecast_Form(instance=row_object)
-        return render(request, 'change.html', {'form': form, 'address': 'sales_forecast'})
+        # 从会话中获取之前的页面路径，如果没有则默认回到第一页
+        back_url = request.session.get('last_emp_page', '/sales_forecast/')
+        # 确保将back_url传递给模板
+        return render(request, 'change.html', {'form': form, 'back_url': back_url})
 
     form = Sales_Forecast_Form(data=request.POST, instance=row_object)
     if form.is_valid():
         form.save()
-        return redirect('/sales_forecast/')
+        last_emp_page = request.session.get('last_emp_page', '/sales_forecast/')
+        return redirect(last_emp_page)
 
-    return render(request, 'change.html', {'form': form, 'address': 'sales_forecast'})
+    # 从会话中获取之前的页面路径，如果没有则默认回到第一页
+    back_url = request.session.get('last_emp_page', '/sales_forecast/')
+    # 确保将back_url传递给模板
+    return render(request, 'change.html', {'form': form, 'back_url': back_url})
 
 
 @permission_required('management.delete_salesforecast', '/warning/')
 def sales_forecast_delete(request, _id):
     """编辑问题反馈信息"""
     models.SalesForecast.objects.filter(id=_id).delete()
-    return redirect('/sales_forecast/')
+    last_emp_page = request.session.get('last_emp_page', '/sales_forecast/')
+    return redirect(last_emp_page)

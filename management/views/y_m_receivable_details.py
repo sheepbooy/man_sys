@@ -25,8 +25,6 @@ def receivable_detail(request):
     # if value2:
     #     query &= Q(product_name__icontains=value2)
 
-
-
     query_set = models.InternalTradeLedger.objects.filter(query)
     # 进行分页等后续处理，保持不变
 
@@ -35,6 +33,9 @@ def receivable_detail(request):
 
     page_object = Pagination(request, query_set)
     page_object.html()
+
+    # 保存当前页到会话，以便后续操作后可以返回到这一页
+    request.session['last_emp_page'] = request.get_full_path()
 
     context = {
         'page_queryset': page_object.page_queryset,
@@ -69,7 +70,8 @@ def receivable_detail_add(request, _id):
 
             # 保存表单数据到数据库
             form.save()
-            return redirect('/report/inner/m_receivable_detail/')
+            last_emp_page = request.session.get('last_emp_page', '/report/inner/m_receivable_detail/')
+            return redirect(last_emp_page)
     else:
         # 初始化表单并设置初始数据
         initial_data = {
@@ -84,12 +86,13 @@ def receivable_detail_add(request, _id):
         # 如果是 GET 请求，使用初始化的表单数据创建表单实例
         form = M_receivableForm(initial=initial_data, instance=existing_record)
 
+    back_url = request.session.get('last_emp_page', '/report/inner/m_receivable_detail/')
     context = {
         'form': form,
-        'address': 'report/inner/m_receivable_detail',
+        'back_url': back_url,
         'internal_trade_ledger': internal_trade_ledger,
     }
-
+    # 如果表单验证不通过，也需要传递back_url到模板
     return render(request, 'receivable_detail_add.html', context)
 
 
@@ -97,7 +100,7 @@ def d_overdue_detali(request):
     """截止202X年X月X日已逾期账款明细"""
     value = request.GET.get('q', '')
     value1 = request.GET.get('q1', '')  # 获取第二个查询参数
-    print(value)
+    # print(value)
 
     # 查询条件：未收款不等于0且不为空白的记录
     query = Q(accounts_receivable_balance__isnull=False, accounts_receivable_balance__gt=0)
@@ -110,9 +113,12 @@ def d_overdue_detali(request):
 
     query_set = models.Receivable.objects.filter(query)
 
-        # 进行分页等后续处理，保持不变
+    # 进行分页等后续处理，保持不变
     page_object = Pagination(request, query_set)
     page_object.html()
+
+    # 保存当前页到会话，以便后续操作后可以返回到这一页
+    request.session['last_emp_page'] = request.get_full_path()
 
     context = {
         'page_queryset': page_object.page_queryset,
@@ -138,14 +144,18 @@ def d_overdue_detali_add(request, _id):
             overdue_form.instance.received_id = _id
             # 保存表单数据到数据库
             overdue_form.save()
-            return redirect('/report/inner/d_overdue_detail/')
+            last_emp_page = request.session.get('last_emp_page', '/report/inner/d_overdue_detail/')
+            return redirect(last_emp_page)
     else:
         # 初始化表单并设置初始数据
         overdue_form = OverdueForm(instance=existing_record)
 
+    # 从会话中获取之前的页面路径，如果没有则默认回到第一页
+    back_url = request.session.get('last_emp_page', '/report/inner/d_overdue_detail/')
+    # 确保将back_url传递给模板
     context = {
         'form': form,
-        'address': 'report/inner/d_overdue_detail',
+        'back_url': back_url,
         'overdue_form': overdue_form,
     }
 
@@ -170,6 +180,9 @@ def foreign_receivable(request):
 
     page_object = Pagination(request, query_set)
     page_object.html()
+
+    # 保存当前页到会话，以便后续操作后可以返回到这一页
+    request.session['last_emp_page'] = request.get_full_path()
 
     context = {
         'page_queryset': page_object.page_queryset,
@@ -199,7 +212,8 @@ def foreign_receivable_add(request, _id):
             form.instance.foreign_trade_ledger_id = _id
             # 保存表单数据到数据库
             form.save()
-            return redirect('/report/foreign/m_receivable_detail/')
+            last_emp_page = request.session.get('last_emp_page', '/report/foreign/m_receivable_detail/')
+            return redirect(last_emp_page)
     else:
         # 初始化表单并设置初始数据
         initial_data = {
@@ -214,9 +228,12 @@ def foreign_receivable_add(request, _id):
         # 如果是 GET 请求，使用初始化的表单数据创建表单实例
         form = Foreign_receivable_form(initial=initial_data, instance=existing_record)
 
+    # 如果表单验证不通过，也需要传递back_url到模板
+    back_url = request.session.get('last_emp_page', '/report/foreign/m_receivable_detail/')
+
     context = {
         'form': form,
-        'address': 'report/foreign/m_receivable_detail',
+        'back_url': back_url,
         'foreign_trade_ledger': foreign_trade_ledger,
     }
 

@@ -34,6 +34,9 @@ def inner_trade_ledger(request):
     page_object = Pagination(request, query_set)
     page_object.html()
 
+    # 保存当前页到会话，以便后续操作后可以返回到这一页
+    request.session['last_emp_page'] = request.get_full_path()
+
     context = {
         'page_queryset': page_object.page_queryset,
         'page_string': page_object.page_string,
@@ -82,14 +85,21 @@ def inner_trade_ledger_add(request):
     """内贸部台账表添加"""
     if request.method == 'GET':
         form = inner_trade_ledger_form()
-        return render(request, 'change.html', {'form': form, 'address': 'innertrade/ledger'})
+        # 从会话中获取之前的页面路径，如果没有则默认回到第一页
+        back_url = request.session.get('last_emp_page', '/innertrade/ledger/')
+        # 确保将back_url传递给模板
+        return render(request, 'change.html', {'form': form, 'back_url': back_url})
 
     form = inner_trade_ledger_form(data=request.POST)
     if form.is_valid():
         form.save()
-        return redirect('/innertrade/ledger/')
+        last_emp_page = request.session.get('last_emp_page', '/innertrade/ledger/')
+        return redirect(last_emp_page)
 
-    return render(request, 'change.html', {'form': form, 'address': 'innertrade/ledger'})
+    # 从会话中获取之前的页面路径，如果没有则默认回到第一页
+    back_url = request.session.get('last_emp_page', '/innertrade/ledger/')
+    # 确保将back_url传递给模板
+    return render(request, 'change.html', {'form': form, 'back_url': back_url})
 
 
 @permission_required('management.change_internaltradeledger', login_url='/warning/')
@@ -99,18 +109,26 @@ def inner_trade_ledger_edit(request, _id):
 
     if request.method == 'GET':
         form = inner_trade_ledger_form(instance=row_object)
-        return render(request, 'change.html', {'form': form, 'address': 'innertrade/ledger'})
+        # 从会话中获取之前的页面路径，如果没有则默认回到第一页
+        back_url = request.session.get('last_emp_page', '/innertrade/ledger/')
+        # 确保将back_url传递给模板
+        return render(request, 'change.html', {'form': form, 'back_url': back_url})
 
     form = inner_trade_ledger_form(data=request.POST, instance=row_object)
     if form.is_valid():
         form.save()
-        return redirect('/innertrade/ledger/')
+        last_emp_page = request.session.get('last_emp_page', '/innertrade/ledger/')
+        return redirect(last_emp_page)
 
-    return render(request, 'change.html', {'form': form, 'address': 'innertrade/ledger'})
+    # 从会话中获取之前的页面路径，如果没有则默认回到第一页
+    back_url = request.session.get('last_emp_page', '/innertrade/ledger/')
+    # 确保将back_url传递给模板
+    return render(request, 'change.html', {'form': form, 'back_url': back_url})
 
 
 @permission_required('management.delete_internaltradeledger', login_url='/warning/')
 def inner_trade_ledger_delete(request, _id):
     """内贸部台账表删除"""
     models.InternalTradeLedger.objects.filter(id=_id).delete()
-    return redirect('/innertrade/ledger/')
+    last_emp_page = request.session.get('last_emp_page', '/innertrade/ledger/')
+    return redirect(last_emp_page)

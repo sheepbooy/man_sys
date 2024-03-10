@@ -64,6 +64,9 @@ def employees_list(request):
     page_object = Pagination(request, query_set)
     page_object.html()
 
+    # 保存当前页到会话，以便后续操作后可以返回到这一页
+    request.session['last_emp_page'] = request.get_full_path()
+
     context = {
         'page_queryset': page_object.page_queryset,
         'page_string': page_object.page_string,
@@ -78,7 +81,11 @@ def employees_add(request):
     """员工信息添加"""
     if request.method == 'GET':
         form = EmployeesAddForm()
-        return render(request, 'change.html', {'form': form, 'address': 'employees'})
+
+        # 从会话中获取之前的页面路径，如果没有则默认回到第一页
+        back_url = request.session.get('last_emp_page', '/employees/')
+        # 确保将back_url传递给模板
+        return render(request, 'change.html', {'form': form, 'back_url': back_url})
 
     form = EmployeesAddForm(data=request.POST)
     if form.is_valid():
@@ -95,9 +102,13 @@ def employees_add(request):
         employee.user = user
         employee.save()
 
-        return redirect('/employees/')
+        last_emp_page = request.session.get('last_emp_page', '/employees/')
+        return redirect(last_emp_page)
 
-    return render(request, 'change.html', {'form': form, 'address': 'employees'})
+    # 如果表单验证不通过，也需要传递back_url到模板
+    back_url = request.session.get('last_emp_page', '/employees/')
+
+    return render(request, 'change.html', {'form': form, 'back_url': back_url})
 
 
 @permission_required('management.change_employees', login_url='/warning/')
@@ -111,7 +122,9 @@ def employees_edit(request, _id):
 
     if request.method == 'GET':
         form = EmployeesForm(instance=row_object)  # 使用完整的 EmployeesForm
-        return render(request, 'change.html', {'form': form, 'address': 'employees'})
+        back_url = request.session.get('last_emp_page', '/employees/')
+        # 确保将back_url传递给模板
+        return render(request, 'change.html', {'form': form, 'back_url': back_url})
 
     form = EmployeesForm(data=request.POST, instance=row_object)
     if form.is_valid():
@@ -136,16 +149,23 @@ def employees_edit(request, _id):
             except Group.DoesNotExist:
                 pass  # 组不存在的处理方式，可以根据需要进行修改
 
-        return redirect('/employees/')
+        last_emp_page = request.session.get('last_emp_page', '/employees/')
+        return redirect(last_emp_page)
 
-    return render(request, 'change.html', {'form': form, 'address': 'employees'})
+    # 如果表单验证不通过，也需要传递back_url到模板
+    back_url = request.session.get('last_emp_page', '/employees/')
+    return render(request, 'change.html', {'form': form, 'back_url': back_url})
 
 
 @permission_required('management.delete_employees', login_url='/warning/')
 def employees_delete(request, _id):
     """用户删除"""
+    # 删除指定工号的员工记录
     models.Employees.objects.filter(work_id=_id).delete()
-    return redirect('/employees/')
+
+    # 从会话中获取上一页的URL，如果没有则重定向到员工列表的首页
+    last_emp_page = request.session.get('last_emp_page', '/employees/')
+    return redirect(last_emp_page)
 
 
 def get_positions(request):

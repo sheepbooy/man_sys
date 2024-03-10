@@ -35,8 +35,8 @@ class Products(models.Model):
 
 class InternalTradeLedger(models.Model):
     id = models.AutoField(primary_key=True, verbose_name='序号')
-    order_date = models.DateField(verbose_name='下订单日期')
-    sales_date = models.DateField(verbose_name='销售日期')
+    order_date = models.DateField(verbose_name='下订单日期', blank=True)
+    sales_date = models.DateField(verbose_name='销售日期', blank=True)
     contract_number = models.CharField(max_length=255, blank=True, verbose_name='合同编号')
     contract_returned = models.CharField(max_length=255, blank=True, verbose_name='是否回传合同')
     region_department = models.CharField(max_length=255, blank=True, verbose_name='区域/部门')
@@ -71,16 +71,16 @@ class InternalTradeLedger(models.Model):
     first_occurrence = models.CharField(max_length=255, blank=True, verbose_name='一次')
     customer_type = models.CharField(max_length=255, blank=True, verbose_name="客户类型")
     unreceived_payment = models.CharField(max_length=255, blank=True, verbose_name='未收款')
-    payment_date = models.DateField(verbose_name='收款日期')
+    payment_date = models.DateField(verbose_name='收款日期', blank=True)
     salesperson = models.CharField(max_length=255, blank=True, verbose_name='业务员')
     acceptance_amount = models.CharField(max_length=255, blank=True, verbose_name='承兑金额')
     cash = models.CharField(max_length=255, blank=True, verbose_name='现金')
-    date = models.DateField(verbose_name='日期')
+    date = models.DateField(verbose_name='日期', blank=True)
     invoice_number = models.CharField(max_length=255, blank=True, verbose_name='发票号')
     invoice_receipt_number = models.CharField(max_length=255, blank=True, verbose_name='发票单号')
-    sales_month = models.DateField(verbose_name='销售月份')
+    sales_month = models.DateField(verbose_name='销售月份', blank=True)
     customer_category = models.CharField(max_length=255, blank=True, verbose_name='客户性质')
-    logistics_shipment_date = models.DateField(verbose_name='物流发运日期')
+    logistics_shipment_date = models.DateField(verbose_name='物流发运日期', blank=True)
     waybill_number = models.CharField(max_length=255, blank=True, verbose_name='运单号')
     unit_price_below_current_price_list = models.CharField(max_length=255, blank=True,
                                                            verbose_name='单价低于当期版本价目表')
@@ -151,13 +151,12 @@ class ForeignCustomerProfile(models.Model):
 
 class ForeignTradeLedger(models.Model):
     serial_number = models.AutoField(primary_key=True, verbose_name='序号')
-    order_date = models.DateField(verbose_name='下订单日期')
-    sales_date = models.DateField(verbose_name='销售日期')
+    order_date = models.DateField(verbose_name='下订单日期', blank=True)
+    sales_date = models.DateField(verbose_name='销售日期', blank=True)
     contract_number = models.CharField(max_length=255, blank=True, verbose_name='合同编号')
     customs_declaration = models.CharField(max_length=255, blank=True, verbose_name='是否报关')
     other_details = models.CharField(max_length=255, blank=True, verbose_name='其他')
     country_province = models.CharField(max_length=255, blank=True,
-
                                         verbose_name='国家/省份')  # Field renamed to remove unsuitable characters.
     nature = models.CharField(max_length=255, blank=True, verbose_name='性质')
     development_date = models.CharField(max_length=255, blank=True, verbose_name='开发日期')
@@ -216,19 +215,17 @@ class ForeignTradeLedger(models.Model):
                                    verbose_name='收款(USD)')
     payment_cny = models.CharField(max_length=255, blank=True,
                                    verbose_name='收款(CNY)')
-    payment_date = models.DateField(verbose_name='收款日期')
+    payment_date = models.DateField(verbose_name='收款日期', blank=True)
     invoice_number = models.CharField(max_length=255, blank=True, verbose_name='发票号')
     invoice_receipt_number = models.CharField(max_length=255, blank=True, verbose_name='发票单号')
-    sales_month = models.DateField(verbose_name='销售月份')
+    sales_month = models.DateField(verbose_name='销售月份', blank=True)
     international_freight_rmb = models.CharField(max_length=255, blank=True,
-
                                                  verbose_name='国际运费(RMB)')  # Field name made lowercase. Field renamed to remove unsuitable characters.
     international_freight_usd = models.CharField(max_length=255, blank=True,
-
                                                  verbose_name='国际运费(USD)')  # Field name made lowercase. Field renamed to remove unsuitable characters.
     miscellaneous_fees = models.CharField(max_length=255, blank=True, verbose_name='港杂费')
     total_amount = models.CharField(max_length=255, blank=True, verbose_name='合计')
-    logistics_shipping_date = models.DateField(verbose_name='物流发运时间')
+    logistics_shipping_date = models.DateField(verbose_name='物流发运时间', blank=True)
     waybill_number = models.CharField(max_length=255, blank=True, verbose_name='运单号')
     price_below_current_price_list = models.CharField(max_length=255,
                                                       blank=True,
@@ -423,7 +420,7 @@ class CustomerEngagement(models.Model):
 
 
 class CustomerFlow(models.Model):
-    customer_id = models.CharField(primary_key=True, max_length=255, verbose_name='客户编号')
+    customer_id = models.AutoField(primary_key=True, verbose_name='客户编号')
     sales_department = models.CharField(max_length=255, verbose_name='销售部')
     province = models.CharField(max_length=255, blank=True, verbose_name='省份')
     city = models.CharField(max_length=255, blank=True, verbose_name='城市')
@@ -858,19 +855,19 @@ class ActualSales(models.Model):
 class ComplaintSummary(models.Model):
     """全国客诉汇总"""
     id = models.AutoField(primary_key=True)
-    month = models.CharField(max_length=20, verbose_name='月份')
-    shipment_date = models.DateField(verbose_name='发货日期')
-    department = models.CharField(max_length=100, verbose_name='部门')
+    month = models.DateField(verbose_name='月份', blank=True)
+    shipment_date = models.DateField(verbose_name='发货日期', blank=True)
+    department = models.CharField(max_length=100, verbose_name='部门', blank=True)
 
     # 使用choices参数限制complaint_type字段的选项
-    complaint_type = models.CharField(max_length=100, verbose_name='客诉问题类型')
-    form_type = models.CharField(max_length=100, verbose_name='表单类型')
-    contract_number = models.CharField(max_length=100, verbose_name='合同编号')
-    customer_name = models.CharField(max_length=100, verbose_name='客户名称')
-    product_name = models.CharField(max_length=100, verbose_name='产品名称')
-    specification = models.CharField(max_length=100, verbose_name='规格')
-    replacement_quantity = models.FloatField(verbose_name='补/换货数量（KG）')
-    reason = models.TextField(verbose_name='原因')
+    complaint_type = models.CharField(max_length=100, verbose_name='客诉问题类型', blank=True)
+    form_type = models.CharField(max_length=100, verbose_name='表单类型', blank=True)
+    contract_number = models.CharField(max_length=100, verbose_name='合同编号', blank=True)
+    customer_name = models.CharField(max_length=100, verbose_name='客户名称', blank=True)
+    product_name = models.CharField(max_length=100, verbose_name='产品名称', blank=True)
+    specification = models.CharField(max_length=100, verbose_name='规格', blank=True)
+    replacement_quantity = models.FloatField(verbose_name='补/换货数量（KG）', blank=True)
+    reason = models.TextField(verbose_name='原因', blank=True)
     # 定义选择项
     CATEGORY_CHOICES = [
         ('A', 'A'),
@@ -880,9 +877,9 @@ class ComplaintSummary(models.Model):
         ('E', 'E'),
     ]
     category = models.CharField(max_length=1,
-                                choices=CATEGORY_CHOICES, verbose_name='分类')
-    remarks = models.TextField(verbose_name='备注（补/换货运单号）')
-    return_history = models.TextField(verbose_name='退货记录')
+                                choices=CATEGORY_CHOICES, verbose_name='分类', blank=True)
+    remarks = models.TextField(verbose_name='备注（补/换货运单号）', blank=True)
+    return_history = models.TextField(verbose_name='退货记录', blank=True)
 
     class Meta:
         # managed = False
@@ -944,8 +941,8 @@ class SalesForecast(models.Model):
 class Medicine(models.Model):
     """仿制药参比制剂目录"""
     id = models.AutoField(primary_key=True, verbose_name='ID')
-    serial_number = models.CharField(max_length=50, verbose_name='序号')
-    common_name = models.CharField(max_length=255, verbose_name='药品通用名称')
+    serial_number = models.CharField(max_length=50, verbose_name='序号', blank=True)
+    common_name = models.CharField(max_length=255, verbose_name='药品通用名称', blank=True)
     english_name = models.CharField(max_length=255, verbose_name='英文名称/商品名', blank=True)
     specification = models.TextField(verbose_name='规格', blank=True)
     dosage_form = models.CharField(max_length=50, verbose_name='剂型', blank=True)
@@ -968,7 +965,7 @@ class CustomerAudit(models.Model):
     month = models.DateField(verbose_name="月份", blank=True)
     application_date = models.DateField(verbose_name="申请日期", blank=True)
     audit_date = models.DateField(verbose_name="审计日期", blank=True)
-    received_audit_letter = models.BooleanField(verbose_name="是否收到审计函", blank=True)
+    received_audit_letter = models.CharField(max_length=10, verbose_name="是否收到审计函", blank=True)
     customer_name = models.CharField(max_length=255, verbose_name="客户名称", blank=True)
     sales_manager = models.CharField(max_length=100, verbose_name="销售经理", blank=True)
     audit_variety = models.TextField(verbose_name="审计品种", blank=True)
