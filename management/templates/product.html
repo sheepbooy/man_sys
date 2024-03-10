@@ -26,6 +26,7 @@
                 <!-- 表头和表格内容 -->
                 <thead>
                 <tr>
+                    <th>序号</th>
                     <th>产品类别</th>
                     <th>产品名称</th>
                     <th>规格</th>
@@ -39,6 +40,7 @@
                 <tbody>
                 {% for product in page_queryset %}
                     <tr>
+                        <td>{{ forloop.counter0|add:page_start_index }}</td>
                         <td>{{ product.category }}</td>
                         <td>{{ product.product_name }}</td>
                         <td>{{ product.specification }}</td>

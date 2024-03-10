@@ -42,7 +42,7 @@
                 <tbody>
                 {% for item in page_queryset %}
                     <tr>
-                        <td>{{ item.serial_number }}</td>
+                        <td>{{ forloop.counter0|add:page_start_index }}</td>
                         <td>{{ item.company_name }}</td>
                         <td>{{ item.visit_date }}</td>
                         <td>{{ item.visits_this_year }}</td>

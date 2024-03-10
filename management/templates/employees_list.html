@@ -2,7 +2,7 @@
 {% block content %}
     <div class="container mt-4">
         <div class="col-md-12">
-{#            <a href="/user/management/" class="btn btn-outline-secondary">&larr; 返回</a>#}
+            {#            <a href="/user/management/" class="btn btn-outline-secondary">&larr; 返回</a>#}
             <h2 class="text-center mb-4" style="color: #007bff;">员工列表</h2>
         </div>
         <div class="row mb-3">
@@ -29,6 +29,7 @@
                 <!-- 表头和表格内容 -->
                 <thead>
                 <tr>
+                    <th scope="col">序号</th>
                     <th scope="col">工号</th>
                     <th scope="col">姓名</th>
                     <th scope="col">性别</th>
@@ -41,6 +42,7 @@
                 <tbody>
                 {% for employee in page_queryset %}
                     <tr>
+                        <td>{{ forloop.counter0|add:page_start_index }}</td>
                         <th scope="row">{{ employee.work_id }}</th>
                         <td>{{ employee.name }}</td>
                         <td>{{ employee.gender }}</td>

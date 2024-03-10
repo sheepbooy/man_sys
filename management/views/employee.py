@@ -70,7 +70,8 @@ def employees_list(request):
     context = {
         'page_queryset': page_object.page_queryset,
         'page_string': page_object.page_string,
-        'value': value
+        'value': value,
+        'page_start_index': page_object.page_start_index,  # 添加这行
     }
 
     return render(request, 'employees_list.html', context)

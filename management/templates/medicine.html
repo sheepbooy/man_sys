@@ -45,7 +45,7 @@
                 <tbody>
                 {% for medicine in page_queryset %}
                     <tr>
-                        <td>{{ medicine.serial_number }}</td>
+                        <td>{{ forloop.counter0|add:page_start_index }}</td>
                         <td>{{ medicine.common_name }}</td>
                         <td>{{ medicine.english_name }}</td>
                         <td>{{ medicine.specification }}</td>

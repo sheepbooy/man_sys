@@ -67,7 +67,7 @@
                 <tbody>
                 {% for profile in page_queryset %}
                     <tr>
-                        <td>{{ profile.customer_id }}</td>
+                        <td>{{ forloop.counter0|add:page_start_index }}</td>
                         <td>{{ profile.sales_department }}</td>
                         <td>{{ profile.province }}</td>
                         <td>{{ profile.research_capacity }}</td>

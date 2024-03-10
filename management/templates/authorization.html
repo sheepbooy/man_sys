@@ -46,7 +46,7 @@
                 <tbody>
                 {% for item in page_queryset %}
                     <tr>
-                        <td>{{ item.authorization_number }}</td>
+                        <td>{{ forloop.counter0|add:page_start_index }}</td>
                         <td>{{ item.issuance_month }}</td>
                         <td>{{ item.product_name }}</td>
                         <td>{{ item.registration_number }}</td>

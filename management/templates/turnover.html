@@ -61,7 +61,7 @@
                 <tbody>
                 {% for flow in page_queryset %}
                     <tr>
-                        <td>{{ flow.customer_id }}</td>
+                        <td>{{ forloop.counter0|add:page_start_index }}</td>
                         <td>{{ flow.sales_department }}</td>
                         <td>{{ flow.province }}</td>
                         <td>{{ flow.city }}</td>

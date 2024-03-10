@@ -691,3 +691,7 @@ p
 @management/migrations/0005_alter_authorization_table_and_more.py,d\2\d20c786c3b8a281ce18ae1eba4b9a99930b6d4dc
 {
 Kmanagement/migrations/0004_alter_customeraudit_application_date_and_more.py,8\d\8d25f1aea7c4fb01d006fe14ca95a047474cb5b3
+€
+Pmanagement/migrations/0006_alter_customeraudit_received_audit_letter_and_more.py,8\4\842fd1aeb0dcb111160ba305f2603fdf7208acc6
+q
+Amanagement/migrations/0007_alter_medicine_common_name_and_more.py,0\2\028f4bbae23e123116fe9084e0a7f334d6944817

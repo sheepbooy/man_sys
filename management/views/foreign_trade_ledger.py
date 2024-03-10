@@ -40,7 +40,8 @@ def foreign_trade_ledger(request):
     context = {
         'page_queryset': page_object.page_queryset,
         'page_string': page_object.page_string,
-        'value': value
+        'value': value,
+        'page_start_index': page_object.page_start_index,  # 添加这行
     }
     return render(request, 'foreign_trade_ledger.html', context)
 
@@ -76,7 +77,8 @@ def x_month_foreign_trade_ledger(request):
         'page_string': page_object.page_string,
         'value': value,
         'value1': value1,
-        'value2': value2
+        'value2': value2,
+        'page_start_index': page_object.page_start_index,  # 添加这行
     }
     return render(request, 'm_foreign_trade_ledger.html', context)
 

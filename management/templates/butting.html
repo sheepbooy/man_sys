@@ -54,7 +54,7 @@
                 <tbody>
                 {% for engagement in page_queryset %}
                     <tr>
-                        <td>{{ engagement.engagement_number }}</td>
+                        <td>{{ forloop.counter0|add:page_start_index }}</td>
                         <td>{{ engagement.recorder }}</td>
                         <td>{{ engagement.proactive_or_passive_engagement }}</td>
                         <td>{{ engagement.company_name }}</td>

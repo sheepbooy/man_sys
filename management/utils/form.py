@@ -30,7 +30,8 @@ class EmployeesAddForm(BootStrapModelForm):
 
     class Meta:
         model = models.Employees
-        exclude = ['user', 'position', 'department', 'status']
+        exclude = ['user']
+        # fields = '__all__'
 
     def clean_work_id(self):
         work_id = self.cleaned_data.get('work_id')

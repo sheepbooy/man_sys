@@ -1,37 +1,38 @@
 
-Bpython:S1250"Remove this commented out code.(Ú¼‡Îùÿÿÿÿ8›ëœâ1
-Bpython:S125B"Remove this commented out code.(Ú¼‡Îùÿÿÿÿ8›ëœâ1
-Bpython:S125Z"Remove this commented out code.(Ú¼‡Îùÿÿÿÿ8›ëœâ1
-™python:S101e"{Rename class "ExistingFormulationToDevelop_form" to match the regular expression ^_?([A-Z_][a-zA-Z0-9]*|[a-z_][a-z0-9_]*)$.(ñÅ“8›ëœâ1
-Bpython:S125j"Remove this commented out code.(Ú¼‡Îùÿÿÿÿ8›ëœâ1
-Ÿpython:S101|"|Rename class "ExistingFormulationDeveloping_form" to match the regular expression ^_?([A-Z_][a-zA-Z0-9]*|[a-z_][a-z0-9_]*)$.(Ö™Ù˜şÿÿÿÿ8›ëœâ1
-Cpython:S125"Remove this commented out code.(Ú¼‡Îùÿÿÿÿ8›ëœâ1
-›python:S101“"wRename class "ExistingProductCompleted_form" to match the regular expression ^_?([A-Z_][a-zA-Z0-9]*|[a-z_][a-z0-9_]*)$.(¯‚Íôøÿÿÿÿ8›ëœâ1
-Cpython:S125˜"Remove this commented out code.(Ú¼‡Îùÿÿÿÿ8›ëœâ1
-Cpython:S125®"Remove this commented out code.(Ú¼‡Îùÿÿÿÿ8›ëœâ1
-—python:S101·"sRename class "NewProductDeveloping_form" to match the regular expression ^_?([A-Z_][a-zA-Z0-9]*|[a-z_][a-z0-9_]*)$.(¾Ñ°…üÿÿÿÿ8›ëœâ1
-Cpython:S125¼"Remove this commented out code.(Ú¼‡Îùÿÿÿÿ8›ëœâ1
-‘python:S101Ë"rRename class "NewProductCompleted_form" to match the regular expression ^_?([A-Z_][a-zA-Z0-9]*|[a-z_][a-z0-9_]*)$.(Ï’²¬8›ëœâ1
-Cpython:S125Ğ"Remove this commented out code.(Ú¼‡Îùÿÿÿÿ8›ëœâ1
-“python:S101ß"tRename class "NewProductDevelopment_form" to match the regular expression ^_?([A-Z_][a-zA-Z0-9]*|[a-z_][a-z0-9_]*)$.(ãàü8›ëœâ1
-Cpython:S125ä"Remove this commented out code.(Ú¼‡Îùÿÿÿÿ8›ëœâ1
-ªpython:S101ê"…Rename class "ExistingFormulationProgressDescription_form" to match the regular expression ^_?([A-Z_][a-zA-Z0-9]*|[a-z_][a-z0-9_]*)$.(‰®ï¡úÿÿÿÿ8›ëœâ1
-Cpython:S125ï"Remove this commented out code.(Ú¼‡Îùÿÿÿÿ8›ëœâ1
-python:S101õ"nRename class "CustomerProfile_form" to match the regular expression ^_?([A-Z_][a-zA-Z0-9]*|[a-z_][a-z0-9_]*)$.(ÏÎë‚8›ëœâ1
-Cpython:S125ú"Remove this commented out code.(Ú¼‡Îùÿÿÿÿ8›ëœâ1
-python:S101‡"qRename class "CustomerEngagement_form" to match the regular expression ^_?([A-Z_][a-zA-Z0-9]*|[a-z_][a-z0-9_]*)$.(ìº°I8›ëœâ1
-Cpython:S125Œ"Remove this commented out code.(Ú¼‡Îùÿÿÿÿ8›ëœâ1
-Špython:S101–"kRename class "CustomerFlow_form" to match the regular expression ^_?([A-Z_][a-zA-Z0-9]*|[a-z_][a-z0-9_]*)$.(åíÊ 8›ëœâ1
-Cpython:S125›"Remove this commented out code.(Ú¼‡Îùÿÿÿÿ8›ëœâ1
-†python:S101§"gRename class "Products_form" to match the regular expression ^_?([A-Z_][a-zA-Z0-9]*|[a-z_][a-z0-9_]*)$.(—«üò8›ëœâ1
-Cpython:S125¬"Remove this commented out code.(Ú¼‡Îùÿÿÿÿ8›ëœâ1
-‹python:S101³"gRename class "Feedback_form" to match the regular expression ^_?([A-Z_][a-zA-Z0-9]*|[a-z_][a-z0-9_]*)$.(«ëÄÎøÿÿÿÿ8›ëœâ1
-Cpython:S125¸"Remove this commented out code.(Ú¼‡Îùÿÿÿÿ8›ëœâ1
-‰python:S101¿"jRename class "M_receivableForm" to match the regular expression ^_?([A-Z_][a-zA-Z0-9]*|[a-z_][a-z0-9_]*)$.(‡ÙÎÌ8›ëœâ1
-Cpython:S125Ş"Remove this commented out code.(Ú¼‡Îùÿÿÿÿ8›ëœâ1
-python:S101å"qRename class "Foreign_receivable_form" to match the regular expression ^_?([A-Z_][a-zA-Z0-9]*|[a-z_][a-z0-9_]*)$.(œİ—ó8›ëœâ1
-python:S101ş"pRename class "Complaint_summary_form" to match the regular expression ^_?([A-Z_][a-zA-Z0-9]*|[a-z_][a-z0-9_]*)$.(î´Œ8›ëœâ1
-python:S101†"jRename class "Sales_Visit_Form" to match the regular expression ^_?([A-Z_][a-zA-Z0-9]*|[a-z_][a-z0-9_]*)$.(ÛÉÒëúÿÿÿÿ8›ëœâ1
-‘python:S101"mRename class "Sales_Forecast_Form" to match the regular expression ^_?([A-Z_][a-zA-Z0-9]*|[a-z_][a-z0-9_]*)$.(£ƒşÍûÿÿÿÿ8›ëœâ1
-†python:S101–"gRename class "Medicine_Form" to match the regular expression ^_?([A-Z_][a-zA-Z0-9]*|[a-z_][a-z0-9_]*)$.(­»¥¡8›ëœâ1
-python:S101"lRename class "CustomerAudit_Form" to match the regular expression ^_?([A-Z_][a-zA-Z0-9]*|[a-z_][a-z0-9_]*)$.(êïëØşÿÿÿÿ8›ëœâ1
+hpython:S125""Remove this commented out code.(àÛ¼µıÿÿÿÿ8ÈÍè½â1J$5c2a4475-7de5-4c7b-af2c-d25888cbfafc
+hpython:S1251"Remove this commented out code.(Ú¼‡Îùÿÿÿÿ8›ëœâ1J$b8942a97-b585-4e03-8d68-d15785c9cbf6
+hpython:S125C"Remove this commented out code.(Ú¼‡Îùÿÿÿÿ8›ëœâ1J$a851bde1-df0c-44d2-af92-dfcb79de4b79
+hpython:S125["Remove this commented out code.(Ú¼‡Îùÿÿÿÿ8›ëœâ1J$1a6cf62c-90f2-4817-9b5d-ec9a3308a64f
+¿python:S101f"{Rename class "ExistingFormulationToDevelop_form" to match the regular expression ^_?([A-Z_][a-zA-Z0-9]*|[a-z_][a-z0-9_]*)$.(ñÅ“8›ëœâ1J$245ec735-305b-495a-9d80-98783cb25407
+hpython:S125k"Remove this commented out code.(Ú¼‡Îùÿÿÿÿ8›ëœâ1J$39d3c5de-b29b-4c9f-a754-1d41c1bf894e
+Åpython:S101}"|Rename class "ExistingFormulationDeveloping_form" to match the regular expression ^_?([A-Z_][a-zA-Z0-9]*|[a-z_][a-z0-9_]*)$.(Ö™Ù˜şÿÿÿÿ8›ëœâ1J$ae713764-d8de-4422-b1af-859519ab0df6
+ipython:S125‚"Remove this commented out code.(Ú¼‡Îùÿÿÿÿ8›ëœâ1J$a57a5c96-0601-463f-a952-4bea75418b48
+Ápython:S101”"wRename class "ExistingProductCompleted_form" to match the regular expression ^_?([A-Z_][a-zA-Z0-9]*|[a-z_][a-z0-9_]*)$.(¯‚Íôøÿÿÿÿ8›ëœâ1J$eb0522b6-5e82-42b7-a384-1e4df2a9b7c2
+ipython:S125™"Remove this commented out code.(Ú¼‡Îùÿÿÿÿ8›ëœâ1J$1e295055-b346-4dc7-bd7c-3484d6a19cce
+ipython:S125¯"Remove this commented out code.(Ú¼‡Îùÿÿÿÿ8›ëœâ1J$ddeb3a6b-15ba-407e-96d0-055395ce55f3
+½python:S101¸"sRename class "NewProductDeveloping_form" to match the regular expression ^_?([A-Z_][a-zA-Z0-9]*|[a-z_][a-z0-9_]*)$.(¾Ñ°…üÿÿÿÿ8›ëœâ1J$5b24ac89-e97b-433d-8460-3b62310b45bc
+ipython:S125½"Remove this commented out code.(Ú¼‡Îùÿÿÿÿ8›ëœâ1J$c8036763-b9f1-47fa-8fd0-fc48584d116a
+·python:S101Ì"rRename class "NewProductCompleted_form" to match the regular expression ^_?([A-Z_][a-zA-Z0-9]*|[a-z_][a-z0-9_]*)$.(Ï’²¬8›ëœâ1J$c59bb2cb-7abb-4ac2-8bfa-ee208c390775
+ipython:S125Ñ"Remove this commented out code.(Ú¼‡Îùÿÿÿÿ8›ëœâ1J$d510b428-2774-401c-9a7f-ef12131b959a
+¹python:S101à"tRename class "NewProductDevelopment_form" to match the regular expression ^_?([A-Z_][a-zA-Z0-9]*|[a-z_][a-z0-9_]*)$.(ãàü8›ëœâ1J$365d0685-0b2e-4a09-b61c-cdefdfd75913
+ipython:S125å"Remove this commented out code.(Ú¼‡Îùÿÿÿÿ8›ëœâ1J$26c56bfb-9102-4653-9e45-382f3c8906e0
+Ğpython:S101ë"…Rename class "ExistingFormulationProgressDescription_form" to match the regular expression ^_?([A-Z_][a-zA-Z0-9]*|[a-z_][a-z0-9_]*)$.(‰®ï¡úÿÿÿÿ8›ëœâ1J$cd25c757-899f-4c1a-bb2f-2d05860329bc
+ipython:S125ğ"Remove this commented out code.(Ú¼‡Îùÿÿÿÿ8›ëœâ1J$fd646c56-d268-43a1-927d-fbe8eea79d66
+³python:S101ö"nRename class "CustomerProfile_form" to match the regular expression ^_?([A-Z_][a-zA-Z0-9]*|[a-z_][a-z0-9_]*)$.(ÏÎë‚8›ëœâ1J$b3acaa4d-32f1-4f85-b6a3-0bdbf3b38aaa
+ipython:S125û"Remove this commented out code.(Ú¼‡Îùÿÿÿÿ8›ëœâ1J$c6258509-2ce7-404f-b7c7-b2567e9d496d
+µpython:S101ˆ"qRename class "CustomerEngagement_form" to match the regular expression ^_?([A-Z_][a-zA-Z0-9]*|[a-z_][a-z0-9_]*)$.(ìº°I8›ëœâ1J$ec43bfec-ae1a-4d8f-8005-6ab6d576aeb6
+ipython:S125"Remove this commented out code.(Ú¼‡Îùÿÿÿÿ8›ëœâ1J$413dbe19-6040-4bd5-b04c-c8574ae918c5
+°python:S101—"kRename class "CustomerFlow_form" to match the regular expression ^_?([A-Z_][a-zA-Z0-9]*|[a-z_][a-z0-9_]*)$.(åíÊ 8›ëœâ1J$35ec82fc-dba1-437b-965f-7ed75b468e77
+ipython:S125œ"Remove this commented out code.(Ú¼‡Îùÿÿÿÿ8›ëœâ1J$d856d4cb-3214-4bc8-b61a-9224b03648fb
+¬python:S101¨"gRename class "Products_form" to match the regular expression ^_?([A-Z_][a-zA-Z0-9]*|[a-z_][a-z0-9_]*)$.(—«üò8›ëœâ1J$24d25822-7273-4b21-a848-25c4b49c8c42
+ipython:S125­"Remove this commented out code.(Ú¼‡Îùÿÿÿÿ8›ëœâ1J$2cfa37cc-9f1e-4ce4-9025-ac1403e370ef
+±python:S101´"gRename class "Feedback_form" to match the regular expression ^_?([A-Z_][a-zA-Z0-9]*|[a-z_][a-z0-9_]*)$.(«ëÄÎøÿÿÿÿ8›ëœâ1J$b34af775-a343-4610-ac9d-4087f40b0d9a
+ipython:S125¹"Remove this commented out code.(Ú¼‡Îùÿÿÿÿ8›ëœâ1J$06cdc65d-046a-4c4d-ba08-35c63b182bc4
+¯python:S101À"jRename class "M_receivableForm" to match the regular expression ^_?([A-Z_][a-zA-Z0-9]*|[a-z_][a-z0-9_]*)$.(‡ÙÎÌ8›ëœâ1J$dad415da-6520-4503-a127-642e4e16f0e5
+ipython:S125ß"Remove this commented out code.(Ú¼‡Îùÿÿÿÿ8›ëœâ1J$addce8ab-8e9b-4053-a11e-ea6c0dc0d182
+¶python:S101æ"qRename class "Foreign_receivable_form" to match the regular expression ^_?([A-Z_][a-zA-Z0-9]*|[a-z_][a-z0-9_]*)$.(œİ—ó8›ëœâ1J$1336a75b-9cee-4afb-930e-1e51537d945a
+µpython:S101ÿ"pRename class "Complaint_summary_form" to match the regular expression ^_?([A-Z_][a-zA-Z0-9]*|[a-z_][a-z0-9_]*)$.(î´Œ8›ëœâ1J$3d0b54fd-82d4-4ae6-a45b-f1e95f7a95e8
+´python:S101‡"jRename class "Sales_Visit_Form" to match the regular expression ^_?([A-Z_][a-zA-Z0-9]*|[a-z_][a-z0-9_]*)$.(ÛÉÒëúÿÿÿÿ8›ëœâ1J$4681f660-6ce2-4c8c-b0eb-f45f01a04c5b
+·python:S101"mRename class "Sales_Forecast_Form" to match the regular expression ^_?([A-Z_][a-zA-Z0-9]*|[a-z_][a-z0-9_]*)$.(£ƒşÍûÿÿÿÿ8›ëœâ1J$a2fdbdb8-9ad4-4342-998f-1d2a5e4b480b
+¬python:S101—"gRename class "Medicine_Form" to match the regular expression ^_?([A-Z_][a-zA-Z0-9]*|[a-z_][a-z0-9_]*)$.(­»¥¡8›ëœâ1J$a26827b4-9742-4dbb-a65b-67120aa8197a
+¶python:S101"lRename class "CustomerAudit_Form" to match the regular expression ^_?([A-Z_][a-zA-Z0-9]*|[a-z_][a-z0-9_]*)$.(êïëØşÿÿÿÿ8›ëœâ1J$ac50c55b-eea1-40c2-8128-5e1805f57610

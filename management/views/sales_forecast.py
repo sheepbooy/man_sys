@@ -41,7 +41,8 @@ def sales_forecast(request):
     context = {
         'page_queryset': page_object.page_queryset,
         'page_string': page_object.page_string,
-        'value': value
+        'value': value,
+        'page_start_index': page_object.page_start_index,  # 添加这行
     }
 
     return render(request, 'sales_forecast.html', context)

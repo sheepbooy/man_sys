@@ -41,7 +41,7 @@
                 <tbody>
                 {% for feedback in page_queryset %}
                     <tr>
-                        <td>{{ feedback.id }}</td>
+                        <td>{{ forloop.counter0|add:page_start_index }}</td>
                         <td>{{ feedback.timestamp }}</td>
                         <td>{{ feedback.department }}</td>
                         <td>{{ feedback.product }}</td>

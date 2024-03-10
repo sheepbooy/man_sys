@@ -48,6 +48,7 @@ class Pagination(object):
         self.total_page_count = total_page_count  # 总页码数量
         self.page_show = page_show  # 当前页前后展示的页码数量
         self.request = request
+        self.page_start_index = (self.page - 1) * page_size + 1
 
     def html(self):
         # 如果总页码数量大于 11

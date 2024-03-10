@@ -84,7 +84,7 @@
                 <tbody>
                 {% for entry in page_queryset %}
                     <tr>
-                        <td>{{ entry.serial_number }}</td>
+                        <td>{{ forloop.counter0|add:page_start_index }}</td>
                         <td>{{ entry.order_date }}</td>
                         <td>{{ entry.sales_date }}</td>
                         <td>{{ entry.contract_number }}</td>

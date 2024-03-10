@@ -42,7 +42,7 @@
                 <tbody>
                 {% for customer_audit in page_queryset %}
                     <tr>
-                        <td>{{ customer_audit.id }}</td>
+                        <td>{{ forloop.counter0|add:page_start_index }}</td>
                         <td>{{ customer_audit.month }}</td>
                         <td>{{ customer_audit.application_date }}</td>
                         <td>{{ customer_audit.audit_date }}</td>
@@ -54,7 +54,8 @@
                         <td>{{ customer_audit.remarks }}</td>
                         <td>
                             {% if 'management.change_customeraudit' in request.session.info.user_permissions %}
-                                <a href="/customer_audit/edit/{{ customer_audit.id }}/" class="btn btn-info btn-sm">编辑</a>
+                                <a href="/customer_audit/edit/{{ customer_audit.id }}/"
+                                   class="btn btn-info btn-sm">编辑</a>
                             {% endif %}
                             {% if 'management.delete_customeraudit' in request.session.info.user_permissions %}
                                 <button type="button" class="btn btn-danger btn-sm delete-btn"
