@@ -55,6 +55,8 @@ def complaint_summary(request):
         'selected_category': selected_category,
         'page_queryset': page_object.page_queryset,
         'page_string': page_object.page_string,
+        'page_start_index': page_object.page_start_index,  # 添加这行
+
     }
     return render(request, 'complaint_summary.html', context)
 

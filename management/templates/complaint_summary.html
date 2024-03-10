@@ -45,32 +45,51 @@
             </div>
         </div>
         {% if 'management.view_complaintsummary' in request.session.info.user_permissions %}
-            <!-- 使用卡片布局来展示数据 -->
-            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3">
-                {% for item in page_queryset %}
-                    <div class="col">
-                        <div class="card">
-                            <div class="card-body">
-                                <h5 class="card-title">{{ item.product_name }}</h5>
-                                <p class="card-text">部门: {{ item.department }}</p>
-                                <p class="card-text">客诉问题类型: {{ item.complaint_type }}</p>
-                                <p class="card-text">合同编号: {{ item.contract_number }}</p>
-                                <!-- 添加折叠内容，展开时显示全部信息 -->
-                                <div class="collapse" id="collapse{{ item.id }}">
-                                    <p class="card-text">发货日期: {{ item.shipment_date }}</p>
-                                    <p class="card-text">规格: {{ item.specification }}</p>
-                                    <p class="card-text">补/换货数量（KG）: {{ item.replacement_quantity }}</p>
-                                    <p class="card-text">原因: {{ item.reason }}</p>
-                                    <p class="card-text">分类: {{ item.category }}</p>
-                                    <p class="card-text">备注（补/换货运单号）: {{ item.remarks }}</p>
-                                    <p class="card-text">退货记录: {{ item.return_history }}</p>
-                                </div>
-                                <!-- 添加展开按钮的样式 -->
-                                <a href="#collapse{{ item.id }}" class="btn btn-link" data-bs-toggle="collapse">
-                                    <i class="bi bi-arrow-down-circle"></i> 展开
-                                </a>
+            <div class="scrollable-table">
+                <table class="table table-fixed custom-table">
+                    <!-- 表头和表格内容 -->
+                    <thead>
+                    <tr>
+                        <th>序号</th>
+                        <th>月份</th>
+                        <th>发货日期</th>
+                        <th>部门</th>
+                        <th>客诉问题类型</th>
+                        <th>表单类型</th>
+                        <th>合同编号</th>
+                        <th>客户名称</th>
+                        <th>产品名称</th>
+                        <th>规格</th>
+                        <th>补/换货数量（KG）</th>
+                        <th>原因</th>
+                        <th>分类</th>
+                        <th>备注（补/换货运单号）</th>
+                        <th>退货记录</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for item in page_queryset %}
+                        <tr>
+                            <td>{{ forloop.counter0|add:page_start_index }}</td>
+                            <td>{{ item.month }}</td>
+                            <td>{{ item.shipment_date }}</td>
+                            <td>{{ item.department }}</td>
+                            <td>{{ item.complaint_type }}</td>
+                            <td>{{ item.form_type }}</td>
+                            <td>{{ item.contract_number }}</td>
+                            <td>{{ item.customer_name }}</td>
+                            <td>{{ item.product_name }}</td>
+                            <td>{{ item.specification }}</td>
+                            <td>{{ item.replacement_quantity }}</td>
+                            <td>{{ item.reason }}</td>
+                            <td>{{ item.category }}</td>
+                            <td>{{ item.remarks }}</td>
+                            <td>{{ item.return_history }}</td>
+                            <td>
                                 {% if 'management.change_complaintsummary' in request.session.info.user_permissions %}
-                                    <a href="/complaint_summary/edit/{{ item.id }}" class="btn btn-info btn-sm">编辑</a>
+                                    <a href="/complaint_summary/edit/{{ item.id }}/"
+                                       class="btn btn-info btn-sm">编辑</a>
                                 {% endif %}
                                 {% if 'management.delete_complaintsummary' in request.session.info.user_permissions %}
                                     <button type="button" class="btn btn-danger btn-sm delete-btn"
@@ -78,11 +97,57 @@
                                         删除
                                     </button>
                                 {% endif %}
-                            </div>
-                        </div>
-                    </div>
-                {% endfor %}
+                            </td>
+                        </tr>
+                    {% empty %}
+                        <tr>
+                            <td colspan="21">No data available</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
             </div>
+
+
+
+            {#            <!-- 使用卡片布局来展示数据 -->#}
+            {#            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3">#}
+            {#                {% for item in page_queryset %}#}
+            {#                    <div class="col">#}
+            {#                        <div class="card">#}
+            {#                            <div class="card-body">#}
+            {#                                <h5 class="card-title">{{ item.product_name }}</h5>#}
+            {#                                <p class="card-text">部门: {{ item.department }}</p>#}
+            {#                                <p class="card-text">客诉问题类型: {{ item.complaint_type }}</p>#}
+            {#                                <p class="card-text">合同编号: {{ item.contract_number }}</p>#}
+            {#                                <!-- 添加折叠内容，展开时显示全部信息 -->#}
+            {#                                <div class="collapse" id="collapse{{ item.id }}">#}
+            {#                                    <p class="card-text">发货日期: {{ item.shipment_date }}</p>#}
+            {#                                    <p class="card-text">规格: {{ item.specification }}</p>#}
+            {#                                    <p class="card-text">补/换货数量（KG）: {{ item.replacement_quantity }}</p>#}
+            {#                                    <p class="card-text">原因: {{ item.reason }}</p>#}
+            {#                                    <p class="card-text">分类: {{ item.category }}</p>#}
+            {#                                    <p class="card-text">备注（补/换货运单号）: {{ item.remarks }}</p>#}
+            {#                                    <p class="card-text">退货记录: {{ item.return_history }}</p>#}
+            {#                                </div>#}
+            {#                                <!-- 添加展开按钮的样式 -->#}
+            {#                                <a href="#collapse{{ item.id }}" class="btn btn-link" data-bs-toggle="collapse">#}
+            {#                                    <i class="bi bi-arrow-down-circle"></i> 展开#}
+            {#                                </a>#}
+            {#                                {% if 'management.change_complaintsummary' in request.session.info.user_permissions %}#}
+            {#                                    <a href="/complaint_summary/edit/{{ item.id }}" class="btn btn-info btn-sm">编辑</a>#}
+            {#                                {% endif %}#}
+            {#                                {% if 'management.delete_complaintsummary' in request.session.info.user_permissions %}#}
+            {#                                    <button type="button" class="btn btn-danger btn-sm delete-btn"#}
+            {#                                            data-delete-url="/complaint_summary/delete/{{ item.id }}/">#}
+            {#                                        删除#}
+            {#                                    </button>#}
+            {#                                {% endif %}#}
+            {#                            </div>#}
+            {#                        </div>#}
+            {#                    </div>#}
+            {#                {% endfor %}#}
+            {#            </div>#}
         {% endif %}
 
 
