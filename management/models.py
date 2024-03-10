@@ -30,7 +30,7 @@ class Products(models.Model):
 
     class Meta:
         # managed = False
-        db_table = '辅料'
+        db_table = '药用辅料产品规格编码设置表-2022.08.18'
 
 
 class InternalTradeLedger(models.Model):
@@ -87,7 +87,7 @@ class InternalTradeLedger(models.Model):
 
     class Meta:
         # managed = False
-        db_table = '内贸部台账'
+        db_table = '内贸部台账总表'
 
 
 class Authorization(models.Model):
@@ -109,7 +109,7 @@ class Authorization(models.Model):
 
     class Meta:
         # managed = False
-        db_table = '授权书总表'
+        db_table = '授权书总表-2022.08'
 
 
 class ForeignCustomerProfile(models.Model):
@@ -146,7 +146,7 @@ class ForeignCustomerProfile(models.Model):
 
     class Meta:
         # managed = False
-        db_table = '外贸部客户档案表'
+        db_table = '外贸部客户档案表模板202303'
 
 
 class ForeignTradeLedger(models.Model):
@@ -238,7 +238,7 @@ class ForeignTradeLedger(models.Model):
 
     class Meta:
         # managed = False
-        db_table = '外贸部台账'
+        db_table = '外贸部台账总表'
 
 
 class Feedback(models.Model):
@@ -254,7 +254,7 @@ class Feedback(models.Model):
 
     class Meta:
         # managed = False
-        db_table = '问题反馈表'
+        db_table = '产品问题反馈表20230307'
 
 
 class NewProductDevelopment(models.Model):
@@ -512,7 +512,7 @@ class CustomerProfile(models.Model):
 
     class Meta:
         # managed = False
-        db_table = '研发部客户档案表'
+        db_table = '研发服务部客户档案表'
 
 
 class ExistingFormulationToDevelop(models.Model):

@@ -669,8 +669,6 @@ R
 "management/views/sales_forecast.py,7\a\7a1dd09239bb51ae2f305c53e5c36538acbbde6c
 X
 (management/templates/sales_forecast.html,7\f\7f1b074fe76bce030a7ace19c6ba8d631b1012d5
-r
-Bmanagement/migrations/0002_medicine_salesforecast_year_and_more.py,0\6\06a35447ac0565f616e4ce6ed35c81a2c3484972
 L
 management/views/medicine.py,2\e\2e89f66464a8a77c612cde1008998e3fbface90f
 R
@@ -685,9 +683,11 @@ X
 (management/templates/customer_audit.html,8\9\89da560c35d49db2de114d1305eb2e1e14819f4a
 [
 +management/migrations/0003_customeraudit.py,1\c\1c2f863046725774f0ba3782b325f6b60bdc343c
-`
-0management/utils/convert_none_to_empty_string.py,c\4\c4038d23589f54549e194150deff3acb42f120b7
 B
 management/apps.py,2\6\26c3f31ade803a34f199284139e13da270a7748f
 K
 management/utils/convert.py,0\c\0ce09c042dd8b2d64d441d3764e0ae21c83bf190
+p
+@management/migrations/0005_alter_authorization_table_and_more.py,d\2\d20c786c3b8a281ce18ae1eba4b9a99930b6d4dc
+{
+Kmanagement/migrations/0004_alter_customeraudit_application_date_and_more.py,8\d\8d25f1aea7c4fb01d006fe14ca95a047474cb5b3
