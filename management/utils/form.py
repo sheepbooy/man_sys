@@ -99,74 +99,6 @@ class foreign_customer_form(BootStrapModelForm):
         fields = '__all__'
 
 
-class ExistingFormulationToDevelop_form(BootStrapModelForm):
-    """已有制剂待开发表"""
-
-    class Meta:
-        model = models.ExistingFormulationToDevelop
-        # fields = [
-        #     'serial_number', 'enterprise_name', 'province', 'city', 'department', 'specific_department',
-        #     'responsible_person', 'customer_name', 'customer_source', 'product', 'corresponding_specification_code',
-        #     'special_requirements', 'estimated_annual_consumption', 'current_manufacturer', 'product_level',
-        #     'model_number',
-        #     'price_per_kg', 'sample_sales', 'is_repeated_project', 'first_quotation', 'quantity', 'unit_price',
-        #     'amount',
-        #     'formulation_name', 'is_consistency_evaluation_product', 'auxiliary_material_usage', 'prescription_dosage',
-        #     'development_date', 'customer_importance', 'initial_negotiation', 'supplier_change_request',
-        #     'supplier_audit',
-        #     'continuous_batch_sample_testing', 'first_production_of_3_batches', 'stability_study',
-        #     'additional_application_record_change', 'formal_contract_signing', 'delivery', 'in_progress', 'notes',
-        #     'before_pilot_scale_up', 'before_submission', 'issuing_time', 'landing_enterprise_name', 'contact_person',
-        #     'handover_sales_manager', 'handover_time'
-        # ]
-        fields = '__all__'
-
-
-class ExistingFormulationDeveloping_form(BootStrapModelForm):
-    """已有制剂开发中表"""
-
-    class Meta:
-        model = models.ExistingFormulationDeveloping
-        # fields = [
-        #     'serial_number', 'enterprise_name', 'province', 'city', 'department', 'specific_department',
-        #     'responsible_person', 'customer_name', 'customer_source', 'product', 'corresponding_specification_code',
-        #     'special_requirements', 'estimated_annual_consumption', 'current_manufacturer', 'product_level',
-        #     'model_number',
-        #     'price_per_kg', 'sample_sales', 'is_repeated_project', 'first_quotation', 'quantity', 'unit_price',
-        #     'amount',
-        #     'formulation_name', 'is_consistency_evaluation_product', 'auxiliary_material_usage', 'prescription_dosage',
-        #     'development_date', 'customer_importance', 'initial_negotiation', 'supplier_change_request',
-        #     'supplier_audit',
-        #     'continuous_batch_sample_testing', 'first_production_of_3_batches', 'stability_study',
-        #     'additional_application_record_change', 'formal_contract_signing', 'delivery', 'in_progress', 'notes',
-        #     'before_pilot_scale_up', 'before_submission', 'issuing_time', 'landing_enterprise_name', 'contact_person',
-        #     'handover_sales_manager', 'handover_time'
-        # ]
-        fields = '__all__'
-
-
-class ExistingProductCompleted_form(BootStrapModelForm):
-    """已有制剂开发完成表"""
-
-    class Meta:
-        model = models.ExistingProductCompleted
-        # fields = [
-        #     'serial_number', 'enterprise_name', 'province', 'city', 'department', 'specific_department',
-        #     'responsible_person',
-        #     'customer_name', 'customer_source', 'product', 'corresponding_specification_code', 'special_requirements',
-        #     'estimated_annual_consumption', 'current_manufacturer', 'product_level', 'model_number', 'price_per_kg',
-        #     'sample_sales',
-        #     'is_repeated_project', 'first_quotation', 'quantity', 'unit_price', 'amount', 'formulation_name',
-        #     'is_consistency_evaluation_product', 'auxiliary_material_usage', 'prescription_dosage', 'development_date',
-        #     'customer_importance', 'initial_negotiation', 'supplier_change_request', 'supplier_audit',
-        #     'continuous_batch_sample_testing', 'first_production_of_3_batches', 'stability_study',
-        #     'additional_application_record_change', 'formal_contract_signing', 'delivery', 'in_progress', 'notes',
-        #     'before_pilot_scale_up', 'before_submission', 'issuing_time', 'landing_enterprise_name', 'contact_person',
-        #     'handover_sales_manager', 'handover_time'
-        # ]
-        fields = '__all__'
-
-
 class authorization_form(BootStrapModelForm):
     """授权书总表"""
 
@@ -177,46 +109,6 @@ class authorization_form(BootStrapModelForm):
         #     'registration_status', 'related_manufacturer', 'related_product_name', 'administration_route',
         #     'follow_up_person', 'review_status', 'acceptance_month', 'during_review_month', 'disappearing_month',
         #     'notes'
-        # ]
-        fields = '__all__'
-
-
-class NewProductDeveloping_form(BootStrapModelForm):
-    """新品开发中表"""
-
-    class Meta:
-        model = models.NewProductDevelopingProgress
-        # fields = [
-        #     'serial_number', 'company_name', 'province', 'city', 'department',
-        #     'specific_department', 'manager', 'customer_name', 'customer_source', 'product',
-        #     'specification_code', 'special_requirements', 'sample_or_sale', 'is_duplicate_project',
-        #     'initial_quote', 'quantity', 'unit_price', 'amount', 'formulation_name',
-        #     'is_consistency_evaluation_product', 'excipient_purpose', 'prescription_quantity',
-        #     'start_development_date', 'customer_importance', 'excipient_inspection',
-        #     'prescription_selection', 'preliminary_process_validation_small_scale', 'pilot_scale_verification',
-        #     'process_verification', 'clinical_trials', 'approval_received', 'regular_purchase',
-        #     'response_needed', 'in_progress', 'notes', 'before_pilot_scale', 'before_submission',
-        #     'issuance_date', 'landing_company_name', 'contact_person', 'transfer_to_sales_manager', 'transfer_date'
-        # ]
-        fields = '__all__'
-
-
-class NewProductCompleted_form(BootStrapModelForm):
-    """新品已完成"""
-
-    class Meta:
-        model = models.NewProductCompleted
-        # fields = [
-        #     'serial_number', 'company_name', 'province', 'city', 'department',
-        #     'specific_department', 'manager', 'customer_name', 'customer_source', 'product',
-        #     'specification_code', 'special_requirements', 'sample_or_sale', 'is_duplicate_project',
-        #     'initial_quote', 'quantity', 'unit_price', 'amount', 'formulation_name',
-        #     'is_consistency_evaluation_product', 'excipient_purpose', 'prescription_quantity',
-        #     'start_development_date', 'customer_importance', 'excipient_inspection',
-        #     'prescription_selection', 'preliminary_process_validation_small_scale', 'pilot_scale_verification',
-        #     'process_verification', 'clinical_trials', 'approval_received', 'regular_purchase',
-        #     'response_needed', 'in_progress', 'notes', 'before_pilot_scale', 'before_submission',
-        #     'issuance_date', 'landing_company_name', 'contact_person', 'transfer_to_sales_manager', 'transfer_date'
         # ]
         fields = '__all__'
 
@@ -411,8 +303,26 @@ class Medicine_Form(BootStrapModelForm):
         model = models.Medicine
         exclude = ['id']
 
+
 class CustomerAudit_Form(BootStrapModelForm):
     """客户审计表"""
+
     class Meta:
         model = models.CustomerAudit
+        fields = '__all__'
+
+
+class PreparationNew_Form(BootStrapModelForm):
+    """已有变更"""
+
+    class Meta:
+        model = models.preparation_new
+        fields = '__all__'
+
+
+class ProductNew_Form(BootStrapModelForm):
+    """新品开发"""
+
+    class Meta:
+        model = models.product_new
         fields = '__all__'

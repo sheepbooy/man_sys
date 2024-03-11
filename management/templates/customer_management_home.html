@@ -6,40 +6,29 @@
         <div class="row g-4">
             <!-- 循环开始 -->
 
-            {% if 'management.view_existingformulationdeveloping' in request.session.info.user_permissions or 'management.view_existingformulationtodevelop' in request.session.info.user_permissions or 'management.view_existingproductcompleted' in request.session.info.user_permissions %}
+            {% if 'management.view_preparation_new' in request.session.info.user_permissions %}
                 <div class="col-md-6 col-lg-4">
                     <div class="card border-0 shadow on-hover-effect" onmouseover="hoverCard(this)"
                          onmouseout="unhoverCard(this)">
                         <div class="card-body">
-                            <h5 class="card-title">已有制剂进度管理</h5>
-                            <p class="card-text">对于已有制剂的进度进行管理</p>
-                            {% if 'management.view_existingproductcompleted' in request.session.info.user_permissions %}
-                                <a href="/preparation/completed" class="btn btn-primary" target="_blank">已完成</a>
-                            {% endif %}
-                            {% if 'management.view_existingformulationdeveloping' in request.session.info.user_permissions %}
-                                <a href="/preparation/ing" class="btn btn-primary" target="_blank">研发中</a>
-                            {% endif %}
-                            {% if 'management.view_existingformulationtodevelop' in request.session.info.user_permissions %}
-                                <a href="/preparation/todev" class="btn btn-primary" target="_blank">待研发</a>
-                            {% endif %}
+                            <h5 class="card-title">已有制剂管理</h5>
+                            <p class="card-text">对于已有制剂进行管理</p>
+                            <a href="/preparation_new/" class="btn btn-primary"
+                               target="_blank">已有制剂管理</a>
                         </div>
                     </div>
                 </div>
             {% endif %}
 
-            {% if 'management.view_newproductdevelopingprogress' in request.session.info.user_permissions or 'management.view_newproductcompleted' in request.session.info.user_permissions %}
+            {% if 'management.view_product_new' in request.session.info.user_permissions %}
                 <div class="col-md-6 col-lg-4">
                     <div class="card border-0 shadow on-hover-effect" onmouseover="hoverCard(this)"
                          onmouseout="unhoverCard(this)">
                         <div class="card-body">
-                            <h5 class="card-title">新品进度管理</h5>
-                            <p class="card-text">对于新品开发的进度进行管理</p>
-                            {% if 'management.view_newproductcompleted' in request.session.info.user_permissions %}
-                                <a href="/new/completed" class="btn btn-primary" target="_blank">已完成</a>
-                            {% endif %}
-                            {% if 'management.view_newproductdevelopingprogress' in request.session.info.user_permissions %}
-                                <a href="/new/ing" class="btn btn-primary" target="_blank">开发中</a>
-                            {% endif %}
+                            <h5 class="card-title">新品管理</h5>
+                            <p class="card-text">对于新品进行管理</p>
+                            <a href="/product_new/" class="btn btn-primary"
+                               target="_blank">新品管理</a>
                         </div>
                     </div>
                 </div>
@@ -133,8 +122,7 @@
                 </div>
             {% endif %}
 
-            {#            客户审计表，暂时还没导入，#}
-            {% if 'management.view_customerprofile' in request.session.info.user_permissions %}
+            {% if 'management.view_customeraudit' in request.session.info.user_permissions %}
                 <div class="col-md-6 col-lg-4">
                     <div class="card border-0 shadow on-hover-effect" onmouseover="hoverCard(this)"
                          onmouseout="unhoverCard(this)">

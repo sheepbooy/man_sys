@@ -1,0 +1,149 @@
+{% extends 'layout.html' %}
+{% block content %}
+    <div class="container mt-4">
+        <h2 class="mb-4">新品表</h2>
+        <div class="row mb-3">
+            {% if 'management.add_product_new' in request.session.info.user_permissions %}
+                <div class="col">
+                    <a href="/customer/management/" class="btn btn-outline-primary">返回</a>
+                    <a href="/product_new/add/" class="btn btn-primary">添加</a>
+                </div>
+            {% endif %}
+            <div class="col text-end">
+                <form method="get" id="search-form">
+                    <div id="search-conditions">
+                        <!-- 动态搜索条件将被插入这里 -->
+                    </div>
+                    <button type="button" id="add-search-condition" class="btn btn-secondary">添加搜索条件</button>
+                    <button type="submit" class="btn btn-outline-secondary">搜索</button>
+                    <button class="btn btn-outline-secondary" type="button" id="clear-search-conditions">清空</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="scrollable-table">
+            <table class="table table-fixed custom-table">
+                <thead>
+                <tr>
+                    <th>序号</th>
+                    <th>状态</th>
+                    <th>企业名称</th>
+                    <th>省份</th>
+                    <th>城市</th>
+                    <th>部门</th>
+                    <th>具体部门</th>
+                    <th>负责人</th>
+                    <th>客户名称</th>
+                    <th>客户来源</th>
+                    <th>产品</th>
+                    <th>规格编码</th>
+                    <th>特殊需求</th>
+                    <th>申样/销售</th>
+                    <th>是否重复项目</th>
+                    <th>初次报价</th>
+                    <th>数量</th>
+                    <th>单价</th>
+                    <th>金额</th>
+                    <th>制剂名称</th>
+                    <th>是否一致性评价品种</th>
+                    <th>辅料用途</th>
+                    <th>处方用量</th>
+                    <th>起始开发日期</th>
+                    <th>客户重要程度</th>
+                    <th>辅料检验</th>
+                    <th>处方筛选</th>
+                    <th>初步验证工艺（小试）</th>
+                    <th>中试验证</th>
+                    <th>工艺验证</th>
+                    <th>临床</th>
+                    <th>拿到批文</th>
+                    <th>正常采购</th>
+                    <th>是否回复</th>
+                    <th>进行中</th>
+                    <th>备注</th>
+                    <th>中试前</th>
+                    <th>申报前</th>
+                    <th>开具时间</th>
+                    <th>落地企业名称</th>
+                    <th>联系人</th>
+                    <th>移交销售经理</th>
+                    <th>移交时间</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for item in page_queryset %}
+                    <tr>
+                        <td>{{ forloop.counter0|add:page_start_index }}</td>
+                        <td>{{ item.status }}</td>
+                        <td>{{ item.company_name }}</td>
+                        <td>{{ item.province }}</td>
+                        <td>{{ item.city }}</td>
+                        <td>{{ item.department }}</td>
+                        <td>{{ item.specific_department }}</td>
+                        <td>{{ item.manager }}</td>
+                        <td>{{ item.customer_name }}</td>
+                        <td>{{ item.customer_source }}</td>
+                        <td>{{ item.product }}</td>
+                        <td>{{ item.specification_code }}</td>
+                        <td>{{ item.special_requirements }}</td>
+                        <td>{{ item.sample_or_sale }}</td>
+                        <td>{{ item.is_duplicate_project }}</td>
+                        <td>{{ item.initial_quote }}</td>
+                        <td>{{ item.quantity }}</td>
+                        <td>{{ item.unit_price }}</td>
+                        <td>{{ item.amount }}</td>
+                        <td>{{ item.formulation_name }}</td>
+                        <td>{{ item.is_consistency_evaluation_product }}</td>
+                        <td>{{ item.excipient_purpose }}</td>
+                        <td>{{ item.prescription_quantity }}</td>
+                        <td>{{ item.start_development_date }}</td>
+                        <td>{{ item.customer_importance }}</td>
+                        <td>{{ item.excipient_inspection }}</td>
+                        <td>{{ item.prescription_selection }}</td>
+                        <td>{{ item.preliminary_process_validation_small_scale }}</td>
+                        <td>{{ item.pilot_scale_verification }}</td>
+                        <td>{{ item.process_verification }}</td>
+                        <td>{{ item.clinical_trials }}</td>
+                        <td>{{ item.approval_received }}</td>
+                        <td>{{ item.regular_purchase }}</td>
+                        <td>{{ item.response_needed }}</td>
+                        <td>{{ item.in_progress }}</td>
+                        <td>{{ item.notes }}</td>
+                        <td>{{ item.before_pilot_scale }}</td>
+                        <td>{{ item.before_submission }}</td>
+                        <td>{{ item.issuance_date }}</td>
+                        <td>{{ item.landing_company_name }}</td>
+                        <td>{{ item.contact_person }}</td>
+                        <td>{{ item.transfer_to_sales_manager }}</td>
+                        <td>{{ item.transfer_date }}</td>
+                        <td>
+                            {% if 'management.change_product_new' in request.session.info.user_permissions %}
+                                <a href="/product_new/edit/{{ product_new.id }}/"
+                                   class="btn btn-info btn-sm">编辑</a>
+                            {% endif %}
+                            {% if 'management.delete_product_new' in request.session.info.user_permissions %}
+                                <button type="button" class="btn btn-danger btn-sm delete-btn"
+                                        data-delete-url="/product_new/delete/{{ product_new.id }}/">
+                                    删除
+                                </button>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="9">No data available</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <nav aria-label="Page navigation example">
+            <!-- 分页导航 -->
+            <ul class="pagination justify-content-center">
+                {{ page_string|safe }}
+            </ul>
+        </nav>
+    </div>
+{% endblock %}

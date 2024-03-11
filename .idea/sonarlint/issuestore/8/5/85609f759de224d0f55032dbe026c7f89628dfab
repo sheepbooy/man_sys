@@ -1,41 +1,34 @@
 
-python:S1192"SDefine a constant instead of duplicating this literal 'å¯¹åº”è§„æ ¼ç¼–ç ' 3 times.(ªˆ…ñÿÿÿÿÿ8¿‰»ºâ1J$fa5c63e4-5c96-40f5-a4d5-285c913f6d6d
-python:S1192¹"SDefine a constant instead of duplicating this literal 'è½åœ°ä¼ä¸šåç§°' 5 times.(ƒÖ•æùÿÿÿÿ8À‰»ºâ1J$619ab97b-3499-4a77-8064-0f614d87f87c
-¢python:S1192¤"\Define a constant instead of duplicating this literal 'æ˜¯å¦ä¸€è‡´æ€§è¯„ä»·å“ç§' 5 times.(äúÚÌ8À‰»ºâ1J$d2c6621e-5f0c-497c-9e14-1a6255ab0d8a
-¢python:S1192 "\Define a constant instead of duplicating this literal 'æå‡ºä¾›åº”å•†å˜æ›´ç”³è¯·' 3 times.(Àø†õ8À‰»ºâ1J$b3d7c595-7f0d-47c2-8a8f-95ff00160cf4
-™python:S1192¨"SDefine a constant instead of duplicating this literal 'å®¢æˆ·é‡è¦ç¨‹åº¦' 5 times.(‹äÜ¶8À‰»ºâ1J$6a7f3088-9684-4408-bb6b-0bc85ce3f205
-¨python:S1192¢"]Define a constant instead of duplicating this literal 'è¿ç»­3æ‰¹è¾…æ–™å°æ ·æ£€æµ‹' 3 times.(íÄ§âşÿÿÿÿ8À‰»ºâ1J$4ece9043-8628-4330-8533-4c888727a103
-python:S1192¯"SDefine a constant instead of duplicating this literal 'é£Ÿå“æ·»åŠ å‰‚éƒ¨' 3 times.(ÁÍîÖÿÿÿÿÿ8À‰»ºâ1J$d92bfdd4-92ce-4e16-b4cc-168d14691f27
-¥python:S1192¦"_Define a constant instead of duplicating this literal 'è¡¥å……ç”³è¯·å¤‡æ¡ˆå®Œæˆå˜æ›´' 3 times.(î¾ÄÛ8À‰»ºâ1J$f6afd31c-39d1-4d2a-ae63-b97bdd8ed447
-python:S1192§"SDefine a constant instead of duplicating this literal 'èµ·å§‹å¼€å‘æ—¥æœŸ' 5 times.(Œğı˜ûÿÿÿÿ8À‰»ºâ1J$7c03b497-6fef-4c0a-8bc3-447932c55f7f
-–python:S1192¡"PDefine a constant instead of duplicating this literal 'ä¾›åº”å•†å®¡è®¡' 3 times.(Ñà­×8À‰»ºâ1J$d1a6fb05-5d04-49f1-97e9-a1ddd8a87d65
-python:S1192»"SDefine a constant instead of duplicating this literal 'ç§»äº¤é”€å”®ç»ç†' 5 times.(ÁÒƒúüÿÿÿÿ8À‰»ºâ1J$dfcf8d12-d40c-4c77-ad22-eb27958adb72
-–python:S1192¤"PDefine a constant instead of duplicating this literal 'ç¨³å®šæ€§è€ƒå¯Ÿ' 3 times.(ôò±Ó8À‰»ºâ1J$a3b16c5a-d364-4ebb-aaa0-0f85b55a1f7b
-¢python:S1192•"\Define a constant instead of duplicating this literal 'çº§åˆ«(è¯å“çº§/åŒ–å­¦çº§)' 3 times.(®ßÜô8À‰»ºâ1J$b0f4181e-4693-4691-a418-15705391e282
-œpython:S1192£"QDefine a constant instead of duplicating this literal 'é¦–æ¬¡ç”Ÿäº§3æ‰¹' 3 times.(êñáƒÿÿÿÿÿ8À‰»ºâ1J$7682513b-267d-4367-b66a-2e36b760eaac
-•python:S1192±"PDefine a constant instead of duplicating this literal 'ç ”å‘æœåŠ¡éƒ¨' 3 times.(€®©8À‰»ºâ1J$759c597c-3370-4f93-9dbe-88a3322daf72
-•python:S1192’"PDefine a constant instead of duplicating this literal 'é¢„ä¼°å¹´ç”¨é‡' 3 times.(…È£h8À‰»ºâ1J$37192158-f6d4-441e-84f0-d0ae746b2444
-python:S1192§"SDefine a constant instead of duplicating this literal 'æ­£å¼åˆåŒç­¾è®¢' 3 times.(Ş¾õ¿úÿÿÿÿ8À‰»ºâ1J$a4abe0f3-f309-4ce3-a20a-8cee7689fb17
-cpython:S125!"Remove this commented out code.(‡éÊµ8À‰»ºâ1J$cb9ccfb9-12e9-426a-97ba-a3b4d02b1bf3
-cpython:S125Z"Remove this commented out code.(‡éÊµ8À‰»ºâ1J$50b73501-4e48-49d9-9657-5a534bdf40c5
-cpython:S125p"Remove this commented out code.(‡éÊµ8Á‰»ºâ1J$da17980b-ea62-4a7e-8bfb-93c04db79fe1
-dpython:S125•"Remove this commented out code.(‡éÊµ8Á‰»ºâ1J$3d1ed693-686c-4621-84bc-d78c47758d01
-dpython:S125î"Remove this commented out code.(‡éÊµ8Á‰»ºâ1J$31c32768-333f-4f43-abac-3774ea9eba04
-dpython:S125ş"Remove this commented out code.(‡éÊµ8Á‰»ºâ1J$83fffd84-9f27-4d8b-b99f-b48f0e5b8c3e
-dpython:S125Š"Remove this commented out code.(‡éÊµ8Á‰»ºâ1J$f40d60f0-e03d-4029-876b-cf5e346dcc5d
-dpython:S125¿"Remove this commented out code.(‡éÊµ8Á‰»ºâ1J$57e42278-ccb8-4825-b298-fc77f032401b
-dpython:S125ô"Remove this commented out code.(‡éÊµ8Á‰»ºâ1J$8bc763da-eee7-4dc1-921f-ffd512b03de2
-dpython:S125£"Remove this commented out code.(‡éÊµ8Á‰»ºâ1J$4367c2ab-e3f6-4f21-be8c-716f52266c1f
-dpython:S125Ï"Remove this commented out code.(‡éÊµ8Á‰»ºâ1J$ad4cdf73-d363-4eeb-9253-f0581a6de32c
-dpython:S125€"Remove this commented out code.(‡éÊµ8Á‰»ºâ1J$41336736-ea4b-4daf-bc82-73c0ac3bd75b
-dpython:S125´"Remove this commented out code.(‡éÊµ8Á‰»ºâ1J$5231ac17-c5c8-4e14-9d69-7ed4214beb67
-dpython:S125À"Remove this commented out code.(‡éÊµ8Á‰»ºâ1J$c2b9b13d-b86d-4102-ac96-71a22e826ef8
-dpython:S125ô"Remove this commented out code.(‡éÊµ8Á‰»ºâ1J$62654279-9b08-4cb9-8c00-8d4a19dbfa85
-dpython:S125¨"Remove this commented out code.(‡éÊµ8Á‰»ºâ1J$577741bd-382a-4a46-8287-8c95f41be955
-dpython:S125â"Remove this commented out code.(‡éÊµ8Á‰»ºâ1J$b3f1bb2a-0a8b-48d2-a4b3-bfe2337f3415
-dpython:S125ï"Remove this commented out code.(‡éÊµ8Á‰»ºâ1J$760451b2-a9e3-488a-b7aa-3c4bf0986435
-±python:S101ó"lRename class "Foreign_receivable" to match the regular expression ^_?([A-Z_][a-zA-Z0-9]*|[a-z_][a-z0-9_]*)$.(Şï¦ï8Á‰»ºâ1J$da6cc1c5-6fbe-4ed2-bd73-6ea7904eb269
-dpython:S125›"Remove this commented out code.(‡éÊµ8Á‰»ºâ1J$36fbfbac-93b3-4dc3-9ed5-81ddecea71e5
-dpython:S125¾"Remove this commented out code.(‡éÊµ8Á‰»ºâ1J$20cb31e3-e7b5-41fa-ba13-1f070bd9ab49
-dpython:S125Ô"Remove this commented out code.(‡éÊµ8Á‰»ºâ1J$fbb4d1e5-70f9-4b0b-b050-f212f21690f4
-dpython:S125ö"Remove this commented out code.(‡éÊµ8Á‰»ºâ1J$c8fc79fb-c03b-4f4c-a5a6-9ac515609913
+python:S1192¹"SDefine a constant instead of duplicating this literal 'è½åœ°ä¼ä¸šåç§°' 4 times.(ƒÖ•æùÿÿÿÿ8ìèíâ1J$8e56b32f-73b7-4817-9bd1-29104355a64b
+¢python:S1192¤"\Define a constant instead of duplicating this literal 'æ˜¯å¦ä¸€è‡´æ€§è¯„ä»·å“ç§' 4 times.(äúÚÌ8íèíâ1J$4a6a9887-92a8-4414-804f-99aa06e498e6
+™python:S1192¨"SDefine a constant instead of duplicating this literal 'å®¢æˆ·é‡è¦ç¨‹åº¦' 4 times.(‹äÜ¶8íèíâ1J$2a8a48d2-7d31-4330-bd3e-e5b95f24c725
+python:S1192¯"SDefine a constant instead of duplicating this literal 'é£Ÿå“æ·»åŠ å‰‚éƒ¨' 3 times.(ÁÍîÖÿÿÿÿÿ8íèíâ1J$13f9c6a2-1fd7-4277-8a51-c199adc3bfc1
+python:S1192§"SDefine a constant instead of duplicating this literal 'èµ·å§‹å¼€å‘æ—¥æœŸ' 3 times.(Œğı˜ûÿÿÿÿ8íèíâ1J$ba2f725c-bb7b-4066-8287-fc5188d54e44
+”python:S1192œ"NDefine a constant instead of duplicating this literal 'ç”³æ ·/é”€å”®' 3 times.(”¥‚Õ8íèíâ1J$403aacaf-d182-4a03-9f49-a6a34415e373
+python:S1192»"SDefine a constant instead of duplicating this literal 'ç§»äº¤é”€å”®ç»ç†' 4 times.(ÁÒƒúüÿÿÿÿ8íèíâ1J$4c219fe2-791c-44f3-a60e-3db6c0d50078
+™python:S1192"SDefine a constant instead of duplicating this literal 'æ˜¯å¦é‡å¤é¡¹ç›®' 3 times.(úöÕ¦8íèíâ1J$15e8a3b9-d70e-4976-9c32-5302b3675514
+¥python:S1192­"_Define a constant instead of duplicating this literal 'åˆæ­¥éªŒè¯å·¥è‰ºï¼ˆå°è¯•ï¼‰' 3 times.(úõş­8íèíâ1J$5eac9fe2-a22f-469e-a3da-ccc5c4a9e58d
+•python:S1192±"PDefine a constant instead of duplicating this literal 'ç ”å‘æœåŠ¡éƒ¨' 3 times.(€®©8íèíâ1J$83de096b-f6c6-4d25-a59e-dfda4e2d49ca
+cpython:S125!"Remove this commented out code.(‡éÊµ8íèíâ1J$ff19904e-f56f-4637-ba90-5e07a89dae41
+cpython:S125Z"Remove this commented out code.(‡éÊµ8íèíâ1J$99117062-431d-4569-9d33-a66dff03b085
+cpython:S125p"Remove this commented out code.(‡éÊµ8íèíâ1J$235df90d-a06e-472d-9205-74db03cd3c0f
+dpython:S125•"Remove this commented out code.(‡éÊµ8íèíâ1J$62548466-bd4a-490f-80cb-298f95c57755
+dpython:S125î"Remove this commented out code.(‡éÊµ8íèíâ1J$5a2e1371-a921-4b85-afac-009a8fcd8b28
+dpython:S125ş"Remove this commented out code.(‡éÊµ8íèíâ1J$0480fa6d-98f0-4a2a-9d6d-ef89379963cf
+dpython:S125Š"Remove this commented out code.(‡éÊµ8íèíâ1J$8b4c4afc-d60a-4fcf-83e9-6c863ffa0062
+dpython:S125¿"Remove this commented out code.(‡éÊµ8íèíâ1J$49b087be-5e94-4e99-9018-ee82fe457c03
+dpython:S125ô"Remove this commented out code.(‡éÊµ8íèíâ1J$bc027b3b-96c2-4a22-9b69-49919b7d6bae
+dpython:S125£"Remove this commented out code.(‡éÊµ8íèíâ1J$1c89c1d4-e963-4623-9632-ac6e4aae65c2
+dpython:S125Ï"Remove this commented out code.(‡éÊµ8íèíâ1J$f38686be-2c80-49be-81be-90d67dab7458
+dpython:S125€"Remove this commented out code.(‡éÊµ8íèíâ1J$8b19e0e6-8dc5-4b56-a3fd-41c8424f20a7
+cpython:S125„"Remove this commented out code.(ÌªÉ]8íèíâ1J$a3a0bf8f-7257-4967-8503-d596f7e27832
+dpython:S125À"Remove this commented out code.(‡éÊµ8íèíâ1J$d855aced-44b3-45d0-a0a9-10fe0853d946
+ipython:S125Ä"Remove this commented out code.(Ğ»²ÿşÿÿÿÿ8íèíâ1J$8b6d21bf-94ae-4744-a40c-2ccb61e4ce7e
+ipython:S125ø"Remove this commented out code.(„Å£Èşÿÿÿÿ8íèíâ1J$a6c4e462-ada5-46f6-ae89-8841a080b349
+dpython:S125â"Remove this commented out code.(‡éÊµ8íèíâ1J$06eb4ead-5227-469f-b812-c1429e007a87
+dpython:S125ï"Remove this commented out code.(‡éÊµ8íèíâ1J$d7f6e87d-fbe8-410d-b5d1-e3d503fb8227
+±python:S101ó"lRename class "Foreign_receivable" to match the regular expression ^_?([A-Z_][a-zA-Z0-9]*|[a-z_][a-z0-9_]*)$.(Şï¦ï8îèíâ1J$49804efb-5b73-4c8f-a869-69ddeccabc41
+dpython:S125›"Remove this commented out code.(‡éÊµ8îèíâ1J$2a543835-6b20-42f5-9c21-f25cb987fd1e
+dpython:S125¾"Remove this commented out code.(‡éÊµ8îèíâ1J$2689b2e0-3f50-4a18-a634-15792afa8d9b
+dpython:S125Ô"Remove this commented out code.(‡éÊµ8îèíâ1J$056fc12f-b96d-4c64-8ac4-99fb7bf32db7
+dpython:S125ö"Remove this commented out code.(‡éÊµ8îèíâ1J$13e505fd-6ac4-405b-b806-5d81ce3dac65

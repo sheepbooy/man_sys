@@ -21,9 +21,7 @@ from management.views import employee
 from management.views import inner_trade_ledger
 from management.views import foreign_trade_ledger
 from management.views import foreign_customer
-from management.views import preparation
 from management.views import authorization
-from management.views import new
 from management.views import progress
 from management.views import dev_customer
 from management.views import butting
@@ -40,6 +38,8 @@ from management.views import sales_visit_report
 from management.views import sales_forecast
 from management.views import medicine
 from management.views import customer_audit
+from management.views import preparation_new
+from management.views import product_new
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -100,23 +100,11 @@ urlpatterns = [
     path('foreign/customer/delete/<int:_id>/', foreign_customer.foreign_customer_delete,
          name='delete_foreign_customer'),
 
-    # 已有制剂已完成,开发中，待开发进度表
-    path('preparation/<str:_type>/', preparation.preparation),
-    path('preparation/<str:_type>/add/', preparation.preparation_add),
-    path('preparation/<str:_type>/edit/<int:_id>/', preparation.preparation_edit, name='edit_preparation'),
-    path('preparation/<str:_type>/delete/<int:_id>/', preparation.preparation_delete, name='delete_preparation'),
-
     # 授权书总表
     path('authorization/', authorization.authorization),
     path('authorization/add/', authorization.authorization_add),
     path('authorization/edit/<int:_id>/', authorization.authorization_edit, name='edit_authorization'),
     path('authorization/delete/<int:_id>/', authorization.authorization_delete, name='delete_authorization'),
-
-    # 新品已完成，开发中进度表
-    path('new/<str:_type>/', new.new),
-    path('new/<str:_type>/add/', new.new_add),
-    path('new/<str:_type>/edit/<int:_id>/', new.new_edit, name='edit_new'),
-    path('new/<str:_type>/delete/<int:_id>/', new.new_delete, name='delete_new'),
 
     # 新品，已有制剂进度描述
     path('progress/<str:_type>/', progress.progress),
@@ -236,4 +224,16 @@ urlpatterns = [
     path('customer_audit/add/', customer_audit.customer_audit_add, name='customer_audit_add'),
     path('customer_audit/edit/<int:_id>/', customer_audit.customer_audit_edit, name='customer_audit_edit'),
     path('customer_audit/delete/<int:_id>/', customer_audit.customer_audit_delete, name='customer_audit_delete'),
+
+    # 新已有制剂表
+    path('preparation_new/', preparation_new.preparation_new, name='preparation_new'),
+    path('preparation_new/add/', preparation_new.preparation_new_add, name='preparation_new_add'),
+    path('preparation_new/edit/<int:_id>/', preparation_new.preparation_new_edit, name='preparation_new_edit'),
+    path('preparation_new/delete/<int:_id>/', preparation_new.preparation_new_delete, name='preparation_new_delete'),
+
+    # 新品已完成，开发中进度表
+    path('product_new/', product_new.product_new, name='product_new'),
+    path('product_new/add/', product_new.product_new_add, name='product_new_add'),
+    path('product_new/edit/<int:_id>/', product_new.product_new_edit, name='product_new_edit'),
+    path('product_new/delete/<int:_id>/', product_new.product_new_delete, name='product_new_delete'),
 ]
