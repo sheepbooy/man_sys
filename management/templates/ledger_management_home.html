@@ -40,32 +40,32 @@
                 </div>
             {% endif %}
 
-            {% if 'management.view_internaltradeledger' in request.session.info.user_permissions %}
-                <div class="col-md-6 col-lg-4">
-                    <div class="card h-100 border-0 shadow">
-                        <div class="card-body">
-                            <h5 class="card-title">台账基础表（原辅料、食品、研发、产品）</h5>
-                            <p class="card-text">根据销售月份，查询内贸部每月的台账</p>
-                            <a href="/report/inner/m_inner_trade_ledger/" class="btn btn-primary"
-                               target="_blank">前往台账基础表(内贸部)管理</a>
-                        </div>
-                    </div>
-                </div>
-            {% endif %}
+{#            {% if 'management.view_internaltradeledger' in request.session.info.user_permissions %}#}
+{#                <div class="col-md-6 col-lg-4">#}
+{#                    <div class="card h-100 border-0 shadow">#}
+{#                        <div class="card-body">#}
+{#                            <h5 class="card-title">台账基础表（原辅料、食品、研发、产品）</h5>#}
+{#                            <p class="card-text">根据销售月份，查询内贸部每月的台账</p>#}
+{#                            <a href="/report/inner/m_inner_trade_ledger/" class="btn btn-primary"#}
+{#                               target="_blank">前往台账基础表(内贸部)管理</a>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                </div>#}
+{#            {% endif %}#}
 
 
-            {% if 'management.view_foreigntradeledger' in request.session.info.user_permissions %}
-                <div class="col-md-6 col-lg-4">
-                    <div class="card h-100 border-0 shadow">
-                        <div class="card-body">
-                            <h5 class="card-title">台账基础表（外贸部）</h5>
-                            <p class="card-text">根据销售月份，查询外贸部每月的台账。</p>
-                            <a href="/report/foreign/m_foreign_trade_ledger/" class="btn btn-primary"
-                               target="_blank">前往台账基础表(外贸部)管理</a>
-                        </div>
-                    </div>
-                </div>
-            {% endif %}
+{#            {% if 'management.view_foreigntradeledger' in request.session.info.user_permissions %}#}
+{#                <div class="col-md-6 col-lg-4">#}
+{#                    <div class="card h-100 border-0 shadow">#}
+{#                        <div class="card-body">#}
+{#                            <h5 class="card-title">台账基础表（外贸部）</h5>#}
+{#                            <p class="card-text">根据销售月份，查询外贸部每月的台账。</p>#}
+{#                            <a href="/report/foreign/m_foreign_trade_ledger/" class="btn btn-primary"#}
+{#                               target="_blank">前往台账基础表(外贸部)管理</a>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                </div>#}
+{#            {% endif %}#}
 
             {% if 'management.view_internaltradeledger' in request.session.info.user_permissions %}
                 <div class="col-md-6 col-lg-4">

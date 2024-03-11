@@ -92,7 +92,7 @@ class InternalTradeLedger(models.Model):
 
 
 class Authorization(models.Model):
-    authorization_number = models.AutoField(primary_key=True, verbose_name='授权书编号')
+    id = models.AutoField(primary_key=True, verbose_name='授权书编号')
     issuance_month = models.DateField(verbose_name='开具月份')
     product_name = models.CharField(max_length=255, blank=True, verbose_name='品种')
     registration_number = models.CharField(max_length=255, blank=True, verbose_name='登记号')
@@ -114,7 +114,7 @@ class Authorization(models.Model):
 
 
 class ForeignCustomerProfile(models.Model):
-    customer_profile_number = models.AutoField(primary_key=True, verbose_name='客户档案编号')
+    id = models.AutoField(primary_key=True, verbose_name='客户档案编号')
     salesperson = models.CharField(max_length=255, blank=True, verbose_name='业务员')
     classification = models.CharField(max_length=255, blank=True, verbose_name='分级')
     development_date = models.DateField(verbose_name='开发日期', blank=True)
@@ -151,7 +151,7 @@ class ForeignCustomerProfile(models.Model):
 
 
 class ForeignTradeLedger(models.Model):
-    serial_number = models.AutoField(primary_key=True, verbose_name='序号')
+    id = models.AutoField(primary_key=True, verbose_name='序号')
     order_date = models.DateField(verbose_name='下订单日期', blank=True)
     sales_date = models.DateField(verbose_name='销售日期', blank=True)
     contract_number = models.CharField(max_length=255, blank=True, verbose_name='合同编号')
@@ -268,7 +268,7 @@ class NewProductDevelopment(models.Model):
 
 
 class NewProductDevelopingProgress(models.Model):
-    serial_number = models.AutoField(primary_key=True, verbose_name='序号')
+    id = models.AutoField(primary_key=True, verbose_name='序号')
     company_name = models.CharField(max_length=255, blank=True, verbose_name='企业名称')
     province = models.CharField(max_length=255, blank=True, verbose_name='省份')
     city = models.CharField(max_length=255, blank=True, verbose_name='城市')
@@ -321,7 +321,7 @@ class NewProductDevelopingProgress(models.Model):
 
 
 class NewProductCompleted(models.Model):
-    serial_number = models.AutoField(primary_key=True, verbose_name='序号')
+    id = models.AutoField(primary_key=True, verbose_name='序号')
     company_name = models.CharField(max_length=255, blank=True, verbose_name='企业名称')
     province = models.CharField(max_length=255, blank=True, verbose_name='省份')
     city = models.CharField(max_length=255, blank=True, verbose_name='城市')
@@ -382,7 +382,7 @@ class CustomerEngagement(models.Model):
         ('1', '是'),
         ('0', '否')
     ]
-    engagement_number = models.AutoField(primary_key=True, verbose_name='对接编号')
+    id = models.AutoField(primary_key=True, verbose_name='对接编号')
     recorder = models.CharField(max_length=255, blank=True, verbose_name='记录人')
     proactive_or_passive_engagement = models.CharField(max_length=255,
                                                        blank=True,
@@ -421,7 +421,7 @@ class CustomerEngagement(models.Model):
 
 
 class CustomerFlow(models.Model):
-    customer_id = models.AutoField(primary_key=True, verbose_name='客户编号')
+    id = models.AutoField(primary_key=True, verbose_name='客户编号')
     sales_department = models.CharField(max_length=255, verbose_name='销售部', blank=True)
     province = models.CharField(max_length=255, blank=True, verbose_name='省份')
     city = models.CharField(max_length=255, blank=True, verbose_name='城市')
@@ -465,7 +465,7 @@ class CustomerFlow(models.Model):
 
 
 class CustomerProfile(models.Model):
-    customer_id = models.AutoField(primary_key=True, verbose_name='客户编号')
+    id = models.AutoField(primary_key=True, verbose_name='客户编号')
     sales_department = models.CharField(max_length=255, blank=True, verbose_name='销售部')
     province = models.CharField(max_length=255, blank=True, verbose_name='省份')
     research_capacity = models.CharField(max_length=255, blank=True, verbose_name='研发实力')
@@ -514,7 +514,7 @@ class CustomerProfile(models.Model):
 
 
 class ExistingFormulationToDevelop(models.Model):
-    serial_number = models.AutoField(primary_key=True, verbose_name='序号')
+    id = models.AutoField(primary_key=True, verbose_name='序号')
     enterprise_name = models.CharField(max_length=255, blank=True, verbose_name='企业名称')
     province = models.CharField(max_length=255, blank=True, verbose_name='省份')
     city = models.CharField(max_length=255, blank=True, verbose_name='城市')
@@ -578,7 +578,7 @@ class ExistingFormulationProgressDescription(models.Model):
 
 
 class ExistingFormulationDeveloping(models.Model):
-    serial_number = models.AutoField(primary_key=True, verbose_name='序号')
+    id = models.AutoField(primary_key=True, verbose_name='序号')
     enterprise_name = models.CharField(max_length=255, blank=True, verbose_name='企业名称')
     province = models.CharField(max_length=255, blank=True, verbose_name='省份')
     city = models.CharField(max_length=255, blank=True, verbose_name='城市')
@@ -630,7 +630,7 @@ class ExistingFormulationDeveloping(models.Model):
 
 
 class ExistingProductCompleted(models.Model):
-    serial_number = models.AutoField(primary_key=True, verbose_name='序号')
+    id = models.AutoField(primary_key=True, verbose_name='序号')
     enterprise_name = models.CharField(max_length=255, blank=True, verbose_name='企业名称')
     province = models.CharField(max_length=255, blank=True, verbose_name='省份')
     city = models.CharField(max_length=255, blank=True, verbose_name='城市')
@@ -890,7 +890,7 @@ class ComplaintSummary(models.Model):
 class SalesVisitReport(models.Model):
     """销售客户拜访报告"""
     # 假设序号是自动生成的，不需要手动输入
-    serial_number = models.AutoField(primary_key=True, verbose_name='序号')
+    id = models.AutoField(primary_key=True, verbose_name='序号')
     # 企业名称
     company_name = models.CharField(max_length=255, verbose_name='企业名称', blank=True)
     # 拜访日期

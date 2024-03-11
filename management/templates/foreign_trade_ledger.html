@@ -11,12 +11,13 @@
                 </div>
             {% endif %}
             <div class="col text-end">
-                <form method="get">
-                    <div class="input-group">
-                        <input type="text" name='q' class="form-control" placeholder="搜索" value="{{ value }}">
-                        <button class="btn btn-outline-secondary" type="submit">搜索</button>
-                        <button class="btn btn-outline-secondary" type="button" id="clear-search-button">清空</button>
+                <form method="get" id="search-form">
+                    <div id="search-conditions">
+                        <!-- 动态搜索条件将被插入这里 -->
                     </div>
+                    <button type="button" id="add-search-condition" class="btn btn-secondary">添加搜索条件</button>
+                    <button type="submit" class="btn btn-outline-secondary">搜索</button>
+                    <button class="btn btn-outline-secondary" type="button" id="clear-search-conditions">清空</button>
                 </form>
             </div>
         </div>
@@ -148,6 +149,10 @@
                                 </button>
                             {% endif %}
                         </td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="9">No data available</td>
                     </tr>
                 {% endfor %}
                 </tbody>

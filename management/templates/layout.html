@@ -228,6 +228,69 @@
         });
     });
 </script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const clearSearchBtn = document.getElementById('clear-search-conditions');
+
+        clearSearchBtn.addEventListener('click', function () {
+            // 重新加载页面到初始未筛选状态，移除URL中的所有查询参数
+            window.location.href = window.location.pathname;
+        });
+    });
+</script>
+
+{#添加搜索条件以及清空搜索条件#}
+<script>
+    {#添加搜索条件以及清空搜索条件#}
+    document.addEventListener('DOMContentLoaded', function () {
+        const searchConditionsDiv = document.getElementById('search-conditions');
+        const queryParams = new URLSearchParams(window.location.search);
+
+        // 动态添加搜索条件的函数
+        function addSearchCondition(field = '', value = '') {
+            let optionsHtml = `{% for field_name, field_display in field_info %}
+    <option value="{{ field_name }}"
+            ${field === '{{ field_name }}' ? 'selected' : ''}>{{ field_display }}</option>{% endfor %}`;
+
+            const conditionHTML = `
+    <div class="input-group mb-3 search-condition">
+        <select name="fields" class="form-control">${optionsHtml}</select>
+        <input type="text" name="values" class="form-control" placeholder="搜索值" value="${value}">
+        <button type="button" class="btn btn-danger remove-condition">移除</button>
+    </div>`;
+
+            // 使用 insertAdjacentHTML 方法添加新的搜索条件，而不是 innerHTML
+            searchConditionsDiv.insertAdjacentHTML('beforeend', conditionHTML);
+        }
+
+        // 添加按钮事件监听器
+        document.getElementById('add-search-condition').addEventListener('click', function () {
+            addSearchCondition();
+        });
+
+        // 移除条件事件监听器
+        searchConditionsDiv.addEventListener('click', function (event) {
+            if (event.target.classList.contains('remove-condition')) {
+                event.target.closest('.search-condition').remove();
+            }
+        });
+
+        // 从URL查询参数中加载搜索条件并添加到表单
+        const fields = queryParams.getAll('fields');
+        const values = queryParams.getAll('values');
+
+        if (fields.length && values.length && fields.length === values.length) {
+            for (let i = 0; i < fields.length; i++) {
+                addSearchCondition(fields[i], values[i]);
+            }
+        } else {
+            // 如果没有任何查询参数，添加一个空的搜索条件
+            addSearchCondition();
+        }
+    });
+</script>
+
 {% block js %}
 {% endblock %}
 </body>

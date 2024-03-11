@@ -12,38 +12,46 @@
                 </div>
             {% endif %}
             <div class="col text-end">
-                <form method="get" class="mb-4 d-flex justify-content-start">
-                    <select name="department" id="department-select" class="form-select me-2">
-                        <option value="">所有部门</option>
-                        {% for department in departments %}
-                            <option value="{{ department }}"
-                                    {% if department|stringformat:"s" == selected_department %}selected{% endif %}>
-                                {{ department }}
-                            </option>
-                        {% endfor %}
-                    </select>
-
-                    <select name="category" id="category-select" class="form-select me-2">
-                        <option value="">所有分类</option>
-                        {% for category_key, category_value in category_choices.items %}
-                            <option value="{{ category_key }}"
-                                    {% if category_key == selected_category %}selected{% endif %}>
-                                {{ category_value }}
-                            </option>
-                        {% endfor %}
-                    </select>
-
-                    <button class="btn btn-outline-secondary" type="submit">搜索</button>
+                {#                <form method="get" class="mb-4 d-flex justify-content-start">#}
+                {#                    <select name="department" id="department-select" class="form-select me-2">#}
+                {#                        <option value="">所有部门</option>#}
+                {#                        {% for department in departments %}#}
+                {#                            <option value="{{ department }}"#}
+                {#                                    {% if department|stringformat:"s" == selected_department %}selected{% endif %}>#}
+                {#                                {{ department }}#}
+                {#                            </option>#}
+                {#                        {% endfor %}#}
+                {#                    </select>#}
+                {##}
+                {#                    <select name="category" id="category-select" class="form-select me-2">#}
+                {#                        <option value="">所有分类</option>#}
+                {#                        {% for category_key, category_value in category_choices.items %}#}
+                {#                            <option value="{{ category_key }}"#}
+                {#                                    {% if category_key == selected_category %}selected{% endif %}>#}
+                {#                                {{ category_value }}#}
+                {#                            </option>#}
+                {#                        {% endfor %}#}
+                {#                    </select>#}
+                {##}
+                {#                    <button class="btn btn-outline-secondary" type="submit">搜索</button>#}
+                {#                </form>#}
+                <form method="get" id="search-form">
+                    <div id="search-conditions">
+                        <!-- 动态搜索条件将被插入这里 -->
+                    </div>
+                    <button type="button" id="add-search-condition" class="btn btn-secondary">添加搜索条件</button>
+                    <button type="submit" class="btn btn-outline-secondary">搜索</button>
+                    <button class="btn btn-outline-secondary" type="button" id="clear-search-conditions">清空</button>
                 </form>
             </div>
         </div>
 
-        <!-- 使用 Chart.js 创建饼图展示类别统计 -->
-        <div class="row mt-4">
-            <div class="col">
-                <canvas id="categoryChart" width="400" height="400"></canvas>
-            </div>
-        </div>
+        {#        <!-- 使用 Chart.js 创建饼图展示类别统计 -->#}
+        {#        <div class="row mt-4">#}
+        {#            <div class="col">#}
+        {#                <canvas id="categoryChart" width="400" height="400"></canvas>#}
+        {#            </div>#}
+        {#        </div>#}
         {% if 'management.view_complaintsummary' in request.session.info.user_permissions %}
             <div class="scrollable-table">
                 <table class="table table-fixed custom-table">

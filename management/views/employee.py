@@ -41,20 +41,18 @@ POSITION_TO_GROUP = {
 def employees_list(request):
     # print(request.user)
     """所有员工信息表"""
-    value = request.GET.get('q', '')
-    if value:
-        query = Q()
-        fields = models.Employees._meta.fields
-        for field in fields:
-            # 排除 id 和 OneToOneField 字段
-            if field.name != "id" and not isinstance(field, django.db.models.OneToOneField):
-                q = Q(**{f"{field.name}__icontains": value})
-                query |= q
 
-        # 特别处理 user 字段
-        # 假设您想根据 User 模型的 username 进行搜索
-        user_query = Q(user__username__icontains=value)
-        query_set = models.Employees.objects.filter(query | user_query)
+    # 获取搜索字段和值
+    search_fields = request.GET.getlist('fields')  # 字段列表
+    search_values = request.GET.getlist('values')  # 对应的值列表
+
+    if search_fields and search_values:
+        assert len(search_fields) == len(search_values), "字段和值列表长度不一致"
+        query_set = models.Employees.objects.all()  # 确保是您的模型名
+        for field, value in zip(search_fields, search_values):
+            if field and value:
+                query = Q(**{f"{field}__icontains": value})
+                query_set = query_set.filter(query)
     else:
         query_set = models.Employees.objects.all()
 
@@ -67,10 +65,19 @@ def employees_list(request):
     # 保存当前页到会话，以便后续操作后可以返回到这一页
     request.session['last_emp_page'] = request.get_full_path()
 
+    # 准备模型字段信息传递到模板
+    field_info = [
+        (field.name, field.verbose_name)
+        for field in models.Employees._meta.fields
+        if field.name not in ['id', 'user']
+    ]
+
     context = {
         'page_queryset': page_object.page_queryset,
         'page_string': page_object.page_string,
-        'value': value,
+        'search_fields': search_fields,
+        'search_values': search_values,
+        'field_info': field_info,
         'page_start_index': page_object.page_start_index,  # 添加这行
     }
 

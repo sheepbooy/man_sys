@@ -3,7 +3,6 @@
     <div class="container mt-4">
         <h2 class="mb-4">药用辅料表</h2>
         <div class="row mb-3">
-            <!-- 搜索和添加按钮的代码 -->
             {% if 'management.add_products' in request.session.info.user_permissions %}
                 <div class="col">
                     <a href="/project/management/" class="btn btn-outline-primary">返回</a>
@@ -11,19 +10,19 @@
                 </div>
             {% endif %}
             <div class="col text-end">
-                <form method="get">
-                    <div class="input-group">
-                        <input type="text" name='q' class="form-control" placeholder="搜索" value="{{ value }}">
-                        <button class="btn btn-outline-secondary" type="submit">搜索</button>
-                        <button class="btn btn-outline-secondary" type="button" id="clear-search-button">清空</button>
+                <form method="get" id="search-form">
+                    <div id="search-conditions">
+                        <!-- 动态搜索条件将被插入这里 -->
                     </div>
+                    <button type="button" id="add-search-condition" class="btn btn-secondary">添加搜索条件</button>
+                    <button type="submit" class="btn btn-outline-secondary">搜索</button>
+                    <button class="btn btn-outline-secondary" type="button" id="clear-search-conditions">清空</button>
                 </form>
             </div>
         </div>
 
         <div class="scrollable-table">
             <table class="table table-fixed custom-table">
-                <!-- 表头和表格内容 -->
                 <thead>
                 <tr>
                     <th>序号</th>
@@ -62,7 +61,7 @@
                     </tr>
                 {% empty %}
                     <tr>
-                        <td colspan="7">No data available</td>
+                        <td colspan="9">No data available</td>
                     </tr>
                 {% endfor %}
                 </tbody>

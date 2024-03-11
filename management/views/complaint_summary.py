@@ -8,56 +8,100 @@ from management.utils.form import Complaint_summary_form
 from management import models
 
 
+# @permission_required('management.view_complaintsummary', '/warning/')
+# def complaint_summary(request):
+#     """结合部门和产品分类的客诉汇总"""
+#     departments_query = models.ComplaintSummary.objects.values('department').distinct()
+#     departments = [item['department'] for item in departments_query]
+#     category_choices = dict(models.ComplaintSummary.CATEGORY_CHOICES)
+#
+#     # 获取选择的部门和类别
+#     selected_department = request.GET.get('department')
+#     selected_category = request.GET.get('category', '')
+#     category_counts = {}
+#
+#     if selected_category:
+#         # 如果有选定的类别，计算该类别的数量
+#         category_counts[selected_category] = models.ComplaintSummary.objects.filter(category=selected_category).count()
+#         # 如果选定了“所有分类”，则计算每个类别的数量
+#     else:
+#         for category_key, _ in models.ComplaintSummary.CATEGORY_CHOICES:
+#             category_counts[category_key] = models.ComplaintSummary.objects.filter(category=category_key).count()
+#
+#     if selected_department:
+#         query = Q(department__icontains=selected_department)
+#         complaints = models.ComplaintSummary.objects.filter(query)
+#     elif selected_category in category_choices:
+#         complaints = models.ComplaintSummary.objects.filter(category=selected_category)
+#     else:
+#         complaints = models.ComplaintSummary.objects.all()
+#
+#     # 在这里处理查询集，将所有None值转换为空字符串
+#     complaints = convert_none_to_empty_string(complaints)
+#
+#     summary_data = complaints.values('product_name', 'category').annotate(count=Count('id'))
+#     page_object = Pagination(request, complaints)
+#     page_object.html()
+#
+#     # 保存当前页到会话，以便后续操作后可以返回到这一页
+#     request.session['last_emp_page'] = request.get_full_path()
+#
+#     # 准备模型字段信息传递到模板
+#     field_info = [(field.name, field.verbose_name) for field in models.Products._meta.fields if field.name != 'id']
+#
+#     context = {
+#         'category_counts': category_counts,
+#         'category_choices': category_choices,
+#         'departments': departments,
+#         'summary_data': summary_data,
+#         'selected_department': selected_department,
+#         'selected_category': selected_category,
+#         'page_queryset': page_object.page_queryset,
+#         'page_string': page_object.page_string,
+#         'page_start_index': page_object.page_start_index,
+#
+#     }
+#     return render(request, 'complaint_summary.html', context)
+
 @permission_required('management.view_complaintsummary', '/warning/')
 def complaint_summary(request):
     """结合部门和产品分类的客诉汇总"""
-    departments_query = models.ComplaintSummary.objects.values('department').distinct()
-    departments = [item['department'] for item in departments_query]
-    category_choices = dict(models.ComplaintSummary.CATEGORY_CHOICES)
 
-    # 获取选择的部门和类别
-    selected_department = request.GET.get('department')
-    selected_category = request.GET.get('category', '')
-    category_counts = {}
+    # 获取搜索字段和值
+    search_fields = request.GET.getlist('fields')  # 字段列表
+    search_values = request.GET.getlist('values')  # 对应的值列表
 
-    if selected_category:
-        # 如果有选定的类别，计算该类别的数量
-        category_counts[selected_category] = models.ComplaintSummary.objects.filter(category=selected_category).count()
-        # 如果选定了“所有分类”，则计算每个类别的数量
+    if search_fields and search_values:
+        assert len(search_fields) == len(search_values), "字段和值列表长度不一致"
+        query_set = models.ComplaintSummary.objects.all()  # 确保是您的模型名
+        for field, value in zip(search_fields, search_values):
+            if field and value:
+                query = Q(**{f"{field}__icontains": value})
+                query_set = query_set.filter(query)
     else:
-        for category_key, _ in models.ComplaintSummary.CATEGORY_CHOICES:
-            category_counts[category_key] = models.ComplaintSummary.objects.filter(category=category_key).count()
-
-    if selected_department:
-        query = Q(department__icontains=selected_department)
-        complaints = models.ComplaintSummary.objects.filter(query)
-    elif selected_category in category_choices:
-        complaints = models.ComplaintSummary.objects.filter(category=selected_category)
-    else:
-        complaints = models.ComplaintSummary.objects.all()
+        query_set = models.ComplaintSummary.objects.all()
 
     # 在这里处理查询集，将所有None值转换为空字符串
-    complaints = convert_none_to_empty_string(complaints)
+    query_set = convert_none_to_empty_string(query_set)
 
-    summary_data = complaints.values('product_name', 'category').annotate(count=Count('id'))
-    page_object = Pagination(request, complaints)
+    page_object = Pagination(request, query_set)
     page_object.html()
 
     # 保存当前页到会话，以便后续操作后可以返回到这一页
     request.session['last_emp_page'] = request.get_full_path()
 
+    # 准备模型字段信息传递到模板
+    field_info = [(field.name, field.verbose_name) for field in models.ComplaintSummary._meta.fields if field.name != 'id']
+
     context = {
-        'category_counts': category_counts,
-        'category_choices': category_choices,
-        'departments': departments,
-        'summary_data': summary_data,
-        'selected_department': selected_department,
-        'selected_category': selected_category,
         'page_queryset': page_object.page_queryset,
         'page_string': page_object.page_string,
-        'page_start_index': page_object.page_start_index,  # 添加这行
-
+        'search_fields': search_fields,
+        'search_values': search_values,
+        'field_info': field_info,
+        'page_start_index': page_object.page_start_index,
     }
+
     return render(request, 'complaint_summary.html', context)
 
 

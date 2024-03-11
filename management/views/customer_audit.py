@@ -10,23 +10,20 @@ from management.utils.convert import convert_none_to_empty_string
 @permission_required('management.view_customeraudit', '/warning/')
 def customer_audit(request):
     """客户审计表"""
-    value = request.GET.get('q', '')
-    if value is not None:
-        # 创建一个空的Q对象
-        query = Q()
-        # 获取模型的字段列表
-        fields = models.CustomerAudit._meta.fields
-        # 遍历字段列表并创建相应的Q对象
-        for field in fields:
-            if field.name != "id":  # 排除默认的AutoField "id"字段
-                # 创建Q对象，并将字段名和搜索值拼接成查询条件
-                q = Q(**{f"{field.name}__icontains": value})
-                # 使用|操作符将Q对象添加到主查询中
-                query |= q
-        query_set = models.CustomerAudit.objects.filter(query)
+    # 获取搜索字段和值
+    search_fields = request.GET.getlist('fields')  # 字段列表
+    search_values = request.GET.getlist('values')  # 对应的值列表
+
+    if search_fields and search_values:
+        assert len(search_fields) == len(search_values), "字段和值列表长度不一致"
+        query_set = models.CustomerAudit.objects.all()  # 确保是您的模型名
+        for field, value in zip(search_fields, search_values):
+            if field and value:
+                query = Q(**{f"{field}__icontains": value})
+                query_set = query_set.filter(query)
     else:
         query_set = models.CustomerAudit.objects.all()
-    # print(query_set)
+
     # 在这里处理查询集，将所有None值转换为空字符串
     query_set = convert_none_to_empty_string(query_set)
 
@@ -36,10 +33,15 @@ def customer_audit(request):
     # 保存当前页到会话，以便后续操作后可以返回到这一页
     request.session['last_emp_page'] = request.get_full_path()
 
+    # 准备模型字段信息传递到模板
+    field_info = [(field.name, field.verbose_name) for field in models.CustomerAudit._meta.fields if field.name != 'id']
+
     context = {
         'page_queryset': page_object.page_queryset,
         'page_string': page_object.page_string,
-        'value': value,
+        'search_fields': search_fields,
+        'search_values': search_values,
+        'field_info': field_info,
         'page_start_index': page_object.page_start_index,  # 添加这行
     }
 
