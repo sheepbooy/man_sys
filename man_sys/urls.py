@@ -138,8 +138,6 @@ urlpatterns = [
     path('question/edit/<int:_id>/', question.question_edit, name='edit_question'),
     path('question/delete/<int:_id>/', question.question_delete, name='delete_question'),
 
-    # 报表管理
-    path('report/', login_register_home.report_home),
 
     # 202X年X月台账基础表（原辅料、食品、研发、产品）
     path('report/inner/m_inner_trade_ledger/', inner_trade_ledger.x_month_inner_trade_ledger),

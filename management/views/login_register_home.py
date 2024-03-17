@@ -1,11 +1,12 @@
 from django.contrib.auth.models import User
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
-from management.utils.form import EmployeesForm, EmployeesAddForm, PasswordChangeForm
+from management.utils.form import EmployeesRegisterForm, PasswordChangeForm
 from management import models
 from io import BytesIO
 from management.utils.code import check_code
 from django.contrib.auth import authenticate, login
+from django.contrib import messages
 
 
 # Create your views here.
@@ -26,9 +27,8 @@ def login_view(request):
             # 检查是否是超级用户
             if user.is_superuser:
                 login(request, user)
-                return redirect('/admin/')  # 重定向到 Django admin 界面
+                return redirect('/admin/')
 
-        # 如果不是超级用户，尝试获取与 Employees 关联的 User 对象
         try:
             employee = models.Employees.objects.get(work_id=work_id)
             if employee and employee.user:
@@ -65,10 +65,10 @@ def login_view(request):
 def register(request):
     """注册"""
     if request.method == 'GET':
-        form = EmployeesAddForm()
+        form = EmployeesRegisterForm()
         return render(request, 'register.html', {'form': form})
 
-    form = EmployeesAddForm(data=request.POST)
+    form = EmployeesRegisterForm(data=request.POST)
     if form.is_valid():
         # 在这里创建或更新User实例
         work_id = form.cleaned_data['work_id']
@@ -82,20 +82,11 @@ def register(request):
         employee = form.save(commit=False)
         employee.user = user
         employee.save()
-
+        messages.success(request, '注册成功，请联系相关人员开放权限')
         return redirect('/login/')
     else:
+        messages.error(request, '工号已存在或格式错误（两位大写字母加三位数字）')
         return render(request, 'register.html', {'form': form})
-
-
-def home(request):
-    """登录后的主页面"""
-    return render(request, 'home.html')
-
-
-def report_home(request):
-    """登录后的视图主页面"""
-    return render(request, 'report_home.html')
 
 
 def customer_management_home(request):
@@ -121,6 +112,7 @@ def user_management_home(request):
 def report_show(request):
     """报表查看页面"""
     return render(request, 'report_show.html')
+
 
 def logout(request):
     """注销登录"""

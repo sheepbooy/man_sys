@@ -82,8 +82,40 @@
     </div>
 </div>
 
+<!-- 消息模态框 -->
+<div class="modal fade" id="messageModal" tabindex="-1" aria-labelledby="messageModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="messageModalLabel">消息</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- 在这里动态填充消息 -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">关闭</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 <script src="{% static 'plugins/bootstrap-5.3.0/js/bootstrap.bundle.min.js' %}"></script>
 <script src="{% static 'js/jquery-3.7.1.min.js' %}"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', (event) => {
+        {% if messages %}
+            let messageText = '';
+            {% for message in messages %}
+                messageText += '{{ message }}<br>';
+            {% endfor %}
+            document.querySelector('.modal-body').innerHTML = messageText;
+            var messageModal = new bootstrap.Modal(document.getElementById('messageModal'), {});
+            messageModal.show();
+        {% endif %}
+    });
+</script>
 
 </body>
 </html>

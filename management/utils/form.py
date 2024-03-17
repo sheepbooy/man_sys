@@ -43,6 +43,27 @@ class EmployeesAddForm(BootStrapModelForm):
         return work_id
 
 
+class EmployeesRegisterForm(BootStrapModelForm):
+    """用户注册时的表单类"""
+
+    class Meta:
+        model = models.Employees
+        exclude = ['user', 'position', 'status', 'department']
+
+    def clean_work_id(self):
+        work_id = self.cleaned_data.get('work_id')
+
+        # 使用正则表达式检查格式
+        if not re.match(r'^[A-Z]{2}\d{3}$', work_id):
+            raise ValidationError('工号必须是两个大写字母加三个数字。')
+
+        # 检查工号是否已存在
+        if models.Employees.objects.filter(work_id=work_id).exists():
+            raise ValidationError('该工号已存在。')
+
+        return work_id
+
+
 class inner_trade_ledger_form(BootStrapModelForm):
     """内贸部台账表"""
 
