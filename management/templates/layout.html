@@ -14,6 +14,11 @@
             max-width: 120px; /* 根据实际需要调整宽度 */
         }
 
+        /* 新增样式以覆盖最后一列单元格的 max-width */
+        .custom-table td:last-child {
+            max-width: none; /* 取消最后一列的最大宽度限制 */
+        }
+
         .scrollable-table {
             overflow-x: auto;
         }
@@ -45,6 +50,7 @@
         .custom-table tbody tr:hover {
             background-color: #f1f1f1; /* 悬停高亮效果 */
         }
+
     </style>
     <style>
         .active {
@@ -101,7 +107,7 @@
 
         .scrollable-table {
             display: block;
-            max-height: 400px;
+            max-height: calc(100vh - 56px - 20px); /* Adjusted max-height to dynamically calculate based on viewport size minus the navbar height and some padding */
             overflow-y: scroll;
             -ms-overflow-style: -ms-autohiding-scrollbar;
         }
@@ -116,7 +122,6 @@
             border-collapse: separate;
             border-spacing: 0 15px;
         }
-
 
     </style>
     {% block css %}
@@ -149,9 +154,10 @@
     <a href="/project/management/" class="{% if request.path == '/project/management/' %}active{% endif %}">项目管理</a>
     <a href="/ledger/management/" class="{% if request.path == '/ledger/management/' %}active{% endif %}">台账管理</a>
     <a href="/user/management/" class="{% if request.path == '/user/management/' %}active{% endif %}">用户管理</a>
-    <a href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-        更多选项
-    </a>
+    <a href="/report/management/" class="{% if request.path == '/user/management/' %}active{% endif %}">报表查看</a>
+{#    <a href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">#}
+{#        更多选项#}
+{#    </a>#}
     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
         <a class="dropdown-item" href="#">动作</a>
         <a class="dropdown-item" href="#">另一个动作</a>

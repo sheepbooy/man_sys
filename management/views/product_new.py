@@ -1,11 +1,14 @@
 from django.contrib.auth.decorators import permission_required
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.db.models import Q
-
 from management.utils.convert import convert_none_to_empty_string
 from management.utils.pagination import Pagination
 from management.utils.form import ProductNew_Form
 from management import models
+from django.forms.models import model_to_dict
+from django.http import JsonResponse
+from django.views.decorators.http import require_http_methods, require_POST
+import json
 
 
 @permission_required('management.view_product_new', '/warning/')
@@ -101,3 +104,74 @@ def product_new_delete(request, _id):
     models.product_new.objects.filter(id=_id).delete()
     last_emp_page = request.session.get('last_emp_page', '/product_new/')
     return redirect(last_emp_page)
+
+
+def get_product_descriptions(request, product_new_id):
+    """获取新品进度描述"""
+    descriptions = models.ProductDescription.objects.filter(product_new_id=product_new_id)
+    data = [model_to_dict(description, fields=['id', 'date', 'description']) for description in descriptions]
+    for item in data:
+        item['date'] = item['date'].strftime('%Y-%m-%d')
+    return JsonResponse({'descriptions': data})
+
+
+@require_http_methods(["DELETE"])
+def delete_description(request, description_id):
+    """新品进度描述的删除"""
+    try:
+        description = models.ProductDescription.objects.get(id=description_id)
+        description.delete()
+        return JsonResponse({'status': 'success'})
+    except models.ProductDescription.DoesNotExist:
+        return JsonResponse({'status': 'error', 'message': 'Description not found'}, status=404)
+
+
+# @csrf_exempt
+@require_http_methods(["POST"])
+def edit_description(request, description_id):
+    """编辑新品进度描述"""
+    try:
+        # 解析请求体中的 JSON 数据
+        data = json.loads(request.body)
+        # 获取对应的描述实例
+        description = models.ProductDescription.objects.get(id=description_id)
+
+        # 更新实例字段
+        description.date = data['date']
+        description.description = data['description']
+        description.save()  # 保存更改
+
+        # 返回成功响应
+        return JsonResponse({'status': 'success'})
+    except models.ProductDescription.DoesNotExist:
+        # 描述实例未找到的错误处理
+        return JsonResponse({'status': 'error', 'message': 'Description not found'}, status=404)
+    except KeyError:
+        # 数据不完整的错误处理
+        return JsonResponse({'status': 'error', 'message': 'Missing data in request'}, status=400)
+    except Exception as e:
+        # 其他错误的处理
+        return JsonResponse({'status': 'error', 'message': str(e)}, status=500)
+
+
+@require_POST
+def add_product_description(request, product_new_id):
+    """增加新品进度描述"""
+    # 解析请求体中的 JSON 数据
+    data = json.loads(request.body)
+    # 获取对应的 product_new 实例
+    product = get_object_or_404(models.product_new, pk=product_new_id)
+
+    # 创建新的 ProductDescription 实例
+    description = models.ProductDescription.objects.create(
+        product_new=product,
+        date=data['date'],
+        description=data['description']
+    )
+
+    # 返回一个 JSON 响应
+    return JsonResponse({
+        'id': description.id,
+        'date': description.date,
+        'description': description.description
+    })

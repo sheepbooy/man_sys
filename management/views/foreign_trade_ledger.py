@@ -18,13 +18,13 @@ def foreign_trade_ledger(request):
 
     if search_fields and search_values:
         assert len(search_fields) == len(search_values), "字段和值列表长度不一致"
-        query_set = models.Products.objects.all()  # 确保是您的模型名
+        query_set = models.ForeignTradeLedger.objects.all()  # 确保是您的模型名
         for field, value in zip(search_fields, search_values):
             if field and value:
                 query = Q(**{f"{field}__icontains": value})
                 query_set = query_set.filter(query)
     else:
-        query_set = models.Products.objects.all()
+        query_set = models.ForeignTradeLedger.objects.all()
 
     # 在这里处理查询集，将所有None值转换为空字符串
     query_set = convert_none_to_empty_string(query_set)
@@ -36,7 +36,7 @@ def foreign_trade_ledger(request):
     request.session['last_emp_page'] = request.get_full_path()
 
     # 准备模型字段信息传递到模板
-    field_info = [(field.name, field.verbose_name) for field in models.Products._meta.fields if field.name != 'id']
+    field_info = [(field.name, field.verbose_name) for field in models.ForeignTradeLedger._meta.fields if field.name != 'id']
 
     context = {
         'page_queryset': page_object.page_queryset,
@@ -111,7 +111,7 @@ def foreign_trade_ledger_add(request):
 @permission_required('management.change_foreigntradeledger', login_url='/warning/')
 def foreign_trade_ledger_edit(request, _id):
     """编辑外贸部台账表"""
-    row_object = models.ForeignTradeLedger.objects.filter(serial_number=_id).first()
+    row_object = models.ForeignTradeLedger.objects.filter(id=_id).first()
     if request.method == 'GET':
         form = foreign_trade_ledger_form(instance=row_object)
         # 从会话中获取之前的页面路径，如果没有则默认回到第一页
@@ -134,6 +134,6 @@ def foreign_trade_ledger_edit(request, _id):
 @permission_required('management.delete_foreigntradeledger', login_url='/warning/')
 def foreign_trade_ledger_delete(request, _id):
     """外贸部台账删除"""
-    models.ForeignTradeLedger.objects.filter(serial_number=_id).delete()
+    models.ForeignTradeLedger.objects.filter(id=_id).delete()
     last_emp_page = request.session.get('last_emp_page', '/foreign/ledger/')
     return redirect(last_emp_page)

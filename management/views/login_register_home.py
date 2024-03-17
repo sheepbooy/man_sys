@@ -118,6 +118,10 @@ def user_management_home(request):
     return render(request, 'user_management_home.html')
 
 
+def report_show(request):
+    """报表查看页面"""
+    return render(request, 'report_show.html')
+
 def logout(request):
     """注销登录"""
     request.session.clear()
@@ -151,7 +155,6 @@ def image_code(request):
     request.session.set_expiry(60)
     stream = BytesIO()
     img.save(stream, 'png')
-
     return HttpResponse(stream.getvalue())
 
 

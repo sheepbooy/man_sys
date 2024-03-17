@@ -1,11 +1,11 @@
 {% extends 'layout.html' %}
 {% block content %}
     <div class="container mt-4">
-        <h2 class="mb-4">已有制剂表</h2>
+        <h2 class="text-center mb-4" style="color: #007bff;">已有制剂表</h2>
         <div class="row mb-3">
             {% if 'management.add_preparation_new' in request.session.info.user_permissions %}
                 <div class="col">
-                    <a href="/customer/management/" class="btn btn-outline-primary">返回</a>
+                    <a href="/project/management/" class="btn btn-outline-primary">返回</a>
                     <a href="/preparation_new/add/" class="btn btn-primary">添加</a>
                 </div>
             {% endif %}
@@ -26,6 +26,7 @@
                 <thead>
                 <tr>
                     <th>序号</th>
+                    <th>状态</th>
                     <th>企业名称</th>
                     <th>省份</th>
                     <th>城市</th>
@@ -115,15 +116,23 @@
                         <td>{{ entry.transfer_date }}</td>
                         <td>
                             {% if 'management.change_preparation_new' in request.session.info.user_permissions %}
-                                <a href="/preparation_new/edit/{{ preparation_new.id }}/"
+                                <a href="/preparation_new/edit/{{ entry.id }}/"
                                    class="btn btn-info btn-sm">编辑</a>
                             {% endif %}
                             {% if 'management.delete_preparation_new' in request.session.info.user_permissions %}
                                 <button type="button" class="btn btn-danger btn-sm delete-btn"
-                                        data-delete-url="/preparation_new/delete/{{ preparation_new.id }}/">
+                                        data-delete-url="/preparation_new/delete/{{ entry.id }}/">
                                     删除
                                 </button>
                             {% endif %}
+                            {% if 'management.change_preparation_new' in request.session.info.user_permissions %}
+
+                            <button type="button" class="btn btn-info btn-sm view-progress-btn" data-bs-toggle="modal"
+                                    data-bs-target="#progressModal" data-id="{{ entry.id }}">
+                                查看进度
+                            </button>
+                            {% endif %}
+
                         </td>
                     </tr>
                 {% empty %}
@@ -135,6 +144,38 @@
             </table>
         </div>
 
+<!-- 模态框结构示例 -->
+<div class="modal fade" id="progressModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">进度详情</h5>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <!-- 包含滚动条的内容容器 -->
+                <div class="modal-scrollable-content" id="progress-description">
+                    <!-- 动态内容 -->
+                </div>
+            </div>
+            <!-- 模态框底部添加新增按钮 -->
+           <!-- 模态框底部仅保留触发添加的按钮 -->
+<div class="modal-footer">
+    <button type="button" class="btn btn-primary" id="show-add-description-fields">添加进度描述</button>
+</div>
+
+        </div>
+           </div>
+     <!-- 在你的 HTML 模板中嵌入 CSRF 令牌 -->
+</div>
+
+
+<input type="hidden" id="csrfToken" value="{{ csrf_token }}">
+
+
+
         <nav aria-label="Page navigation example">
             <!-- 分页导航 -->
             <ul class="pagination justify-content-center">
@@ -142,4 +183,188 @@
             </ul>
         </nav>
     </div>
+{% endblock %}
+
+{% block css %}
+<style>
+/* 模态框内滚动区域的样式 */
+.modal-scrollable-content {
+    max-height: 400px; /* 设置最大高度 */
+    overflow-y: auto; /* 内容超出时显示垂直滚动条 */
+    margin-bottom: 20px; /* 底部外边距，避免内容紧贴底部 */
+}
+
+/* 简化的描述条目样式 */
+.description-item {
+    padding: 10px; /* 内边距 */
+    border-bottom: 1px solid #eee; /* 底部边框，用于区分条目 */
+}
+
+/* 简化的文本样式 */
+.date-text, .description-text {
+    color: #333; /* 文字颜色 */
+    margin-bottom: 5px; /* 底部外边距，增加条目间距 */
+}
+
+/* 按钮样式 */
+.edit-description-btn, .delete-description-btn, .save-description-btn {
+    margin-top: 5px; /* 按钮顶部外边距，确保与其他元素间距 */
+}
+
+</style>
+{% endblock %}
+
+{% block js %}
+
+<script>
+  $(document).ready(function() {
+    // 查看进度按钮的点击事件
+    $('.view-progress-btn').click(function() {
+        var preparationId = $(this).data('id'); // 获取 data-id 属性
+
+        // 将获取的 ID 存储在模态框的某个元素或 JavaScript 变量中供后续使用
+        $('#progressModal').data('currentPreparationId', preparationId);
+
+        $.ajax({
+            url: `/api/preparations/${preparationId}/descriptions/`, // 获取进度描述
+            method: 'GET',
+            success: function(response) {
+                var descriptionsHtml = '';
+                response.descriptions.forEach(function(description) {
+                    descriptionsHtml += `<div id="description-${description.id}" class="description-item">
+                    <strong>Date:</strong> <span class="date-text">${description.date}</span><br>
+                    <strong>Description:</strong> <span class="description-text">${description.description}</span><br>
+                    <button type="button" class="btn btn-primary edit-description-btn" data-id="${description.id}">编辑</button>
+                    <button type="button" class="btn btn-danger delete-description-btn" data-id="${description.id}">删除</button>
+                    </div>`;
+                });
+                $('#progress-description').html(descriptionsHtml);
+                // 清空并准备添加新描述的输入区域
+                setupAddNewDescription();
+            }
+        });
+    });
+
+    // 初始化添加新描述的输入区域
+    function setupAddNewDescription() {
+        $('.modal-footer').html(`
+            <button type="button" class="btn btn-primary" id="show-add-description-fields">添加进度描述</button>
+        `);
+
+        $('#show-add-description-fields').click(function() {
+            $(this).parent().prepend(`
+                <input type="date" id="new-description-date" class="form-control mb-2" placeholder="日期">
+                <textarea id="new-description-text" class="form-control mb-2" placeholder="描述"></textarea>
+            `);
+            $(this).replaceWith('<button type="button" class="btn btn-success" id="add-new-description">新增进度描述</button>');
+
+            // 为新增按钮绑定事件
+            $('#add-new-description').click(addNewDescription);
+        });
+    }
+
+    // 动态添加进度描述
+    function addNewDescription() {
+    var preparationId = $('#progressModal').data('currentPreparationId');
+    var newDate = $('#new-description-date').val();
+    var newDescription = $('#new-description-text').val();
+    var csrfToken = $('#csrfToken').val();
+
+    // 发起 AJAX 请求添加新的进度描述
+    $.ajax({
+        url: `/api/preparations/${preparationId}/add-description/`,
+        method: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify({date: newDate, description: newDescription}),
+        beforeSend: function(xhr) {
+            xhr.setRequestHeader("X-CSRFToken", csrfToken);
+        },
+        success: function(response) {
+            // 清空输入字段并通知用户
+            $('#new-description-date').val('');
+            $('#new-description-text').val('');
+            alert('进度描述添加成功！');
+
+            // 直接向模态框内容中添加新的描述（假设您获取了需要的所有响应数据）
+            var newDescriptionHtml = `<div id="description-${response.id}" class="description-item">
+                <strong>Date:</strong> <span class="date-text">${response.date}</span><br>
+                <strong>Description:</strong> <span class="description-text">${response.description}</span><br>
+                <button type="button" class="btn btn-primary edit-description-btn" data-id="${response.id}">编辑</button>
+                <button type="button" class="btn btn-danger delete-description-btn" data-id="${response.id}">删除</button>
+            </div>`;
+            $('#progress-description').append(newDescriptionHtml);
+
+            // 重新设置模态框底部，准备下一次添加
+            setupAddNewDescription();
+        },
+        error: function() {
+            alert('添加失败，请稍后再试。');
+        }
+    });
+}
+
+
+    // 删除、编辑、保存编辑后的描述等事件处理代码保持不变
+      // 删除描述按钮的点击事件
+    $(document).on('click', '.delete-description-btn', function() {
+      var descriptionId = $(this).data('id');
+      if (confirm('确定要删除这条进度描述吗？')) {
+        var csrfToken = $('#csrfToken').val(); // 从隐藏字段获取 CSRF 令牌
+
+        $.ajax({
+          url: `/api/descriptions/${descriptionId}/delete/`, // 删除进度描述
+          method: 'DELETE',
+          beforeSend: function(xhr) {
+            xhr.setRequestHeader("X-CSRFToken", csrfToken); // 在请求头中设置 CSRF 令牌
+          },
+          success: function() {
+            $(`#description-${descriptionId}`).remove(); // 移除这条描述的 HTML
+          }
+        });
+      }
+    });
+
+    // 编辑描述按钮的点击事件
+    $(document).on('click', '.edit-description-btn', function() {
+      var descriptionId = $(this).data('id');
+      var container = $(`#description-${descriptionId}`);
+      var dateText = container.find('.date-text').text();
+      var descriptionText = container.find('.description-text').text();
+
+      container.find('.date-text').replaceWith(`<input type="date" class="form-control date-input" value="${dateText}">`);
+      container.find('.description-text').replaceWith(`<textarea class="form-control description-input">${descriptionText}</textarea>`);
+
+      $(this).replaceWith(`<button type="button" class="btn btn-success save-description-btn" data-id="${descriptionId}">保存</button>`);
+    });
+
+    // 保存编辑后的描述
+    $(document).on('click', '.save-description-btn', function() {
+      var descriptionId = $(this).data('id');
+      var container = $(`#description-${descriptionId}`);
+      var newDate = container.find('.date-input').val();
+      var newDescription = container.find('.description-input').val();
+
+      var csrfToken = $('#csrfToken').val(); // 从隐藏字段获取 CSRF 令牌
+
+      $.ajax({
+        url: `/api/descriptions/${descriptionId}/edit/`,
+        method: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify({ date: newDate, description: newDescription }),
+        beforeSend: function(xhr) {
+          xhr.setRequestHeader("X-CSRFToken", csrfToken); // 在请求头中设置 CSRF 令牌
+        },
+        success: function() {
+          container.find('.date-input').replaceWith(`<span class="date-text">${newDate}</span>`);
+          container.find('.description-input').replaceWith(`<span class="description-text">${newDescription}</span>`);
+
+          container.find('.save-description-btn').replaceWith(`<button type="button" class="btn btn-primary edit-description-btn" data-id="${descriptionId}">编辑</button>`);
+        }
+      });
+    });
+
+});
+
+   </script>
+
 {% endblock %}

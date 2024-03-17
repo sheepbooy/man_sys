@@ -69,7 +69,6 @@ class InternalTradeLedger(models.Model):
     order_amount = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True, verbose_name='订单金额')
     payback_amount = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True,
                                          verbose_name='回款金额')
-    first_occurrence = models.CharField(max_length=255, blank=True, verbose_name='一次')
     customer_type = models.CharField(max_length=255, blank=True, verbose_name="客户类型")
     unreceived_payment = models.CharField(max_length=255, blank=True, verbose_name='未收款')
     payment_date = models.DateField(verbose_name='收款日期', blank=True)
@@ -255,122 +254,16 @@ class Feedback(models.Model):
         db_table = '产品问题反馈表20230307'
 
 
-class NewProductDevelopment(models.Model):
-    id = models.AutoField(primary_key=True, verbose_name='序号')
-    timestamp = models.DateField(verbose_name='时间戳')
-    progress = models.CharField(max_length=255, blank=True, verbose_name='进度')
-    status = models.CharField(max_length=255, blank=True, verbose_name='状态')
-    subordinate_id = models.CharField(max_length=255, blank=True, verbose_name='隶属ID')
-
-    class Meta:
-        # managed = False
-        db_table = '新品开发进度描述表'
-
-
-class NewProductDevelopingProgress(models.Model):
-    id = models.AutoField(primary_key=True, verbose_name='序号')
-    company_name = models.CharField(max_length=255, blank=True, verbose_name='企业名称')
-    province = models.CharField(max_length=255, blank=True, verbose_name='省份')
-    city = models.CharField(max_length=255, blank=True, verbose_name='城市')
-    department = models.CharField(max_length=255, blank=True, verbose_name='部门')
-    specific_department = models.CharField(max_length=255, blank=True, verbose_name='具体部门')
-    manager = models.CharField(max_length=255, blank=True, verbose_name='负责人')
-    customer_name = models.CharField(max_length=255, blank=True, verbose_name='客户名称')
-    customer_source = models.CharField(max_length=255, blank=True, verbose_name='客户来源')
-    product = models.CharField(max_length=255, blank=True, verbose_name='产品')
-    specification_code = models.CharField(max_length=255, blank=True, verbose_name='规格编码')
-    special_requirements = models.CharField(max_length=255, blank=True, verbose_name='特殊需求')
-    sample_or_sale = models.CharField(max_length=255, blank=True,
-                                      verbose_name='申样/销售')  # Field renamed to remove unsuitable characters.
-    is_duplicate_project = models.CharField(max_length=255, blank=True, verbose_name='是否重复项目')
-    initial_quote = models.CharField(max_length=255, blank=True, verbose_name='初次报价')
-    quantity = models.CharField(max_length=255, blank=True, verbose_name='数量')
-    unit_price = models.CharField(max_length=255, blank=True, verbose_name='单价')
-    amount = models.CharField(max_length=255, blank=True, verbose_name='金额')
-    formulation_name = models.CharField(max_length=255, blank=True, verbose_name='制剂名称')
-    is_consistency_evaluation_product = models.CharField(max_length=255, blank=True,
-                                                         verbose_name='是否一致性评价品种')
-    excipient_purpose = models.CharField(max_length=255, blank=True, verbose_name='辅料用途')
-    prescription_quantity = models.CharField(max_length=255, blank=True, verbose_name='处方用量')
-    start_development_date = models.DateField(verbose_name='起始开发日期')
-    customer_importance = models.CharField(max_length=255, blank=True, verbose_name='客户重要程度')
-    excipient_inspection = models.DateField(verbose_name='辅料检验')
-    prescription_selection = models.DateField(verbose_name='处方筛选')
-    preliminary_process_validation_small_scale = models.DateField(
-        db_column='preliminary_process_validation_small_scale',
-        verbose_name='初步验证工艺（小试）')
-    pilot_scale_verification = models.DateField(verbose_name='中试验证')
-    process_verification = models.DateField(verbose_name='工艺验证')
-    clinical_trials = models.DateField(verbose_name='临床')
-    approval_received = models.DateField(verbose_name='拿到批文')
-    regular_purchase = models.DateField(verbose_name='正常采购')
-    response_needed = models.DateField(verbose_name='是否回复')
-    in_progress = models.DateField(verbose_name='进行中')
-    notes = models.CharField(max_length=255, blank=True, verbose_name='备注')
-    before_pilot_scale = models.DateField(verbose_name='中试前')
-    before_submission = models.DateField(verbose_name='申报前')
-    issuance_date = models.DateField(verbose_name='开具时间')
-    landing_company_name = models.CharField(max_length=255, blank=True, verbose_name='落地企业名称')
-    contact_person = models.CharField(max_length=255, blank=True, verbose_name='联系人')
-    transfer_to_sales_manager = models.DateField(verbose_name='移交销售经理')
-    transfer_date = models.DateField(verbose_name='移交时间')
-
-    class Meta:
-        # managed = False
-        db_table = '新品开发中进度表'
-
-
-class NewProductCompleted(models.Model):
-    id = models.AutoField(primary_key=True, verbose_name='序号')
-    company_name = models.CharField(max_length=255, blank=True, verbose_name='企业名称')
-    province = models.CharField(max_length=255, blank=True, verbose_name='省份')
-    city = models.CharField(max_length=255, blank=True, verbose_name='城市')
-    department = models.CharField(max_length=255, blank=True, verbose_name='部门')
-    specific_department = models.CharField(max_length=255, blank=True, verbose_name='具体部门')
-    manager = models.CharField(max_length=255, blank=True, verbose_name='负责人')
-    customer_name = models.CharField(max_length=255, blank=True, verbose_name='客户名称')
-    customer_source = models.CharField(max_length=255, blank=True, verbose_name='客户来源')
-    product = models.CharField(max_length=255, blank=True, verbose_name='产品')
-    specification_code = models.CharField(max_length=255, blank=True, verbose_name='规格编码')
-    special_requirements = models.CharField(max_length=255, blank=True, verbose_name='特殊需求')
-    sample_or_sale = models.CharField(max_length=255, blank=True,
-                                      verbose_name='申样/销售')  # Field renamed to remove unsuitable characters.
-    is_duplicate_project = models.CharField(max_length=255, blank=True, verbose_name='是否重复项目')
-    initial_quote = models.CharField(max_length=255, blank=True, verbose_name='初次报价')
-    quantity = models.CharField(max_length=255, blank=True, verbose_name='数量')
-    unit_price = models.CharField(max_length=255, blank=True, verbose_name='单价')
-    amount = models.CharField(max_length=255, blank=True, verbose_name='金额')
-    formulation_name = models.CharField(max_length=255, blank=True, verbose_name='制剂名称')
-    is_consistency_evaluation_product = models.CharField(max_length=255, blank=True,
-                                                         verbose_name='是否一致性评价品种')
-    excipient_purpose = models.CharField(max_length=255, blank=True, verbose_name='辅料用途')
-    prescription_quantity = models.CharField(max_length=255, blank=True, verbose_name='处方用量')
-    start_development_date = models.DateField(verbose_name='起始开发日期')
-    customer_importance = models.CharField(max_length=255, blank=True, verbose_name='客户重要程度')
-    excipient_inspection = models.DateField(verbose_name='辅料检验')
-    prescription_selection = models.DateField(verbose_name='处方筛选')
-    preliminary_process_validation_small_scale = models.DateField(
-        db_column='preliminary_process_validation_small_scale',
-        verbose_name='初步验证工艺（小试）')
-    pilot_scale_verification = models.DateField(verbose_name='中试验证')
-    process_verification = models.DateField(verbose_name='工艺验证')
-    clinical_trials = models.DateField(verbose_name='临床')
-    approval_received = models.DateField(verbose_name='拿到批文')
-    regular_purchase = models.DateField(verbose_name='正常采购')
-    response_needed = models.DateField(verbose_name='是否回复')
-    in_progress = models.DateField(verbose_name='进行中')
-    notes = models.CharField(max_length=255, blank=True, verbose_name='备注')
-    before_pilot_scale = models.DateField(verbose_name='中试前')
-    before_submission = models.DateField(verbose_name='申报前')
-    issuance_date = models.DateField(verbose_name='开具时间')
-    landing_company_name = models.CharField(max_length=255, blank=True, verbose_name='落地企业名称')
-    contact_person = models.CharField(max_length=255, blank=True, verbose_name='联系人')
-    transfer_to_sales_manager = models.DateField(verbose_name='移交销售经理')
-    transfer_date = models.DateField(verbose_name='移交时间')
-
-    class Meta:
-        # managed = False
-        db_table = '新品已完成进度表'
+# class NewProductDevelopment(models.Model):
+#     id = models.AutoField(primary_key=True, verbose_name='序号')
+#     timestamp = models.DateField(verbose_name='时间戳')
+#     progress = models.CharField(max_length=255, blank=True, verbose_name='进度')
+#     status = models.CharField(max_length=255, blank=True, verbose_name='状态')
+#     subordinate_id = models.CharField(max_length=255, blank=True, verbose_name='隶属ID')
+#
+#     class Meta:
+#         # managed = False
+#         db_table = '新品开发进度描述表'
 
 
 class CustomerEngagement(models.Model):
@@ -513,172 +406,16 @@ class CustomerProfile(models.Model):
         db_table = '研发服务部客户档案表'
 
 
-# class ExistingFormulationToDevelop(models.Model):
+# class ExistingFormulationProgressDescription(models.Model):
 #     id = models.AutoField(primary_key=True, verbose_name='序号')
-#     enterprise_name = models.CharField(max_length=255, blank=True, verbose_name='企业名称')
-#     province = models.CharField(max_length=255, blank=True, verbose_name='省份')
-#     city = models.CharField(max_length=255, blank=True, verbose_name='城市')
-#     department = models.CharField(max_length=255, blank=True, verbose_name='部门')
-#     specific_department = models.CharField(max_length=255, blank=True, verbose_name='具体部门')
-#     responsible_person = models.CharField(max_length=255, blank=True, verbose_name='负责人')
-#     customer_name = models.CharField(max_length=255, blank=True, verbose_name='客户姓名')
-#     customer_source = models.CharField(max_length=255, blank=True, verbose_name='客户来源')
-#     product = models.CharField(max_length=255, blank=True, verbose_name='产品')
-#     corresponding_specification_code = models.CharField(max_length=255, blank=True,
-#                                                         verbose_name='对应规格编码')
-#     special_requirements = models.CharField(max_length=255, blank=True, verbose_name='特殊需求')
-#     estimated_annual_consumption = models.CharField(max_length=255, blank=True, verbose_name='预估年用量')
-#     current_manufacturer = models.CharField(max_length=255, blank=True, verbose_name='现用厂家')
-#     product_level = models.CharField(db_column='product_level', max_length=255, blank=True,
-#                                      verbose_name='级别(药品级/化学级)')
-#     model_number = models.CharField(max_length=255, blank=True, verbose_name='型号')
-#     price_per_kg = models.CharField(max_length=255, blank=True, verbose_name='单价')
-#     formulation_name = models.CharField(max_length=255, blank=True, verbose_name='制剂名称')
-#     is_consistency_evaluation_product = models.CharField(max_length=255, blank=True,
-#                                                          verbose_name='是否一致性评价品种')
-#     auxiliary_material_usage = models.CharField(max_length=255, blank=True, verbose_name='辅料用途')
-#     prescription_dosage = models.CharField(max_length=255, blank=True, verbose_name='处方用量')
-#     development_date = models.DateField(verbose_name='起始开发日期')
-#     customer_importance = models.CharField(max_length=255, blank=True, verbose_name='客户重要程度')
-#     initial_negotiation = models.CharField(max_length=255, blank=True, verbose_name='前期洽谈')
-#     supplier_change_request = models.CharField(max_length=255, blank=True, verbose_name='提出供应商变更申请')
-#     supplier_audit = models.CharField(max_length=255, blank=True, verbose_name='供应商审计')
-#     continuous_batch_sample_testing = models.CharField(max_length=255, blank=True, verbose_name='连续3批辅料小样检测')
-#     first_production_of_3_batches = models.CharField(max_length=255, blank=True, verbose_name='首次生产3批')
-#     stability_study = models.CharField(max_length=255, blank=True, verbose_name='稳定性考察')
-#     additional_application_record_change = models.CharField(max_length=255, blank=True,
-#                                                             verbose_name='补充申请备案完成变更')
-#     formal_contract_signing = models.CharField(max_length=255, blank=True, verbose_name='正式合同签订')
-#     delivery = models.CharField(max_length=255, blank=True, verbose_name='发货')
-#     in_progress = models.CharField(max_length=255, blank=True, verbose_name='进行中')
-#     notes = models.CharField(max_length=255, blank=True, verbose_name='备注')
-#     before_pilot_scale_up = models.CharField(max_length=255, blank=True, verbose_name='中试前')
-#     before_submission = models.CharField(max_length=255, blank=True, verbose_name='申报前')
-#     issuing_time = models.DateField(verbose_name='开具时间')
-#     landing_enterprise_name = models.CharField(max_length=255, blank=True, verbose_name='落地企业名称')
-#     contact_person = models.CharField(max_length=255, blank=True, verbose_name='联系人')
-#     handover_sales_manager = models.CharField(max_length=255, blank=True, verbose_name='移交销售经理')
-#     handover_time = models.DateField(verbose_name='移交时间')
+#     timestamp = models.DateField(verbose_name='时间戳')
+#     progress = models.CharField(max_length=255, blank=True, verbose_name='进度')
+#     status = models.CharField(max_length=255, blank=True, verbose_name='状态')
+#     subordinate_id = models.CharField(max_length=255, blank=True, verbose_name='隶属ID')
 #
 #     class Meta:
 #         # managed = False
-#         db_table = '已有制剂待开发进度表'
-
-
-class ExistingFormulationProgressDescription(models.Model):
-    id = models.AutoField(primary_key=True, verbose_name='序号')
-    timestamp = models.DateField(verbose_name='时间戳')
-    progress = models.CharField(max_length=255, blank=True, verbose_name='进度')
-    status = models.CharField(max_length=255, blank=True, verbose_name='状态')
-    subordinate_id = models.CharField(max_length=255, blank=True, verbose_name='隶属ID')
-
-    class Meta:
-        # managed = False
-        db_table = '已有制剂进度描述表'
-
-
-# class ExistingFormulationDeveloping(models.Model):
-#     id = models.AutoField(primary_key=True, verbose_name='序号')
-#     enterprise_name = models.CharField(max_length=255, blank=True, verbose_name='企业名称')
-#     province = models.CharField(max_length=255, blank=True, verbose_name='省份')
-#     city = models.CharField(max_length=255, blank=True, verbose_name='城市')
-#     department = models.CharField(max_length=255, blank=True, verbose_name='部门')
-#     specific_department = models.CharField(max_length=255, blank=True, verbose_name='具体部门')
-#     responsible_person = models.CharField(max_length=255, blank=True, verbose_name='负责人')
-#     customer_name = models.CharField(max_length=255, blank=True, verbose_name='客户姓名')
-#     customer_source = models.CharField(max_length=255, blank=True, verbose_name='客户来源')
-#     product = models.CharField(max_length=255, blank=True, verbose_name='产品')
-#     corresponding_specification_code = models.CharField(max_length=255, blank=True,
-#                                                         verbose_name='对应规格编码')
-#     special_requirements = models.CharField(max_length=255, blank=True, verbose_name='特殊需求')
-#     estimated_annual_consumption = models.CharField(max_length=255, blank=True, verbose_name='预估年用量')
-#     current_manufacturer = models.CharField(max_length=255, blank=True, verbose_name='现用厂家')
-#     product_level = models.CharField(db_column='product_level', max_length=255, blank=True,
-#                                      verbose_name='级别(药品级/化学级)')
-#     model_number = models.CharField(max_length=255, blank=True, verbose_name='型号')
-#     price_per_kg = models.CharField(max_length=255, blank=True, verbose_name='单价')
-#     formulation_name = models.CharField(max_length=255, blank=True, verbose_name='制剂名称')
-#     is_consistency_evaluation_product = models.CharField(max_length=255, blank=True,
-#                                                          verbose_name='是否一致性评价品种')
-#     auxiliary_material_usage = models.CharField(max_length=255, blank=True, verbose_name='辅料用途')
-#     prescription_dosage = models.CharField(max_length=255, blank=True, verbose_name='处方用量')
-#     development_date = models.DateField(verbose_name='起始开发日期')
-#     customer_importance = models.CharField(max_length=255, blank=True, verbose_name='客户重要程度')
-#     initial_negotiation = models.CharField(max_length=255, blank=True, verbose_name='前期洽谈')
-#     supplier_change_request = models.CharField(max_length=255, blank=True, verbose_name='提出供应商变更申请')
-#     supplier_audit = models.CharField(max_length=255, blank=True, verbose_name='供应商审计')
-#     continuous_batch_sample_testing = models.CharField(max_length=255, blank=True, verbose_name='连续3批辅料小样检测')
-#     first_production_of_3_batches = models.CharField(max_length=255, blank=True, verbose_name='首次生产3批')
-#     stability_study = models.CharField(max_length=255, blank=True, verbose_name='稳定性考察')
-#     additional_application_record_change = models.CharField(max_length=255, blank=True,
-#                                                             verbose_name='补充申请备案完成变更')
-#     formal_contract_signing = models.CharField(max_length=255, blank=True, verbose_name='正式合同签订')
-#     delivery = models.CharField(max_length=255, blank=True, verbose_name='发货')
-#     in_progress = models.CharField(max_length=255, blank=True, verbose_name='进行中')
-#     notes = models.CharField(max_length=255, blank=True, verbose_name='备注')
-#     before_pilot_scale_up = models.CharField(max_length=255, blank=True, verbose_name='中试前')
-#     before_submission = models.CharField(max_length=255, blank=True, verbose_name='申报前')
-#     issuing_time = models.DateField(verbose_name='开具时间')
-#     landing_enterprise_name = models.CharField(max_length=255, blank=True, verbose_name='落地企业名称')
-#     contact_person = models.CharField(max_length=255, blank=True, verbose_name='联系人')
-#     handover_sales_manager = models.CharField(max_length=255, blank=True, verbose_name='移交销售经理')
-#     handover_time = models.DateField(verbose_name='移交时间')
-#
-#     class Meta:
-#         # managed = False
-#         db_table = '已有制剂开发中进度表'
-
-
-# class ExistingProductCompleted(models.Model):
-#     id = models.AutoField(primary_key=True, verbose_name='序号')
-#     enterprise_name = models.CharField(max_length=255, blank=True, verbose_name='企业名称')
-#     province = models.CharField(max_length=255, blank=True, verbose_name='省份')
-#     city = models.CharField(max_length=255, blank=True, verbose_name='城市')
-#     department = models.CharField(max_length=255, blank=True, verbose_name='部门')
-#     specific_department = models.CharField(max_length=255, blank=True, verbose_name='具体部门')
-#     responsible_person = models.CharField(max_length=255, blank=True, verbose_name='负责人')
-#     customer_name = models.CharField(max_length=255, blank=True, verbose_name='客户姓名')
-#     customer_source = models.CharField(max_length=255, blank=True, verbose_name='客户来源')
-#     product = models.CharField(max_length=255, blank=True, verbose_name='产品')
-#     corresponding_specification_code = models.CharField(max_length=255, blank=True,
-#                                                         verbose_name='对应规格编码')
-#     special_requirements = models.CharField(max_length=255, blank=True, verbose_name='特殊需求')
-#     estimated_annual_consumption = models.CharField(max_length=255, blank=True, verbose_name='预估年用量')
-#     current_manufacturer = models.CharField(max_length=255, blank=True, verbose_name='现用厂家')
-#     product_level = models.CharField(db_column='product_level', max_length=255, blank=True,
-#                                      verbose_name='级别(药品级/化学级)')
-#     model_number = models.CharField(max_length=255, blank=True, verbose_name='型号')
-#     price_per_kg = models.CharField(max_length=255, blank=True, verbose_name='单价')
-#     formulation_name = models.CharField(max_length=255, blank=True, verbose_name='制剂名称')
-#     is_consistency_evaluation_product = models.CharField(max_length=255, blank=True,
-#                                                          verbose_name='是否一致性评价品种')
-#     auxiliary_material_usage = models.CharField(max_length=255, blank=True, verbose_name='辅料用途')
-#     prescription_dosage = models.CharField(max_length=255, blank=True, verbose_name='处方用量')
-#     development_date = models.DateField(verbose_name='起始开发日期')
-#     customer_importance = models.CharField(max_length=255, blank=True, verbose_name='客户重要程度')
-#     initial_negotiation = models.CharField(max_length=255, blank=True, verbose_name='前期洽谈')
-#     supplier_change_request = models.CharField(max_length=255, blank=True, verbose_name='提出供应商变更申请')
-#     supplier_audit = models.CharField(max_length=255, blank=True, verbose_name='供应商审计')
-#     continuous_batch_sample_testing = models.CharField(max_length=255, blank=True, verbose_name='连续3批辅料小样检测')
-#     first_production_of_3_batches = models.CharField(max_length=255, blank=True, verbose_name='首次生产3批')
-#     stability_study = models.CharField(max_length=255, blank=True, verbose_name='稳定性考察')
-#     additional_application_record_change = models.CharField(max_length=255, blank=True,
-#                                                             verbose_name='补充申请备案完成变更')
-#     formal_contract_signing = models.CharField(max_length=255, blank=True, verbose_name='正式合同签订')
-#     delivery = models.CharField(max_length=255, blank=True, verbose_name='发货')
-#     in_progress = models.CharField(max_length=255, blank=True, verbose_name='进行中')
-#     notes = models.CharField(max_length=255, blank=True, verbose_name='备注')
-#     before_pilot_scale_up = models.CharField(max_length=255, blank=True, verbose_name='中试前')
-#     before_submission = models.CharField(max_length=255, blank=True, verbose_name='申报前')
-#     issuing_time = models.DateField(verbose_name='开具时间')
-#     landing_enterprise_name = models.CharField(max_length=255, blank=True, verbose_name='落地企业名称')
-#     contact_person = models.CharField(max_length=255, blank=True, verbose_name='联系人')
-#     handover_sales_manager = models.CharField(max_length=255, blank=True, verbose_name='移交销售经理')
-#     handover_time = models.DateField(verbose_name='移交时间')
-#
-#     class Meta:
-#         # managed = False
-#         db_table = '已有制剂已完成进度表'
+#         db_table = '已有制剂进度描述表'
 
 
 class Employees(models.Model):
@@ -1090,3 +827,21 @@ class product_new(models.Model):
 
     class Meta:
         db_table = '新品开发'
+
+
+class ProductDescription(models.Model):
+    product_new = models.ForeignKey(product_new, on_delete=models.CASCADE, related_name='ProductDescription')
+    date = models.DateField()
+    description = models.TextField()
+
+    class Meta:
+        db_table = '新品开发进度描述'
+
+
+class PreparationDescription(models.Model):
+    preparation_new = models.ForeignKey(preparation_new, on_delete=models.CASCADE, related_name='PreparationDescription')
+    date = models.DateField()
+    description = models.TextField()
+
+    class Meta:
+        db_table = '已有制剂开发进度描述'

@@ -59,7 +59,6 @@
                     <th>订单金额(CNY)</th>
                     <th>回款金额(USD)</th>
                     <th>回款金额(CNY)</th>
-                    <th>一次</th>
                     <th>客户类型</th>
                     <th>未收款(USD)</th>
                     <th>未收款(CNY)</th>
@@ -117,7 +116,6 @@
                         <td>{{ entry.order_amount_cny }}</td>
                         <td>{{ entry.payment_received_usd }}</td>
                         <td>{{ entry.payment_received_cny }}</td>
-                        <td>{{ entry.first_occurrence }}</td>
                         <td>{{ entry.customer_type }}</td>
                         <td>{{ entry.unreceived_payment_usd }}</td>
                         <td>{{ entry.unreceived_payment_cny }}</td>
@@ -139,12 +137,12 @@
                         <td>{{ entry.exchange_rate }}</td>
                         <td>
                             {% if 'management.change_foreigntradeledger' in request.session.info.user_permissions %}
-                                <a href="/foreign/ledger/edit/{{ entry.serial_number }}/"
+                                <a href="/foreign/ledger/edit/{{ entry.id }}/"
                                    class="btn btn-info btn-sm">编辑</a>
                             {% endif %}
                             {% if 'management.delete_foreigntradeledger' in request.session.info.user_permissions %}
                                 <button type="button" class="btn btn-danger btn-sm delete-btn"
-                                        data-delete-url="/foreign/ledger/delete/{{ entry.serial_number }}/">
+                                        data-delete-url="/foreign/ledger/delete/{{ entry.id }}/">
                                     删除
                                 </button>
                             {% endif %}

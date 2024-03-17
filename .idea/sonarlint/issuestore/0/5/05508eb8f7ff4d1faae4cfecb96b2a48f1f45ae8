@@ -1,7 +1,7 @@
 
-Èpython:S1192Z"ƒDefine a constant instead of duplicating this literal '<li  class="page-item"><a class="page-link" href="?{}">{}</a></li>' 5 times.(Æø$8éÊŠø»1J$7862a5cf-d9fb-4a9d-8118-eef2bb017639
-¬python:S1871""bEither merge this branch with the identical one on line "32" or change one of the implementations.(óä—ùÿÿÿÿ8×µø»1J$52ee91db-8cd3-42a3-88ff-0d80e0ce24d3
-fpython:S6660"Use `not isinstance()` here.(ş­Ö¤øÿÿÿÿ8ä¡‹ø»1J$7c461a06-04e0-436b-8334-14967fbf9750
-python:S37765"TRefactor this function to reduce its Cognitive Complexity from 17 to the 15 allowed.(™äã‰ÿÿÿÿÿ8êÊŠø»1J$1a9de73b-953b-4810-8177-9ed7a6fac003
-cpython:S125K"Remove this commented out code.(ºù÷É8êÊŠø»1J$e64fdabc-b68b-4690-9f84-d1bd26784ce2
-upython:S5806s"+Rename this variable; it shadows a builtin.(šÚ‡ úÿÿÿÿ8êÊŠø»1J$52f559fd-8623-4748-8579-f814557dcd97
+Èpython:S1192Z"ƒDefine a constant instead of duplicating this literal '<li  class="page-item"><a class="page-link" href="?{}">{}</a></li>' 5 times.(Æø$8éÊŠø»1J$cd7631dc-efa8-4c2c-81c6-26fc985c2b3c
+¬python:S1871""bEither merge this branch with the identical one on line "32" or change one of the implementations.(óä—ùÿÿÿÿ8×µø»1J$af190882-3c36-409b-a8df-2c2c8a6d81aa
+fpython:S6660"Use `not isinstance()` here.(ş­Ö¤øÿÿÿÿ8ä¡‹ø»1J$5514bc39-fa23-4483-8a7d-ec81355327bf
+python:S37765"TRefactor this function to reduce its Cognitive Complexity from 17 to the 15 allowed.(™äã‰ÿÿÿÿÿ8êÊŠø»1J$652d9998-2d2b-45d8-86f3-1083c1a11fa4
+cpython:S125K"Remove this commented out code.(ºù÷É8êÊŠø»1J$68e23798-b0fb-4d1c-878a-8293d70806ec
+upython:S5806s"+Rename this variable; it shadows a builtin.(šÚ‡ úÿÿÿÿ8êÊŠø»1J$157fff10-f27e-49a1-a27f-f87632899894

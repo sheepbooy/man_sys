@@ -22,7 +22,6 @@ from management.views import inner_trade_ledger
 from management.views import foreign_trade_ledger
 from management.views import foreign_customer
 from management.views import authorization
-from management.views import progress
 from management.views import dev_customer
 from management.views import butting
 from management.views import turnover
@@ -70,6 +69,9 @@ urlpatterns = [
     # 用户管理
     path('user/management/', login_register_home.user_management_home),
 
+    # 报表查看
+    path('report/management/', login_register_home.report_show),
+
     # 所有员工信息
     path('employees/', employee.employees_list),
     path('employees/add/', employee.employees_add),
@@ -105,12 +107,6 @@ urlpatterns = [
     path('authorization/add/', authorization.authorization_add),
     path('authorization/edit/<int:_id>/', authorization.authorization_edit, name='edit_authorization'),
     path('authorization/delete/<int:_id>/', authorization.authorization_delete, name='delete_authorization'),
-
-    # 新品，已有制剂进度描述
-    path('progress/<str:_type>/', progress.progress),
-    path('progress/<str:_type>/add/', progress.progress_add),
-    path('progress/<str:_type>/edit/<int:_id>/', progress.progress_edit, name='edit_progress'),
-    path('progress/<str:_type>/delete/<int:_id>/', progress.progress_delete, name='delete_progress'),
 
     #  研发部客户档案
     path('develop/customer/', dev_customer.dev_custom),
@@ -225,15 +221,32 @@ urlpatterns = [
     path('customer_audit/edit/<int:_id>/', customer_audit.customer_audit_edit, name='customer_audit_edit'),
     path('customer_audit/delete/<int:_id>/', customer_audit.customer_audit_delete, name='customer_audit_delete'),
 
-    # 新已有制剂表
+    # 已有制剂表
     path('preparation_new/', preparation_new.preparation_new, name='preparation_new'),
     path('preparation_new/add/', preparation_new.preparation_new_add, name='preparation_new_add'),
     path('preparation_new/edit/<int:_id>/', preparation_new.preparation_new_edit, name='preparation_new_edit'),
     path('preparation_new/delete/<int:_id>/', preparation_new.preparation_new_delete, name='preparation_new_delete'),
 
-    # 新品已完成，开发中进度表
+    # 已有制剂进度描述
+    path('api/preparations/<int:preparation_id>/descriptions/', preparation_new.get_preparation_descriptions,
+         name='get-preparation-descriptions'),
+    path('api/descriptions/<int:description_id>/delete/', preparation_new.delete_description, name='delete-description'),
+    path('api/descriptions/<int:description_id>/edit/', preparation_new.edit_description, name='edit-description'),
+    path('api/preparations/<int:preparation_id>/add-description/', preparation_new.add_preparation_description,
+         name='add_preparation_description'),
+
+    # 新品表
     path('product_new/', product_new.product_new, name='product_new'),
     path('product_new/add/', product_new.product_new_add, name='product_new_add'),
     path('product_new/edit/<int:_id>/', product_new.product_new_edit, name='product_new_edit'),
     path('product_new/delete/<int:_id>/', product_new.product_new_delete, name='product_new_delete'),
+
+    # 新品进度描述
+    path('api/product_new/<int:product_new_id>/descriptions/', product_new.get_product_descriptions,
+         name='get-preparation-descriptions'),
+    path('api/product_new/<int:description_id>/delete/', product_new.delete_description, name='delete-description'),
+    path('api/product_new/<int:description_id>/edit/', product_new.edit_description, name='edit-description'),
+    path('api/product_new/<int:product_new_id>/add-description/', product_new.add_product_description,
+         name='add_preparation_description'),
+
 ]

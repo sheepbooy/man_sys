@@ -1,0 +1,121 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+    <div class="container py-5">
+        <h2 class="mb-5 text-center">报表查看</h2>
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+
+            {% if 'management.view_reimbursement' in request.session.info.user_permissions %}
+                <div class="col">
+                    <div class="card h-100 border-0 shadow">
+                        <div class="card-body">
+                            <h5 class="card-title">销售各部门回款目标</h5>
+                            <p class="card-text">每个销售部门每个月的回款目标</p>
+                            <a href="/reimbursement/" class="btn btn-primary" target="_blank">前往查看</a>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+
+            {% if 'management.view_reimbursement' in request.session.info.user_permissions %}
+                <div class="col-md-6 col-lg-4">
+                    <div class="card h-100 border-0 shadow">
+                        <div class="card-body">
+                            <h5 class="card-title">销售目标与实际完成情况</h5>
+                            <p class="card-text">每个月销售目标与实际回款金额的差额及完成比例</p>
+                            <a href="/targets-achievements/" class="btn btn-primary"
+                               target="_blank">前往查看</a>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+
+            <div class="col-md-6 col-lg-4">
+                <div class="card h-100 border-0 shadow">
+                    <div class="card-body">
+                        <h5 class="card-title">开发目标客户数和实现销售额</h5>
+                        <p class="card-text">统计各部门的客户数以及订单金额</p>
+                        <a href="/customers_sales/" class="btn btn-primary"
+                           target="_blank">前往查看</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-4">
+                <div class="card h-100 border-0 shadow">
+                    <div class="card-body">
+                        <h5 class="card-title">月实现订单数</h5>
+                        <p class="card-text">根据时间统计各部门实现的订单数</p>
+                        <a href="/order_summary/" class="btn btn-primary"
+                           target="_blank">前往查看</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4">
+                <div class="card h-100 border-0 shadow">
+                    <div class="card-body">
+                        <h5 class="card-title">月度/季度销售额</h5>
+                        <p class="card-text">统计每个部门每年的销售额，可以在两种模式中切换</p>
+                        <a href="/sales_increments/" class="btn btn-primary"
+                           target="_blank">前往查看</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4">
+                <div class="card h-100 border-0 shadow">
+                    <div class="card-body">
+                        <h5 class="card-title">月度/季度回款额</h5>
+                        <p class="card-text">统计每个部门每年的回款金额与比例，可以在两种模式中切换</p>
+                        <a href="/sales_payback/" class="btn btn-primary"
+                           target="_blank">前往查看</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4">
+                <div class="card h-100 border-0 shadow">
+                    <div class="card-body">
+                        <h5 class="card-title">销售部-业务员-月度各品类销售金额</h5>
+                        <p class="card-text">可以查看每年各品类的销售金额</p>
+                        <a href="/customer_sales/salesperson/category/" class="btn btn-primary"
+                           target="_blank">前往查看</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4">
+                <div class="card h-100 border-0 shadow">
+                    <div class="card-body">
+                        <h5 class="card-title">销售部-业务员-月度各品类销售数量</h5>
+                        <p class="card-text">可以查看每年各品类的销售数量</p>
+                        <a href="/sales_amount/salesperson/category/" class="btn btn-primary"
+                           target="_blank">前往查看</a>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+{% endblock %}
+
+{% block css %}
+    <style>
+        .card {
+            transition: transform .2s, box-shadow .2s;
+            border-radius: 0.5rem;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-primary {
+            transition: background-color .3s, border-color .3s;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #004085;
+        }
+    </style>
+{% endblock %}

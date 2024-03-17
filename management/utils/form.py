@@ -13,6 +13,8 @@ class EmployeesForm(BootStrapModelForm):
 
 
 class PasswordChangeForm(BootStrapModelForm):
+    """更改密码表"""
+
     class Meta:
         model = models.Employees
         exclude = ['user']
@@ -109,28 +111,6 @@ class authorization_form(BootStrapModelForm):
         #     'registration_status', 'related_manufacturer', 'related_product_name', 'administration_route',
         #     'follow_up_person', 'review_status', 'acceptance_month', 'during_review_month', 'disappearing_month',
         #     'notes'
-        # ]
-        fields = '__all__'
-
-
-class NewProductDevelopment_form(BootStrapModelForm):
-    """新品进度描述表"""
-
-    class Meta:
-        model = models.NewProductDevelopment
-        # fields = [
-        #     'id', 'timestamp', 'progress', 'status', 'subordinate_id',
-        # ]
-        fields = '__all__'
-
-
-class ExistingFormulationProgressDescription_form(BootStrapModelForm):
-    """已有制剂仅需描述表"""
-
-    class Meta:
-        model = models.ExistingFormulationProgressDescription
-        # fields = [
-        #     'id', 'timestamp', 'progress', 'status', 'subordinate_id',
         # ]
         fields = '__all__'
 
@@ -318,6 +298,14 @@ class PreparationNew_Form(BootStrapModelForm):
     class Meta:
         model = models.preparation_new
         fields = '__all__'
+
+
+class PreparationDescription_Form(BootStrapModelForm):
+    """已有变更进度描述"""
+
+    class Meta:
+        model = models.PreparationDescription
+        fields = ['date', 'description']  # 根据你的模型字段调整
 
 
 class ProductNew_Form(BootStrapModelForm):

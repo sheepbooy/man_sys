@@ -6,6 +6,34 @@
         <div class="row g-4">
             <!-- 循环开始 -->
 
+            {% if 'management.view_preparation_new' in request.session.info.user_permissions %}
+                <div class="col-md-6 col-lg-4">
+                    <div class="card border-0 shadow on-hover-effect" onmouseover="hoverCard(this)"
+                         onmouseout="unhoverCard(this)">
+                        <div class="card-body">
+                            <h5 class="card-title">已有制剂管理</h5>
+                            <p class="card-text">对于已有制剂进行管理</p>
+                            <a href="/preparation_new/" class="btn btn-primary"
+                               target="_blank">已有制剂管理</a>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+
+            {% if 'management.view_product_new' in request.session.info.user_permissions %}
+                <div class="col-md-6 col-lg-4">
+                    <div class="card border-0 shadow on-hover-effect" onmouseover="hoverCard(this)"
+                         onmouseout="unhoverCard(this)">
+                        <div class="card-body">
+                            <h5 class="card-title">新品管理</h5>
+                            <p class="card-text">对于新品进行管理</p>
+                            <a href="/product_new/" class="btn btn-primary"
+                               target="_blank">新品管理</a>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+
             {% if 'management.view_products' in request.session.info.user_permissions %}
                 <div class="col-md-6 col-lg-4">
                     <div class="card border-0 shadow on-hover-effect" onmouseover="hoverCard(this)"
