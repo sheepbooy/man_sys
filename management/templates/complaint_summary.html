@@ -9,32 +9,14 @@
                 <div class="col">
                     <a href="/project/management/" class="btn btn-outline-primary">返回</a>
                     <a href="/complaint_summary/add/" class="btn btn-primary">添加</a>
+                    <button type="button" class="btn btn-warning" data-bs-toggle="modal"
+                            data-bs-target="#exportFieldsModal">选择导出字段
+                    </button>
+                    <a href="/complaint_summary/import/" class="btn btn-success">导入</a>
                 </div>
             {% endif %}
             <div class="col text-end">
-                {#                <form method="get" class="mb-4 d-flex justify-content-start">#}
-                {#                    <select name="department" id="department-select" class="form-select me-2">#}
-                {#                        <option value="">所有部门</option>#}
-                {#                        {% for department in departments %}#}
-                {#                            <option value="{{ department }}"#}
-                {#                                    {% if department|stringformat:"s" == selected_department %}selected{% endif %}>#}
-                {#                                {{ department }}#}
-                {#                            </option>#}
-                {#                        {% endfor %}#}
-                {#                    </select>#}
-                {##}
-                {#                    <select name="category" id="category-select" class="form-select me-2">#}
-                {#                        <option value="">所有分类</option>#}
-                {#                        {% for category_key, category_value in category_choices.items %}#}
-                {#                            <option value="{{ category_key }}"#}
-                {#                                    {% if category_key == selected_category %}selected{% endif %}>#}
-                {#                                {{ category_value }}#}
-                {#                            </option>#}
-                {#                        {% endfor %}#}
-                {#                    </select>#}
-                {##}
-                {#                    <button class="btn btn-outline-secondary" type="submit">搜索</button>#}
-                {#                </form>#}
+
                 <form method="get" id="search-form">
                     <div id="search-conditions">
                         <!-- 动态搜索条件将被插入这里 -->
@@ -45,13 +27,6 @@
                 </form>
             </div>
         </div>
-
-        {#        <!-- 使用 Chart.js 创建饼图展示类别统计 -->#}
-        {#        <div class="row mt-4">#}
-        {#            <div class="col">#}
-        {#                <canvas id="categoryChart" width="400" height="400"></canvas>#}
-        {#            </div>#}
-        {#        </div>#}
         {% if 'management.view_complaintsummary' in request.session.info.user_permissions %}
             <div class="scrollable-table">
                 <table class="table table-fixed custom-table">
@@ -157,7 +132,35 @@
             {#                {% endfor %}#}
             {#            </div>#}
         {% endif %}
-
+        <!-- 导出模态框 -->
+        <div class="modal fade" id="exportFieldsModal" tabindex="-1" aria-labelledby="exportFieldsModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exportFieldsModalLabel">选择导出字段</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="exportFieldsForm">
+                            {% for field_name, field_verbose_name in field_info %}
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="{{ field_name }}"
+                                           id="field{{ forloop.counter }}" checked>
+                                    <label class="form-check-label" for="field{{ forloop.counter }}">
+                                        {{ field_verbose_name }}
+                                    </label>
+                                </div>
+                            {% endfor %}
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">关闭</button>
+                        <button type="button" class="btn btn-primary" onclick="submitExportFields()">导出</button>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <!-- 分页样式 -->
         <nav aria-label="Page navigation example" class="mt-4">
@@ -198,4 +201,18 @@
             }
         });
     </script>
+{% endblock %}
+{% block js %}
+
+    <script>
+        function submitExportFields() {
+            let selectedFields = [];
+            document.querySelectorAll('#exportFieldsForm input[type="checkbox"]:checked').forEach(function (checkbox) {
+                selectedFields.push(checkbox.value);
+            });
+            let exportUrl = '/complaint_summary/export/?fields=' + selectedFields.join(',');
+            window.location.href = exportUrl;
+        }
+    </script>
+
 {% endblock %}

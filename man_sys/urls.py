@@ -89,6 +89,8 @@ urlpatterns = [
          name='edit_inner_trade_ledger'),
     path('innertrade/ledger/delete/<int:_id>/', inner_trade_ledger.inner_trade_ledger_delete,
          name='delete_inner_trade_ledger'),
+    path('innertrade/ledger/import/', inner_trade_ledger.inner_trade_ledger_import, name='inner_trade_ledger_import'),
+    path('innertrade/ledger/export/', inner_trade_ledger.inner_trade_ledger_export, name='inner_trade_ledger_export'),
 
     # 外贸部台账表
     path('foreign/ledger/', foreign_trade_ledger.foreign_trade_ledger),
@@ -97,6 +99,8 @@ urlpatterns = [
          name='edit_foreign_trade_ledger'),
     path('foreign/ledger/delete/<int:_id>/', foreign_trade_ledger.foreign_trade_ledger_delete,
          name='delete_foreign_trade_ledger'),
+    path('foreign/ledger/import/', foreign_trade_ledger.foreign_trade_ledger_import, name='foreign_trade_ledger_import'),
+    path('foreign/ledger/export/', foreign_trade_ledger.foreign_trade_ledger_export, name='foreign_trade_ledger_export'),
 
     # 外贸部客户档案表
     path('foreign/customer/', foreign_customer.foreign_customer),
@@ -104,33 +108,40 @@ urlpatterns = [
     path('foreign/customer/edit/<int:_id>/', foreign_customer.foreign_customer_edit, name='edit_foreign_customer'),
     path('foreign/customer/delete/<int:_id>/', foreign_customer.foreign_customer_delete,
          name='delete_foreign_customer'),
-    # 导入导出功能
-    # path('foreign/customer/export/', foreign_customer.foreign_customer_export, name='foreign_customer_export'),
-    # path('foreign/customer/import/', foreign_customer.foreign_customer_import, name='foreign_customer_import'),
+    path('foreign/customer/export/', foreign_customer.foreign_customer_export, name='foreign_customer_export'),
+    path('foreign/customer/import/', foreign_customer.foreign_customer_import, name='foreign_customer_import'),
 
     # 授权书总表
     path('authorization/', authorization.authorization),
     path('authorization/add/', authorization.authorization_add),
     path('authorization/edit/<int:_id>/', authorization.authorization_edit, name='edit_authorization'),
     path('authorization/delete/<int:_id>/', authorization.authorization_delete, name='delete_authorization'),
+    path('authorization/import/', authorization.authorization_import, name='authorization_import'),
+    path('authorization/export/', authorization.authorization_export, name='authorization_export'),
 
     #  研发部客户档案
     path('develop/customer/', dev_customer.dev_custom),
     path('develop/customer/add/', dev_customer.dev_custom_add),
     path('develop/customer/edit/<int:_id>/', dev_customer.dev_custom_edit, name='edit_dev_custom'),
     path('develop/customer/delete/<int:_id>/', dev_customer.dev_custom_delete, name='delete_dev_custom'),
+    path('develop/customer/import/', dev_customer.dev_custom_import, name='import_dev_custom'),
+    path('develop/customer/export/', dev_customer.dev_custom_export, name='export_dev_custom'),
 
     # 研发部客户对接表
     path('develop/butting/', butting.butting),
     path('develop/butting/add/', butting.butting_add),
     path('develop/butting/edit/<int:_id>/', butting.butting_edit, name='edit_butting'),
     path('develop/butting/delete/<int:_id>/', butting.butting_delete, name='delete_butting'),
+    path('develop/butting/import/', butting.butting_import, name='butting_import'),
+    path('develop/butting/export/', butting.butting_export, name='butting_export'),
 
     # 研发部客户流水表
     path('develop/turnover/', turnover.turnover),
     path('develop/turnover/add/', turnover.turnover_add),
     path('develop/turnover/edit/<int:_id>/', turnover.turnover_edit, name='edit_turnover'),
     path('develop/turnover/delete/<int:_id>/', turnover.turnover_delete, name='delete_turnover'),
+    path('develop/turnover/import/', turnover.turnover_import, name='turnover_import'),
+    path('develop/turnover/export/', turnover.turnover_export, name='turnover_export'),
 
     # 辅料表
     path('product/', product.product),
@@ -145,6 +156,8 @@ urlpatterns = [
     path('question/add/', question.question_add),
     path('question/edit/<int:_id>/', question.question_edit, name='edit_question'),
     path('question/delete/<int:_id>/', question.question_delete, name='delete_question'),
+    path('question/import/', question.question_import, name='question_import'),
+    path('question/export/', question.question_export, name='question_export'),
 
     # 202X年X月台账基础表（原辅料、食品、研发、产品）
     path('report/inner/m_inner_trade_ledger/', inner_trade_ledger.x_month_inner_trade_ledger),
@@ -193,6 +206,8 @@ urlpatterns = [
     path('complaint_summary/edit/<int:_id>/', complaint_summary.complaint_summary_edit, name='complaint_summary_edit'),
     path('complaint_summary/delete/<int:_id>/', complaint_summary.complaint_summary_delete,
          name='complaint_summary_delete'),
+    path('complaint_summary/import/', complaint_summary.complaint_summary_import, name='complaint_summary'),
+    path('complaint_summary/export/', complaint_summary.complaint_summary_export, name='complaint_summary'),
 
     # 202X年-销售部-业务员-月度各品类销售金额
     path('customer_sales/salesperson/category/', Salesperson_Sales_Category.monthly_sales_report,
@@ -207,30 +222,40 @@ urlpatterns = [
     path('sales_visit/add/', sales_visit_report.sales_visit_add, name='sales_visit_add'),
     path('sales_visit/edit/<int:_id>/', sales_visit_report.sales_visit_edit, name='sales_visit_edit'),
     path('sales_visit/delete/<int:_id>/', sales_visit_report.sales_visit_delete, name='sales_visit_delete'),
+    path('sales_visit/import/', sales_visit_report.sales_visit_report_import, name='sales_visit_report_import'),
+    path('sales_visit/export/', sales_visit_report.sales_visit_report_export, name='sales_visit_report_export'),
 
     # 预算详情表
     path('sales_forecast/', sales_forecast.sales_forecast, name='sales_forecast'),
     path('sales_forecast/add/', sales_forecast.sales_forecast_add, name='sales_forecast_add'),
     path('sales_forecast/edit/<int:_id>/', sales_forecast.sales_forecast_edit, name='sales_forecast_edit'),
     path('sales_forecast/delete/<int:_id>/', sales_forecast.sales_forecast_delete, name='sales_forecast_delete'),
+    path('sales_forecast/import/', sales_forecast.sales_forecast_import, name='sales_forecast_import'),
+    path('sales_forecast/export/', sales_forecast.sales_forecast_export, name='sales_forecast_export'),
 
     # 仿制药参比制剂目录
     path('medicine/', medicine.medicine, name='medicine'),
     path('medicine/add/', medicine.medicine_add, name='medicine_add'),
     path('medicine/edit/<int:_id>/', medicine.medicine_edit, name='medicine_edit'),
     path('medicine/delete/<int:_id>/', medicine.medicine_delete, name='medicine_delete'),
+    path('medicine/import/', medicine.medicine_import, name='medicine_import'),
+    path('medicine/export/', medicine.medicine_export, name='medicine_export'),
 
     # 客户审计表
     path('customer_audit/', customer_audit.customer_audit, name='customer_audit'),
     path('customer_audit/add/', customer_audit.customer_audit_add, name='customer_audit_add'),
     path('customer_audit/edit/<int:_id>/', customer_audit.customer_audit_edit, name='customer_audit_edit'),
     path('customer_audit/delete/<int:_id>/', customer_audit.customer_audit_delete, name='customer_audit_delete'),
+    path('customer_audit/import/', customer_audit.customer_audit_import, name='customer_audit'),
+    path('customer_audit/export/', customer_audit.customer_audit_export, name='customer_audit'),
 
     # 已有制剂表
     path('preparation_new/', preparation_new.preparation_new, name='preparation_new'),
     path('preparation_new/add/', preparation_new.preparation_new_add, name='preparation_new_add'),
     path('preparation_new/edit/<int:_id>/', preparation_new.preparation_new_edit, name='preparation_new_edit'),
     path('preparation_new/delete/<int:_id>/', preparation_new.preparation_new_delete, name='preparation_new_delete'),
+    path('preparation_new/import/', preparation_new.preparation_new_import, name='preparation_new_import'),
+    path('preparation_new/export/', preparation_new.preparation_new_export, name='preparation_new_export'),
 
     # 已有制剂进度描述
     path('api/preparations/<int:preparation_id>/descriptions/', preparation_new.get_preparation_descriptions,
@@ -246,6 +271,8 @@ urlpatterns = [
     path('product_new/add/', product_new.product_new_add, name='product_new_add'),
     path('product_new/edit/<int:_id>/', product_new.product_new_edit, name='product_new_edit'),
     path('product_new/delete/<int:_id>/', product_new.product_new_delete, name='product_new_delete'),
+    path('product_new/import/', product_new.product_new_import, name='product_new_import'),
+    path('product_new/export/', product_new.product_new_export, name='product_new_export'),
 
     # 新品进度描述
     path('api/product_new/<int:product_new_id>/descriptions/', product_new.get_product_descriptions,

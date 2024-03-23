@@ -1,19 +1,22 @@
 from django.contrib.auth.decorators import permission_required
 from django.shortcuts import render, redirect, get_object_or_404
 from django.db.models import Q
+from tablib import Dataset
+
+from management.resources import product_new_resource
 from management.utils.convert import convert_none_to_empty_string
 from management.utils.pagination import Pagination
 from management.utils.form import ProductNew_Form
 from management import models
 from django.forms.models import model_to_dict
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
 from django.views.decorators.http import require_http_methods, require_POST
 import json
 
 
 @permission_required('management.view_product_new', '/warning/')
 def product_new(request):
-    """已有制剂展示与搜索"""
+    """新品展示与搜索"""
 
     # 获取搜索字段和值
     search_fields = request.GET.getlist('fields')  # 字段列表
@@ -55,7 +58,7 @@ def product_new(request):
 
 @permission_required('management.add_product_new', '/warning/')
 def product_new_add(request):
-    """已有制剂添加"""
+    """新品添加"""
     if request.method == 'GET':
         form = ProductNew_Form()
         # 从会话中获取之前的页面路径，如果没有则默认回到第一页
@@ -77,7 +80,7 @@ def product_new_add(request):
 
 @permission_required('management.change_product_new', '/warning/')
 def product_new_edit(request, _id):
-    """已有制剂编辑"""
+    """新品编辑"""
     row_object = models.product_new.objects.filter(id=_id).first()
     if request.method == 'GET':
         form = ProductNew_Form(instance=row_object)
@@ -100,7 +103,7 @@ def product_new_edit(request, _id):
 
 @permission_required('management.delete_product_new', '/warning/')
 def product_new_delete(request, _id):
-    """已有制剂删除"""
+    """新品删除"""
     models.product_new.objects.filter(id=_id).delete()
     last_emp_page = request.session.get('last_emp_page', '/product_new/')
     return redirect(last_emp_page)
@@ -175,3 +178,68 @@ def add_product_description(request, product_new_id):
         'date': description.date,
         'description': description.description
     })
+
+
+@permission_required('management.change_product_new', '/warning/')
+def product_new_export(request):
+    """导出"""
+    selected_fields = request.GET.get('fields', None)
+    _resource = product_new_resource()
+
+    if selected_fields:
+        fields = selected_fields.split(',')
+        _resource.set_export_fields(fields)
+
+    dataset = _resource.export()
+    response = HttpResponse(dataset.xls, content_type='application/vnd.ms-excel')
+    filename = "export.xls"
+    response['Content-Disposition'] = f'attachment; filename="{filename}"'
+    return response
+
+
+@permission_required('management.change_product_new', '/warning/')
+def product_new_import(request):
+    """导入"""
+    if request.method == 'POST' and request.FILES['myfile']:
+        file_content = request.FILES['myfile']
+
+        dataset = Dataset()
+        imported_data = dataset.load(file_content.read(), format='xls')
+        empty_rows = []
+
+        # 检查空行
+        for index, row in enumerate(imported_data, start=1):  # 从1开始计数以匹配Excel行号
+            if not any(row):
+                empty_rows.append(index)
+
+        if empty_rows:
+            # 如果存在空行，返回错误信息
+            empty_rows_str = ", ".join(str(row_num) for row_num in empty_rows)
+            return JsonResponse({
+                'message': f'导入失败！文件中的以下行是空的，请去除这些空行后重试：{empty_rows_str}'
+            }, status=400, safe=True)
+
+        result = product_new_resource().import_data(imported_data, dry_run=True)  # 先试运行
+
+        if not result.has_errors():
+            # 实际导入数据
+            product_new_resource().import_data(imported_data, dry_run=False)
+            # 导入成功，构建JSON响应
+            response_data = {
+                'message': '数据成功导入！',
+                'redirect': request.session.get('last_emp_page', '/product_new/')
+            }
+            return JsonResponse(response_data)
+        else:
+            # 如果导入过程中出现错误
+            errors = []
+            for error in result.row_errors():
+                errors.append(f"行 {error[0]}: " + "; ".join([str(e.error) for e in error[1]]))
+            error_msg = "导入过程中出现错误，请检查文件格式和内容。具体错误包括：" + "<br>".join(errors)
+
+            # 注意这里我们使用safe=True，并且返回一个字典
+            return JsonResponse({'message': error_msg}, status=400, safe=True)
+
+    back_url = request.session.get('last_emp_page', '/product_new/')
+    # 确保将back_url传递给模板
+    return render(request, 'import.html', {'back_url': back_url, 'redirect_url': '/product_new/import/'})

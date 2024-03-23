@@ -1,12 +1,15 @@
 from django.contrib.auth.decorators import permission_required
 from django.shortcuts import render, redirect, get_object_or_404
 from django.db.models import Q
+from tablib import Dataset
+
+from management.resources import preparation_new_resource
 from management.utils.convert import convert_none_to_empty_string
 from management.utils.pagination import Pagination
 from management.utils.form import PreparationNew_Form
 from management import models
 from django.forms.models import model_to_dict
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
 from django.views.decorators.http import require_http_methods, require_POST
 import json
 
@@ -172,3 +175,68 @@ def add_preparation_description(request, preparation_id):
         'date': description.date,
         'description': description.description
     })
+
+
+@permission_required('management.change_preparation_new', '/warning/')
+def preparation_new_export(request):
+    """导出"""
+    selected_fields = request.GET.get('fields', None)
+    _resource = preparation_new_resource()
+
+    if selected_fields:
+        fields = selected_fields.split(',')
+        _resource.set_export_fields(fields)
+
+    dataset = _resource.export()
+    response = HttpResponse(dataset.xls, content_type='application/vnd.ms-excel')
+    filename = "export.xls"
+    response['Content-Disposition'] = f'attachment; filename="{filename}"'
+    return response
+
+
+@permission_required('management.change_preparation_new', '/warning/')
+def preparation_new_import(request):
+    """导入"""
+    if request.method == 'POST' and request.FILES['myfile']:
+        file_content = request.FILES['myfile']
+
+        dataset = Dataset()
+        imported_data = dataset.load(file_content.read(), format='xls')
+        empty_rows = []
+
+        # 检查空行
+        for index, row in enumerate(imported_data, start=1):  # 从1开始计数以匹配Excel行号
+            if not any(row):
+                empty_rows.append(index)
+
+        if empty_rows:
+            # 如果存在空行，返回错误信息
+            empty_rows_str = ", ".join(str(row_num) for row_num in empty_rows)
+            return JsonResponse({
+                'message': f'导入失败！文件中的以下行是空的，请去除这些空行后重试：{empty_rows_str}'
+            }, status=400, safe=True)
+
+        result = preparation_new_resource().import_data(imported_data, dry_run=True)  # 先试运行
+
+        if not result.has_errors():
+            # 实际导入数据
+            preparation_new_resource().import_data(imported_data, dry_run=False)
+            # 导入成功，构建JSON响应
+            response_data = {
+                'message': '数据成功导入！',
+                'redirect': request.session.get('last_emp_page', '/preparation_new/')
+            }
+            return JsonResponse(response_data)
+        else:
+            # 如果导入过程中出现错误
+            errors = []
+            for error in result.row_errors():
+                errors.append(f"行 {error[0]}: " + "; ".join([str(e.error) for e in error[1]]))
+            error_msg = "导入过程中出现错误，请检查文件格式和内容。具体错误包括：" + "<br>".join(errors)
+
+            # 注意这里我们使用safe=True，并且返回一个字典
+            return JsonResponse({'message': error_msg}, status=400, safe=True)
+
+    back_url = request.session.get('last_emp_page', '/preparation_new/')
+    # 确保将back_url传递给模板
+    return render(request, 'import.html', {'back_url': back_url, 'redirect_url': '/preparation_new/import/'})

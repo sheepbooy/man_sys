@@ -195,10 +195,10 @@ def foreign_receivable(request):
 
 def foreign_receivable_add(request, _id):
     """应收账款明细（外贸部）增添"""
-    foreign_trade_ledger = models.ForeignTradeLedger.objects.get(serial_number=_id)
+    foreign_trade_ledger = models.ForeignTradeLedger.objects.get(id=_id)
 
     # Check if a record with the given _id exists in the database
-    existing_record = models.Foreign_receivable.objects.filter(foreign_trade_ledger_id=_id).first()
+    existing_record = models.Foreign_receivable.objects.filter(id=_id).first()
 
     if request.method == 'POST':
         form = Foreign_receivable_form(request.POST, instance=existing_record)

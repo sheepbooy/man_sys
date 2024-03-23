@@ -12,8 +12,10 @@
                     <a href="/user/management/" class="btn btn-outline-secondary">返回</a>
                     <a href="/employees/add/" class="btn btn-primary">添加</a>
                     <!-- 在适当的位置添加 -->
-                    <a href="/employees/export/" class="btn btn-success">导出</a>
-                    <a href="/employees/import/" class="btn btn-primary">导入</a>
+                    <button type="button" class="btn btn-warning" data-bs-toggle="modal"
+                            data-bs-target="#exportFieldsModal">选择导出字段
+                    </button>
+                    <a href="/employees/import/" class="btn btn-success">导入</a>
                 </div>
             {% endif %}
             <div class="col text-end">
@@ -69,6 +71,36 @@
             </table>
         </div>
 
+        <!-- Export Fields Modal -->
+        <div class="modal fade" id="exportFieldsModal" tabindex="-1" aria-labelledby="exportFieldsModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exportFieldsModalLabel">选择导出字段</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="exportFieldsForm">
+                            {% for field_name, field_verbose_name in field_info %}
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="{{ field_name }}"
+                                           id="field{{ forloop.counter }}" checked>
+                                    <label class="form-check-label" for="field{{ forloop.counter }}">
+                                        {{ field_verbose_name }}
+                                    </label>
+                                </div>
+                            {% endfor %}
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">关闭</button>
+                        <button type="button" class="btn btn-primary" onclick="submitExportFields()">导出</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <nav aria-label="Page navigation example">
             <!-- 分页导航 -->
             <ul class="pagination justify-content-center">
@@ -76,4 +108,18 @@
             </ul>
         </nav>
     </div>
+{% endblock %}
+{% block js %}
+
+    <script>
+        function submitExportFields() {
+            let selectedFields = [];
+            document.querySelectorAll('#exportFieldsForm input[type="checkbox"]:checked').forEach(function (checkbox) {
+                selectedFields.push(checkbox.value);
+            });
+            let exportUrl = '/employees/export/?fields=' + selectedFields.join(',');
+            window.location.href = exportUrl;
+        }
+    </script>
+
 {% endblock %}

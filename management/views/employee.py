@@ -5,14 +5,14 @@ from django.db import transaction
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from django.db.models import Q
+
+from management.resources import EmployeeResource
 from management.utils.convert import convert_none_to_empty_string
 from management.utils.pagination import Pagination
 from management.utils.form import EmployeesForm, EmployeesAddForm
 from management import models
 from django.http import HttpResponse
 from tablib import Dataset
-# from management.resources import EmployeeResource
-import chardet
 
 # 职位与组名的映射关系
 POSITION_TO_GROUP = {
@@ -207,23 +207,44 @@ def get_positions(request):
     return JsonResponse(response_data, safe=False)
 
 
+@permission_required('management.change_employees', login_url='/warning/')
 def employees_export(request):
-    """员工导出功能"""
-    employee_resource = EmployeeResource()
-    dataset = employee_resource.export()
+    """导出"""
+    selected_fields = request.GET.get('fields', None)
+    _resource = EmployeeResource()
+
+    if selected_fields:
+        fields = selected_fields.split(',')
+        _resource.set_export_fields(fields)
+
+    dataset = _resource.export()
     response = HttpResponse(dataset.xls, content_type='application/vnd.ms-excel')
-    response['Content-Disposition'] = 'attachment; filename="employees.xls"'
+    filename = "export.xls"
+    response['Content-Disposition'] = f'attachment; filename="{filename}"'
     return response
 
 
+@permission_required('management.change_employees', login_url='/warning/')
 def employees_import(request):
     """员工导入功能"""
     if request.method == 'POST':
         dataset = Dataset()
         new_employees = request.FILES['myfile']
         imported_data = dataset.load(new_employees.read(), format='xls')
-        for i in imported_data:
-            print(i)
+        empty_rows = []
+
+        # 检查空行
+        for index, row in enumerate(imported_data, start=1):  # 从1开始计数以匹配Excel行号
+            if not any(row):
+                empty_rows.append(index)
+
+        if empty_rows:
+            # 如果存在空行，返回错误信息
+            empty_rows_str = ", ".join(str(row_num) for row_num in empty_rows)
+            return JsonResponse({
+                'message': f'导入失败！文件中的以下行是空的，请去除这些空行后重试：{empty_rows_str}'
+            }, status=400, safe=True)
+
         result = EmployeeResource().import_data(dataset, dry_run=True)  # 测试数据导入
 
         if not result.has_errors():
@@ -235,8 +256,14 @@ def employees_import(request):
             }
             return JsonResponse(response_data)
         else:
+            # 如果导入过程中出现错误
+            errors = []
+            for error in result.row_errors():
+                errors.append(f"行 {error[0]}: " + "; ".join([str(e.error) for e in error[1]]))
+            error_msg = "导入过程中出现错误，请检查文件格式和内容。具体错误包括：" + "<br>".join(errors)
+
             # 导入过程中发现错误，构建错误的JSON响应
-            return JsonResponse({'message': '导入过程中出现错误，请检查文件格式及内容。'}, status=400)
+            return JsonResponse({'message': error_msg}, status=400)
     # 对于GET请求，仍然显示导入页面
 
     back_url = request.session.get('last_emp_page', '/employees/')

@@ -1,7 +1,5 @@
 
-‘python:S1192b"LDefine a constant instead of duplicating this literal '/employees/' 9 times.(çÓ¤°8ÏÚäãä1J$9b84e376-6eba-4dcb-b7a2-fbdf22a68858
-–python:S1192d"LDefine a constant instead of duplicating this literal 'change.html' 4 times.(ùŒû¼şÿÿÿÿ8ÏÚäãä1J$c8a83292-19cf-4f8d-b917-c72073428d51
-Èpython:S1192"‚Define a constant instead of duplicating this literal 'General Manager of Sales Department and Food Additives Department' 6 times.(ïÿçÒ8ÏÚäãä1J$e7c2503c-5b9e-4ef3-9c5c-755c5ea76699
-cpython:S125"Remove this commented out code.(ŞñÇÃ8¶«Î±æ1J$3b1ea0eb-065c-42a1-bcb9-44371ec1f3c8
-ipython:S125ƒ"Remove this commented out code.(Øá‡€ùÿÿÿÿ8ĞÚäãä1J$48225d70-3c4b-4d02-813d-d7ee8bb041c3
-zpython:S1172Ò"/Remove the unused function parameter "request".(Í¿Ôüÿÿÿÿ8ƒ ù¦æ1J$359555d2-4c02-49c6-a3cb-925ab33bc7d0
+‘python:S1192b"LDefine a constant instead of duplicating this literal '/employees/' 9 times.(çÓ¤°8ÏÚäãä1J$02253c4c-a0d5-429f-9771-04042417f691
+–python:S1192d"LDefine a constant instead of duplicating this literal 'change.html' 4 times.(ùŒû¼şÿÿÿÿ8ÏÚäãä1J$0f9cdbb0-df00-40e5-8c15-a6f29b498be7
+Èpython:S1192"‚Define a constant instead of duplicating this literal 'General Manager of Sales Department and Food Additives Department' 6 times.(ïÿçÒ8ÏÚäãä1J$11b09673-4d9a-4bcd-8726-9324f106d225
+ipython:S125ƒ"Remove this commented out code.(Øá‡€ùÿÿÿÿ8ĞÚäãä1J$25c6e4ff-8320-42ff-8a04-b709b68a07c9

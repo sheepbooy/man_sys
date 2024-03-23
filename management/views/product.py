@@ -11,7 +11,7 @@ from management.utils.convert import convert_none_to_empty_string
 from management.utils.pagination import Pagination
 from management.utils.form import Products_form
 from management import models
-from management.resources import Products_resource
+from management.resources import ProductsResource
 
 
 @permission_required('management.view_products', '/warning/')
@@ -111,15 +111,15 @@ def product_delete(request, _id):
 
 @permission_required('management.change_products', '/warning/')
 def product_export(request):
-    """导出辅料表"""
+    """导出"""
     selected_fields = request.GET.get('fields', None)
-    product_resource = Products_resource()
+    _resource = ProductsResource()
 
     if selected_fields:
         fields = selected_fields.split(',')
-        product_resource.set_export_fields(fields)
+        _resource.set_export_fields(fields)
 
-    dataset = product_resource.export()
+    dataset = _resource.export()
     response = HttpResponse(dataset.xls, content_type='application/vnd.ms-excel')
     filename = "export.xls"
     response['Content-Disposition'] = f'attachment; filename="{filename}"'
@@ -128,16 +128,31 @@ def product_export(request):
 
 @permission_required('management.change_products', '/warning/')
 def product_import(request):
+    """导入"""
     if request.method == 'POST' and request.FILES['myfile']:
         file_content = request.FILES['myfile']
 
         dataset = Dataset()
         imported_data = dataset.load(file_content.read(), format='xls')
-        result = Products_resource().import_data(dataset, dry_run=True)  # 先试运行
+        empty_rows = []
+
+        # 检查空行
+        for index, row in enumerate(imported_data, start=1):  # 从1开始计数以匹配Excel行号
+            if not any(row):
+                empty_rows.append(index)
+
+        if empty_rows:
+            # 如果存在空行，返回错误信息
+            empty_rows_str = ", ".join(str(row_num) for row_num in empty_rows)
+            return JsonResponse({
+                'message': f'导入失败！文件中的以下行是空的，请去除这些空行后重试：{empty_rows_str}'
+            }, status=400, safe=True)
+
+        result = ProductsResource().import_data(imported_data, dry_run=True)  # 先试运行
 
         if not result.has_errors():
             # 实际导入数据
-            Products_resource().import_data(dataset, dry_run=False)
+            ProductsResource().import_data(imported_data, dry_run=False)
             # 导入成功，构建JSON响应
             response_data = {
                 'message': '数据成功导入！',

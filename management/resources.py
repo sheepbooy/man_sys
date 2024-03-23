@@ -1,12 +1,8 @@
-from management.models import ForeignCustomerProfile
-from import_export.fields import Field
-from django.db.models.fields import DateField, DateTimeField
-import logging
-from django.db import IntegrityError
 from import_export import resources, fields
 from import_export.widgets import ForeignKeyWidget
-from django.contrib.auth.models import User
+
 from management import models
+from django.contrib.auth.models import User
 
 """
     model: 指定你想要导入导出的 Django 模型类。
@@ -23,12 +19,9 @@ from management import models
 """
 
 
-class Products_resource(resources.ModelResource):
-    # 初始化时，指定一个属性来存储用户选择的导出字段
-    export_fields = None
-
-    class Meta:
-        model = models.Products
+class BaseResource(resources.ModelResource):
+    """基础资源类，用于导出数据的共通处理, 无外键"""
+    export_fields = None  # 初始化时，指定一个属性来存储用户选择的导出字段
 
     def set_export_fields(self, field_names):
         """
@@ -38,31 +31,160 @@ class Products_resource(resources.ModelResource):
         self.export_fields = field_names
 
     def get_export_fields(self):
-        fields = super(Products_resource, self).get_export_fields()
-        # 如果设置了export_fields，则过滤字段
+        fields = super().get_export_fields()
         if self.export_fields is not None:
             fields = [field for field in fields if
                       field.attribute in self.export_fields or field.column_name in self.export_fields]
         else:
-            # 默认行为，排除 'id' 字段
             fields = [field for field in fields if field.column_name != 'id']
         return fields
 
     def get_export_headers(self):
         headers = []
-        for field in self.get_export_fields():  # 注意这里调用的是get_export_fields来确保字段一致性
-            # 使用字段的verbose_name作为列头，如果字段在模型定义中
+        for field in self.get_export_fields():
             if hasattr(self.Meta.model, field.attribute):
                 model_field = self.Meta.model._meta.get_field(field.attribute)
                 headers.append(model_field.verbose_name)
             else:
-                # 对于自定义Field或不存在于模型中的字段，使用其属性名
                 headers.append(field.attribute)
         return headers
 
     def before_import(self, dataset, using_transactions, dry_run, **kwargs):
         model = self.Meta.model
-        # 创建映射，排除'id'字段
         field_mapping = {f.verbose_name: f.name for f in model._meta.fields}
-        # 将列名从中文转换为英文
         dataset.headers = [field_mapping.get(header, header) for header in dataset.headers]
+
+
+class ProductsResource(BaseResource):
+    """药用辅料产品规格编码设置表-2022.08.18"""
+
+    class Meta:
+        model = models.Products
+        import_id_fields = ('spec_code',)
+
+
+class ForeignCustomerResource(BaseResource):
+    """外贸部客户档案表模板202303"""
+
+    class Meta:
+        model = models.ForeignCustomerProfile
+
+
+class turnover_resource(BaseResource):
+    """研发部客户流水表导入"""
+
+    class Meta:
+        model = models.CustomerFlow
+
+
+class butting_resource(BaseResource):
+    """研发部客户对接表"""
+
+    class Meta:
+        model = models.CustomerEngagement
+
+
+class dev_custom_resource(BaseResource):
+    """研发部客户档案表"""
+
+    class Meta:
+        model = models.CustomerProfile
+
+
+class sales_visit_report_resource(BaseResource):
+    """销售客户拜访报告"""
+
+    class Meta:
+        model = models.SalesVisitReport
+
+
+class customer_audit_resource(BaseResource):
+    """客户审计表"""
+
+    class Meta:
+        model = models.CustomerAudit
+
+
+class preparation_new_resource(BaseResource):
+    """已有制剂"""
+
+    class Meta:
+        model = models.preparation_new
+
+
+class product_new_resource(BaseResource):
+    """新品"""
+
+    class Meta:
+        model = models.product_new
+
+
+class authorization_resource(BaseResource):
+    """授权书总表"""
+
+    class Meta:
+        model = models.Authorization
+
+
+class question_resource(BaseResource):
+    """问题调查表"""
+
+    class Meta:
+        model = models.Feedback
+
+
+class medicine_resource(BaseResource):
+    """仿制药参比制剂目录"""
+
+    class Meta:
+        model = models.Medicine
+
+
+class sales_forecast_resource(BaseResource):
+    """预算详情表"""
+
+    class Meta:
+        model = models.SalesForecast
+
+
+class complaint_summary_resource(BaseResource):
+    """结合部门和产品分类的客诉汇总"""
+
+    class Meta:
+        model = models.ComplaintSummary
+
+
+class inner_trade_ledger_resource(BaseResource):
+    """内贸部台账表"""
+
+    class Meta:
+        model = models.InternalTradeLedger
+
+
+class foreign_trade_ledger_resource(BaseResource):
+    """外贸部台账表"""
+
+    class Meta:
+        model = models.ForeignTradeLedger
+
+
+class EmployeeResource(BaseResource):
+    # 假设User模型有一个字段与Employee的工号对应，这里使用username作为例子
+    user = fields.Field(
+        column_name='user',
+        attribute='user',
+        widget=ForeignKeyWidget(User, 'username'))
+
+    class Meta:
+        model = models.Employees
+        import_id_fields = ('work_id',)
+
+    def before_import_row(self, row, **kwargs):
+        """
+        重写此方法以在导入每行之前处理数据。
+        """
+        # 工号(work_id)是User的username
+        work_id = row.get('work_id')
+        if work_id:
+            user, created = User.objects.get_or_create(username=work_id)
+            row['user'] = user.username  # 确保user字段指向正确的User对象

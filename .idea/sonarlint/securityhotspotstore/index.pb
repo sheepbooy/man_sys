@@ -655,3 +655,17 @@ P
  management/templates/import.html,b\b\bb4bfe2478dfd93d883d523e03bef37f0e8f18ae
 ‚
 Rmanagement/migrations/0017_remove_internaltradeledger_first_occurrence_and_more.py,5\f\5f7b5268e097d1f821512c2966935548c90728c0
+u
+Emanagement/migrations/0019_alter_salesvisitreport_visits_this_year.py,c\3\c303df59e67d29a86a652aa5bc47017df8b1b2a9
+r
+Bmanagement/migrations/0018_alter_salesvisitreport_customer_type.py,8\7\87cc28f5f3a0ac685b4faf3dfd32216db52ee79d
+r
+Bmanagement/migrations/0020_alter_salesvisitreport_customer_type.py,b\4\b4c18ca0bd9e6ccd6dfbfb6bad368d9bebc7b8da
+e
+5management/migrations/0021_delete_salesvisitreport.py,f\c\fc4eb87cd36366eb65234b774915a27422a4acc7
+r
+Bmanagement/migrations/0023_alter_salesvisitreport_customer_type.py,c\4\c4eeee53da8510e60989002b61d112c4909790bc
+^
+.management/migrations/0022_salesvisitreport.py,2\c\2cddfc0d53f7a814dad1020ce415e10f999060a3
+j
+:management/migrations/0024_alter_complaintsummary_month.py,c\9\c9d1f04c2e264491875b1fbf1428b5d6f8b92cb9

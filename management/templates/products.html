@@ -7,11 +7,11 @@
                 <div class="col">
                     <a href="/project/management/" class="btn btn-outline-primary">返回</a>
                     <a href="/product/add/" class="btn btn-primary">添加</a>
-{#                    <a href="/product/export/" class="btn btn-success">导出</a>#}
                     <button type="button" class="btn btn-warning" data-bs-toggle="modal"
                             data-bs-target="#exportFieldsModal">选择导出字段
                     </button>
                     <a href="/product/import/" class="btn btn-success">导入</a>
+                    {#                    <a href="/product/export/" class="btn btn-success">导出</a>#}
                 </div>
             {% endif %}
             <div class="col text-end">
@@ -73,7 +73,7 @@
             </table>
         </div>
 
-        <!-- Export Fields Modal -->
+        <!-- 导出模态框 -->
         <div class="modal fade" id="exportFieldsModal" tabindex="-1" aria-labelledby="exportFieldsModalLabel"
              aria-hidden="true">
             <div class="modal-dialog">

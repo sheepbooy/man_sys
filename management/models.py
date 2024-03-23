@@ -593,7 +593,7 @@ class ActualSales(models.Model):
 class ComplaintSummary(models.Model):
     """全国客诉汇总"""
     id = models.AutoField(primary_key=True)
-    month = models.DateField(verbose_name='月份', blank=True)
+    month = models.IntegerField(verbose_name='月份', blank=True)
     shipment_date = models.DateField(verbose_name='发货日期', blank=True)
     department = models.CharField(max_length=100, verbose_name='部门', blank=True)
 
@@ -633,13 +633,13 @@ class SalesVisitReport(models.Model):
     # 拜访日期
     visit_date = models.DateField(verbose_name='拜访日期', blank=True)
     # 本年度拜访次数
-    visits_this_year = models.PositiveIntegerField(verbose_name='本年度拜访次数', blank=True)
+    visits_this_year = models.IntegerField(verbose_name='本年度拜访次数', blank=True)
     # 客户性质 - 新客户或老客户
     CUSTOMER_TYPE_CHOICES = [
-        ('new', '新客户'),
-        ('existing', '老客户'),
+        ('新客户', '新客户'),
+        ('老客户', '老客户'),
     ]
-    customer_type = models.CharField(max_length=10, choices=CUSTOMER_TYPE_CHOICES, verbose_name='客户性质', blank=True)
+    customer_type = models.CharField(max_length=255, choices=CUSTOMER_TYPE_CHOICES, verbose_name='客户性质', blank=True)
     # 拜访性质
     visit_nature = models.CharField(max_length=255, verbose_name='拜访性质', blank=True)
     # 拜访目的
@@ -715,7 +715,7 @@ class CustomerAudit(models.Model):
 
 
 class preparation_new(models.Model):
-    """新已有制剂"""
+    """已有制剂"""
     STATUS_CHOICES = (
         ('开发中', '开发中'),
         ('进行中', '进行中'),
@@ -839,7 +839,8 @@ class ProductDescription(models.Model):
 
 
 class PreparationDescription(models.Model):
-    preparation_new = models.ForeignKey(preparation_new, on_delete=models.CASCADE, related_name='PreparationDescription')
+    preparation_new = models.ForeignKey(preparation_new, on_delete=models.CASCADE,
+                                        related_name='PreparationDescription')
     date = models.DateField()
     description = models.TextField()
 
