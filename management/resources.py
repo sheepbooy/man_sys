@@ -24,20 +24,33 @@ from management import models
 
 
 class Products_resource(resources.ModelResource):
+    # 初始化时，指定一个属性来存储用户选择的导出字段
+    export_fields = None
+
     class Meta:
         model = models.Products
 
+    def set_export_fields(self, field_names):
+        """
+        根据用户选择设置需要导出的字段。
+        :param field_names: 字段名称列表
+        """
+        self.export_fields = field_names
+
     def get_export_fields(self):
         fields = super(Products_resource, self).get_export_fields()
-        fields = [field for field in fields if field.column_name != 'id']  # 排除 'id' 字段
+        # 如果设置了export_fields，则过滤字段
+        if self.export_fields is not None:
+            fields = [field for field in fields if
+                      field.attribute in self.export_fields or field.column_name in self.export_fields]
+        else:
+            # 默认行为，排除 'id' 字段
+            fields = [field for field in fields if field.column_name != 'id']
         return fields
 
     def get_export_headers(self):
         headers = []
-        for field in self.get_fields():
-            # 排除'id'字段
-            if field.attribute == 'id':
-                continue
+        for field in self.get_export_fields():  # 注意这里调用的是get_export_fields来确保字段一致性
             # 使用字段的verbose_name作为列头，如果字段在模型定义中
             if hasattr(self.Meta.model, field.attribute):
                 model_field = self.Meta.model._meta.get_field(field.attribute)
@@ -53,116 +66,3 @@ class Products_resource(resources.ModelResource):
         field_mapping = {f.verbose_name: f.name for f in model._meta.fields}
         # 将列名从中文转换为英文
         dataset.headers = [field_mapping.get(header, header) for header in dataset.headers]
-
-# class Products_resource(resources.ModelResource):
-#     """
-#     药用辅料产品规格编码设置表-2022.08.18。
-#     在初始化时排除'id'字段，确保在导入和导出时不处理'id'字段，
-#     同时在导入前将中文列名转换为英文列名。
-#     """
-#
-#     def __init__(self, *args, **kwargs):
-#         super(Products_resource, self).__init__(*args, **kwargs)
-#         if 'id' in self.fields:
-#             del self.fields['id']  # 在字段映射中排除'id'
-#
-#     def get_export_headers(self):
-#         headers = []
-#         for field in self.get_fields():
-#             # 排除'id'字段
-#             if field.attribute == 'id':
-#                 continue
-#             # 使用字段的verbose_name作为列头，如果字段在模型定义中
-#             if hasattr(self.Meta.model, field.attribute):
-#                 model_field = self.Meta.model._meta.get_field(field.attribute)
-#                 headers.append(model_field.verbose_name)
-#             else:
-#                 # 对于自定义Field或不存在于模型中的字段，使用其属性名
-#                 headers.append(field.attribute)
-#         return headers
-#
-#     def before_import(self, dataset, using_transactions, dry_run, **kwargs):
-#         model = self.Meta.model
-#         # 创建映射，排除'id'字段
-#         field_mapping = {f.verbose_name: f.name for f in model._meta.fields if f.name != 'id'}
-#         # 将列名从中文转换为英文
-#         dataset.headers = [field_mapping.get(header, header) for header in dataset.headers]
-#
-#     class Meta:
-#         model = models.Products
-
-# class EmployeeResource(resources.ModelResource):
-#     user = fields.Field(
-#         column_name='user',
-#         attribute='user',
-#         widget=ForeignKeyWidget(User, 'username'))
-#
-#     class Meta:
-#         model = Employees
-#         fields = ('work_id', 'name', 'gender', 'department', 'position', 'status')
-#         exclude = ('user',)
-#         import_id_fields = ('work_id',)
-#
-#     def __init__(self, *args, **kwargs):
-#         super().__init__(*args, **kwargs)
-#         field_to_verbose_name = {field.name: field.verbose_name for field in Employees._meta.fields}
-#         english_to_chinese = {k: v for k, v in field_to_verbose_name.items() if k in self.fields}
-#         chinese_to_english = {v: k for k, v in english_to_chinese.items()}
-#
-#         # 设置字段的column_name属性为中文verbose_name
-#         for field_name, field in self.fields.items():
-#             field.column_name = english_to_chinese.get(field_name, field_name)
-#
-#         # 保存中文到英文的映射供导入时使用
-#         self.chinese_to_english_mapping = chinese_to_english
-
-# def before_import(self, dataset, using_transactions, dry_run, **kwargs):
-#     logger.info("原始列名: %s", dataset.headers)
-#     dataset.headers = [self.chinese_to_english_mapping.get(col, col) for col in dataset.headers]
-#     logger.info("映射后的列名: %s", dataset.headers)
-#
-#     # 移除空行
-#     non_empty_rows = []
-#     for row in dataset:
-#         if any(cell for cell in row):
-#             non_empty_rows.append(row)
-#     dataset.dict = non_empty_rows
-#
-#     return super().before_import(dataset, using_transactions, dry_run, **kwargs)
-#
-# def before_import_row(self, row, **kwargs):
-#     work_id = row.get('work_id')
-#     if work_id:
-#         try:
-#             user, created = User.objects.get_or_create(username=work_id)
-#             row['user'] = user.username
-#         except IntegrityError as e:
-#             logger.error("创建用户时出错，工号: %s, 错误: %s", work_id, e)
-#             # 根据你的需要，你可以选择跳过这行数据，或者添加到某个错误日志中
-#             # 例如: raise e
-#
-# def get_export_fields(self):
-#     """
-#     重写此方法以定制导出的字段，确保user字段在导出时不被包含。
-#     """
-#     fields = super().get_export_fields()
-#     # 从导出的字段中排除user字段
-#     export_fields = [field for field in fields if field.attribute != 'user']
-#     return export_fields
-
-
-# class ForeignCustomerProfileResource(resources.ModelResource):
-#     class Meta:
-#         model = ForeignCustomerProfile
-#         fields = '__all__'
-#         import_id_fields = ('id',)
-#
-#     def export_field(self, field, obj):
-#         field_value = getattr(obj, field.attribute)
-#         if isinstance(field, Field) and field_value is not None:
-#             # 检查模型中的字段类型是否为日期或日期时间
-#             model_field = self.Meta.model._meta.get_field(field.attribute)
-#             if isinstance(model_field, (DateField, DateTimeField)):
-#                 # 直接将日期或时间字段的值转换为字符串
-#                 return str(field_value)
-#         return super().export_field(field, obj)

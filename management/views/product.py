@@ -109,15 +109,24 @@ def product_delete(request, _id):
     return redirect(last_emp_page)
 
 
+@permission_required('management.change_products', '/warning/')
 def product_export(request):
     """导出辅料表"""
+    selected_fields = request.GET.get('fields', None)
     product_resource = Products_resource()
+
+    if selected_fields:
+        fields = selected_fields.split(',')
+        product_resource.set_export_fields(fields)
+
     dataset = product_resource.export()
     response = HttpResponse(dataset.xls, content_type='application/vnd.ms-excel')
-    response['Content-Disposition'] = 'attachment;'
+    filename = "export.xls"
+    response['Content-Disposition'] = f'attachment; filename="{filename}"'
     return response
 
 
+@permission_required('management.change_products', '/warning/')
 def product_import(request):
     if request.method == 'POST' and request.FILES['myfile']:
         file_content = request.FILES['myfile']

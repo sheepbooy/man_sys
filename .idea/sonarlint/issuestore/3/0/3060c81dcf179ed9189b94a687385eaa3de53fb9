@@ -1,5 +1,4 @@
 
-–python:S1192C"LDefine a constant instead of duplicating this literal 'change.html' 4 times.(ùŒû¼şÿÿÿÿ8µ‘¶æ1J$2b5e3e0e-460b-4ffe-a633-f5499240674d
-”python:S1192A"JDefine a constant instead of duplicating this literal '/product/' 9 times.(õÆ¿ßüÿÿÿÿ8µ‘¶æ1J$a94ef66c-4dd5-48fd-b2b5-c574974089cc
-tpython:S1172p"/Remove the unused function parameter "request".(¯–¯8µ‘¶æ1J$8be5d44d-2250-47a1-9214-479764ecb49e
-{python:S1481~"1Remove the unused local variable "imported_data".(úëÂøÿÿÿÿ8¶‘¶æ1J$241ad6bd-45ac-44b2-b02e-cd1cf0a6467b
+”python:S1192A"JDefine a constant instead of duplicating this literal '/product/' 9 times.(õÆ¿ßüÿÿÿÿ8ö•ËÈæ1J$664cbb7f-070b-4589-a137-d6a547437eb8
+–python:S1192C"LDefine a constant instead of duplicating this literal 'change.html' 4 times.(ùŒû¼şÿÿÿÿ8÷•ËÈæ1J$ea6cb97c-7b8d-4c81-ae1d-ae0b2f939972
+|python:S1481‡"1Remove the unused local variable "imported_data".(úëÂøÿÿÿÿ8ø•ËÈæ1J$e72d6b4f-0087-4753-95cf-e691f926188f

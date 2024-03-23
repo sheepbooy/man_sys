@@ -103,36 +103,3 @@ def foreign_customer_delete(request, _id):
     # 从会话中获取上一页的URL，如果没有则重定向到员工列表的首页
     last_emp_page = request.session.get('last_emp_page', '/foreign/customer/')
     return redirect(last_emp_page)
-
-
-# def foreign_customer_export(request):
-#     resource = ForeignCustomerProfileResource()
-#     dataset = resource.export()
-#     response = HttpResponse(dataset.xls, content_type='application/vnd.ms-excel')
-#     response['Content-Disposition'] = 'attachment; filename="foreign_customer_profiles.xls"'
-#     return response
-#
-#
-# def foreign_customer_import(request):
-#     """外贸部客户档案导入"""
-#     if request.method == 'POST':
-#         dataset = Dataset()
-#         new_data = request.FILES['myfile']
-#         imported_data = dataset.load(new_data.read(), format='xls')
-#         result = ForeignCustomerProfileResource().import_data(dataset, dry_run=True)  # 测试数据导入
-#
-#         if not result.has_errors():
-#             ForeignCustomerProfileResource().import_data(dataset, dry_run=False)  # 实际导入数据
-#             # 导入成功，构建JSON响应
-#             response_data = {
-#                 'message': '数据成功导入！',
-#                 'redirect': request.session.get('last_emp_page', '/foreign/customer/')
-#             }
-#             return JsonResponse(response_data)
-#         else:
-#             # 导入过程中发现错误，构建错误的JSON响应
-#             return JsonResponse({'message': '导入过程中出现错误，请检查文件格式及内容。'}, status=400)
-#     # 对于GET请求，仍然显示导入页面
-#
-#     back_url = request.session.get('last_emp_page', '/foreign/customer/')
-#     return render(request, 'import.html', {'back_url': back_url, 'redirect_url': '/foreign/customer/import/'})
