@@ -1,3 +1,5 @@
 
-–python:S1192<"LDefine a constant instead of duplicating this literal 'change.html' 4 times.(ùŒû¼şÿÿÿÿ8İ÷Ñãâ1J$22a829bf-334d-4ab8-b6fe-8a4dece6a319
-python:S1192:"SDefine a constant instead of duplicating this literal '/foreign/customer/' 7 times.(•†“´ùÿÿÿÿ8Ü÷Ñãâ1J$74695b98-5381-4e30-9850-8c6275ccc643
+–python:S1192@"LDefine a constant instead of duplicating this literal 'change.html' 4 times.(ùŒû¼şÿÿÿÿ8İ÷Ñãâ1J$1637c024-c15d-499c-b44e-11ae42e549c3
+python:S1192>"SDefine a constant instead of duplicating this literal '/foreign/customer/' 7 times.(•†“´ùÿÿÿÿ8Ü÷Ñãâ1J$3271589f-c868-4434-9c32-27113504ce69
+cpython:S125"Remove this commented out code.(©Úµ’8Úäç¦æ1J$418e45d5-d258-44c1-9a3d-e8f95e6cb7ba
+Bpython:S125l"Remove this commented out code.(«¤ÿüÿÿÿÿ8’”è¦æ1

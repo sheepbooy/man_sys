@@ -8,6 +8,8 @@
                 <div class="col">
                     <a href="/customer/management/" class="btn btn-outline-primary">返回</a>
                     <a href="/foreign/customer/add/" class="btn btn-primary">添加</a>
+{#                    <a href="/foreign/customer/export/" class="btn btn-success">导出</a>#}
+{#                    <a href="/foreign/customer/import/" class="btn btn-primary">导入</a>#}
                 </div>
             {% endif %}
             <div class="col text-end">
@@ -95,12 +97,12 @@
                         <td>{{ entry.progress_description }}</td>
                         <td>
                             {% if 'management.change_foreigncustomerprofile' in request.session.info.user_permissions %}
-                                <a href="/foreign/customer/edit/{{ entry.customer_profile_number }}/"
+                                <a href="/foreign/customer/edit/{{ entry.id }}/"
                                    class="btn btn-info btn-sm">编辑</a>
                             {% endif %}
                             {% if 'management.delete_foreigncustomerprofile' in request.session.info.user_permissions %}
                                 <button type="button" class="btn btn-danger btn-sm delete-btn"
-                                        data-delete-url="/foreign/customer/delete/{{ entry.customer_profile_number }}/">
+                                        data-delete-url="/foreign/customer/delete/{{ entry.id }}/">
                                     删除
                                 </button>
                             {% endif %}

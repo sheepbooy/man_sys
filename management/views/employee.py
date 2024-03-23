@@ -1,14 +1,18 @@
+from django.contrib import messages
 from django.contrib.auth.decorators import permission_required
 from django.contrib.auth.models import User, Group
+from django.db import transaction
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from django.db.models import Q
-
 from management.utils.convert import convert_none_to_empty_string
 from management.utils.pagination import Pagination
 from management.utils.form import EmployeesForm, EmployeesAddForm
 from management import models
-import django.db.models
+from django.http import HttpResponse
+from tablib import Dataset
+# from management.resources import EmployeeResource
+import chardet
 
 # 职位与组名的映射关系
 POSITION_TO_GROUP = {
@@ -201,3 +205,39 @@ def get_positions(request):
     response_data = positions.get(department, [])
     # print("Returning positions:", response_data)  # 打印返回的职位列表
     return JsonResponse(response_data, safe=False)
+
+
+def employees_export(request):
+    """员工导出功能"""
+    employee_resource = EmployeeResource()
+    dataset = employee_resource.export()
+    response = HttpResponse(dataset.xls, content_type='application/vnd.ms-excel')
+    response['Content-Disposition'] = 'attachment; filename="employees.xls"'
+    return response
+
+
+def employees_import(request):
+    """员工导入功能"""
+    if request.method == 'POST':
+        dataset = Dataset()
+        new_employees = request.FILES['myfile']
+        imported_data = dataset.load(new_employees.read(), format='xls')
+        for i in imported_data:
+            print(i)
+        result = EmployeeResource().import_data(dataset, dry_run=True)  # 测试数据导入
+
+        if not result.has_errors():
+            EmployeeResource().import_data(dataset, dry_run=False)  # 实际导入数据
+            # 导入成功，构建JSON响应
+            response_data = {
+                'message': '数据成功导入！',
+                'redirect': request.session.get('last_emp_page', '/employees/')
+            }
+            return JsonResponse(response_data)
+        else:
+            # 导入过程中发现错误，构建错误的JSON响应
+            return JsonResponse({'message': '导入过程中出现错误，请检查文件格式及内容。'}, status=400)
+    # 对于GET请求，仍然显示导入页面
+
+    back_url = request.session.get('last_emp_page', '/employees/')
+    return render(request, 'import.html', {'back_url': back_url, 'redirect_url': '/employees/import/'})

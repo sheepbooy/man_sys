@@ -1,0 +1,57 @@
+{% extends 'layout.html' %}
+{% block content %}
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="mb-4">
+                    <a href="{{ back_url }}" class="btn btn-secondary btn-lg" role="button">← 返回</a>
+                </div>
+                <div class="card shadow">
+                    <div class="card-body">
+                        <h2 class="card-title mb-4">导入数据</h2>
+                        <form method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <div class="mb-3">
+                                <label for="myfile" class="form-label">选择文件</label>
+                                <input type="file" class="form-control" name="myfile" id="myfile" required>
+                            </div>
+                            <div class="d-grid">
+                                <button type="submit" class="btn btn-primary btn-lg">导入</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+
+{% block js %}
+    <script>
+        $(document).ready(function () {
+            $('form').submit(function (event) {
+                event.preventDefault(); // 阻止表单的默认提交行为
+                var formData = new FormData(this);
+                $.ajax({
+                    url: '{{redirect_url}}', // 你的导入视图URL
+                    type: 'POST',
+                    data: formData,
+                    processData: false, // 告诉jQuery不要处理发送的数据
+                    contentType: false, // 告诉jQuery不要设置内容类型
+                    success: function (response) {
+                        // 显示成功消息的弹窗
+                        alert(response.message);
+                        // 导入成功后根据响应中的重定向URL进行页面跳转
+                        window.location.href = response.redirect;
+                    },
+                    error: function (xhr) {
+                        // 显示错误信息的弹窗
+                        var response = JSON.parse(xhr.responseText);
+                        alert(response.message); // 现在可以正确显示，而不是乱码
+                    }
+                });
+            });
+        });
+    </script>
+{% endblock %}

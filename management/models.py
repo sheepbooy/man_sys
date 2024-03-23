@@ -136,7 +136,7 @@ class ForeignCustomerProfile(models.Model):
     questionnaire = models.DateField(verbose_name='问卷(开发进度)', blank=True)
     deal = models.DateField(verbose_name='成交(开发进度)', blank=True)
     supplier_audit = models.DateField(verbose_name='供应商审计(开发进度)', blank=True)
-    estimated_annual_usage = models.DateField(verbose_name='预估年用量(现有供应商情况描述)', blank=True)
+    estimated_annual_usage = models.IntegerField(verbose_name='预估年用量(现有供应商情况描述)', blank=True)
     current_supplier = models.CharField(max_length=255, blank=True, verbose_name='现用厂家(现有供应商情况描述)')
     level = models.CharField(max_length=255, blank=True, verbose_name='级别(现有供应商情况描述(药用级/化工级))')
     model = models.CharField(max_length=255, blank=True, verbose_name='型号(现有供应商情况描述)')

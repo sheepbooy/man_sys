@@ -1,11 +1,17 @@
+import chardet
+from django.contrib import messages
 from django.contrib.auth.decorators import permission_required
+from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.db.models import Q
+from tablib import Dataset
+from django.http import JsonResponse
 
 from management.utils.convert import convert_none_to_empty_string
 from management.utils.pagination import Pagination
 from management.utils.form import Products_form
 from management import models
+from management.resources import Products_resource
 
 
 @permission_required('management.view_products', '/warning/')
@@ -101,3 +107,44 @@ def product_delete(request, _id):
     models.Products.objects.filter(spec_code=_id).delete()
     last_emp_page = request.session.get('last_emp_page', '/product/')
     return redirect(last_emp_page)
+
+
+def product_export(request):
+    """导出辅料表"""
+    product_resource = Products_resource()
+    dataset = product_resource.export()
+    response = HttpResponse(dataset.xls, content_type='application/vnd.ms-excel')
+    response['Content-Disposition'] = 'attachment;'
+    return response
+
+
+def product_import(request):
+    if request.method == 'POST' and request.FILES['myfile']:
+        file_content = request.FILES['myfile']
+
+        dataset = Dataset()
+        imported_data = dataset.load(file_content.read(), format='xls')
+        result = Products_resource().import_data(dataset, dry_run=True)  # 先试运行
+
+        if not result.has_errors():
+            # 实际导入数据
+            Products_resource().import_data(dataset, dry_run=False)
+            # 导入成功，构建JSON响应
+            response_data = {
+                'message': '数据成功导入！',
+                'redirect': request.session.get('last_emp_page', '/product/')
+            }
+            return JsonResponse(response_data)
+        else:
+            # 如果导入过程中出现错误
+            errors = []
+            for error in result.row_errors():
+                errors.append(f"行 {error[0]}: " + "; ".join([str(e.error) for e in error[1]]))
+            error_msg = "导入过程中出现错误，请检查文件格式和内容。具体错误包括：" + "<br>".join(errors)
+
+            # 注意这里我们使用safe=True，并且返回一个字典
+            return JsonResponse({'message': error_msg}, status=400, safe=True)
+
+    back_url = request.session.get('last_emp_page', '/product/')
+    # 确保将back_url传递给模板
+    return render(request, 'import.html', {'back_url': back_url, 'redirect_url': '/product/import/'})

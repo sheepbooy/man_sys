@@ -78,6 +78,9 @@ urlpatterns = [
     path('employees/edit/<str:_id>/', employee.employees_edit),
     path('employees/delete/<str:_id>/', employee.employees_delete),
     path('get-positions/', employee.get_positions, name='get-positions'),
+    # 导入导出功能
+    path('employees/export/', employee.employees_export, name='employees_export'),
+    path('employees/import/', employee.employees_import, name='employees_import'),
 
     # 内贸部台账表
     path('innertrade/ledger/', inner_trade_ledger.inner_trade_ledger),
@@ -101,6 +104,9 @@ urlpatterns = [
     path('foreign/customer/edit/<int:_id>/', foreign_customer.foreign_customer_edit, name='edit_foreign_customer'),
     path('foreign/customer/delete/<int:_id>/', foreign_customer.foreign_customer_delete,
          name='delete_foreign_customer'),
+    # 导入导出功能
+    # path('foreign/customer/export/', foreign_customer.foreign_customer_export, name='foreign_customer_export'),
+    # path('foreign/customer/import/', foreign_customer.foreign_customer_import, name='foreign_customer_import'),
 
     # 授权书总表
     path('authorization/', authorization.authorization),
@@ -131,13 +137,14 @@ urlpatterns = [
     path('product/add/', product.product_add),
     path('product/edit/<str:_id>/', product.product_edit, name='edit_product'),
     path('product/delete/<str:_id>/', product.product_delete, name='delete_product'),
+    path('product/export/', product.product_export, name='export_product'),
+    path('product/import/', product.product_import, name='product_import'),
 
     # 问题反馈表
     path('question/', question.question),
     path('question/add/', question.question_add),
     path('question/edit/<int:_id>/', question.question_edit, name='edit_question'),
     path('question/delete/<int:_id>/', question.question_delete, name='delete_question'),
-
 
     # 202X年X月台账基础表（原辅料、食品、研发、产品）
     path('report/inner/m_inner_trade_ledger/', inner_trade_ledger.x_month_inner_trade_ledger),
@@ -228,7 +235,8 @@ urlpatterns = [
     # 已有制剂进度描述
     path('api/preparations/<int:preparation_id>/descriptions/', preparation_new.get_preparation_descriptions,
          name='get-preparation-descriptions'),
-    path('api/descriptions/<int:description_id>/delete/', preparation_new.delete_description, name='delete-description'),
+    path('api/descriptions/<int:description_id>/delete/', preparation_new.delete_description,
+         name='delete-description'),
     path('api/descriptions/<int:description_id>/edit/', preparation_new.edit_description, name='edit-description'),
     path('api/preparations/<int:preparation_id>/add-description/', preparation_new.add_preparation_description,
          name='add_preparation_description'),

@@ -1,11 +1,14 @@
 from django.contrib.auth.decorators import permission_required
 from django.shortcuts import render, redirect
 from django.db.models import Q
-
 from management.utils.convert import convert_none_to_empty_string
 from management.utils.pagination import Pagination
 from management.utils.form import foreign_customer_form
 from management import models
+from django.http import JsonResponse
+from django.http import HttpResponse
+from tablib import Dataset
+# from management.resources import ForeignCustomerProfileResource
 
 
 @permission_required('management.view_foreigncustomerprofile', '/warning/')
@@ -35,7 +38,8 @@ def foreign_customer(request):
     request.session['last_emp_page'] = request.get_full_path()
 
     # 准备模型字段信息传递到模板
-    field_info = [(field.name, field.verbose_name) for field in models.ForeignCustomerProfile._meta.fields if field.name != 'id']
+    field_info = [(field.name, field.verbose_name) for field in models.ForeignCustomerProfile._meta.fields if
+                  field.name != 'id']
 
     context = {
         'page_queryset': page_object.page_queryset,
@@ -74,7 +78,7 @@ def foreign_customer_add(request):
 @permission_required('management.change_foreigncustomerprofile', '/warning/')
 def foreign_customer_edit(request, _id):
     """编辑外贸部客户信息"""
-    row_object = models.ForeignCustomerProfile.objects.filter(customer_profile_number=_id).first()
+    row_object = models.ForeignCustomerProfile.objects.filter(id=_id).first()
     if request.method == 'GET':
         form = foreign_customer_form(instance=row_object)
         back_url = request.session.get('last_emp_page', '/foreign/customer/')
@@ -95,7 +99,40 @@ def foreign_customer_edit(request, _id):
 @permission_required('management.delete_foreigncustomerprofile', '/warning/')
 def foreign_customer_delete(request, _id):
     """外贸部客户删除"""
-    models.ForeignCustomerProfile.objects.filter(customer_profile_number=_id).delete()
+    models.ForeignCustomerProfile.objects.filter(id=_id).delete()
     # 从会话中获取上一页的URL，如果没有则重定向到员工列表的首页
     last_emp_page = request.session.get('last_emp_page', '/foreign/customer/')
     return redirect(last_emp_page)
+
+
+# def foreign_customer_export(request):
+#     resource = ForeignCustomerProfileResource()
+#     dataset = resource.export()
+#     response = HttpResponse(dataset.xls, content_type='application/vnd.ms-excel')
+#     response['Content-Disposition'] = 'attachment; filename="foreign_customer_profiles.xls"'
+#     return response
+#
+#
+# def foreign_customer_import(request):
+#     """外贸部客户档案导入"""
+#     if request.method == 'POST':
+#         dataset = Dataset()
+#         new_data = request.FILES['myfile']
+#         imported_data = dataset.load(new_data.read(), format='xls')
+#         result = ForeignCustomerProfileResource().import_data(dataset, dry_run=True)  # 测试数据导入
+#
+#         if not result.has_errors():
+#             ForeignCustomerProfileResource().import_data(dataset, dry_run=False)  # 实际导入数据
+#             # 导入成功，构建JSON响应
+#             response_data = {
+#                 'message': '数据成功导入！',
+#                 'redirect': request.session.get('last_emp_page', '/foreign/customer/')
+#             }
+#             return JsonResponse(response_data)
+#         else:
+#             # 导入过程中发现错误，构建错误的JSON响应
+#             return JsonResponse({'message': '导入过程中出现错误，请检查文件格式及内容。'}, status=400)
+#     # 对于GET请求，仍然显示导入页面
+#
+#     back_url = request.session.get('last_emp_page', '/foreign/customer/')
+#     return render(request, 'import.html', {'back_url': back_url, 'redirect_url': '/foreign/customer/import/'})
