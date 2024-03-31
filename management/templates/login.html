@@ -79,9 +79,13 @@
                                         <input type="text" name="image_code" class="form-control" required>
                                     </div>
                                     <div class="col-xl-5">
-                                        <img src="/image/code/" style="max-width: 100%;">
+                                        <img id="image_code" src="/image/code/" style="max-width: 100%;">
+                                        <!-- 添加Bootstrap样式的刷新按钮 -->
+                                        <button onclick="refreshCode()" class="btn btn-primary btn-sm">刷新
+                                        </button>
                                     </div>
                                 </div>
+
 
                                 <div class="d-grid mb-3">
                                     <button type="submit" class="btn btn-primary">登录</button>
@@ -119,6 +123,12 @@
 
 <script src="{% static 'plugins/bootstrap-5.3.0/js/bootstrap.bundle.min.js' %}"></script>
 <script src="{% static 'js/jquery-3.7.1.min.js' %}"></script>
+<script>
+    function refreshCode() {
+        // 为URL添加一个随机参数，以避免浏览器缓存
+        document.getElementById('image_code').src = '/image/code/?t=' + Math.random();
+    }
+</script>
 
 {% if display_error %}
     <script>
@@ -127,6 +137,7 @@
             $('#loginErrorModal').modal('show');
         });
     </script>
+
 {% endif %}
 
 </body>
