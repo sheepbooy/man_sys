@@ -83,7 +83,7 @@ def register(request):
         employee.user = user
         employee.save()
         messages.success(request, '注册成功，请联系相关人员开放权限')
-        return redirect('/login/')
+        return redirect('/register/')
     else:
         messages.error(request, '工号已存在或格式错误（两位大写字母加三位数字）')
         return render(request, 'register.html', {'form': form})
